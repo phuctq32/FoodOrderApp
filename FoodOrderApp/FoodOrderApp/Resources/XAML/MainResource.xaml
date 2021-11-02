@@ -3,4 +3,5 @@
                     xmlns:local="clr-namespace:FoodOrderApp.Resources.XAML"
                     xmlns:viewmodels="clr-namespace:FoodOrderApp.ViewModels">
     <viewmodels:LoginViewModel x:Key="LoginVM"></viewmodels:LoginViewModel>
+    <viewmodels:ControlBarViewModel x:Key="ControlBarVM"></viewmodels:ControlBarViewModel>
 </ResourceDictionary>
