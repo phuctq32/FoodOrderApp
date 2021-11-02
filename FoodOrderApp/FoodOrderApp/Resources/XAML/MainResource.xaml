@@ -5,4 +5,5 @@
     <viewmodels:LoginViewModel x:Key="LoginVM"></viewmodels:LoginViewModel>
     <viewmodels:ControlBarViewModel x:Key="ControlBarVM"></viewmodels:ControlBarViewModel>
     <viewmodels:SignUpViewModel x:Key="SignUpVM"></viewmodels:SignUpViewModel>
+    <viewmodels:ForgotPasswordViewModel x:Key="ForgotPasswordVM"></viewmodels:ForgotPasswordViewModel>
 </ResourceDictionary>
