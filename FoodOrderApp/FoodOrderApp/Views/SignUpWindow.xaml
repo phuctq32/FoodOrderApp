@@ -40,9 +40,13 @@
                 FontSize="40"
                 FontWeight="Bold"
                 Margin="0,30,0,0" />
-                <Grid Margin="10 20" VerticalAlignment="Stretch" HorizontalAlignment="Center">
-                    <!--email-->
+                <!--bước xác nhận mã xác nhận-->
+                <Grid Margin="10 100"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Visibility="Collapsed">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                        <!--email-->
                         <StackPanel Orientation="Horizontal" Margin="0 20">
                             <materialDesign:PackIcon
                                     Kind="Gmail"
@@ -65,6 +69,44 @@
                                 Padding="2,0,0,0">
                             </TextBox>
                         </StackPanel>
+                        <Button
+                            Style="{StaticResource GreenBtn}"
+                            Content="Lấy mã xác nhận"
+                            Width="200"
+                            Height="40"
+                            Margin="0 0 0 0"
+                            FontSize="20"
+                            Foreground="White">
+                        </Button>
+                        <!--khung nhập mã xác nhận-->
+                        <StackPanel Orientation="Horizontal" Margin="0 20">
+                            <materialDesign:PackIcon
+                                    Kind="Code"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                            <TextBox
+                                x:Name="activationCode"
+                                materialDesign:HintAssist.Hint="Mã xác nhận"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0">
+                            </TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <!--bước đã xác nhận thành công email và vào nhập thông tin tạo tài khoản-->
+                <Grid Margin="10 50" VerticalAlignment="Stretch" HorizontalAlignment="Center" Visibility="Visible">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
                         <!--số điện thoại-->
                         <StackPanel Orientation="Horizontal" Margin="0 20">
                             <materialDesign:PackIcon
