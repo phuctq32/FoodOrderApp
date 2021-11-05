@@ -50,17 +50,19 @@
         </Grid>
 
         <Grid Grid.Column="2">
-            <Button Template="{StaticResource templateBtn}"
-                    Width="15"
-                    Height="15"
-                    HorizontalAlignment="Right"
-                    Cursor="Hand"
-                    Foreground="#424242"
-                    Content="x"
-                    FontSize="13"
-                    Margin="0 3 3 0"
-                    Command="{Binding CloseWindowCommand}"
-                    CommandParameter="{Binding ElementName=controlBarUC}">
+            <Button 
+                x:Name="closeBtn"
+                Template="{StaticResource templateBtn}"
+                Width="15"
+                Height="15"
+                HorizontalAlignment="Right"
+                Cursor="Hand"
+                Foreground="#424242"
+                Content="x"
+                FontSize="13"
+                Margin="0 3 3 0"
+                Command="{Binding CloseWindowCommand}"
+                CommandParameter="{Binding ElementName=controlBarUC}">
                 <Button.Style>
                     <Style>
                         <Style.Triggers>
@@ -74,17 +76,19 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Template="{StaticResource templateBtn}"
-                    Width="15"
-                    Height="15"
-                    HorizontalAlignment="Right"
-                    Cursor="Hand"
-                    Foreground="#424242"
-                    Content="-"
-                    Margin="0 3 25 0"
-                    FontSize="15"
-                    Command="{Binding MinimizeWindowCommand}"
-                    CommandParameter="{Binding ElementName=controlBarUC}">
+            <Button 
+                Name="minimizeBtn"
+                Template="{StaticResource templateBtn}"
+                Width="15"
+                Height="15"
+                HorizontalAlignment="Right"
+                Cursor="Hand"
+                Foreground="#424242"
+                Content="-"
+                Margin="0 3 25 0"
+                FontSize="15"
+                Command="{Binding MinimizeWindowCommand}"
+                CommandParameter="{Binding ElementName=controlBarUC}">
                 <Button.Style>
                     <Style>
                         <Style.Triggers>
