@@ -57,7 +57,7 @@
                 <Grid>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <!--Email-->
-                        <StackPanel Orientation="Horizontal" Margin="0 20">
+                        <StackPanel Orientation="Horizontal" Margin="0">
                             <materialDesign:PackIcon
                                     Kind="Gmail"
                                     Width="30"
@@ -157,12 +157,34 @@
                             HorizontalContentAlignment="Right">
                             </DatePicker>
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 20">
+                            <materialDesign:PackIcon
+                                    Kind="AddressMarker"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                            <TextBox
+                                materialDesign:HintAssist.Hint="Địa chỉ"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0">
+                            </TextBox>
+                        </StackPanel>
                         <Button
                             Style="{StaticResource GreenBtn}"
                             Content="Cập nhật thông tin"
                             Width="270"
                             Height="40"
-                            Margin="0 40 0 0"
+                            Margin="0 20 0 0"
                             FontSize="20"
                             Foreground="White">
                         </Button>
