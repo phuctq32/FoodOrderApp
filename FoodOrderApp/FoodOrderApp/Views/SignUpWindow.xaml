@@ -42,38 +42,39 @@
                 FontSize="40"
                 FontWeight="Bold"
                 Margin="0,30,0,0" />
-                    <!--bước đã xác nhận thành công email và vào nhập thông tin tạo tài khoản-->
+                    <!--nhập thông tin đăng ký-->
                     <Grid
                         x:Name="grdInformation"
                         Margin="10 50"
                         VerticalAlignment="Stretch"
                         HorizontalAlignment="Center"
                         Visibility="Visible">
-                        <!--email-->
-                        <StackPanel Orientation="Horizontal" Margin="0 20">
-                            <materialDesign:PackIcon
-                                    Kind="Gmail"
-                                    Width="30"
-                                    Height="30"
-                                    Foreground="{StaticResource Gray}"
-                                    VerticalAlignment="Top"
-                                    Margin="10,10,20,-18" />
-                            <TextBox
-                                materialDesign:HintAssist.Hint="Email"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                Width="250"
-                                VerticalContentAlignment="Center"
-                                Height="50"
-                                Padding="2,0,0,0">
-                            </TextBox>
-                        </StackPanel>
+
                         <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Stretch">
+                            <!--email-->
+                            <StackPanel Orientation="Horizontal" Margin="0">
+                                <materialDesign:PackIcon
+                                        Kind="Gmail"
+                                        Width="30"
+                                        Height="30"
+                                        Foreground="{StaticResource Gray}"
+                                        VerticalAlignment="Top"
+                                        Margin="10,10,20,-18" />
+                                <TextBox
+                                    materialDesign:HintAssist.Hint="Email"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Foreground="Black"
+                                    FontSize="16"
+                                    FontWeight="Medium"
+                                    materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                    materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                    Width="250"
+                                    VerticalContentAlignment="Center"
+                                    Height="50"
+                                    Padding="2,0,0,0">
+                                </TextBox>
+                            </StackPanel>
                             <!--số điện thoại-->
                             <StackPanel Orientation="Horizontal" Margin="0 20">
                                 <materialDesign:PackIcon
@@ -180,15 +181,23 @@
                             </Button>
                         </StackPanel>
                     </Grid>
+                    <!--nhập mã xác nhận-->
                     <materialDesign:TransitioningContent x:Name="transitionContentSlideInside" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.2}"
                                                      Visibility="Collapsed">
                         <Grid
                     x:Name="grdActivation"
                     Margin="10 100"
                       VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
-                      >
+                      HorizontalAlignment="Center">
                             <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                                <!--chõ nhập mã các nhận-->
+                                <TextBlock
+                                        Foreground="Black"
+                                        FontSize="16"
+                                        FontWeight="Medium"
+                                    HorizontalAlignment="Center">
+                                    Mã xác nhận đã được gửi vào email
+                                </TextBlock>
                                 <StackPanel Orientation="Horizontal" Margin="0 20">
                                     <materialDesign:PackIcon
                                     Kind="Code"
@@ -197,29 +206,31 @@
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
+                                    <!--khung nhập mã xác nhận-->
                                     <TextBox
-                                x:Name="activationCode"
-                                materialDesign:HintAssist.Hint="Mã xác nhận"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                Width="250"
-                                VerticalContentAlignment="Center"
-                                Height="50"
-                                Padding="2,0,0,0">
+                                        x:Name="activationCode"
+                                        materialDesign:HintAssist.Hint="Mã xác nhận"
+                                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                        Foreground="Black"
+                                        FontSize="16"
+                                        FontWeight="Medium"
+                                        materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                        materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                        Width="250"
+                                        VerticalContentAlignment="Center"
+                                        Height="50"
+                                        Padding="2,0,0,0">
                                     </TextBox>
                                 </StackPanel>
+                                <!--nút xác nhận-->
                                 <Button
-                            Style="{StaticResource GreenBtn}"
-                            Content="Xác nhận"
-                            Width="200"
-                            Height="40"
-                            Margin="0 0 0 0"
-                            FontSize="20"
-                            Foreground="White">
+                                    Style="{StaticResource GreenBtn}"
+                                    Content="Xác nhận"
+                                    Width="200"
+                                    Height="40"
+                                    Margin="0 0 0 0"
+                                    FontSize="20"
+                                    Foreground="White">
                                 </Button>
                             </StackPanel>
                         </Grid>
@@ -239,5 +250,4 @@
             </Rectangle>
         </Grid>
     </materialDesign:TransitioningContent>
-    
 </Window>
