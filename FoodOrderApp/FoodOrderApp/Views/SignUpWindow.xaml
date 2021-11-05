@@ -44,7 +44,7 @@
                 <Grid Margin="10 100"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
-                      Visibility="Collapsed">
+                      Visibility="Visible">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
                         <!--email-->
                         <StackPanel Orientation="Horizontal" Margin="0 20">
@@ -105,7 +105,7 @@
                     </StackPanel>
                 </Grid>
                 <!--bước đã xác nhận thành công email và vào nhập thông tin tạo tài khoản-->
-                <Grid Margin="10 50" VerticalAlignment="Stretch" HorizontalAlignment="Center" Visibility="Visible">
+                <Grid Margin="10 50" VerticalAlignment="Stretch" HorizontalAlignment="Center" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
                         <!--số điện thoại-->
                         <StackPanel Orientation="Horizontal" Margin="0 20">
