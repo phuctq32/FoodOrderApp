@@ -41,7 +41,9 @@
                 FontWeight="Bold"
                 Margin="0,30,0,0" />
                 <!--bước xác nhận mã xác nhận-->
-                <Grid Margin="10 100"
+                <Grid
+                    x:Name="grdActivation"
+                    Margin="10 100"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                       Visibility="Visible">
