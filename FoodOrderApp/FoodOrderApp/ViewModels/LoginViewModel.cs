@@ -24,20 +24,15 @@ namespace FoodOrderApp.ViewModels
 
         public void OpenForgotPasswordWindow(LoginWindow parameter)
         {
-            //DoubleAnimation fadeIn = new DoubleAnimation(0.5, 1.0, new Duration(TimeSpan.FromSeconds(0.3)));
 
-            //ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
-            //forgotPasswordWindow.BeginAnimation(Window.OpacityProperty, fadeIn);
-            //forgotPasswordWindow.ShowDialog();
+            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
+            forgotPasswordWindow.ShowDialog();
         }
 
         public void OpenSignUpWindow(LoginWindow parameter)
         {
-            //DoubleAnimation fadeIn = new DoubleAnimation(0.5, 1.0, new Duration(TimeSpan.FromSeconds(0.3)));
-
-            //SignUpWindow signUpWindow = new SignUpWindow();
-            //signUpWindow.BeginAnimation(Window.OpacityProperty, fadeIn);
-            //signUpWindow.ShowDialog();
+            SignUpWindow signUpWindow = new SignUpWindow();
+            signUpWindow.ShowDialog();
         }
     }
 }
