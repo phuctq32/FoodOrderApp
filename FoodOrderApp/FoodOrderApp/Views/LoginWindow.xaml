@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FoodOrderApp.Views"
         xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
         mc:Ignorable="d"
@@ -21,6 +22,12 @@
         AllowsTransparency="True" 
         WindowStyle="None" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
+                                   CommandParameter="{Binding ElementName=controlBar}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid Margin="10">
@@ -47,7 +54,7 @@
                     </Grid.RowDefinitions>
 
                     <!--Control Bar-->
-                    <uc:ControlBarUC Grid.Row="0"></uc:ControlBarUC>
+                    <uc:ControlBarUC Grid.Row="0" x:Name="controlBar"></uc:ControlBarUC>
 
                     <!--Login Grid-->
                     <Grid Grid.Row="1" Margin="150 100">

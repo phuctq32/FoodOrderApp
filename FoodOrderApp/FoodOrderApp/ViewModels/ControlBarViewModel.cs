@@ -45,7 +45,7 @@ namespace FoodOrderApp.ViewModels
             });
         }
 
-        FrameworkElement GetParentWindow(UserControl p)
+        public static FrameworkElement GetParentWindow(UserControl p)
         {
             FrameworkElement res = p;
             while (res.Parent != null)
