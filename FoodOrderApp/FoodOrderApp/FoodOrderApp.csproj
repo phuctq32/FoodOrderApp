@@ -78,6 +78,7 @@
     <Compile Include="ViewModels\ControlBarViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="Views\CustomMessageBox.xaml.cs">
       <DependentUpon>CustomMessageBox.xaml</DependentUpon>
@@ -96,6 +97,9 @@
     </Compile>
     <Compile Include="Views\UserControls\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\MenuUC.xaml.cs">
+      <DependentUpon>MenuUC.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\ControlBarUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\MenuUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
