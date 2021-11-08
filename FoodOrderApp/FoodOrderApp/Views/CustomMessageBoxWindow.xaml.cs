@@ -28,6 +28,16 @@ namespace FoodOrderApp.Views
             Message = message;
         }
 
+        internal CustomMessageBoxWindow(string message, MessageBoxImage image)
+        {
+            InitializeComponent();
+            this.controlBar.centerBar.Visibility = Visibility.Hidden;
+            this.controlBar.minimizeBtn.Visibility = Visibility.Hidden;
+
+            Message = message;
+            DisplayImageIcon(image);
+        }
+
         internal CustomMessageBoxWindow(string message, MessageBoxButton button)
         {
             InitializeComponent();
@@ -58,11 +68,15 @@ namespace FoodOrderApp.Views
             switch (button)
             {
                 case MessageBoxButton.OKCancel:
-                    this.btn_OK.Focus();
+                    this.btn_OK.Visibility = Visibility.Visible;
                     this.btn_Cancel.Visibility = Visibility.Visible;
+                    this.btn_OK.Focus();
+                    break;
+                case MessageBoxButton.OK:
+                    this.btn_OK.Visibility = Visibility.Visible;
+                    this.btn_OK.Focus();
                     break;
                 default:
-                    this.btn_OK.Focus();
                     break;
             }
         }

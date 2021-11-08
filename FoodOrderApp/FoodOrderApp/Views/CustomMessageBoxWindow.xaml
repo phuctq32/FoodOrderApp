@@ -64,7 +64,7 @@
                             Width="100" 
                             Height="25"
                             Margin="0 0 20 0" Click="btn_OK_Click"
-                            />
+                            Visibility="Collapsed"/>
                         <Button
                             x:Name="btn_Cancel"
                             Style="{StaticResource GrayBtn}"
