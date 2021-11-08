@@ -83,11 +83,11 @@ namespace FoodOrderApp.ViewModels
                 //string passEncode = MD5Hash(Password)   ;
                 int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == Password).Count();
                 Data.Ins.DB.USERS.ToList();
-                List<USER> acc = Data.Ins.DB.USERS.ToList(); 
+                /*List<USER> acc = Data.Ins.DB.USERS.ToList(); 
                 foreach (var a in acc)
                 {
                     MessageBox.Show(a.USERNAME_ + a.PASSWORD_);
-                }    
+                } */   
                 if (accCount > 0)
                 {
                     isLogin = true;

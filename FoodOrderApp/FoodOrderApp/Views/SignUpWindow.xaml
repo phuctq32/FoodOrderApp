@@ -62,6 +62,9 @@
                                         VerticalAlignment="Top"
                                         Margin="10,10,20,-18" />
                                 <TextBox
+                                        x:Name="txtMail"
+                                        Text="{Binding Mail}"
+                                        TabIndex="0"
                                     materialDesign:HintAssist.Hint="Email"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                     Foreground="Black"
@@ -85,6 +88,9 @@
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
                                 <TextBox
+                                    x:Name="txtPhone"
+                                    Text="{Binding Phone}"
+                                    TabIndex="1"
                                 materialDesign:HintAssist.Hint="Số điện thoại"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 Foreground="Black"
@@ -108,7 +114,9 @@
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
                                 <TextBox
-                                x:Name="txtUsername"
+                                    x:Name="txtUsername" 
+                                    Text="{Binding UserName}"
+                                    TabIndex="2"
                                 materialDesign:HintAssist.Hint="Tài khoản"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 Foreground="Black"
@@ -143,7 +151,14 @@
                                     Height="50"
                                     FontSize="16"
                                     FontWeight="Medium"
-                                    Padding="2,0,0,0" />
+                                    Padding="2,0,0,0" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PasswordChanged">
+                                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                                   CommandParameter="{Binding ElementName=PasswordBox}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </PasswordBox>
                             </StackPanel>
                             <!--repassword-->
                             <StackPanel Orientation="Horizontal" Margin="0 20">
@@ -166,7 +181,14 @@
                                     Height="50"
                                     FontSize="16"
                                     FontWeight="Medium"
-                                    Padding="2,0,0,0" />
+                                    Padding="2,0,0,0" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PasswordChanged">
+                                            <i:InvokeCommandAction Command="{Binding RePasswordChangedCommand}" 
+                                                   CommandParameter="{Binding ElementName=RePasswordBox}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </PasswordBox>
                             </StackPanel>
                             <Button
                             Style="{StaticResource GreenBtn}"
