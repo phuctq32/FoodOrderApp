@@ -83,74 +83,77 @@
             </StackPanel>
 
             <ScrollViewer Grid.Row="1">
-                <StackPanel Margin="20 0">
-                    <!--itemcontrol có thuộc tính itemsource để binding-->
-                    <ItemsControl x:Name="ViewListProducts">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid VerticalAlignment="Bottom" Height="310" Width="200" Margin="20">
-                                    <StackPanel Margin="10 20 10 0"
-                                        Height="auto">
-                                        <!--hình món ăn-->
-                                        <Border Width="160"
-                                                Height="140"
-                                                Margin="0 0 0 0"
+                <!--itemcontrol có thuộc tính itemsource để binding-->
+                <ItemsControl x:Name="ViewListProducts">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid VerticalAlignment="Bottom"
+                                              Height="330" Width="250"
+                                              Margin="20">
+                                <StackPanel Margin="25 20 25 0">
+                                    <!--hình món ăn-->
+                                    <Border Width="200"
+                                                Height="130"
+                                                Margin="0 5 0 0"
                                                 CornerRadius="10"
                                                 BorderThickness="0,0,0,0"
                                                 VerticalAlignment="Top">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="/Resources/Images/food.jpg" />
-                                            </Border.Background>
-                                        </Border>
-                                        <!--tên món ăn-->
-                                        <TextBlock
-                                                Margin="5 10 0 10"
-                                                Foreground="Black"
-                                                FontWeight="Bold"
-                                                FontSize="16"
-                                                Height="auto"
-                                                TextWrapping="Wrap"
-                                                VerticalAlignment="Center">
-                                                bánh mì nướng muối ớt tôm tôtmh
-                                        </TextBlock>
-                                        <!--số tiền không giảm giá-->
-                                        <TextBlock
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Image}" />
+                                        </Border.Background>
+                                    </Border>
+                                    <!--tên món ăn-->
+                                    <TextBlock
+                                                    Margin="5 10 0 10"
+                                                    Foreground="Black"
+                                                    FontWeight="Bold"
+                                                    FontSize="16"
+                                                    Height="auto"
+                                                    TextWrapping="Wrap"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding Name}">
+                                    </TextBlock>
+                                    <!--số tiền không giảm giá-->
+                                    <TextBlock
+                                                    x:Name="moneyTxt"
                                             Margin="10 5"
                                             Foreground="Black"
-                                            FontSize="14"
+                                            FontSize="16"
                                             FontWeight="Medium"
-                                            Text="100.00$"
-                                            VerticalAlignment="Center">
-                                        </TextBlock>
-                                        <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
-                                        <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
-                                        <!--thì collapsed-->
-                                        <StackPanel
+                                            Text="{Binding Value}"
+                                            VerticalAlignment="Center"
+                                                    Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=moneyTxt, Converter={StaticResource boolToVis}}">
+                                    </TextBlock>
+                                    <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
+                                    <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
+                                    <!--thì collapsed-->
+                                    <StackPanel
+                                                    x:Name="stack"
                                             Orientation="Horizontal"
-                                            Margin="0 10"
-                                            Visibility="Collapsed">
-                                            <TextBlock
+                                            Margin="10 5"
+                                                    Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=stack, Converter={StaticResource boolToVis}}">
+                                        <TextBlock
                                                 Margin="10 5"
                                                 Foreground="Red"
-                                                FontSize="14"
+                                                FontSize="16"
                                                 FontWeight="Medium"
-                                                Text="100.00$"
+                                                Text="{Binding Value}"
                                                 VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <Border
+                                        </TextBlock>
+                                        <Border
                                                 BorderBrush="Red"
                                                 CornerRadius="5"
                                                 BorderThickness="1">
-                                                <TextBlock
+                                            <TextBlock
+                                                            x:Name="saleTxt"
                                                     Margin="5 0"
                                                     Foreground="Red"
                                                     FontSize="12"
                                                     FontWeight="Medium"
-                                                    Text="10%"
+                                                    Text="{Binding Sale, StringFormat={}{0}%}"
                                                     VerticalAlignment="Center">
-                                                </TextBlock>
-                                            </Border>
-                                        </StackPanel>
+                                            </TextBlock>
+                                        </Border>
                                     </StackPanel>
                                     <!--bấm thêm vào giỏ hàng-->
                                     <Border Height="30" x:Name="button"
@@ -160,34 +163,33 @@
                                         BorderThickness="1"
                                         VerticalAlignment="Bottom">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Name="icon" Margin="0 0 0 0" Height="20" Width="30" Kind="CartAdd" VerticalAlignment="Center" ></materialDesign:PackIcon>
+                                            <materialDesign:PackIcon Name="icon" Margin="0" Height="20" Width="30" Kind="CartAdd" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text"
                                                    Text="Thêm vào giỏ hàng"
                                                    Margin="0"
                                                    VerticalAlignment="Center"></TextBlock>
                                         </StackPanel>
                                     </Border>
-                                    <!--nền đừng quan tâm-->
-                                    <Rectangle
+                                </StackPanel>
+                                <!--nền đừng quan tâm-->
+                                <Rectangle
                                             Fill="White"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Stretch"
                                             RadiusY="10"
                                             RadiusX="10"
                                             Panel.ZIndex="-1"
-                                            Effect="{StaticResource dropShadow}"
                                             Margin="10">
-                                    </Rectangle>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel></WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </StackPanel>
+                                </Rectangle>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
             </ScrollViewer>
         </Grid>
     </Grid>
