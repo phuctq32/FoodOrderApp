@@ -14,8 +14,8 @@ namespace FoodOrderApp
         private bool password;
         public CurrentAccount()
         {
-            IsAdmin = true;
-            isUser = false;
+            IsAdmin = false;
+            isUser = true;
         }
 
         public bool IsAdmin { get => isAdmin; set => isAdmin = value; }

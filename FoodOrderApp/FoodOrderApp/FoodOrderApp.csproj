@@ -99,6 +99,9 @@
     <Compile Include="Views\UserControls\AccountUC.xaml.cs">
       <DependentUpon>AccountUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\CartUC.xaml.cs">
+      <DependentUpon>CartUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\AccountUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\CartUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

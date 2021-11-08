@@ -315,7 +315,7 @@
                 </Border>
 
                 <Border Grid.Row="1" CornerRadius="10" Background="#FFF7F9F9">
-                    
+                    <uc:CartUC></uc:CartUC>
                 </Border>
             </Grid>
 
