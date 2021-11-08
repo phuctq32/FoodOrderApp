@@ -148,8 +148,8 @@
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="Contacts" VerticalAlignment="Center" ></materialDesign:PackIcon>
-                                            <TextBlock x:Name="text" Text="Liên lạc" Margin="20 16 0 0" ></TextBlock>
+                                            <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="InfoCircle" VerticalAlignment="Center" ></materialDesign:PackIcon>
+                                            <TextBlock x:Name="text" Text="Thông tin" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
                                     </Border>
                                     <ControlTemplate.Triggers>
