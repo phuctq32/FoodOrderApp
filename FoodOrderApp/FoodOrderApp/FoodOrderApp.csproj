@@ -82,6 +82,7 @@
     <Compile Include="CurrentAccount.cs" />
     <Compile Include="CustomMessageBox.cs" />
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Models\Data.cs" />
     <Compile Include="Models\FoodData.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
