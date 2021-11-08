@@ -19,7 +19,7 @@ namespace FoodOrderApp.ViewModels
         {
             LoadedCommand = new RelayCommand<ControlBarUC>(parameter => true, parameter => Loaded(parameter));
             CloseWindowCommand = CloseWindowCommand = new RelayCommand<UserControl>((p) => p == null ? false : true, p => {
-                if (CustomMessageBox.Show("Thoát ứng dụng?", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                if (CustomMessageBox.Show("Thoát ứng dụng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     FrameworkElement window = ControlBarViewModel.GetParentWindow(p);
                     var w = window as Window;
