@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             Height="769"
-            Width="1049"
+             Height="710"
+            Width="1120"
             DataContext="{StaticResource ForgotPasswordVM}"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
@@ -23,21 +23,48 @@
                 <RowDefinition Height="150"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical">
-                <!--Khung search-->
-                <TextBox
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Center"
-                    Height="50"
-                    Width="700"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Disabled"
-                    materialDesign:HintAssist.Hint="Tìm món ăn"
-                    Margin="20 10"
-                    FontSize="16"
-                    Foreground="Black" />
+            <StackPanel Orientation="Horizontal">
+                <!--phần search-->
+                <StackPanel Orientation="Vertical" Margin="60 0 60 0">
+                    <!--khung search-->
+                    <materialDesign:ColorZone
+                    Mode="Standard"
+                    CornerRadius="25"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                     Height="50" Width="700"
+                    HorizontalAlignment="Left">
+                        <DockPanel
+                        LastChildFill="True"
+                        FlowDirection="RightToLeft">
+                            <Button
+                            Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                            Margin="8 -6 8 -6"
+                            DockPanel.Dock="Right"
+                            Content="{materialDesign:PackIcon Kind=Search}" />
+                            <TextBox
+                            HorizontalContentAlignment="Right"
+                            BorderBrush="Transparent"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            VerticalAlignment="Top"
+                            Height="50"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Disabled" />
+                        </DockPanel>
+                    </materialDesign:ColorZone>
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Width="160"
+                        Height="50"
+                        materialDesign:ButtonAssist.CornerRadius="25"
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
+                        HorizontalAlignment="Left"
+                        Margin="0 20 0 0">
+                        <TextBlock
+                            Text="Tìm kiếm" />
+                    </Button>
+                </StackPanel>
+
                 <!--Filter-->
                 <ComboBox Height="50" Width="150"
                           VerticalAlignment="Top"
@@ -56,18 +83,18 @@
             </StackPanel>
 
             <ScrollViewer Grid.Row="1">
-
                 <StackPanel Margin="20 0">
                     <!--itemcontrol có thuộc tính itemsource để binding-->
                     <ItemsControl x:Name="ViewListProducts">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid VerticalAlignment="Bottom" Height="310" Width="200" Margin="20">
-                                    <StackPanel Margin="25 20 25 0">
+                                    <StackPanel Margin="10 20 10 0"
+                                        Height="auto">
                                         <!--hình món ăn-->
-                                        <Border Width="140"
-                                                Height="130"
-                                                Margin="0 5 0 0"
+                                        <Border Width="160"
+                                                Height="140"
+                                                Margin="0 0 0 0"
                                                 CornerRadius="10"
                                                 BorderThickness="0,0,0,0"
                                                 VerticalAlignment="Top">
@@ -97,7 +124,7 @@
                                         </TextBlock>
                                         <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
                                         <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
-                                        <!--bị collapsed-->
+                                        <!--thì collapsed-->
                                         <StackPanel
                                             Orientation="Horizontal"
                                             Margin="0 10"
@@ -124,18 +151,22 @@
                                                 </TextBlock>
                                             </Border>
                                         </StackPanel>
-                                        <!--bấm thêm vào giỏ hàng-->
-                                        <ToggleButton
-                                                Margin="0 10 0 0"
-                                                Padding="5 0"
-                                                Grid.Column="1"
-                                                Content="+"
-                                                Style="{StaticResource MaterialDesignActionLightToggleButton}"
-                                                IsChecked="False"
-                                                ToolTip="Thêm món ăn"
-                                                Width="30"
-                                                Height="30" />
                                     </StackPanel>
+                                    <!--bấm thêm vào giỏ hàng-->
+                                    <Border Height="30" x:Name="button"
+                                        Margin="15 10 15 20"
+                                        CornerRadius="10"
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        VerticalAlignment="Bottom">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Name="icon" Margin="0 0 0 0" Height="20" Width="30" Kind="CartAdd" VerticalAlignment="Center" ></materialDesign:PackIcon>
+                                            <TextBlock x:Name="text"
+                                                   Text="Thêm vào giỏ hàng"
+                                                   Margin="0"
+                                                   VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
                                     <!--nền đừng quan tâm-->
                                     <Rectangle
                                             Fill="White"

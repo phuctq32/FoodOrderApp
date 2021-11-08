@@ -27,7 +27,6 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
                                    CommandParameter="{Binding ElementName=controlBar}" />
         </i:EventTrigger>
-
     </i:Interaction.Triggers>
 
     <Window.Resources>
@@ -38,7 +37,7 @@
     <Grid>
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition />
                 <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
@@ -58,14 +57,14 @@
                 <Grid Grid.Row="1">
 
                     <ListView SelectedIndex="0">
-                        <ListViewItem 
-                        Margin="20 20 20 10" 
+                        <ListViewItem
+                        Margin="20 20 20 10"
                         FontSize="15" FontWeight="Bold"
                         Visibility="{Binding Source={StaticResource currentAccount}, Path=IsUser, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="Food" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text" Text="Menu" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
@@ -86,14 +85,14 @@
                                 </ControlTemplate>
                             </ListViewItem.Template>
                         </ListViewItem>
-                        <ListViewItem 
-                        Margin="20 10" 
+                        <ListViewItem
+                        Margin="20 10"
                         FontSize="15" FontWeight="Bold"
                         Visibility="{Binding Source={StaticResource currentAccount}, Path=IsUser, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="Cart" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text" Text="Giỏ hàng" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
@@ -113,16 +112,15 @@
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </ListViewItem.Template>
-
                         </ListViewItem>
-                        <ListViewItem 
-                        Margin="20 10" 
+                        <ListViewItem
+                        Margin="20 10"
                         FontSize="15" FontWeight="Bold"
                         Visibility="{Binding Source={StaticResource currentAccount}, Path=IsUser, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="AccountSettings" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text" Text="Tài khoản" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
@@ -143,14 +141,14 @@
                                 </ControlTemplate>
                             </ListViewItem.Template>
                         </ListViewItem>
-                        <ListViewItem 
-                        Margin="20 10" 
+                        <ListViewItem
+                        Margin="20 10"
                         FontSize="15" FontWeight="Bold"
                         Visibility="{Binding Source={StaticResource currentAccount}, Path=IsUser, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="Contacts" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text" Text="Liên lạc" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
@@ -172,14 +170,14 @@
                             </ListViewItem.Template>
                         </ListViewItem>
 
-                        <ListViewItem 
-                        Margin="20 20 20 10" 
+                        <ListViewItem
+                        Margin="20 20 20 10"
                         FontSize="15" FontWeight="Bold"
                         Visibility="{Binding Source={StaticResource currentAccount}, Path=IsAdmin, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="ChartBar" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text" Text="Thống kê" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
@@ -200,14 +198,14 @@
                                 </ControlTemplate>
                             </ListViewItem.Template>
                         </ListViewItem>
-                        <ListViewItem 
-                        Margin="20 10" 
+                        <ListViewItem
+                        Margin="20 10"
                         FontSize="15" FontWeight="Bold"
                         Visibility="{Binding Source={StaticResource currentAccount}, Path=IsAdmin, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="Food" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text" Text="Sản phẩm" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
@@ -228,14 +226,14 @@
                                 </ControlTemplate>
                             </ListViewItem.Template>
                         </ListViewItem>
-                        <ListViewItem 
-                        Margin="20 10" 
+                        <ListViewItem
+                        Margin="20 10"
                         FontSize="15" FontWeight="Bold"
                         Visibility="{Binding Source={StaticResource currentAccount}, Path=IsAdmin, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="Receipt" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text" Text="Đơn hàng" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
@@ -256,14 +254,14 @@
                                 </ControlTemplate>
                             </ListViewItem.Template>
                         </ListViewItem>
-                        <ListViewItem 
-                        Margin="20 10" 
+                        <ListViewItem
+                        Margin="20 10"
                         FontSize="15" FontWeight="Bold"
                         Visibility="{Binding Source={StaticResource currentAccount}, Path=IsAdmin, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
-                                        <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="AccountSettings" VerticalAlignment="Center" ></materialDesign:PackIcon>
                                             <TextBlock x:Name="text" Text="Tài khoản" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
@@ -315,10 +313,9 @@
                 </Border>
 
                 <Border Grid.Row="1" CornerRadius="10" Background="#FFF7F9F9">
-                    
+                    <uc:MenuUC></uc:MenuUC>
                 </Border>
             </Grid>
-
         </Grid>
         <Rectangle
             Fill="White"
