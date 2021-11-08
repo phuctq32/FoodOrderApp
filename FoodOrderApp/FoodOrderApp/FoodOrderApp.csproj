@@ -73,6 +73,7 @@
     <Compile Include="CurrentAccount.cs" />
     <Compile Include="CustomMessageBox.cs" />
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\DoubleToVisibilityConverter.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ControlBarViewModel.cs" />
@@ -101,6 +102,9 @@
     </Compile>
     <Compile Include="Views\UserControls\CartUC.xaml.cs">
       <DependentUpon>CartUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ContactUC.xaml.cs">
+      <DependentUpon>ContactUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
@@ -170,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\AccountUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ContactUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
