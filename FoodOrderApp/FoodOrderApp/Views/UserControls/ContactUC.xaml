@@ -43,7 +43,7 @@
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Stretch"
                     Height="250"
-                Margin="10 10"
+                Margin="30 10"
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     VerticalScrollBarVisibility="Auto"
@@ -84,7 +84,7 @@
                 <Image
                     Grid.Row="1"
                     Margin="0 10"
-                    Source="C:\Users\ASUS\Source\Repos\FoodOrderApp\FoodOrderApp\FoodOrderApp\Resources\Images\food.jpg"
+                    Source="/Resources/Images/food.jpg"
                     Height="200"
                     Width="300"
                     Stretch="UniformToFill" />
