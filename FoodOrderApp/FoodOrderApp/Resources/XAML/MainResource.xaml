@@ -1,5 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:FoodOrderApp.Resources.XAML">
-    
+                    xmlns:local="clr-namespace:FoodOrderApp.Resources.XAML"
+                    xmlns:viewmodels="clr-namespace:FoodOrderApp.ViewModels">
+    <viewmodels:LoginViewModel x:Key="LoginVM"></viewmodels:LoginViewModel>
+    <viewmodels:MainViewModel x:Key="MainVM"></viewmodels:MainViewModel>
+    <viewmodels:ControlBarViewModel x:Key="ControlBarVM"></viewmodels:ControlBarViewModel>
+    <viewmodels:SignUpViewModel x:Key="SignUpVM"></viewmodels:SignUpViewModel>
+    <viewmodels:ForgotPasswordViewModel x:Key="ForgotPasswordVM"></viewmodels:ForgotPasswordViewModel>
+    <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
+    <viewmodels:MenuViewModel x:Key="MenuVM"></viewmodels:MenuViewModel>
 </ResourceDictionary>
