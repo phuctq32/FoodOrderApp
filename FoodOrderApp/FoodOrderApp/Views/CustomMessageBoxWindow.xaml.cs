@@ -28,6 +28,16 @@ namespace FoodOrderApp.Views
             Message = message;
         }
 
+        internal CustomMessageBoxWindow(string message, MessageBoxImage image)
+        {
+            InitializeComponent();
+            this.controlBar.centerBar.Visibility = Visibility.Hidden;
+            this.controlBar.minimizeBtn.Visibility = Visibility.Hidden;
+
+            Message = message;
+            DisplayImageIcon(image);
+        }
+
         internal CustomMessageBoxWindow(string message, MessageBoxButton button)
         {
             InitializeComponent();
@@ -58,11 +68,15 @@ namespace FoodOrderApp.Views
             switch (button)
             {
                 case MessageBoxButton.OKCancel:
-                    this.btn_OK.Focus();
+                    this.btn_OK.Visibility = Visibility.Visible;
                     this.btn_Cancel.Visibility = Visibility.Visible;
+                    this.btn_OK.Focus();
+                    break;
+                case MessageBoxButton.OK:
+                    this.btn_OK.Visibility = Visibility.Visible;
+                    this.btn_OK.Focus();
                     break;
                 default:
-                    this.btn_OK.Focus();
                     break;
             }
         }
@@ -71,12 +85,28 @@ namespace FoodOrderApp.Views
         {
             BitmapImage bitmapImage = new BitmapImage();
 
+
             switch (image)
             {
+                case MessageBoxImage.Warning:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/warning_icon.png"));
+                    break;
+                case MessageBoxImage.Question:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/question_icon.png"));
+                    break;
+                case MessageBoxImage.Error:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/error_icon.png"));
+                    break;
+                case MessageBoxImage.Asterisk:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/success_icon.png"));
+                    break;
+                case MessageBoxImage.None:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/information_icon.png"));
+                    break;
                 default:
                     break;
             }
-
+            this.image_icon.Source = bitmapImage;
             this.image_icon.Visibility = Visibility.Visible;
         }
 

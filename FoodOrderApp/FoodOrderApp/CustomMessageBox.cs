@@ -26,6 +26,14 @@ namespace FoodOrderApp
             return msg.Result;
         }
 
+        public static MessageBoxResult Show(string message, MessageBoxImage icon)
+        {
+            CustomMessageBoxWindow msg = new CustomMessageBoxWindow(message, icon);
+            msg.ShowDialog();
+
+            return msg.Result;
+        }
+
         public static MessageBoxResult Show(string message, MessageBoxButton button, MessageBoxImage icon)
         {
             CustomMessageBoxWindow msg = new CustomMessageBoxWindow(message, button, icon);

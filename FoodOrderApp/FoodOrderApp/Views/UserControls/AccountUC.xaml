@@ -31,7 +31,7 @@
                     <Rectangle
                 x:Name="recImage"
                 StrokeDashArray="4 2"
-                Stroke="{StaticResource Orange1}"
+                Stroke="{StaticResource Orange2}"
                 StrokeThickness="4"
                 RadiusX="4"
                 RadiusY="4"
@@ -44,6 +44,7 @@
                 Content="Chọn ảnh"
                 Height="35"
                 Width="100"
+                Background="{StaticResource Orange1}"
                 Command="{Binding SelectImageCommand}"
                 CommandParameter="{Binding ElementName=grdSelectImage}"
                 ToolTip="Chọn ảnh"
@@ -135,8 +136,8 @@
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
-                                    Margin="10,10,20,-18" />
-                            <RadioButton Content="Nam" Width="100" Foreground="{StaticResource Gray}"></RadioButton>
+                                    Margin="10,10,20,0" />
+                            <RadioButton Content="Nam" Margin="0 0 50 0" Foreground="{StaticResource Gray}"></RadioButton>
                             <RadioButton Content="Nữ" HorizontalAlignment="Center" Foreground="{StaticResource Gray}"></RadioButton>
                         </StackPanel>
                         <!--Ngày sinh-->
@@ -147,7 +148,7 @@
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
-                                    Margin="10,10,20,-18" />
+                                    Margin="10,10,20,-10" />
                             <DatePicker
                             materialDesign:HintAssist.Hint="Ngày sinh"
                             Width="250"
@@ -164,7 +165,7 @@
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
-                                    Margin="10,10,20,-18" />
+                                    Margin="10,10,20,-12" />
                             <TextBox
                                 materialDesign:HintAssist.Hint="Địa chỉ"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
