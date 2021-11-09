@@ -1,0 +1,164 @@
+﻿<UserControl x:Class="FoodOrderApp.Views.UserControls.ContactUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
+             mc:Ignorable="d"
+             xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            Height="710"
+            Width="1120"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Regular"
+            TextElement.FontSize="13"
+            TextOptions.TextFormattingMode="Ideal"
+            TextOptions.TextRenderingMode="Auto"
+            FontFamily="{DynamicResource MaterialDesignFont}"
+             Background="White"
+            Foreground="Black">
+    <Grid Width="1120" Height="710">
+        <!--Liên hệ-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                   Text="Liên hệ" 
+                   Margin="10 0 0 0"
+                   FontSize="35"
+                   Padding="10 20"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center">
+        </TextBlock>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <TextBox 
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    VerticalAlignment="Stretch"
+                    Height="250"
+                Margin="30 10"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto"
+                    materialDesign:HintAssist.Hint="Nhập ý kiến phản hồi tại đây..."
+                    Foreground="Gray"
+                    IsEnabled="True" 
+                    HorizontalAlignment="Stretch"/>
+        </StackPanel>
+        <Button 
+            Content="Gửi" 
+            Style="{StaticResource GreenBtn}"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            FontSize="25"
+            Grid.Row="3" 
+            Width="180" 
+            Height="40">
+        </Button>
+        <!--About us-->
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
+            <TextBlock
+                Text="About us"
+                TextAlignment="Center"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Center"
+                FontSize="35"> 
+            </TextBlock>
+        </StackPanel>
+        <!--Information-->
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Image
+                    Grid.Row="1"
+                    Margin="0 10"
+                    Source="/Resources/Images/food.jpg"
+                    Height="200"
+                    Width="300"
+                    Stretch="UniformToFill" />
+                <StackPanel
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.RowSpan="2"
+                    Margin="8 24 8 0" 
+                    HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" ></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.RowSpan="2"
+                        FontWeight="Bold" Margin="20 10" HorizontalAlignment="Stretch"
+                        FontSize="20">
+                        Food Order
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="1"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        Padding="10 10"
+                        Margin="20 10"
+                        TextAlignment="Justify"
+                        FontSize="15"
+                        Text="Chúng tôi cũng xin gửi lời cảm ơn chân thành nhất tới những Khách hàng, Quý đối tác đang và sẽ cho phép chúng tôi được trở thành người bạn đồng hành cũng như đã dành sự tín nhiệm và ủng hộ tới sản phẩm, dịch vụ mà nhà hàng chúng tôi cung cấp.
+Lần đầu tiên bạn được thưởng thức hải sản theo một cách hoàn toàn khác biệt và chỉ có thể tìm thấy tại nhà hàng sang trọng bậc nhất Hạ Long đó là Nhà Hàng Phương Nam Hạ Long." />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <Button
+            Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+            ToolTip="MaterialDesignFloatingActionDarkButton"
+            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Grid.Row="4" Grid.Column="0" 
+            VerticalAlignment="Bottom" 
+            HorizontalAlignment="Right" 
+            Height="35" 
+            Width="35"
+            Margin="55 10">
+            <materialDesign:PackIcon
+                Kind="Facebook"
+                Foreground="White"
+                Height="30"
+                Width="30" />
+        </Button>
+        <Button
+            Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+            ToolTip="MaterialDesignFloatingActionDarkButton"
+            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Grid.Row="4" Grid.Column="0" 
+            VerticalAlignment="Bottom" 
+            HorizontalAlignment="Right" 
+            Height="35" 
+            Width="35"
+            Margin="10 10">
+            <materialDesign:PackIcon
+                Kind="Instagram"
+                Foreground="White"
+                Height="30"
+                Width="30" />
+        </Button>
+        <TextBlock Grid.Row="4" Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Margin="20 10"
+                   FontSize="15"
+                   Foreground="Gray">
+            Copyright © 2021 by Team 7
+        </TextBlock>
+    </Grid>
+</UserControl>
