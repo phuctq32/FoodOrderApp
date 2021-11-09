@@ -15,12 +15,15 @@ namespace FoodOrderApp.Helpers
         public object Convert(object value, Type targetType, object parameter,
                               CultureInfo culture)
         {
+            string noneTextDecorations = "None";
             if (value != null)
             {
-                // kiểm tra xem value = discount > 0 thì gạch ngang giá cũ
-                return (Double.Parse(value.ToString().Replace("%", " ")) > 0) ? TextDecorations.Strikethrough : value;
+                if (Double.Parse(value.ToString().Replace("%", " ")) > 0)
+                    return TextDecorations.Strikethrough;
+                else
+                    return noneTextDecorations;
             }
-            return value;
+            return noneTextDecorations;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,
