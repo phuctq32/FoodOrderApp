@@ -57,7 +57,7 @@ namespace FoodOrderApp.ViewModels
 
         public void Login(LoginWindow parameter)
         {
-
+            
             try
             {
 
@@ -107,12 +107,6 @@ namespace FoodOrderApp.ViewModels
             {
                 MessageBox.Show("lỗi");
             }
-
-
-
-
-
-
         }
 
 

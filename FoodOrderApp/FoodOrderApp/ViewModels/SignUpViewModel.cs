@@ -3,6 +3,8 @@ using FoodOrderApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,6 +20,8 @@ namespace FoodOrderApp.ViewModels
 
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand RePasswordChangedCommand { get; set; }
+        public ICommand ActivationCommand { get; set; }
+    
 
 
 
@@ -36,9 +40,15 @@ namespace FoodOrderApp.ViewModels
         private string rePassword;
         public string RePassword { get => rePassword; set { rePassword = value; OnPropertyChanged(); } }
 
+        private string code;
+        public string Code { get => code; set { code = value; OnPropertyChanged(); } }
+
+        private int systemCode;
+
         public SignUpViewModel()
         {
             SignUpCommand = new RelayCommand<SignUpWindow>((parameter) => true, (parameter) => SignUp(parameter));
+            ActivationCommand = new RelayCommand<SignUpWindow>((parameter) => true, (parameter) => Activation(parameter));
             PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => { return true; }, (parameter) => { Password = parameter.Password; });
             RePasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => { return true; }, (parameter) => { RePassword = parameter.Password; });
         }
@@ -137,12 +147,29 @@ namespace FoodOrderApp.ViewModels
                 MessageBox.Show("Nhập lại mật khẩu không đúng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            ///Tạo code
+            Random random = new Random();
+            systemCode = random.Next(100000, 999999);
+            sendGmail("sadam01664@gmail.com", Mail, "FOOD ORDER APP", "Your code is : " + systemCode.ToString());
+            ///Hiện xác nhận mã 
+            parameter.grdInformation.Visibility = Visibility.Collapsed;
+            parameter.transitionContentSlideInside.Visibility = Visibility.Visible;
+            
 
+        }
+        public void Activation(SignUpWindow parameter)
+        {
+            if (Code != systemCode.ToString())
+            {
+                MessageBox.Show("Mã xác nhận không đúng!!", "Thông báo", MessageBoxButton.OK);
+                return;
+            }
             try
             {
-                Data.Ins.DB.USERS.Add(new USER() { EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
-                Data.Ins.DB.SaveChanges();
-                MessageBox.Show("Đăng ký tài khoản thành công");
+                
+                 Data.Ins.DB.USERS.Add(new USER() { EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
+                 Data.Ins.DB.SaveChanges();
+                MessageBox.Show("Đăng ký thành công","Thành công",MessageBoxButton.OK);
                 parameter.Close();
             }
             catch
@@ -150,5 +177,6 @@ namespace FoodOrderApp.ViewModels
                 MessageBox.Show("Lỗi cơ sở dữ liệu");
             }
         }
+        
     }
 }

@@ -141,6 +141,7 @@
                                     Margin="10,10,20,-14" />
                                 <PasswordBox
                                   x:Name="PasswordBox"
+                                    TabIndex="3"
                                   materialDesign:HintAssist.Hint="Mật khẩu"
                                   materialDesign:HintAssist.Foreground="{StaticResource Gray}"
                                   materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
@@ -171,6 +172,7 @@
                                     Margin="10,10,20,-14" />
                                 <PasswordBox
                                   x:Name="RePasswordBox"
+                                    TabIndex="4"
                                   materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
                                   materialDesign:HintAssist.Foreground="{StaticResource Gray}"
                                   materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
@@ -191,6 +193,8 @@
                                 </PasswordBox>
                             </StackPanel>
                             <Button
+                            TabIndex="5"
+                            IsDefault="True"
                             Style="{StaticResource GreenBtn}"
                             Content="Đăng ký"
                             Width="270"
@@ -231,6 +235,8 @@
                                     <!--khung nhập mã xác nhận-->
                                     <TextBox
                                         x:Name="activationCode"
+                                        TabIndex="0"
+                                        Text="{Binding Code}"
                                         materialDesign:HintAssist.Hint="Mã xác nhận"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                         Foreground="Black"
@@ -247,12 +253,16 @@
                                 <!--nút xác nhận-->
                                 <Button
                                     Style="{StaticResource GreenBtn}"
+                                    TabIndex="1"
+                                    IsDefault="True"
                                     Content="Xác nhận"
                                     Width="200"
                                     Height="40"
                                     Margin="0 0 0 0"
                                     FontSize="20"
-                                    Foreground="White">
+                                    Foreground="White"
+                                    Command="{Binding ActivationCommand}"
+                                    CommandParameter="{Binding ElementName=signUpWD}">
                                 </Button>
                             </StackPanel>
                         </Grid>
