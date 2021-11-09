@@ -43,12 +43,12 @@
 
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="200"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-                    <Image Source="/Resources/Images/food.jpg" Stretch="UniformToFill" Height="60" Width="60" Margin="0 0 0 40" ></Image>
+                    <Image Source="/Resources/Images/food.jpg" Stretch="UniformToFill" Height="60" Width="60" Margin="0 0 0 60" ></Image>
                 </Grid>
 
                 <Separator Margin="20 151" BorderBrush="Black" Height="3" ></Separator>

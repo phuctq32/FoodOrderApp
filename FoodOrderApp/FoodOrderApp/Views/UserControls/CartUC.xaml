@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="710" d:DesignWidth="1120">
+             d:DesignHeight="710" d:DesignWidth="1120"
+             >
     <Grid Background="#FFF7F9F9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"></ColumnDefinition>
@@ -13,7 +14,128 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            
+            <Grid Margin="50 50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal"></StackPanel>
+
+                <Grid Grid.Row="1">
+                    <ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListViewItem>
+                            
+                            <Grid Height="120" Width="680">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"></ColumnDefinition>
+                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="140"></ColumnDefinition>
+                                        <ColumnDefinition Width="140"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <CheckBox
+                                    Grid.Column="0"
+                                    Margin="20 0" 
+                                    Height="13" 
+                                    Width="17" 
+                                    HorizontalAlignment="Left"/>
+                                    
+                                    <Grid Grid.Column="1">
+                                        <Rectangle
+                                            RadiusY="10"
+                                            RadiusX="10"
+                                            Height="80"
+                                            Width="80"
+                                            HorizontalAlignment="Left"
+                                            Margin="0 0 0 0">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock 
+                                            MinHeight="40" 
+                                            
+                                            MaxWidth="180" 
+                                            Text="Món ăn dân dã đường phố"
+                                            TextWrapping="Wrap"
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            Margin="70 20 0 0"/>
+                                    </Grid>
+
+                                    <Grid Grid.Column="2">
+                                        <local:NumbericSpinner Width="70" Height="25"/>
+                                        
+                                    </Grid>
+
+                                    <TextBlock
+                                        Grid.Column="3"
+                                        Text="$100.00"
+                                        FontSize="16"
+                                        FontWeight="DemiBold"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+
+                                    <Button 
+                                        Grid.Column="4" 
+                                        Style="{StaticResource deleteBtn}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 10 0">
+                                        
+                                    </Button>
+                                </Grid>
+
+                                
+                                <!-- background -->
+                                <Rectangle
+                                    x:Name="backgroundRec"
+                                    Fill="White"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    RadiusY="10"
+                                    RadiusX="10"
+                                    Panel.ZIndex="-2"
+                                    Margin="10">
+                                </Rectangle>
+
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Effect" Value="{StaticResource dropShadow1}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                            </Grid>
+                        </ListViewItem>
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                    
+                    
+                </Grid>
+            </Grid>
         </Grid>
 
         <Grid Grid.Column="1">
