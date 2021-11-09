@@ -13,60 +13,61 @@
         </helpers:DoubleToVisibilityConverter>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
     </UserControl.Resources>
-    <Grid Background="#FFF7F9F9">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <Grid Margin="50 50">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+            <Grid Grid.Column="0">
+                <Grid Margin="50 50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" Orientation="Horizontal"></StackPanel>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal"></StackPanel>
 
-                <Grid Grid.Row="1">
-                    <ListView>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <!--Lưu ý: các phần binding chỉ là để test bên VM
+                    <Grid Grid.Row="1">
+                        <ListView>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <!--Lưu ý: các phần binding chỉ là để test bên VM
                                 binding thì tự nhập tên mới-->
-                                <Grid Height="120" Width="680">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"></ColumnDefinition>
-                                            <ColumnDefinition Width="300"></ColumnDefinition>
-                                            <ColumnDefinition Width="140"></ColumnDefinition>
-                                            <ColumnDefinition Width="140"></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
+                                    <Grid Height="120" Width="680">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="55"></ColumnDefinition>
+                                                <ColumnDefinition Width="300"></ColumnDefinition>
+                                                <ColumnDefinition Width="140"></ColumnDefinition>
+                                                <ColumnDefinition Width="140"></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
 
-                                        <CheckBox
+                                            <CheckBox
                                     Grid.Column="0"
                                     Margin="20 0"
                                     Height="13"
                                     Width="17"
                                     HorizontalAlignment="Left" />
-                                        <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
-                                        <Grid Grid.Column="1">
-                                            <!--hình ảnh-->
-                                            <Rectangle
+                                            <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
+                                            <Grid Grid.Column="1">
+                                                <!--hình ảnh-->
+                                                <Rectangle
                                             RadiusY="10"
                                             RadiusX="10"
                                             Height="80"
                                             Width="80"
                                             HorizontalAlignment="Left"
                                             Margin="0 0 0 0">
-                                                <Rectangle.Fill>
-                                                    <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill" />
-                                                </Rectangle.Fill>
-                                            </Rectangle>
-                                            <StackPanel Orientation="Vertical">
-                                                <!--tên món ăn-->
-                                                <TextBlock
+                                                    <Rectangle.Fill>
+                                                        <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <StackPanel Orientation="Vertical">
+                                                    <!--tên món ăn-->
+                                                    <TextBlock
                                                 MinHeight="40"
 
                                                 MaxWidth="180"
@@ -75,11 +76,11 @@
                                                 FontSize="15"
                                                 FontWeight="SemiBold"
                                                 Margin="70 20 0 0" />
-                                                <StackPanel Orientation="Horizontal"
+                                                    <StackPanel Orientation="Horizontal"
                                                             Margin="90 0 0 0">
-                                                    <!--số tiền không giảm giá-->
-                                                    <!--nếu có đổi tên monneyTxt thì qua doubletovisi đổi luôn tên bên đấy-->
-                                                    <TextBlock
+                                                        <!--số tiền không giảm giá-->
+                                                        <!--nếu có đổi tên monneyTxt thì qua doubletovisi đổi luôn tên bên đấy-->
+                                                        <TextBlock
                                                     x:Name="moneyTxt"
                                                     Margin="10 5"
                                                     Foreground="Black"
@@ -88,34 +89,34 @@
                                                     Text="{Binding Value}"
                                                     VerticalAlignment="Center"
                                                     TextDecorations="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToTxtDecorations}}">
-                                                    </TextBlock>
+                                                        </TextBlock>
 
-                                                    <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
-                                                    <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
-                                                    <!--thì collapsed-->
-                                                    <!--nếu có đổi tên của stack thì qua doubletovisi đổi luôn tên bên đấy-->
-                                                    <StackPanel
+                                                        <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
+                                                        <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
+                                                        <!--thì collapsed-->
+                                                        <!--nếu có đổi tên của stack thì qua doubletovisi đổi luôn tên bên đấy-->
+                                                        <StackPanel
                                                     x:Name="stack"
                                                     Orientation="Horizontal"
                                                     Margin="0 5"
                                                     Visibility="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToVis}}">
-                                                        <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
-                                                        <!--giá giảm-->
-                                                        <TextBlock
+                                                            <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
+                                                            <!--giá giảm-->
+                                                            <TextBlock
                                                         Margin="10 0 10 0"
                                                         Foreground="Red"
                                                         FontSize="16"
                                                         FontWeight="Medium"
                                                         Text="{Binding Value}"
                                                         VerticalAlignment="Center">
-                                                        </TextBlock>
-                                                        <!--discount-->
-                                                        <Border
+                                                            </TextBlock>
+                                                            <!--discount-->
+                                                            <Border
                                                         BorderBrush="Red"
                                                         CornerRadius="5"
                                                         BorderThickness="1">
-                                                            <!--{Binding Discount, StringFormat={}{0}%}-->
-                                                            <TextBlock
+                                                                <!--{Binding Discount, StringFormat={}{0}%}-->
+                                                                <TextBlock
                                                                 x:Name="saleTxt"
                                                                 Margin="5 0"
                                                                 Foreground="Red"
@@ -123,36 +124,36 @@
                                                                 FontWeight="Medium"
                                                                 Text="{Binding Sale, StringFormat={}{0}%}"
                                                                 VerticalAlignment="Center">
-                                                            </TextBlock>
-                                                        </Border>
+                                                                </TextBlock>
+                                                            </Border>
+                                                        </StackPanel>
                                                     </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
-                                        </Grid>
-                                        <!--nút +- số lượng-->
-                                        <Grid Grid.Column="2">
-                                            <local:NumbericSpinner Width="70" Height="25" />
-                                        </Grid>
-                                        <!--giá tiền tổng cộng-->
-                                        <TextBlock
+                                            </Grid>
+                                            <!--nút +- số lượng-->
+                                            <Grid Grid.Column="2">
+                                                <local:NumbericSpinner Width="70" Height="25" />
+                                            </Grid>
+                                            <!--giá tiền tổng cộng-->
+                                            <TextBlock
                                         Grid.Column="3"
                                         Text="$100.00"
                                         FontSize="16"
                                         FontWeight="DemiBold"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center" />
-                                        <!--nút xoá món ăn ra khỏi giỏ hàng-->
-                                        <Button
+                                            <!--nút xoá món ăn ra khỏi giỏ hàng-->
+                                            <Button
                                         Grid.Column="4"
                                         Style="{StaticResource deleteBtn}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Margin="0 0 10 0">
-                                        </Button>
-                                    </Grid>
+                                            </Button>
+                                        </Grid>
 
-                                    <!-- background -->
-                                    <Rectangle
+                                        <!-- background -->
+                                        <Rectangle
                                     x:Name="backgroundRec"
                                     Fill="White"
                                     HorizontalAlignment="Stretch"
@@ -161,38 +162,40 @@
                                     RadiusX="10"
                                     Panel.ZIndex="-2"
                                     Margin="10">
-                                    </Rectangle>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                            <ContentPresenter />
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
+                                        </Rectangle>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
 
-        <Grid Grid.Column="1">
-            <Grid Margin="20 50">
-                <Rectangle
+            <Grid Grid.Column="1">
+                <Grid Margin="20 50">
+                    <Rectangle
                             Fill="White"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             RadiusY="20"
                             RadiusX="20"
                             Panel.ZIndex="-1">
-                </Rectangle>
+                    </Rectangle>
+                </Grid>
             </Grid>
         </Grid>
-    </Grid>
+    </materialDesign:TransitioningContent>
+    
 </UserControl>

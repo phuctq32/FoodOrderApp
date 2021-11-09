@@ -18,8 +18,8 @@
             Background="{x:Null}"
             FontFamily="{DynamicResource MaterialDesignFont}"
             Foreground="{x:Null}">
-    <Grid>
-        <Grid Background="White">
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
+        <Grid>
             <StackPanel>
                 <Grid
                 x:Name="grdSelectImage"
@@ -193,5 +193,6 @@
                 </Grid>
             </StackPanel>
         </Grid>
-    </Grid>
+    </materialDesign:TransitioningContent>
+    
 </UserControl>
