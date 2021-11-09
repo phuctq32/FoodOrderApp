@@ -21,6 +21,7 @@
     <UserControl.Resources>
         <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
         </helpers:DoubleToVisibilityConverter>
+        <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
     </UserControl.Resources>
     <Grid>
         <Grid Margin="10">
@@ -115,7 +116,7 @@
                                                 RadiusX="10"
                                                 Margin="0">
                                         <Rectangle.Fill>
-                                            <ImageBrush ImageSource="{Binding Path=Image}" Stretch="UniformToFill" />
+                                            <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill" />
                                         </Rectangle.Fill>
                                     </Rectangle>
                                     <!--tên món ăn-->
@@ -139,6 +140,7 @@
                                                 FontWeight="Medium"
                                                 Text="{Binding Value}"
                                                 VerticalAlignment="Center"
+                                                TextDecorations="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
                                                 Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=moneyTxt, Converter={StaticResource doubleToVis}}">
                                     </TextBlock>
                                     <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
