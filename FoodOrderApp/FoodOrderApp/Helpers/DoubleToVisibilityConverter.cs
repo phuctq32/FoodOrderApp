@@ -19,6 +19,8 @@ namespace FoodOrderApp.Helpers
             {
                 // cái stackpanel chứa giá màu đỏ và discount t đặt tên là stack
                 if (parameter.ToString() == "stack")
+                    //kiểm tra xem value = discount mà lớn hơn 0 thì cho stack chứa giá giảm visible
+                    //replace % với 0.tostring() bởi vì discount được binding theo định dạng %
                     return (Double.Parse(value.ToString().Replace("%", 0.ToString())) > 0) ? Visibility.Visible : Visibility.Collapsed;
 
                 // cái giá bình thường t đặt tên là moneyTxt

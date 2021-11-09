@@ -316,7 +316,7 @@
                             HorizontalAlignment="Right"
                             Margin="0 10 200 0">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/information_icon.png" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/information_icon.png" Stretch="UniformToFill" />
                             </Ellipse.Fill>
                         </Ellipse>
                         <TextBlock
@@ -325,12 +325,12 @@
                             Foreground="Black"
                             Text="Administrator"
                             HorizontalAlignment="Right"
-                            Margin="0 40 60 0"/>
+                            Margin="0 40 60 0" />
                     </Grid>
                 </Border>
 
                 <Border Grid.Row="1" CornerRadius="10" Background="#FFF7F9F9">
-                    <uc:CartUC></uc:CartUC>
+                    <uc:ContactUC></uc:ContactUC>
                 </Border>
             </Grid>
         </Grid>
