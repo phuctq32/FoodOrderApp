@@ -14,7 +14,7 @@
             TextElement.FontSize="13"
             TextOptions.TextFormattingMode="Ideal"
             TextOptions.TextRenderingMode="Auto"
-            FontFamily="{DynamicResource MaterialDesignFont}"
+            TextElement.FontFamily="{StaticResource Mochily}"
              Background="White"
             Foreground="Black">
     <Grid Width="1120" Height="710">
@@ -30,104 +30,83 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
-                   Text="Liên hệ" 
-                   Margin="10 0 0 0"
-                   FontSize="35"
-                   Padding="10 20"
-                   VerticalAlignment="Center" 
-                   HorizontalAlignment="Center">
-        </TextBlock>
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <TextBox 
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    VerticalAlignment="Stretch"
-                    Height="250"
-                Margin="30 10"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto"
-                    materialDesign:HintAssist.Hint="Nhập ý kiến phản hồi tại đây..."
-                    Foreground="Gray"
-                    IsEnabled="True" 
-                    HorizontalAlignment="Stretch"/>
-        </StackPanel>
-        <Button 
-            Content="Gửi" 
-            Style="{StaticResource GreenBtn}"
-            Grid.Column="2"
-            Grid.ColumnSpan="2"
-            FontSize="25"
-            Grid.Row="3" 
-            Width="180" 
-            Height="40">
-        </Button>
-        <!--About us-->
-        <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center">
-            <TextBlock
-                Text="About us"
-                TextAlignment="Center"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Center"
-                FontSize="35"> 
-            </TextBlock>
-        </StackPanel>
+
         <!--Information-->
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
-                    <RowDefinition Height="200" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Image
-                    Grid.Row="1"
-                    Margin="0 10"
-                    Source="/Resources/Images/food.jpg"
-                    Height="200"
-                    Width="300"
-                    Stretch="UniformToFill" />
+                <Rectangle
+                          Width="300"
+                          Height="200"
+                          RadiusY="10"
+                          RadiusX="10"
+                          Margin="0"
+                    Grid.RowSpan="2">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                    </Rectangle.Fill>
+                </Rectangle>
                 <StackPanel
                     Grid.Row="2"
                     Grid.Column="0"
                     Grid.RowSpan="2"
-                    Margin="8 24 8 0" 
+                    Margin="8 24 8 0"
                     HorizontalAlignment="Stretch">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" ></RowDefinition>
-                            <RowDefinition Height="5*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                    </Grid>
+
                     <TextBlock
                         Grid.Row="2"
                         Grid.RowSpan="2"
-                        FontWeight="Bold" Margin="20 10" HorizontalAlignment="Stretch"
-                        FontSize="20">
+                        FontWeight="Bold" Margin="20 10" HorizontalAlignment="Center"
+                        FontSize="24">
                         Food Order
                     </TextBlock>
                     <TextBlock
+                        FontFamily="{StaticResource Mochily}"
                         Grid.Row="1"
                         TextWrapping="Wrap"
                         VerticalAlignment="Center"
                         Padding="10 10"
                         Margin="20 10"
                         TextAlignment="Justify"
-                        FontSize="15"
+                        FontSize="18"
                         Text="Chúng tôi cũng xin gửi lời cảm ơn chân thành nhất tới những Khách hàng, Quý đối tác đang và sẽ cho phép chúng tôi được trở thành người bạn đồng hành cũng như đã dành sự tín nhiệm và ủng hộ tới sản phẩm, dịch vụ mà nhà hàng chúng tôi cung cấp.
 Lần đầu tiên bạn được thưởng thức hải sản theo một cách hoàn toàn khác biệt và chỉ có thể tìm thấy tại nhà hàng sang trọng bậc nhất Hạ Long đó là Nhà Hàng Phương Nam Hạ Long." />
                 </StackPanel>
             </Grid>
         </StackPanel>
+
+        <Grid Grid.Column="1" Grid.RowSpan="3" Grid.Row="1">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <materialDesign:PackIcon Kind="MapMarker" Height="40" Width="40" />
+                    <Label FontFamily="{StaticResource RobotoBold}"
+                           FontSize="20"
+                           Content="Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh."></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <materialDesign:PackIcon Kind="Phone" Height="40" Width="40" />
+                    <Label Content="0123456789" FontSize="20"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <materialDesign:PackIcon Kind="Email" Height="40" Width="40" />
+                    <Label Content="info@gmail.com" FontSize="20"></Label>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
         <Button
             Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
             ToolTip="MaterialDesignFloatingActionDarkButton"
             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-            Grid.Row="4" Grid.Column="0" 
-            VerticalAlignment="Bottom" 
-            HorizontalAlignment="Right" 
-            Height="35" 
+            Grid.Row="4" Grid.Column="1"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Height="35"
             Width="35"
             Margin="55 10">
             <materialDesign:PackIcon
@@ -140,10 +119,10 @@ Lần đầu tiên bạn được thưởng thức hải sản theo một cách 
             Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
             ToolTip="MaterialDesignFloatingActionDarkButton"
             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-            Grid.Row="4" Grid.Column="0" 
-            VerticalAlignment="Bottom" 
-            HorizontalAlignment="Right" 
-            Height="35" 
+            Grid.Row="4" Grid.Column="2"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Height="35"
             Width="35"
             Margin="10 10">
             <materialDesign:PackIcon
