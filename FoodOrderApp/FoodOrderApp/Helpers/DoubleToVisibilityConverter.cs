@@ -17,13 +17,9 @@ namespace FoodOrderApp.Helpers
         {
             if (value != null)
             {
-                // cái stackpanel chứa giá màu đỏ và discount đặt tên là stack
-                if (parameter.ToString() == "stack")
-                    //kiểm tra xem value = discount mà lớn hơn 0 thì cho stack chứa giá giảm visible
-                    return (Double.Parse(value.ToString().Replace("%", " ")) > 0) ? Visibility.Visible : Visibility.Collapsed;
+                //kiểm tra xem value = discount mà lớn hơn 0 thì cho stack chứa giá giảm visible
+                return (Double.Parse(value.ToString().Replace("%", " ")) > 0) ? Visibility.Visible : Visibility.Collapsed;
 
-                // các trường hợp còn lại đều là visible
-                return Visibility.Visible;
             }
             return value;
         }

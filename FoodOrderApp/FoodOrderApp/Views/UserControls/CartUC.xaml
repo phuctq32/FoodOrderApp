@@ -76,8 +76,7 @@
                                                 FontWeight="SemiBold"
                                                 Margin="70 20 0 0" />
                                                 <StackPanel Orientation="Horizontal"
-                                                            Margin="90 0 0 0"
-                                                            Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=moneyTxt, Converter={StaticResource doubleToVis}}">
+                                                            Margin="90 0 0 0">
                                                     <!--số tiền không giảm giá-->
                                                     <!--nếu có đổi tên monneyTxt thì qua doubletovisi đổi luôn tên bên đấy-->
                                                     <TextBlock
@@ -88,8 +87,7 @@
                                                     FontWeight="Medium"
                                                     Text="{Binding Value}"
                                                     VerticalAlignment="Center"
-                                                        TextDecorations="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
-                                                    Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=moneyTxt, Converter={StaticResource doubleToVis}}">
+                                                    TextDecorations="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToTxtDecorations}}">
                                                     </TextBlock>
 
                                                     <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
@@ -100,7 +98,7 @@
                                                     x:Name="stack"
                                                     Orientation="Horizontal"
                                                     Margin="0 5"
-                                                    Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=stack, Converter={StaticResource doubleToVis}}">
+                                                    Visibility="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToVis}}">
                                                         <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
                                                         <!--giá giảm-->
                                                         <TextBlock
