@@ -18,17 +18,17 @@
             Background="{x:Null}"
             FontFamily="{DynamicResource MaterialDesignFont}"
             Foreground="{x:Null}">
+
     <Grid>
-        <Grid Background="White">
-            <StackPanel>
-                <Grid
+
+        <Grid
                 x:Name="grdSelectImage"
                 Margin="40"
                 VerticalAlignment="Top"
                 Width="150"
                 Height="150"
-                HorizontalAlignment="Center">
-                    <Rectangle
+                HorizontalAlignment="Left">
+            <Rectangle
                 x:Name="recImage"
                 StrokeDashArray="4 2"
                 Stroke="{StaticResource Orange2}"
@@ -39,7 +39,7 @@
                 Height="150"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" />
-                    <Button
+            <Button
                 x:Name="btnSelectImage"
                 Content="Chọn ảnh"
                 Height="35"
@@ -53,20 +53,20 @@
                 VerticalAlignment="Bottom"
                 FocusVisualStyle="{x:Null}"
                 FontSize="16">
-                    </Button>
-                </Grid>
-                <Grid>
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <!--Email-->
-                        <StackPanel Orientation="Horizontal" Margin="0">
-                            <materialDesign:PackIcon
+            </Button>
+        </Grid>
+        <Grid Margin="100 0 0 0">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <!--Email-->
+                <StackPanel Orientation="Horizontal" Margin="0">
+                    <materialDesign:PackIcon
                                     Kind="Gmail"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
-                            <TextBox
+                    <TextBox
                                 materialDesign:HintAssist.Hint="Email"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 Foreground="Black"
@@ -77,19 +77,27 @@
                                 Width="250"
                                 VerticalContentAlignment="Center"
                                 Height="50"
-                                Padding="2,0,0,0">
-                            </TextBox>
-                        </StackPanel>
-                        <!--Tên người dùng-->
-                        <StackPanel Orientation="Horizontal" Margin="0 20">
-                            <materialDesign:PackIcon
+                                Padding="2,0,0,0"
+                                Visibility="Collapsed">
+                    </TextBox>
+                    <TextBlock Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                        Width="250" Height="50"
+                               Text="TextBlock email"
+                               Padding="0 15 15 15">
+                    </TextBlock>
+                </StackPanel>
+                <!--Tên người dùng-->
+                <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <materialDesign:PackIcon
                                     Kind="Account"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
-                            <TextBox
+                    <TextBox
                                 x:Name="txtUsername"
                                 materialDesign:HintAssist.Hint="Tên"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -101,19 +109,26 @@
                                 Width="250"
                                 VerticalContentAlignment="Center"
                                 Height="50"
-                                Padding="2,0,0,0">
-                            </TextBox>
-                        </StackPanel>
-                        <!--Số điện thoại-->
-                        <StackPanel Orientation="Horizontal" Margin="0 20">
-                            <materialDesign:PackIcon
+                                Padding="2,0,0,0"
+                                Visibility="Collapsed">
+                    </TextBox>
+                    <TextBlock Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                        Width="250" Height="50"
+                               Text="TextBlock tên đăng nhập"
+                               Padding="0 15 15 15"></TextBlock>
+                </StackPanel>
+                <!--Số điện thoại-->
+                <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <materialDesign:PackIcon
                                     Kind="Phone"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
-                            <TextBox
+                    <TextBox
 
                                 materialDesign:HintAssist.Hint="Số điện thoại"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -125,48 +140,38 @@
                                 Width="250"
                                 VerticalContentAlignment="Center"
                                 Height="50"
-                                Padding="2,0,0,0">
-                            </TextBox>
-                        </StackPanel>
-                        <!--giới tính-->
-                        <StackPanel Orientation="Horizontal" Margin="0 20">
-                            <materialDesign:PackIcon
+                                Padding="2,0,0,0"
+                                Visibility="Collapsed">
+                    </TextBox>
+                    <TextBlock Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                        Width="250" Height="50"
+                               Text="TextBlock SDT"
+                               Padding="0 15 15 15"></TextBlock>
+                </StackPanel>
+                <!--giới tính-->
+                <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <materialDesign:PackIcon
                                     Kind="GenderMaleFemale"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,0" />
-                            <RadioButton Content="Nam" Margin="0 0 50 0" Foreground="{StaticResource Gray}"></RadioButton>
-                            <RadioButton Content="Nữ" HorizontalAlignment="Center" Foreground="{StaticResource Gray}"></RadioButton>
-                        </StackPanel>
-                        <!--Ngày sinh-->
-                        <StackPanel Orientation="Horizontal" Margin="0 20">
-                            <materialDesign:PackIcon
-                                    Kind="Calendar"
-                                    Width="30"
-                                    Height="30"
-                                    Foreground="{StaticResource Gray}"
-                                    VerticalAlignment="Center"
-                                    Margin="10,10,20,-10" />
-                            <DatePicker
-                            materialDesign:HintAssist.Hint="Ngày sinh"
-                            Width="250"
-                            Height="40"
-                            FontSize="16"
-                            Foreground="{StaticResource Gray}"
-                            HorizontalContentAlignment="Right">
-                            </DatePicker>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0 20">
-                            <materialDesign:PackIcon
+                    <RadioButton Content="Nam" Margin="0 0 50 0" Foreground="{StaticResource Gray}"></RadioButton>
+                    <RadioButton Content="Nữ" HorizontalAlignment="Center" Foreground="{StaticResource Gray}"></RadioButton>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <materialDesign:PackIcon
                                     Kind="AddressMarker"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-12" />
-                            <TextBox
+                    <TextBox
                                 materialDesign:HintAssist.Hint="Địa chỉ"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 Foreground="Black"
@@ -177,10 +182,17 @@
                                 Width="250"
                                 VerticalContentAlignment="Center"
                                 Height="50"
-                                Padding="2,0,0,0">
-                            </TextBox>
-                        </StackPanel>
-                        <Button
+                                Padding="2,0,0,0"
+                                Visibility="Collapsed">
+                    </TextBox>
+                    <TextBlock Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                        Width="250" Height="50"
+                               Text="TextBlock địa chỉ"
+                               Padding="0 15 15 15"></TextBlock>
+                </StackPanel>
+                <Button
                             Style="{StaticResource GreenBtn}"
                             Content="Cập nhật thông tin"
                             Width="270"
@@ -188,9 +200,7 @@
                             Margin="0 20 0 0"
                             FontSize="20"
                             Foreground="White">
-                        </Button>
-                    </StackPanel>
-                </Grid>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>
