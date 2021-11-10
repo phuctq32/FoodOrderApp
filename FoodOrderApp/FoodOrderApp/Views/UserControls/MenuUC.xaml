@@ -142,7 +142,7 @@
                                                 Text="{Binding Value}"
                                                 VerticalAlignment="Center"
                                                 TextDecorations="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
-                                                Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=moneyTxt, Converter={StaticResource doubleToVis}}">
+                                                Visibility="Visible">
                                         </TextBlock>
                                         <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
                                     khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên
@@ -152,7 +152,7 @@
                                                 x:Name="stack"
                                                 Orientation="Horizontal"
                                                 Margin="10 5"
-                                                Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=stack, Converter={StaticResource doubleToVis}}">
+                                                Visibility="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToVis}}">
                                             <TextBlock
                                                     Margin="0 0 10 0"
                                                     Foreground="Red"
@@ -232,5 +232,4 @@
             </Grid>
         </Grid>
     </materialDesign:TransitioningContent>
-    
 </UserControl>
