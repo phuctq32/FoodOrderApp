@@ -1,4 +1,5 @@
-﻿using FoodOrderApp.Views;
+﻿using FoodOrderApp;
+using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,11 @@ namespace FoodOrderApp.ViewModels
 
         private void Loaded(MainWindow mainWindow)
         {
-            mainWindow.ucWindow.Children.Add(new MenuUC());
+            if(CurrentAccount.IsUser)
+            {
+                mainWindow.ucWindow.Children.Add(new MenuUC());
+            }
+            
             
             mainWindow.controlBar.closeBtn.Command = CloseWindowCommand;
             mainWindow.controlBar.closeBtn.CommandParameter = mainWindow.controlBar;

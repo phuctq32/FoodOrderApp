@@ -6,22 +6,17 @@ using System.Threading.Tasks;
 
 namespace FoodOrderApp
 {
-    internal class CurrentAccount
+    public class CurrentAccount
     {
-        private bool isAdmin;
-        private bool isUser;
-        private bool userName;
-        private bool password;
-
         public CurrentAccount()
         {
-            IsAdmin = true;
-            isUser = false;
+            IsAdmin = false;
+            IsUser = true;
         }
 
-        public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
-        public bool IsUser { get => isUser; set => isUser = value; }
-        public bool UserName { get => userName; set => userName = value; }
-        public bool Password { get => password; set => password = value; }
+        public static bool IsAdmin { get; set; }
+        public static bool IsUser { get; set; }
+        public static bool UserName { get; set; }
+        public  static bool Password { get; set; }
     }
 }
