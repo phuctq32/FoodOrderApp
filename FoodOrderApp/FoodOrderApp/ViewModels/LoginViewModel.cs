@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using FoodOrderApp.Models;
 using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 
@@ -19,8 +20,24 @@ namespace FoodOrderApp.ViewModels
         public ICommand OpenSignUpWDCommand { get; set; }
         public ICommand LoadedCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
+        public ICommand OpenLogInWDCommand { get; set; }
+        public ICommand PasswordChangedCommand { get; set; }
+
+
+        private string password;
+        public string Password { get => password; set { password = value; OnPropertyChanged(); } }
+        private string userName;
+        public string UserName { get => userName; set { userName = value; OnPropertyChanged(); } }
+        private bool isLogin;
+        public bool IsLogin { get => isLogin; set => isLogin = value; }
+
+
+
         public LoginViewModel()
         {
+            Password = "";
+            OpenLogInWDCommand = new RelayCommand<LoginWindow>((parameter) => { return true; }, (parameter) => Login(parameter));
+            PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => { return true; }, (parameter) => { Password = parameter.Password; });
             OpenForgotPasswordWDCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenForgotPasswordWindow(parameter));
             OpenSignUpWDCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
             LoadedCommand = new RelayCommand<ControlBarUC>(p => true, (p) => Loaded(p));
@@ -37,6 +54,61 @@ namespace FoodOrderApp.ViewModels
                 }
             });
         }
+
+        public void Login(LoginWindow parameter)
+        {
+            
+            try
+            {
+
+                isLogin = false;
+                if (parameter == null)
+                {
+                    return;
+                }
+                if (string.IsNullOrEmpty(parameter.txtUsername.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    parameter.txtUsername.Focus();
+                    return;
+                }
+                //check password
+                if (string.IsNullOrEmpty(parameter.txtPassword.Password))
+                {
+                    MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    parameter.txtPassword.Focus();
+                    return;
+                }
+
+                //string passEncode = MD5Hash(Password)   ;
+                int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == Password).Count();
+                Data.Ins.DB.USERS.ToList();
+                /*List<USER> acc = Data.Ins.DB.USERS.ToList(); 
+                foreach (var a in acc)
+                {
+                    MessageBox.Show(a.USERNAME_ + a.PASSWORD_);
+                } */   
+                if (accCount > 0)
+                {
+                    isLogin = true;
+                    MainWindow app = new MainWindow();
+                    app.ShowDialog();
+                    parameter.txtPassword.Clear();
+                }
+                else
+                {
+                    isLogin = false;
+                    MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    parameter.txtPassword.Focus();
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("lỗi");
+            }
+        }
+
 
         public void Loaded(ControlBarUC cb)
         {

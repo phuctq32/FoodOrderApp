@@ -82,6 +82,9 @@
                                         HorizontalAlignment="Left"
                                         Margin="0 0 0 -5"/>
                                 <TextBox
+                                        x:Name="txtUsername"
+                                        Text="{Binding UserName}"
+                                        TabIndex="0"
                                         materialDesign:HintAssist.Hint="Tài khoản"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                         Foreground="Black"
@@ -105,7 +108,8 @@
                                         HorizontalAlignment="Left"
                                         Margin="0 0 0 -3"/>
                                 <PasswordBox
-                                        x:Name="FloatingPasswordBox"
+                                        x:Name="txtPassword"
+                                        TabIndex="1"
                                         materialDesign:HintAssist.Hint="Mật khẩu"
                                         Foreground="Black"
                                         FontSize="16"
@@ -115,7 +119,14 @@
                                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
                                         Width="230"
                                         VerticalAlignment="Bottom" 
-                                        HorizontalAlignment="Right"/>
+                                        HorizontalAlignment="Right">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PasswordChanged">
+                                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                                   CommandParameter="{Binding ElementName=txtPassword}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </PasswordBox>
                             </Grid>
                         </Grid>
 
@@ -137,6 +148,11 @@
                         </Button>
 
                         <Button
+                             x:Name="btnLogin"
+                            TabIndex="2"
+                            IsDefault="True"
+                            Command="{Binding OpenLogInWDCommand}"
+                            CommandParameter="{Binding ElementName=LoginWD}"
                             Style="{StaticResource GreenBtn}"
                             Content="Đăng nhập"
                             Width="270"
