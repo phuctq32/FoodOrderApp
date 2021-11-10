@@ -23,31 +23,32 @@
         </helpers:DoubleToVisibilityConverter>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
     </UserControl.Resources>
-    <Grid>
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="150"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <!--phần search-->
-                <StackPanel Orientation="Vertical" Margin="60 0 60 0">
-                    <!--khung search-->
-                    <materialDesign:ColorZone
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
+        <Grid>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <!--phần search-->
+                    <StackPanel Orientation="Vertical" Margin="60 0 60 0">
+                        <!--khung search-->
+                        <materialDesign:ColorZone
                     Mode="Standard"
                     CornerRadius="25"
                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
                      Height="50" Width="700"
                     HorizontalAlignment="Left">
-                        <DockPanel
+                            <DockPanel
                         LastChildFill="True"
                         FlowDirection="RightToLeft">
-                            <Button
+                                <Button
                             Style="{DynamicResource MaterialDesignToolForegroundButton}"
                             Margin="8 -6 8 -6"
                             DockPanel.Dock="Right"
                             Content="{materialDesign:PackIcon Kind=Search}" />
-                            <TextBox
+                                <TextBox
                             HorizontalContentAlignment="Right"
                             BorderBrush="Transparent"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -56,9 +57,9 @@
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             VerticalScrollBarVisibility="Disabled" />
-                        </DockPanel>
-                    </materialDesign:ColorZone>
-                    <Button
+                            </DockPanel>
+                        </materialDesign:ColorZone>
+                        <Button
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         Width="160"
                         Height="50"
@@ -66,13 +67,13 @@
                         ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
                         HorizontalAlignment="Left"
                         Margin="0 20 0 0">
-                        <TextBlock
+                            <TextBlock
                             Text="Tìm kiếm" />
-                    </Button>
-                </StackPanel>
+                        </Button>
+                    </StackPanel>
 
-                <!--Filter-->
-                <ComboBox Height="50" Width="150"
+                    <!--Filter-->
+                    <ComboBox Height="50" Width="150"
                           VerticalAlignment="Top"
                           HorizontalAlignment="Right"
                           Margin="0 0 200 0"
@@ -81,46 +82,46 @@
                           FontSize="16"
                           materialDesign:HintAssist.Hint="Giá"
                           VerticalContentAlignment="Center">
-                    <ComboBoxItem Content="Giá giảm">
-                    </ComboBoxItem>
-                    <ComboBoxItem Content="Giá tăng">
-                    </ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-            <Grid Grid.Row="1">
-                <!--Lưu ý: các phần binding chỉ là để test bên VM
+                        <ComboBoxItem Content="Giá giảm">
+                        </ComboBoxItem>
+                        <ComboBoxItem Content="Giá tăng">
+                        </ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <Grid Grid.Row="1">
+                    <!--Lưu ý: các phần binding chỉ là để test bên VM
                 binding thì tự nhập tên mới-->
-                <ListView x:Name="ViewListProducts"
+                    <ListView x:Name="ViewListProducts"
                               Margin="20 0"
                               Width="auto"
                               Height="auto"
                               ItemsSource="{Binding Product}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <StackPanel
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <StackPanel
                                     Width="210" Height="330"
                                     Margin="15 20 15 0">
-                                    <!--hình món ăn-->
-                                    <Rectangle
+                                        <!--hình món ăn-->
+                                        <Rectangle
                                                 Width="190"
                                                 Height="140"
                                                 RadiusY="10"
                                                 RadiusX="10"
                                                 Margin="0">
-                                        <Rectangle.Fill>
-                                            <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                    <!--tên món ăn-->
-                                    <TextBlock
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill" />
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <!--tên món ăn-->
+                                        <TextBlock
                                                         Margin="5 10 0 10"
                                                         Foreground="Black"
                                                         FontWeight="Bold"
@@ -129,10 +130,10 @@
                                                         TextWrapping="Wrap"
                                                         VerticalAlignment="Center"
                                                         Text="{Binding Name}">
-                                    </TextBlock>
-                                    <!--số tiền không giảm giá-->
-                                    <!--nếu có đổi tên monneyTxt thì qua doubletovisi đổi luôn tên bên đấy-->
-                                    <TextBlock
+                                        </TextBlock>
+                                        <!--số tiền không giảm giá
+                                    nếu có đổi tên monneyTxt thì qua doubletovisi đổi luôn tên bên đấy-->
+                                        <TextBlock
                                                 x:Name="moneyTxt"
                                                 Margin="10 5"
                                                 Foreground="Black"
@@ -142,29 +143,29 @@
                                                 VerticalAlignment="Center"
                                                 TextDecorations="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
                                                 Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=moneyTxt, Converter={StaticResource doubleToVis}}">
-                                    </TextBlock>
-                                    <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
-                                    <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
-                                    <!--thì collapsed-->
-                                    <!--nếu có đổi tên của stack thì qua doubletovisi đổi luôn tên bên đấy-->
-                                    <StackPanel
+                                        </TextBlock>
+                                        <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
+                                    khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên
+                                    thì collapsed
+                                    nếu có đổi tên của stack thì qua doubletovisi đổi luôn tên bên đấy-->
+                                        <StackPanel
                                                 x:Name="stack"
                                                 Orientation="Horizontal"
                                                 Margin="10 5"
                                                 Visibility="{Binding ElementName=saleTxt, Path= Text, ConverterParameter=stack, Converter={StaticResource doubleToVis}}">
-                                        <TextBlock
+                                            <TextBlock
                                                     Margin="0 0 10 0"
                                                     Foreground="Red"
                                                     FontSize="16"
                                                     FontWeight="Medium"
                                                     Text="{Binding Value}"
                                                     VerticalAlignment="Center">
-                                        </TextBlock>
-                                        <Border
+                                            </TextBlock>
+                                            <Border
                                                     BorderBrush="Red"
                                                     CornerRadius="5"
                                                     BorderThickness="1">
-                                            <TextBlock
+                                                <TextBlock
                                                                 x:Name="saleTxt"
                                                         Margin="5 0"
                                                         Foreground="Red"
@@ -172,12 +173,12 @@
                                                         FontWeight="Medium"
                                                         Text="{Binding Sale, StringFormat={}{0}%}"
                                                         VerticalAlignment="Center">
-                                            </TextBlock>
-                                        </Border>
+                                                </TextBlock>
+                                            </Border>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                                <!--nút bấm thêm vào giỏ hàng-->
-                                <Button
+                                    <!--nút bấm thêm vào giỏ hàng-->
+                                    <Button
                                             Margin="15 10 15 30"
                                             Width="auto"
                                             Height="30"
@@ -185,23 +186,23 @@
                                             Background="Transparent"
                                             HorizontalContentAlignment="Stretch"
                                             VerticalAlignment="Bottom">
-                                    <Grid>
-                                        <materialDesign:PackIcon x:Name="icon"
+                                        <Grid>
+                                            <materialDesign:PackIcon x:Name="icon"
                                                                          Margin="0"
                                                                          Height="20" Width="30"
                                                                          Kind="CartAdd"
                                                                          VerticalAlignment="Center" HorizontalAlignment="Left"
                                                                          Foreground="Black"></materialDesign:PackIcon>
-                                        <TextBlock x:Name="text"
+                                            <TextBlock x:Name="text"
                                                            HorizontalAlignment="Right"
                                                            Text="Thêm vào giỏ hàng"
                                                            Margin="0"
                                                            VerticalAlignment="Center"
                                                            Foreground="Black"></TextBlock>
-                                    </Grid>
-                                </Button>
-                                <!--nền đừng quan tâm-->
-                                <Rectangle
+                                        </Grid>
+                                    </Button>
+                                    <!--nền đừng quan tâm-->
+                                    <Rectangle
                                                 Fill="White"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
@@ -209,25 +210,27 @@
                                                 RadiusX="10"
                                                 Panel.ZIndex="-1"
                                                 Margin="10">
-                                </Rectangle>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <!--loại bỏ hover, highlight effect của listview-->
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                        <ContentPresenter />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                                    </Rectangle>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <!--loại bỏ hover, highlight effect của listview-->
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </Grid>
             </Grid>
         </Grid>
-    </Grid>
+    </materialDesign:TransitioningContent>
+    
 </UserControl>

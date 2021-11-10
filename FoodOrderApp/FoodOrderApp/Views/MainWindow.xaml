@@ -1,4 +1,5 @@
 ﻿<Window x:Class="FoodOrderApp.Views.MainWindow"
+        x:Name="MainWD"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +11,7 @@
         xmlns:mainlocal="clr-namespace:FoodOrderApp"
         mc:Ignorable="d"
         DataContext="{StaticResource MainVM}"
-        Title="LoginWindow" Height="820" Width="1420"
+        Height="820" Width="1420"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -25,7 +26,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
-                                   CommandParameter="{Binding ElementName=controlBar}" />
+                                   CommandParameter="{Binding ElementName=MainWD}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -55,11 +56,11 @@
 
                 <Grid Grid.Row="1">
 
-                    <ListView SelectedIndex="0">
+                    <ListView SelectedIndex="0" x:Name="listViewMenu">
                         <ListViewItem
-                        Margin="20 20 20 10"
-                        FontSize="15" FontWeight="Bold"
-                        Visibility="{Binding Source={StaticResource currentAccount}, Path=IsUser, Converter={StaticResource boolToVis}}">
+                            Margin="20 20 20 10"
+                            FontSize="15" FontWeight="Bold"
+                            Visibility="{Binding Source={StaticResource currentAccount}, Path=IsUser, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
@@ -85,9 +86,9 @@
                             </ListViewItem.Template>
                         </ListViewItem>
                         <ListViewItem
-                        Margin="20 10"
-                        FontSize="15" FontWeight="Bold"
-                        Visibility="{Binding Source={StaticResource currentAccount}, Path=IsUser, Converter={StaticResource boolToVis}}">
+                            Margin="20 10"
+                            FontSize="15" FontWeight="Bold"
+                            Visibility="{Binding Source={StaticResource currentAccount}, Path=IsUser, Converter={StaticResource boolToVis}}">
                             <ListViewItem.Template>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
@@ -281,6 +282,12 @@
                                 </ControlTemplate>
                             </ListViewItem.Template>
                         </ListViewItem>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=MainWD}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ListView>
 
                     <Button Background="Transparent" Width="100" Height="20" Padding="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50 0 0 20" Foreground="Black" OverridesDefaultStyle="True">
@@ -328,10 +335,13 @@
                             Margin="0 40 60 0" />
                     </Grid>
                 </Border>
-
-                <Border Grid.Row="1" CornerRadius="10" Background="#FFF7F9F9">
-                    <uc:ContactUC></uc:ContactUC>
-                </Border>
+                <Grid Grid.Row="1">
+                    <Border  CornerRadius="10" Background="#FFF7F9F9">
+                        <Grid x:Name="ucWindow">
+                            
+                        </Grid>
+                    </Border>
+                </Grid>
             </Grid>
         </Grid>
         <Rectangle
