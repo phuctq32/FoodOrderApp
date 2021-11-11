@@ -1,10 +1,16 @@
 ﻿using FoodOrderApp.Models;
+using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace FoodOrderApp.ViewModels
@@ -12,18 +18,18 @@ namespace FoodOrderApp.ViewModels
     internal class MenuViewModel : BaseViewModel
     {
         public ICommand LoadedCommand { get; set; }
-        public List<PRODUCT> Products { get; set; }
+        private List<PRODUCT> products;
 
         public MenuViewModel()
         {
-            
-            LoadedCommand = new RelayCommand<MenuUC>(p => p == null ? false : true, p => Loaded(p));
+            LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
         }
 
-        private void Loaded(MenuUC menu)
+        private void Load(MenuUC parameter)
         {
-            Products = Data.Ins.DB.PRODUCTs.ToList();
-            menu.ViewListProducts.ItemsSource = Products;
+            products = Data.Ins.DB.PRODUCTs.ToList();
+
+            parameter.ViewListProducts.ItemsSource = products;
         }
     }
 }
