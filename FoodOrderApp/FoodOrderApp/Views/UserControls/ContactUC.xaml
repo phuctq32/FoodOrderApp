@@ -96,7 +96,7 @@ Lần đầu tiên bạn được thưởng thức hải sản theo một cách 
                     Margin="0 50 0 0">
                     <StackPanel Orientation="Horizontal" Margin="0 20">
                         <materialDesign:PackIcon Kind="MapMarker" Height="40" Width="40" />
-                        <Label FontFamily="{StaticResource RobotoBold}"
+                        <Label
                            Margin="10 0 0 0"
                            FontSize="20"
                            Content="Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh."/>

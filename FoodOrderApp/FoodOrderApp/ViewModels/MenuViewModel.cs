@@ -18,11 +18,13 @@ namespace FoodOrderApp.ViewModels
     internal class MenuViewModel : BaseViewModel
     {
         public ICommand LoadedCommand { get; set; }
+        public ICommand AddToCartCommand { get; set; }
         private List<PRODUCT> products;
 
         public MenuViewModel()
         {
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
+            AddToCartCommand = new RelayCommand<ExecutedRoutedEventArgs>(p => p == null ? false : true, p => AddToCart(p));
         }
 
         private void Load(MenuUC parameter)
@@ -30,6 +32,12 @@ namespace FoodOrderApp.ViewModels
             products = Data.Ins.DB.PRODUCTs.ToList();
 
             parameter.ViewListProducts.ItemsSource = products;
+        }
+
+        private void AddToCart(ExecutedRoutedEventArgs e)
+        {
+            var p = (e.Parameter as ListViewItem).DataContext;
+            CurrentAccount.productsInCart.Add(p as PRODUCT);
         }
     }
 }

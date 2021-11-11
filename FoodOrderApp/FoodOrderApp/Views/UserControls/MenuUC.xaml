@@ -112,8 +112,8 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="10 0">
+                            <DataTemplate >
+                                <Grid x:Name="itemProduct" Margin="10 0">
                                     <StackPanel
                                     Width="210" Height="330"
                                     Margin="15 20 15 0">
@@ -195,14 +195,16 @@
                                     <!--nút bấm thêm vào giỏ hàng-->
                                     <Button
                                         x:Name="addToCartBtn"
-                                            Margin="15 10 15 30"
-                                            Width="auto"
-                                            Height="30"
-                                            materialDesign:ButtonAssist.CornerRadius="10"
-                                            Background="Transparent"
-                                            HorizontalContentAlignment="Stretch"
-                                            VerticalAlignment="Bottom"
-                                            Command="{Binding AddToCartCommand}">
+                                        Margin="15 10 15 30"
+                                        Width="auto"
+                                        Height="30"
+                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                        Background="Transparent"
+                                        HorizontalContentAlignment="Stretch"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding AddToCartCommand}"
+                                        CommandParameter="{Binding}"
+                                        >
                                         <Grid>
                                             <materialDesign:PackIcon x:Name="icon"
                                                                          Margin="0"
@@ -217,12 +219,6 @@
                                                            VerticalAlignment="Center"
                                                            Foreground="Black"></TextBlock>
                                         </Grid>
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="IsSelected">
-                                                <i:InvokeCommandAction Command="{Binding LoadedCommand}"
-                                                    CommandParameter="{Binding ElementName=MenuUserControl}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
                                     </Button>
                                     <!--nền đừng quan tâm-->
                                     <Rectangle
