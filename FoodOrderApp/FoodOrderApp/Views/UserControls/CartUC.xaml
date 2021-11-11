@@ -40,7 +40,7 @@
                     <StackPanel Grid.Row="0" Orientation="Horizontal"></StackPanel>
 
                     <Grid Grid.Row="1">
-                        <ListView x:Name="cartList" ItemsSource="{Binding PRODUCT}">
+                        <ListView x:Name="cartList">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <!--Lưu ý: các phần binding chỉ là để test bên VM
@@ -97,8 +97,8 @@
                                                     FontSize="16"
                                                     FontWeight="Medium"
                                                     Text="{Binding PRICE_}"
-                                                    VerticalAlignment="Center"
-                                                    >
+                                                            TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
+                                                    VerticalAlignment="Center">
                                                         </TextBlock>
 
                                                         <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
@@ -109,7 +109,7 @@
                                                     x:Name="stack"
                                                     Orientation="Horizontal"
                                                     Margin="0 5"
-                                                    Visibility="Visible">
+                                                    Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
                                                             <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
                                                             <!--giá giảm-->
                                                             <TextBlock
@@ -118,12 +118,12 @@
                                                         FontSize="16"
                                                         FontWeight="Medium"
                                                         VerticalAlignment="Center">
-                                                                <!--<TextBlock.Text>
+                                                                <TextBlock.Text>
                                                                     <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
                                                                         <Binding ElementName="price" Path="Text" />
                                                                         <Binding ElementName="discount" Path="Text" />
                                                                     </MultiBinding>
-                                                                </TextBlock.Text>-->
+                                                                </TextBlock.Text>
                                                             </TextBlock>
                                                             <!--discount-->
                                                             <Border
@@ -137,7 +137,7 @@
                                                                 Foreground="Red"
                                                                 FontSize="12"
                                                                 FontWeight="Medium"
-                                                                Text="{Binding DISCOUNT_, StringFormat={}{0:P0}}"
+                                                                Text="{Binding DISCOUNT, StringFormat={}{0:P0}}"
                                                                 VerticalAlignment="Center">
                                                                 </TextBlock>
                                                             </Border>
@@ -212,5 +212,4 @@
             </Grid>
         </Grid>
     </materialDesign:TransitioningContent>
-    
 </UserControl>

@@ -19,8 +19,8 @@ namespace FoodOrderApp.Helpers
             {
                 //kiểm tra xem value = discount mà lớn hơn 0 thì cho stack chứa giá giảm visible
                 return (Double.Parse(value.ToString().Replace("%", " ")) > 0) ? Visibility.Visible : Visibility.Collapsed;
-
             }
+            value = "Collapsed";
             return value;
         }
 

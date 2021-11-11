@@ -18,10 +18,11 @@ namespace FoodOrderApp.Helpers
             string noneTextDecorations = "None";
             if (value != null)
             {
-                if (Double.Parse(value.ToString().Replace("%", " ")) > 0)
-                    return TextDecorations.Strikethrough;
-                else
-                    return noneTextDecorations;
+                if (value.ToString().Contains("%"))
+                    if (Double.Parse(value.ToString().Replace("%", " ")) > 0)
+                        return TextDecorations.Strikethrough;
+                    else
+                        return noneTextDecorations;
             }
             return noneTextDecorations;
         }

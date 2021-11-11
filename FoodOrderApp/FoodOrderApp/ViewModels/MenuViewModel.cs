@@ -19,7 +19,7 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand LoadedCommand { get; set; }
         public ICommand AddToCartCommand { get; set; }
-        private List<PRODUCT> products;
+        public List<PRODUCT> products;
 
         public MenuViewModel()
         {

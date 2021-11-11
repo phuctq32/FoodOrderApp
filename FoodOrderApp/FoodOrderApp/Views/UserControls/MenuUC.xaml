@@ -103,7 +103,7 @@
                               Margin="20 0"
                               Width="auto"
                               Height="auto"
-                              ItemsSource="{Binding PRODUCT}"
+
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListView.ItemsPanel>
@@ -112,7 +112,7 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
-                            <DataTemplate >
+                            <DataTemplate>
                                 <Grid x:Name="itemProduct" Margin="10 0">
                                     <StackPanel
                                     Width="210" Height="330"
@@ -202,9 +202,8 @@
                                         Background="Transparent"
                                         HorizontalContentAlignment="Stretch"
                                         VerticalAlignment="Bottom"
-                                        Command="{Binding AddToCartCommand}"
-                                        CommandParameter="{Binding}"
-                                        >
+                                        Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                        Click="addToCartBtn_Click">
                                         <Grid>
                                             <materialDesign:PackIcon x:Name="icon"
                                                                          Margin="0"
