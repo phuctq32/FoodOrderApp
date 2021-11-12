@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodOrderApp.Models
+namespace FoodOrderApp
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +18,7 @@ namespace FoodOrderApp.Models
         public USER()
         {
             this.RECEIPTs = new HashSet<RECEIPT>();
+            this.CARTs = new HashSet<CART>();
         }
     
         public string USERNAME_ { get; set; }
@@ -28,8 +29,11 @@ namespace FoodOrderApp.Models
         public string PHONE_ { get; set; }
         public string EMAIL_ { get; set; }
         public string TYPE_ { get; set; }
+        public string AVATAR_ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RECEIPT> RECEIPTs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CART> CARTs { get; set; }
     }
 }

@@ -87,6 +87,11 @@
     <Compile Include="Helpers\PriceToPriceDiscount.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Data.cs" />
+    
+    <Compile Include="Models\CART.cs">
+      <DependentUpon>FoodData.tt</DependentUpon>
+    </Compile>
+    
     <Compile Include="Models\FoodData.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

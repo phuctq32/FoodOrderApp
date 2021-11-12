@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodOrderApp
+namespace FoodOrderApp.Models
 {
     using System;
     using System.Data.Entity;
@@ -25,10 +25,10 @@ namespace FoodOrderApp
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CART> CARTs { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
         public virtual DbSet<RECEIPT> RECEIPTs { get; set; }
         public virtual DbSet<RECEIPT_DETAIL> RECEIPT_DETAIL { get; set; }
         public virtual DbSet<USER> USERS { get; set; }
-        public virtual DbSet<CART> CARTs { get; set; }
     }
 }

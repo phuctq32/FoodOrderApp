@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodOrderApp.Models
+namespace FoodOrderApp
 {
     using System;
     using System.Collections.Generic;
@@ -18,17 +18,21 @@ namespace FoodOrderApp.Models
         public PRODUCT()
         {
             this.RECEIPT_DETAIL = new HashSet<RECEIPT_DETAIL>();
+            this.CARTs = new HashSet<CART>();
         }
     
         public string ID_ { get; set; }
         public string NAME_ { get; set; }
         public string IMAGE_ { get; set; }
         public int PRICE_ { get; set; }
-        public Nullable<decimal> DISCOUNT { get; set; }
-        public Nullable<decimal> RATING { get; set; }
         public string DESCRIPTION_ { get; set; }
+        public decimal DISCOUNT_ { get; set; }
+        public Nullable<decimal> RATING_ { get; set; }
+        public Nullable<int> RATE_TIMES_ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RECEIPT_DETAIL> RECEIPT_DETAIL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CART> CARTs { get; set; }
     }
 }
