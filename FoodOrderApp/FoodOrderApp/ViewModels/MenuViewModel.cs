@@ -24,7 +24,7 @@ namespace FoodOrderApp.ViewModels
         public MenuViewModel()
         {
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
-            AddToCartCommand = new RelayCommand<ExecutedRoutedEventArgs>(p => p == null ? false : true, p => AddToCart(p));
+            AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
         }
 
         private void Load(MenuUC parameter)
@@ -34,9 +34,9 @@ namespace FoodOrderApp.ViewModels
             parameter.ViewListProducts.ItemsSource = products;
         }
 
-        private void AddToCart(ExecutedRoutedEventArgs e)
+        private void AddToCart(ListViewItem item)
         {
-            var p = (e.Parameter as ListViewItem).DataContext;
+            var p = item.DataContext;
             CurrentAccount.productsInCart.Add(p as PRODUCT);
         }
     }

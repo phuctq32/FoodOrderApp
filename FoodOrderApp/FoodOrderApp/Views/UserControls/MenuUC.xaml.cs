@@ -1,4 +1,5 @@
 ﻿using FoodOrderApp.Models;
+using FoodOrderApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,14 @@ namespace FoodOrderApp.Views.UserControls
         public MenuUC()
         {
             InitializeComponent();
+            DataContext = new MenuViewModel();
         }
 
-        private void addToCartBtn_Click(object sender, RoutedEventArgs e)
-        {
-            var item = ((sender as Button)?.Tag as ListViewItem).DataContext;
-            PRODUCT p = (item as PRODUCT);
-            CurrentAccount.productsInCart.Add(p);
-        }
+        //private void addToCartBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var item = ((sender as Button)?.Tag as ListViewItem).DataContext;
+        //    PRODUCT p = (item as PRODUCT);
+        //    CurrentAccount.productsInCart.Add(p);
+        //}
     }
 }
