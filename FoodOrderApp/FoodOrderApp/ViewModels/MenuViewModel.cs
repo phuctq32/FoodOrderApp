@@ -37,7 +37,7 @@ namespace FoodOrderApp.ViewModels
         private void AddToCart(ListViewItem item)
         {
             var p = item.DataContext;
-            CurrentAccount.productsInCart.Add(p as PRODUCT);
+            CurrentAccount.ProductsInCart.Add(p as PRODUCT);
         }
     }
 }

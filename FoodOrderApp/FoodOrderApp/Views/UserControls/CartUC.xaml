@@ -7,6 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              DataContext="{StaticResource CartVM}"
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
+             xmlns:mainlocal="clr-namespace:FoodOrderApp"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
              mc:Ignorable="d"
@@ -16,6 +17,7 @@
         </helpers:DoubleToVisibilityConverter>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
+        <mainlocal:CurrentAccount x:Key="currentAccount"></mainlocal:CurrentAccount>
     </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -31,7 +33,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
-                <Grid Margin="50 50">
+                <Grid Margin="50 50 20 50">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition></RowDefinition>
@@ -147,7 +149,7 @@
                                             </Grid>
                                             <!--nút +- số lượng-->
                                             <Grid Grid.Column="2">
-                                                <local:NumbericSpinner Width="70" Height="25" />
+                                                <local:NumericSpinner Width="70" Height="25" />
                                             </Grid>
                                             <!--giá tiền tổng cộng-->
                                             <TextBlock
@@ -163,7 +165,8 @@
                                         Style="{StaticResource deleteBtn}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Margin="0 0 10 0">
+                                        Margin="0 0 10 0"
+                                                Click="Button_Click">
                                             </Button>
                                         </Grid>
 

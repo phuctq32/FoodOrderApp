@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace FoodOrderApp.ViewModels
@@ -18,7 +20,7 @@ namespace FoodOrderApp.ViewModels
 
         private void DisplayCart(CartUC cartUC)
         {
-            cartUC.cartList.ItemsSource = CurrentAccount.productsInCart;
+            cartUC.cartList.ItemsSource = CurrentAccount.ProductsInCart;
         }
     }
 }

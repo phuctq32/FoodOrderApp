@@ -96,7 +96,7 @@
                             </Grid>
                             <!--nút +- số lượng-->
                             <Grid Grid.Column="2">
-                                <local:NumbericSpinner Width="70" Height="25" />
+                                <local:NumericSpinner Width="70" Height="25" />
                             </Grid>
                             <!--giá tiền tổng cộng-->
                             <TextBlock

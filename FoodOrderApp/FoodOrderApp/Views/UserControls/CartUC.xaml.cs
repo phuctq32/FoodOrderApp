@@ -24,5 +24,10 @@ namespace FoodOrderApp.Views.UserControls
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentAccount.ProductsInCart.Clear();
+        }
     }
 }
