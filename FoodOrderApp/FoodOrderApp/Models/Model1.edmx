@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="OrderAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="OrderAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CART">
           <Key>
             <PropertyRef Name="ID_" />
@@ -146,10 +146,21 @@
             <End Role="RECEIPT" EntitySet="RECEIPT" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OrderAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CART">
+          <Key>
+            <PropertyRef Name="ID_" />
+          </Key>
+          <Property Name="ID_" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="USERNAME_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRODUCT_" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PRODUCT" Relationship="Self.FK_CART_PRODUCT" FromRole="CART" ToRole="PRODUCT" />
+          <NavigationProperty Name="USER" Relationship="Self.FK_CART_USERNAME" FromRole="CART" ToRole="USERS" />
+        </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
             <PropertyRef Name="ID_" />
@@ -158,12 +169,12 @@
           <Property Name="NAME_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IMAGE_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PRICE_" Type="Int32" Nullable="false" />
-          <Property Name="DESCRIPTION_" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="RECEIPT_DETAIL" Relationship="Self.FK_DETAIL_PRODUCT" FromRole="PRODUCT" ToRole="RECEIPT_DETAIL" />
-          <Property Name="DISCOUNT_" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="DISCOUNT_" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
           <Property Name="RATING_" Type="Decimal" Precision="2" Scale="1" />
           <Property Name="RATE_TIMES_" Type="Int32" />
-          <NavigationProperty Name="CARTs" Relationship="OrderAppModel.FK_CART_PRODUCT" FromRole="PRODUCT" ToRole="CART" />
+          <Property Name="DESCRIPTION_" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CARTs" Relationship="Self.FK_CART_PRODUCT" FromRole="PRODUCT" ToRole="CART" />
+          <NavigationProperty Name="RECEIPT_DETAIL" Relationship="Self.FK_DETAIL_PRODUCT" FromRole="PRODUCT" ToRole="RECEIPT_DETAIL" />
         </EntityType>
         <EntityType Name="RECEIPT">
           <Key>
@@ -198,12 +209,36 @@
           <Property Name="ADDRESS_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SEX_" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="PHONE_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AVATAR_" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TYPE_" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="CARTs" Relationship="Self.FK_CART_USERNAME" FromRole="USERS" ToRole="CART" />
           <NavigationProperty Name="RECEIPTs" Relationship="Self.FK_RECEIPT_USERNAME" FromRole="USERS" ToRole="RECEIPT" />
-          <Property Name="AVATAR_" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CARTs" Relationship="OrderAppModel.FK_CART_USERNAME" FromRole="USER" ToRole="CART" />
         </EntityType>
+        <Association Name="FK_CART_PRODUCT">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="CART" Type="Self.CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="ID_" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="PRODUCT_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CART_USERNAME">
+          <End Role="USERS" Type="Self.USER" Multiplicity="1" />
+          <End Role="CART" Type="Self.CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USERNAME_" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="USERNAME_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DETAIL_PRODUCT">
           <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
           <End Role="RECEIPT_DETAIL" Type="Self.RECEIPT_DETAIL" Multiplicity="*" />
@@ -241,10 +276,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="OrderAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CARTs" EntityType="Self.CART" />
           <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
           <EntitySet Name="RECEIPTs" EntityType="Self.RECEIPT" />
           <EntitySet Name="RECEIPT_DETAIL" EntityType="Self.RECEIPT_DETAIL" />
           <EntitySet Name="USERS" EntityType="Self.USER" />
+          <AssociationSet Name="FK_CART_PRODUCT" Association="Self.FK_CART_PRODUCT">
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+            <End Role="CART" EntitySet="CARTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CART_USERNAME" Association="Self.FK_CART_USERNAME">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="CART" EntitySet="CARTs" />
+          </AssociationSet>
           <AssociationSet Name="FK_DETAIL_PRODUCT" Association="Self.FK_DETAIL_PRODUCT">
             <End Role="PRODUCT" EntitySet="PRODUCTs" />
             <End Role="RECEIPT_DETAIL" EntitySet="RECEIPT_DETAIL" />
@@ -257,66 +301,32 @@
             <End Role="USERS" EntitySet="USERS" />
             <End Role="RECEIPT" EntitySet="RECEIPTs" />
           </AssociationSet>
-          <EntitySet Name="CARTs" EntityType="OrderAppModel.CART" />
-          <AssociationSet Name="FK_CART_PRODUCT" Association="OrderAppModel.FK_CART_PRODUCT">
-            <End Role="PRODUCT" EntitySet="PRODUCTs" />
-            <End Role="CART" EntitySet="CARTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CART_USERNAME" Association="OrderAppModel.FK_CART_USERNAME">
-            <End Role="USER" EntitySet="USERS" />
-            <End Role="CART" EntitySet="CARTs" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="CART">
-          <Key>
-            <PropertyRef Name="ID_" />
-          </Key>
-          <Property Name="ID_" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
-          <Property Name="USERNAME_" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="PRODUCT_" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="PRODUCT" Relationship="OrderAppModel.FK_CART_PRODUCT" FromRole="CART" ToRole="PRODUCT" />
-          <NavigationProperty Name="USER" Relationship="OrderAppModel.FK_CART_USERNAME" FromRole="CART" ToRole="USER" />
-        </EntityType>
-        <Association Name="FK_CART_PRODUCT">
-          <End Type="OrderAppModel.PRODUCT" Role="PRODUCT" Multiplicity="1" />
-          <End Type="OrderAppModel.CART" Role="CART" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRODUCT">
-              <PropertyRef Name="ID_" />
-            </Principal>
-            <Dependent Role="CART">
-              <PropertyRef Name="PRODUCT_" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CART_USERNAME">
-          <End Type="OrderAppModel.USER" Role="USER" Multiplicity="1" />
-          <End Type="OrderAppModel.CART" Role="CART" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USER">
-              <PropertyRef Name="USERNAME_" />
-            </Principal>
-            <Dependent Role="CART">
-              <PropertyRef Name="USERNAME_" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="OrderAppModelStoreContainer" CdmEntityContainer="OrderAppEntities">
+          <EntitySetMapping Name="CARTs">
+            <EntityTypeMapping TypeName="OrderAppModel.CART">
+              <MappingFragment StoreEntitySet="CART">
+                <ScalarProperty Name="ID_" ColumnName="ID_" />
+                <ScalarProperty Name="USERNAME_" ColumnName="USERNAME_" />
+                <ScalarProperty Name="PRODUCT_" ColumnName="PRODUCT_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PRODUCTs">
             <EntityTypeMapping TypeName="OrderAppModel.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCT">
-                <ScalarProperty Name="RATE_TIMES_" ColumnName="RATE_TIMES_" />
-                <ScalarProperty Name="RATING_" ColumnName="RATING_" />
-                <ScalarProperty Name="DISCOUNT_" ColumnName="DISCOUNT_" />
                 <ScalarProperty Name="ID_" ColumnName="ID_" />
                 <ScalarProperty Name="NAME_" ColumnName="NAME_" />
                 <ScalarProperty Name="IMAGE_" ColumnName="IMAGE_" />
                 <ScalarProperty Name="PRICE_" ColumnName="PRICE_" />
+                <ScalarProperty Name="DISCOUNT_" ColumnName="DISCOUNT_" />
+                <ScalarProperty Name="RATING_" ColumnName="RATING_" />
+                <ScalarProperty Name="RATE_TIMES_" ColumnName="RATE_TIMES_" />
                 <ScalarProperty Name="DESCRIPTION_" ColumnName="DESCRIPTION_" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -345,24 +355,15 @@
           <EntitySetMapping Name="USERS">
             <EntityTypeMapping TypeName="OrderAppModel.USER">
               <MappingFragment StoreEntitySet="USERS">
-                <ScalarProperty Name="AVATAR_" ColumnName="AVATAR_" />
                 <ScalarProperty Name="USERNAME_" ColumnName="USERNAME_" />
                 <ScalarProperty Name="PASSWORD_" ColumnName="PASSWORD_" />
                 <ScalarProperty Name="FULLNAME_" ColumnName="FULLNAME_" />
                 <ScalarProperty Name="ADDRESS_" ColumnName="ADDRESS_" />
                 <ScalarProperty Name="SEX_" ColumnName="SEX_" />
                 <ScalarProperty Name="PHONE_" ColumnName="PHONE_" />
+                <ScalarProperty Name="AVATAR_" ColumnName="AVATAR_" />
                 <ScalarProperty Name="EMAIL_" ColumnName="EMAIL_" />
                 <ScalarProperty Name="TYPE_" ColumnName="TYPE_" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CARTs">
-            <EntityTypeMapping TypeName="OrderAppModel.CART">
-              <MappingFragment StoreEntitySet="CART">
-                <ScalarProperty Name="PRODUCT_" ColumnName="PRODUCT_" />
-                <ScalarProperty Name="USERNAME_" ColumnName="USERNAME_" />
-                <ScalarProperty Name="ID_" ColumnName="ID_" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

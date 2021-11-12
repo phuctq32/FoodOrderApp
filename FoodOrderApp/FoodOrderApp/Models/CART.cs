@@ -12,22 +12,13 @@ namespace FoodOrderApp
     using System;
     using System.Collections.Generic;
     
-    public partial class RECEIPT
+    public partial class CART
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RECEIPT()
-        {
-            this.RECEIPT_DETAIL = new HashSet<RECEIPT_DETAIL>();
-        }
-    
         public string ID_ { get; set; }
-        public System.DateTime DATE_ { get; set; }
-        public int VALUE_ { get; set; }
         public string USERNAME_ { get; set; }
-        public string STATUS_ { get; set; }
+        public string PRODUCT_ { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RECEIPT_DETAIL> RECEIPT_DETAIL { get; set; }
+        public virtual PRODUCT PRODUCT { get; set; }
         public virtual USER USER { get; set; }
     }
 }

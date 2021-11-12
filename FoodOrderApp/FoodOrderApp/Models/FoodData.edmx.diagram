@@ -12,6 +12,9 @@
         <AssociationConnector Association="OrderAppModel.FK_DETAIL_PRODUCT" ManuallyRouted="false" />
         <AssociationConnector Association="OrderAppModel.FK_DETAIL_RECEIPT" ManuallyRouted="false" />
         <AssociationConnector Association="OrderAppModel.FK_RECEIPT_USERNAME" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OrderAppModel.CART" Width="1.5" PointX="5.25" PointY="4.625" />
+        <AssociationConnector Association="OrderAppModel.FK_CART_PRODUCT" />
+        <AssociationConnector Association="OrderAppModel.FK_CART_USERNAME" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
