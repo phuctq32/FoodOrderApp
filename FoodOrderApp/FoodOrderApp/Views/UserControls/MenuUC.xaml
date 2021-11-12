@@ -186,7 +186,7 @@
                                                         Foreground="Red"
                                                         FontSize="12"
                                                         FontWeight="Medium"
-                                                        Text="{Binding DISCOUNT, StringFormat={}{0:P0}}"
+                                                        Text="{Binding DISCOUNT_, StringFormat={}{0:P0}}"
                                                         VerticalAlignment="Center">
                                                 </TextBlock>
                                             </Border>
