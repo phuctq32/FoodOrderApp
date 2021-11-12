@@ -10,8 +10,6 @@ namespace FoodOrderApp.Models
     {
         //Properties
 
-
-
         private string username;
         public string Username { get => username; private set => username = value; }
 

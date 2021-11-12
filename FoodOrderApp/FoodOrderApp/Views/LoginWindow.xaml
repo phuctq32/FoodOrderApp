@@ -201,7 +201,7 @@
         </Grid>
 
         <Rectangle 
-            Fill="#e6e6e6"
+            Fill="#FFF7F9F9"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             RadiusY="10" 

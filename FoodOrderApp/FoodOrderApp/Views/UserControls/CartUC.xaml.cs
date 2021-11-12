@@ -1,6 +1,4 @@
-﻿using FoodOrderApp.Models;
-using FoodOrderApp.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,21 +16,18 @@ using System.Windows.Shapes;
 namespace FoodOrderApp.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for MenuUC.xaml
+    /// Interaction logic for CartUC.xaml
     /// </summary>
-    public partial class MenuUC : UserControl
+    public partial class CartUC : UserControl
     {
-        public MenuUC()
+        public CartUC()
         {
             InitializeComponent();
-            DataContext = new MenuViewModel();
         }
 
-        //private void addToCartBtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var item = ((sender as Button)?.Tag as ListViewItem).DataContext;
-        //    PRODUCT p = (item as PRODUCT);
-        //    CurrentAccount.productsInCart.Add(p);
-        //}
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentAccount.ProductsInCart.Clear();
+        }
     }
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodOrderApp.Models
+namespace FoodOrderApp
 {
     using System;
     using System.Collections.Generic;

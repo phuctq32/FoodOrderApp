@@ -44,7 +44,7 @@
                             Visibility="Collapsed"/>
                         <TextBlock
                             x:Name="textblock"
-                            Margin="20 30 40 20"
+                            Margin="40 35 40 20"
                             TextWrapping="Wrap"
                             Width="auto"
                             MaxWidth="300"

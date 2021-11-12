@@ -85,12 +85,28 @@ namespace FoodOrderApp.Views
         {
             BitmapImage bitmapImage = new BitmapImage();
 
+
             switch (image)
             {
+                case MessageBoxImage.Warning:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/warning_icon.png"));
+                    break;
+                case MessageBoxImage.Question:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/question_icon.png"));
+                    break;
+                case MessageBoxImage.Error:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/error_icon.png"));
+                    break;
+                case MessageBoxImage.Asterisk:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/success_icon.png"));
+                    break;
+                case MessageBoxImage.None:
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/FoodOrderApp;component/Resources/Images/information_icon.png"));
+                    break;
                 default:
                     break;
             }
-
+            this.image_icon.Source = bitmapImage;
             this.image_icon.Visibility = Visibility.Visible;
         }
 

@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="FoodOrderApp.Views.UserControls.ContactUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
+             mc:Ignorable="d"
+             xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            Height="710"
+            Width="1120"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Regular"
+            TextElement.FontSize="13"
+            TextOptions.TextFormattingMode="Ideal"
+            TextOptions.TextRenderingMode="Auto"
+            Foreground="Black">
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
+        <Grid>
+            <!--Liên hệ-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" ></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="*" ></RowDefinition>
+                <RowDefinition Height="*" ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--Information-->
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Rectangle
+                          Width="300"
+                          Height="200"
+                          RadiusY="10"
+                          RadiusX="10"
+                          Margin="0"
+                    Grid.RowSpan="2">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <StackPanel
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.RowSpan="2"
+                    Margin="8 24 8 0"
+                    HorizontalAlignment="Stretch">
+
+                        <TextBlock
+                        Grid.Row="2"
+                        Grid.RowSpan="2"
+                        FontWeight="Bold" Margin="20 10" HorizontalAlignment="Center"
+                        FontSize="24">
+                        Food Order
+                        </TextBlock>
+                        <TextBlock
+                        Grid.Row="1"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        Padding="10 10"
+                        Margin="20 10"
+                        TextAlignment="Justify"
+                        FontSize="18"
+                        Text="Chúng tôi cũng xin gửi lời cảm ơn chân thành nhất tới những Khách hàng, Quý đối tác đang và sẽ cho phép chúng tôi được trở thành người bạn đồng hành cũng như đã dành sự tín nhiệm và ủng hộ tới sản phẩm, dịch vụ mà nhà hàng chúng tôi cung cấp.
+Lần đầu tiên bạn được thưởng thức hải sản theo một cách hoàn toàn khác biệt và chỉ có thể tìm thấy tại nhà hàng sang trọng bậc nhất Hạ Long đó là Nhà Hàng Phương Nam Hạ Long." />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <Grid Grid.Column="1" Grid.RowSpan="3" Grid.Row="1">
+                <TextBlock 
+                    Text="Liên hệ"
+                    FontSize="30"
+                    Foreground="Black"
+                    FontWeight="DemiBold"
+                    Margin="30 0 0 0"
+                    Width="100"
+                    Height="40"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"/>
+                
+                <StackPanel 
+                    Orientation="Vertical" 
+                    VerticalAlignment="Top"                    
+                    HorizontalAlignment="Center"
+                    Margin="0 50 0 0">
+                    <StackPanel Orientation="Horizontal" Margin="0 20">
+                        <materialDesign:PackIcon Kind="MapMarker" Height="40" Width="40" />
+                        <Label
+                           Margin="10 0 0 0"
+                           FontSize="20"
+                           Content="Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh."/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 20">
+                        <materialDesign:PackIcon Kind="Phone" Height="40" Width="40" />
+                        <Label
+                            Margin="10 0 0 0"
+                            Content="0123456789" 
+                            FontSize="20"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 20">
+                        <materialDesign:PackIcon Kind="Email" Height="40" Width="40" />
+                        <Label
+                            Margin="10 0 0 0"
+                            Content="info@gmail.com" 
+                            FontSize="20"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            
+            <TextBlock Grid.Row="4" Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Margin="20 10"
+                   FontSize="15"
+                   Foreground="Gray">
+            Copyright © 2021 by Team 7
+            </TextBlock>
+        </Grid>
+    </materialDesign:TransitioningContent>
+    
+</UserControl>

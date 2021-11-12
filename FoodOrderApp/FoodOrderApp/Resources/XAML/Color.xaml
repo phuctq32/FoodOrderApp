@@ -8,5 +8,6 @@
     <SolidColorBrush x:Key="Orange1" Color="#ff6f00"></SolidColorBrush>
     <SolidColorBrush x:Key="Orange2" Color="#ff8f00"></SolidColorBrush>
     <SolidColorBrush x:Key="Orange3" Color="#f9a825"></SolidColorBrush>
+    <SolidColorBrush x:Key="Orange4" Color="#ffcc80"></SolidColorBrush>
 
 </ResourceDictionary>

@@ -1,26 +1,37 @@
-﻿using System;
+﻿using FoodOrderApp.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FoodOrderApp
 {
-    class CurrentAccount
+    public class CurrentAccount
     {
-        private bool isAdmin;
-        private bool isUser;
-        private bool userName;
-        private bool password;
+        private static List<PRODUCT> productsInCart;
         public CurrentAccount()
         {
-            IsAdmin = true;
-            isUser = false;
+            IsAdmin = false;
+            IsUser = true;
+            ProductsInCart = new List<PRODUCT>();
         }
 
-        public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
-        public bool IsUser { get => isUser; set => isUser = value; }
-        public bool UserName { get => userName; set => userName = value; }
-        public bool Password { get => password; set => password = value; }
+        public static bool IsAdmin { get; set; }
+        public static bool IsUser { get; set; }
+        public static bool UserName { get; set; }
+        public  static bool Password { get; set; }
+        public static List<PRODUCT> ProductsInCart { get => productsInCart; set {
+                productsInCart = value;
+            }          
+        }
+
+        //protected void OnPropertyChanged(List<PRODUCT> propertyName)
+        //{
+        //    if (PropertyChanged != null)
+        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //}
+        //public event PropertyChangedEventHandler PropertyChanged;
     }
 }
