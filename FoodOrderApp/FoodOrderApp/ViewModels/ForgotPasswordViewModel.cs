@@ -1,4 +1,5 @@
-﻿using FoodOrderApp.Views;
+﻿using FoodOrderApp.Models;
+using FoodOrderApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace FoodOrderApp.ViewModels
         public ICommand ChangePasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand RePasswordChangedCommand { get; set; }
-        public ICommand ForgotPasswordCommand { get; set; }
+    
+        public ICommand SendCodeCommand { get; set; }
 
         
 
@@ -25,6 +27,7 @@ namespace FoodOrderApp.ViewModels
 
 
         private string code;
+        private int systemCode=0;
         public string Code { get => code; set { code = value; OnPropertyChanged(); } }
 
         private string password;
@@ -35,9 +38,17 @@ namespace FoodOrderApp.ViewModels
 
         public ForgotPasswordViewModel()
         {
+            Code = "";
             ChangePasswordCommand = new RelayCommand<ForgotPasswordWindow>((parameter) => true, (parameter) => ChangePassword(parameter));
             PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => { return true; }, (parameter) => { Password = parameter.Password; });
             RePasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => { return true; }, (parameter) => { RePassword = parameter.Password; });
+            SendCodeCommand = new RelayCommand<ForgotPasswordWindow>((parameter) => true, (parameter) => SendCode(parameter));
+        }
+        public void SendCode(ForgotPasswordWindow parameter)
+        {
+            Random random = new Random();
+            systemCode = random.Next(100000, 999999);
+            sendGmail("sadam01664@gmail.com", Mail, "FOOD ORDER APP", "Your code is : " + systemCode.ToString());
         }
         public void ChangePassword(ForgotPasswordWindow parameter)
         {
@@ -80,7 +91,34 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Nhập lại mật khẩu không đúng!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            MessageBox.Show(Mail + " " + Code + " " + Password + " " + RePassword);
+            //Nếu chưa nhấn
+            if (systemCode == 0)
+            {
+                CustomMessageBox.Show("Bạn chưa nhận mã xác thực!!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            string tmpCode = systemCode.ToString();
+            string tmp = Code;
+            if (tmp != tmpCode)
+            {
+                CustomMessageBox.Show("Mã xác nhận không đúng!!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+
+                USER user = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == Mail).SingleOrDefault();
+                user.PASSWORD_ = Password;
+                Data.Ins.DB.SaveChanges();
+                CustomMessageBox.Show("Đổi mật khẩu thành công!", MessageBoxButton.OK);
+                systemCode = 0;
+                parameter.Close();
+                
+            }
+            catch
+            {
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
+            }
         }
 
 

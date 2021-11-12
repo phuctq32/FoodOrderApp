@@ -43,7 +43,7 @@ namespace FoodOrderApp.ViewModels
         private string code;
         public string Code { get => code; set { code = value; OnPropertyChanged(); } }
 
-        private int systemCode;
+        private int systemCode=0;
 
         public SignUpViewModel()
         {
@@ -52,28 +52,6 @@ namespace FoodOrderApp.ViewModels
             PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => { return true; }, (parameter) => { Password = parameter.Password; });
             RePasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => { return true; }, (parameter) => { RePassword = parameter.Password; });
         }
-
-        /*public void SignUp(SignUpWindow parameter)
-        {
-            //isSignUp = false;
-
-             //Check username
-            if (string.IsNullOrEmpty(parameter.txtUsername.Text))
-            {
-                parameter.txtUsername.Focus();
-                parameter.txtUsername.Text = "";
-                return;
-            }
-
-            if (!Regex.IsMatch(parameter.txtUsername.Text, @"^[a-zA-Z0-9_]+$"))
-            {
-                parameter.txtUsername.Focus();
-               return;
-            }
-            
-
-           
-        }*/
 
         public void SignUp(SignUpWindow parameter)
         {
@@ -113,7 +91,7 @@ namespace FoodOrderApp.ViewModels
                 return;
             }
 
-
+            // if (!Regex.IsMatch(parameter.txtUsername.Text, @"^[a-zA-Z0-9_]+$"))
             // Check username
             if (string.IsNullOrEmpty(parameter.txtUsername.Text))
             {
@@ -167,28 +145,37 @@ namespace FoodOrderApp.ViewModels
             ///Hiện xác nhận mã 
             parameter.grdInformation.Visibility = Visibility.Collapsed;
             parameter.transitionContentSlideInside.Visibility = Visibility.Visible;
-            
+            //CustomMessageBox.Show(systemCode.ToString(), MessageBoxButton.OK);
+
 
         }
         public void Activation(SignUpWindow parameter)
         {
-            if (Code != systemCode.ToString())
+            if (systemCode == 0)
+            {
+                CustomMessageBox.Show("Bạn chưa nhận mã xác thực!!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            string tmpCode = systemCode.ToString();
+            string tmp = Code;
+            if (tmp != tmpCode )
             {
                 CustomMessageBox.Show("Mã xác nhận không đúng!!", MessageBoxButton.OK);
                 return;
             }
-            try
-            {
-                
-                 Data.Ins.DB.USERS.Add(new USER() { EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
-                 Data.Ins.DB.SaveChanges();
-                CustomMessageBox.Show("Đăng ký thành công",MessageBoxButton.OK);
-                parameter.Close();
-            }
-            catch
-            {
-                CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
-            }
+             try
+             {
+
+                  Data.Ins.DB.USERS.Add(new USER() { EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
+                  Data.Ins.DB.SaveChanges();
+                 CustomMessageBox.Show("Đăng ký thành công",MessageBoxButton.OK);
+                systemCode = 0;
+                 parameter.Close();
+             }
+             catch
+             {
+                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
+             }
         }
         
     }
