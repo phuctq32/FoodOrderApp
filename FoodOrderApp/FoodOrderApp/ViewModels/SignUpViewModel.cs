@@ -81,6 +81,7 @@ namespace FoodOrderApp.ViewModels
             /// Check Mail
             if (string.IsNullOrEmpty(parameter.txtMail.Text))
             {
+                CustomMessageBox.Show("Email đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtMail.Focus();
                 parameter.txtMail.Text = "";
                 return;
@@ -90,7 +91,7 @@ namespace FoodOrderApp.ViewModels
             if (mailCount > 0)
             {
                 parameter.txtMail.Focus();
-                MessageBox.Show("Mail đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Mail đã tồn tại!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -99,7 +100,8 @@ namespace FoodOrderApp.ViewModels
             if (string.IsNullOrEmpty(parameter.txtPhone.Text))
             {
                 parameter.txtPhone.Focus();
-                parameter.txtPhone.Text = "";
+                CustomMessageBox.Show("Số điện thoại đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtPhone.Text = ""; 
                 return;
             }
 
@@ -108,6 +110,7 @@ namespace FoodOrderApp.ViewModels
             if (string.IsNullOrEmpty(parameter.txtUsername.Text))
             {
                 parameter.txtUsername.Focus();
+                CustomMessageBox.Show("Tài khoản đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtUsername.Text = "";
                 return;
             }
@@ -122,7 +125,7 @@ namespace FoodOrderApp.ViewModels
             if (accCount > 0)
             {
                 parameter.txtUsername.Focus();
-                MessageBox.Show("Tài khoản đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Tài khoản đã tồn tại!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -132,19 +135,21 @@ namespace FoodOrderApp.ViewModels
             {
                 parameter.PasswordBox.Focus();
                 parameter.PasswordBox.Password = "";
+                CustomMessageBox.Show("Mật khẩu trống", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(parameter.RePasswordBox.Password))
             {
                 parameter.RePasswordBox.Focus();
                 parameter.RePasswordBox.Password = "";
+                CustomMessageBox.Show("Chưa xác nhận mật khẩu", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (Password != RePassword)
             {
                 parameter.RePasswordBox.Focus();
-                MessageBox.Show("Nhập lại mật khẩu không đúng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Nhập lại mật khẩu không đúng!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             ///Tạo code
@@ -161,7 +166,7 @@ namespace FoodOrderApp.ViewModels
         {
             if (Code != systemCode.ToString())
             {
-                MessageBox.Show("Mã xác nhận không đúng!!", "Thông báo", MessageBoxButton.OK);
+                CustomMessageBox.Show("Mã xác nhận không đúng!!", MessageBoxButton.OK);
                 return;
             }
             try
@@ -169,12 +174,12 @@ namespace FoodOrderApp.ViewModels
                 
                  Data.Ins.DB.USERS.Add(new USER() { EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
                  Data.Ins.DB.SaveChanges();
-                MessageBox.Show("Đăng ký thành công","Thành công",MessageBoxButton.OK);
+                CustomMessageBox.Show("Đăng ký thành công",MessageBoxButton.OK);
                 parameter.Close();
             }
             catch
             {
-                MessageBox.Show("Lỗi cơ sở dữ liệu");
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
             }
         }
         
