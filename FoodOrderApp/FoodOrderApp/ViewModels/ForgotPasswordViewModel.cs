@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,6 +41,45 @@ namespace FoodOrderApp.ViewModels
         }
         public void ChangePassword(ForgotPasswordWindow parameter)
         {
+            //Check Mail
+            if (string.IsNullOrEmpty(parameter.txtMail.Text))
+            {
+                CustomMessageBox.Show("Email đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtMail.Focus();
+                parameter.txtMail.Text = "";
+                return;
+            }
+            if (!Regex.IsMatch(parameter.txtMail.Text, @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"))
+            {
+                parameter.txtMail.Focus();
+                CustomMessageBox.Show("Email không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            //Check Password
+            if (string.IsNullOrEmpty(parameter.PasswordBox.Password))
+            {
+                parameter.PasswordBox.Focus();
+                parameter.PasswordBox.Password = "";
+                CustomMessageBox.Show("Mật khẩu trống", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (string.IsNullOrEmpty(parameter.RePasswordBox.Password))
+            {
+                parameter.RePasswordBox.Focus();
+                parameter.RePasswordBox.Password = "";
+                CustomMessageBox.Show("Chưa xác nhận mật khẩu", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (Password != RePassword)
+            {
+                parameter.RePasswordBox.Focus();
+                CustomMessageBox.Show("Nhập lại mật khẩu không đúng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             MessageBox.Show(Mail + " " + Code + " " + Password + " " + RePassword);
         }
 

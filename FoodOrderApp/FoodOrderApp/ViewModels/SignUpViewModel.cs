@@ -57,22 +57,22 @@ namespace FoodOrderApp.ViewModels
         {
             //isSignUp = false;
 
-            // Check username
-            //if (string.IsNullOrEmpty(parameter.txtUsername.Text))
-            //{
-            //    parameter.txtUsername.Focus();
-            //    parameter.txtUsername.Text = "";
-            //    return;
-            //}
+             //Check username
+            if (string.IsNullOrEmpty(parameter.txtUsername.Text))
+            {
+                parameter.txtUsername.Focus();
+                parameter.txtUsername.Text = "";
+                return;
+            }
 
-            //if (!Regex.IsMatch(parameter.txtUsername.Text, @"^[a-zA-Z0-9_]+$"))
-            //{
-            //    parameter.txtUsername.Focus();
-            //    return;
-            //}
+            if (!Regex.IsMatch(parameter.txtUsername.Text, @"^[a-zA-Z0-9_]+$"))
+            {
+                parameter.txtUsername.Focus();
+               return;
+            }
+            
 
-            parameter.grdInformation.Visibility = System.Windows.Visibility.Collapsed;
-            parameter.transitionContentSlideInside.Visibility = System.Windows.Visibility.Visible;
+           
         }*/
 
         public void SignUp(SignUpWindow parameter)
@@ -84,6 +84,14 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Email đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtMail.Focus();
                 parameter.txtMail.Text = "";
+                return;
+            }
+            if (!Regex.IsMatch(parameter.txtMail.Text, @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"))
+            {
+                parameter.txtMail.Focus();
+                CustomMessageBox.Show("Email không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             /// Check Mail exist
