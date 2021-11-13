@@ -1,4 +1,5 @@
 ﻿using FoodOrderApp;
+using FoodOrderApp.Models;
 using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 using System;
@@ -17,6 +18,14 @@ namespace FoodOrderApp.ViewModels
         public ICommand LoadedCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
         public ICommand SwitchTabCommand { get; set; }
+
+
+        private string FULLNAME;
+        public string FULLNAME_ { get => FULLNAME; set { FULLNAME = value; OnPropertyChanged(); } }
+
+        private string AVATAR;
+        public string AVATAR_ { get => AVATAR; set { AVATAR = value; OnPropertyChanged(); } }
+
 
         public MainViewModel()
         {
@@ -42,8 +51,10 @@ namespace FoodOrderApp.ViewModels
             {
                 mainWindow.ucWindow.Children.Add(new MenuUC());
             }
-            
-            
+            USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            AVATAR_ = user.AVATAR_;
+            FULLNAME_ = user.FULLNAME_;
+
             mainWindow.controlBar.closeBtn.Command = CloseWindowCommand;
             mainWindow.controlBar.closeBtn.CommandParameter = mainWindow.controlBar;
         }
