@@ -94,6 +94,7 @@ namespace FoodOrderApp.ViewModels
                     CurrentAccount.Username = UserName; 
                     MainWindow app = new MainWindow();
                     app.ShowDialog();
+                    parameter.Close();
                     parameter.txtPassword.Clear();
                 }
                 else

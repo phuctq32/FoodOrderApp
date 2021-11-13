@@ -18,6 +18,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand LoadedCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
         public ICommand SwitchTabCommand { get; set; }
+        public ICommand LogOutCommand { get; set; }
 
 
         private string FULLNAME;
@@ -56,6 +57,7 @@ namespace FoodOrderApp.ViewModels
                 }
             });
             SwitchTabCommand = new RelayCommand<MainWindow>(p => true, (p) => SwitchTab(p));
+            LogOutCommand = new RelayCommand<MainWindow>(p => true, (p) => LogOut(p));
         }
 
         private void Loaded(MainWindow mainWindow)
@@ -95,6 +97,15 @@ namespace FoodOrderApp.ViewModels
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new ContactUC());
                     break;
+            }
+        }
+        private void LogOut(MainWindow mainWindow)
+        {
+            if (CustomMessageBox.Show("Bạn có muốn đăng xuất?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                mainWindow.Close();
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
             }
         }
     }

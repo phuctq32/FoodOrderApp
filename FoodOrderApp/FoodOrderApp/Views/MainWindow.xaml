@@ -290,7 +290,18 @@
                         </i:Interaction.Triggers>
                     </ListView>
 
-                    <Button Background="Transparent" Width="100" Height="20" Padding="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50 0 0 20" Foreground="Black" OverridesDefaultStyle="True">
+                    <Button 
+                        Background="Transparent" 
+                        Width="100" 
+                        Height="20" 
+                        Padding="0" 
+                        VerticalAlignment="Bottom" 
+                        HorizontalAlignment="Left" 
+                        Margin="50 0 0 20" 
+                        Foreground="Black" 
+                        OverridesDefaultStyle="True"
+                        Command="{Binding LogOutCommand}"
+                        CommandParameter="{Binding ElementName=MainWD}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <StackPanel x:Name="stackpanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -304,6 +315,7 @@
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
+                            
                         </Button.Template>
                     </Button>
                 </Grid>
