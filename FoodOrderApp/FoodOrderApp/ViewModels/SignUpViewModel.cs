@@ -43,7 +43,7 @@ namespace FoodOrderApp.ViewModels
         private string code;
         public string Code { get => code; set { code = value; OnPropertyChanged(); } }
 
-        private int systemCode;
+        private int systemCode=0;
 
         public SignUpViewModel()
         {
@@ -53,36 +53,23 @@ namespace FoodOrderApp.ViewModels
             RePasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => { return true; }, (parameter) => { RePassword = parameter.Password; });
         }
 
-        /*public void SignUp(SignUpWindow parameter)
-        {
-            //isSignUp = false;
-
-            // Check username
-            //if (string.IsNullOrEmpty(parameter.txtUsername.Text))
-            //{
-            //    parameter.txtUsername.Focus();
-            //    parameter.txtUsername.Text = "";
-            //    return;
-            //}
-
-            //if (!Regex.IsMatch(parameter.txtUsername.Text, @"^[a-zA-Z0-9_]+$"))
-            //{
-            //    parameter.txtUsername.Focus();
-            //    return;
-            //}
-
-            parameter.grdInformation.Visibility = System.Windows.Visibility.Collapsed;
-            parameter.transitionContentSlideInside.Visibility = System.Windows.Visibility.Visible;
-        }*/
-
         public void SignUp(SignUpWindow parameter)
         {
 
             /// Check Mail
             if (string.IsNullOrEmpty(parameter.txtMail.Text))
             {
+                CustomMessageBox.Show("Email đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtMail.Focus();
                 parameter.txtMail.Text = "";
+                return;
+            }
+            if (!Regex.IsMatch(parameter.txtMail.Text, @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"))
+            {
+                parameter.txtMail.Focus();
+                CustomMessageBox.Show("Email không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             /// Check Mail exist
@@ -90,7 +77,7 @@ namespace FoodOrderApp.ViewModels
             if (mailCount > 0)
             {
                 parameter.txtMail.Focus();
-                MessageBox.Show("Mail đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Mail đã tồn tại!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -99,15 +86,17 @@ namespace FoodOrderApp.ViewModels
             if (string.IsNullOrEmpty(parameter.txtPhone.Text))
             {
                 parameter.txtPhone.Focus();
-                parameter.txtPhone.Text = "";
+                CustomMessageBox.Show("Số điện thoại đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtPhone.Text = ""; 
                 return;
             }
 
-
+            // if (!Regex.IsMatch(parameter.txtUsername.Text, @"^[a-zA-Z0-9_]+$"))
             // Check username
             if (string.IsNullOrEmpty(parameter.txtUsername.Text))
             {
                 parameter.txtUsername.Focus();
+                CustomMessageBox.Show("Tài khoản đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtUsername.Text = "";
                 return;
             }
@@ -122,7 +111,7 @@ namespace FoodOrderApp.ViewModels
             if (accCount > 0)
             {
                 parameter.txtUsername.Focus();
-                MessageBox.Show("Tài khoản đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Tài khoản đã tồn tại!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -132,19 +121,21 @@ namespace FoodOrderApp.ViewModels
             {
                 parameter.PasswordBox.Focus();
                 parameter.PasswordBox.Password = "";
+                CustomMessageBox.Show("Mật khẩu trống", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(parameter.RePasswordBox.Password))
             {
                 parameter.RePasswordBox.Focus();
                 parameter.RePasswordBox.Password = "";
+                CustomMessageBox.Show("Chưa xác nhận mật khẩu", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (Password != RePassword)
             {
                 parameter.RePasswordBox.Focus();
-                MessageBox.Show("Nhập lại mật khẩu không đúng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Nhập lại mật khẩu không đúng!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             ///Tạo code
@@ -154,28 +145,37 @@ namespace FoodOrderApp.ViewModels
             ///Hiện xác nhận mã 
             parameter.grdInformation.Visibility = Visibility.Collapsed;
             parameter.transitionContentSlideInside.Visibility = Visibility.Visible;
-            
+            //CustomMessageBox.Show(systemCode.ToString(), MessageBoxButton.OK);
+
 
         }
         public void Activation(SignUpWindow parameter)
         {
-            if (Code != systemCode.ToString())
+            if (systemCode == 0)
             {
-                MessageBox.Show("Mã xác nhận không đúng!!", "Thông báo", MessageBoxButton.OK);
+                CustomMessageBox.Show("Bạn chưa nhận mã xác thực!!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            try
+            string tmpCode = systemCode.ToString();
+            string tmp = Code;
+            if (tmp != tmpCode )
             {
-                
-                 Data.Ins.DB.USERS.Add(new USER() { EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
-                 Data.Ins.DB.SaveChanges();
-                MessageBox.Show("Đăng ký thành công","Thành công",MessageBoxButton.OK);
-                parameter.Close();
+                CustomMessageBox.Show("Mã xác nhận không đúng!!", MessageBoxButton.OK);
+                return;
             }
-            catch
-            {
-                MessageBox.Show("Lỗi cơ sở dữ liệu");
-            }
+             try
+             {
+
+                  Data.Ins.DB.USERS.Add(new USER() { EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
+                  Data.Ins.DB.SaveChanges();
+                 CustomMessageBox.Show("Đăng ký thành công",MessageBoxButton.OK);
+                systemCode = 0;
+                 parameter.Close();
+             }
+             catch
+             {
+                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
+             }
         }
         
     }
