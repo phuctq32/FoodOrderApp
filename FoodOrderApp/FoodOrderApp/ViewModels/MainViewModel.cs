@@ -26,6 +26,19 @@ namespace FoodOrderApp.ViewModels
         private string AVATAR;
         public string AVATAR_ { get => AVATAR; set { AVATAR = value; OnPropertyChanged(); } }
 
+        private string mail;
+        public string Mail { get => mail; set { mail = value; OnPropertyChanged(); } }
+
+        private string phone;
+        public string Phone { get => phone; set { phone = value; OnPropertyChanged(); } }
+
+        private string userName;
+        public string UserName { get => userName; set { userName = value; OnPropertyChanged(); } }
+
+        private string address;
+        public string Address { get => address; set { address = value; OnPropertyChanged(); } }
+
+        
 
         public MainViewModel()
         {
@@ -54,7 +67,10 @@ namespace FoodOrderApp.ViewModels
             USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
             AVATAR_ = user.AVATAR_;
             FULLNAME_ = user.FULLNAME_;
-
+            Phone = user.PHONE_;
+            UserName = user.USERNAME_;
+            Mail = user.EMAIL_;
+            Address = user.ADDRESS_;
             mainWindow.controlBar.closeBtn.Command = CloseWindowCommand;
             mainWindow.controlBar.closeBtn.CommandParameter = mainWindow.controlBar;
         }
