@@ -39,7 +39,7 @@ namespace FoodOrderApp.ViewModels
             }
             catch
             {
-                MessageBox.Show("Lời nhắn của cậu gửi đi không thành công!", "Không thành công", MessageBoxButton.OK);
+                CustomMessageBox.Show("Lỗi! Không thể gửi mã code!", MessageBoxButton.OK);
             }
         }
     }

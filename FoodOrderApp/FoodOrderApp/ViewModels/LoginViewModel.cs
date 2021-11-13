@@ -68,14 +68,14 @@ namespace FoodOrderApp.ViewModels
                 }
                 if (string.IsNullOrEmpty(parameter.txtUsername.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show("Vui lòng nhập tên đăng nhập!", MessageBoxButton.OK, MessageBoxImage.Warning);
                     parameter.txtUsername.Focus();
                     return;
                 }
                 //check password
                 if (string.IsNullOrEmpty(parameter.txtPassword.Password))
                 {
-                    MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show("Vui lòng nhập mật khẩu!", MessageBoxButton.OK, MessageBoxImage.Warning);
                     parameter.txtPassword.Focus();
                     return;
                 }
@@ -98,14 +98,14 @@ namespace FoodOrderApp.ViewModels
                 else
                 {
                     isLogin = false;
-                    MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    CustomMessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác!", MessageBoxButton.OK, MessageBoxImage.Error);
                     parameter.txtPassword.Focus();
                 }
 
             }
             catch
             {
-                MessageBox.Show("lỗi");
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
             }
         }
 
