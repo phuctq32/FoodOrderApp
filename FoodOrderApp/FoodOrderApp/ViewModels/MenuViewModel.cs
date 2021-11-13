@@ -36,8 +36,17 @@ namespace FoodOrderApp.ViewModels
 
         private void AddToCart(ListViewItem item)
         {
-            var p = item.DataContext;
-            CurrentAccount.ProductsInCart.Add(p as PRODUCT);
+            var product = item.DataContext as PRODUCT;
+            USER currentUser = new USER();
+            var currentUsers = Data.Ins.DB.USERS.Where(user => user.USERNAME_ == CurrentAccount.Username).ToList();
+            foreach(var user in currentUsers)
+            {
+                currentUser = user;
+            }
+            CART itemCart = new CART();
+            itemCart.USERNAME_ = currentUser.USERNAME_;
+            itemCart.PRODUCT_ = product.ID_;
+            Data.Ins.DB.CARTs.Add(itemCart);
         }
     }
 }

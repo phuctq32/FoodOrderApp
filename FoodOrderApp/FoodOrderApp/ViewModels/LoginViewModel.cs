@@ -91,6 +91,7 @@ namespace FoodOrderApp.ViewModels
                 if (accCount > 0)
                 {
                     isLogin = true;
+                    CurrentAccount.Username = UserName; 
                     MainWindow app = new MainWindow();
                     app.ShowDialog();
                     parameter.txtPassword.Clear();

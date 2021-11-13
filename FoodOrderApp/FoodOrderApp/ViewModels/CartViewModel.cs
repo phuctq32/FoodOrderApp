@@ -1,4 +1,5 @@
-﻿using FoodOrderApp.Views.UserControls;
+﻿using FoodOrderApp.Models;
+using FoodOrderApp.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,20 @@ namespace FoodOrderApp.ViewModels
     public class CartViewModel : BaseViewModel
     {
         public ICommand LoadedCommand { get; set; }
-        public CartViewModel() 
+        public CartViewModel()
         {
             LoadedCommand = new RelayCommand<CartUC>(p => true, p => DisplayCart(p));
         }
 
-        private void DisplayCart(CartUC cartUC)
+        private void DisplayCart(CartUC parameter)
         {
-            cartUC.cartList.ItemsSource = CurrentAccount.ProductsInCart;
+            List<CART> currentUserCarts = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+            foreach (var item in currentUserCarts)
+            {
+                var product = Data.Ins.DB.PRODUCTs.Where(p => p.ID_ == item.PRODUCT_) as PRODUCT;
+                CurrentAccount.ProductsInCart.Add(product);
+            }
+            parameter.cartList.ItemsSource = CurrentAccount.ProductsInCart;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace FoodOrderApp
     public class CurrentAccount
     {
         private static List<PRODUCT> productsInCart;
+        private static string username;
+        private static string password;
         public CurrentAccount()
         {
             IsAdmin = false;
@@ -20,18 +22,13 @@ namespace FoodOrderApp
 
         public static bool IsAdmin { get; set; }
         public static bool IsUser { get; set; }
-        public static bool UserName { get; set; }
-        public  static bool Password { get; set; }
+        
         public static List<PRODUCT> ProductsInCart { get => productsInCart; set {
                 productsInCart = value;
             }          
         }
 
-        //protected void OnPropertyChanged(List<PRODUCT> propertyName)
-        //{
-        //    if (PropertyChanged != null)
-        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        //}
-        //public event PropertyChangedEventHandler PropertyChanged;
+        public static string Username { get => username; set => username = value; }
+        public static string Password { get => password; set => password = value; }
     }
 }
