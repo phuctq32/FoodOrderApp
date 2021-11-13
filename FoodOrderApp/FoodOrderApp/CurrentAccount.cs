@@ -15,6 +15,7 @@ namespace FoodOrderApp
         private static string password;
         public CurrentAccount()
         {
+            IsUser = true;
             ProductsInCart = new List<PRODUCT>();
         }
 
