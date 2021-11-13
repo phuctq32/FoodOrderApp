@@ -83,7 +83,7 @@
                                 FontWeight="Medium"
                         Width="250" Height="50"
                                Text="{Binding Mail}"
-                               Padding="0 15 15 15">
+                               Padding="0 30 15 15">
                         </TextBlock>
                     </StackPanel>
                     <!--Tên người dùng-->
@@ -115,7 +115,7 @@
                                 FontWeight="Medium"
                         Width="250" Height="50"
                                 Text="{Binding FULLNAME_}"
-                               Padding="0 15 15 15"></TextBlock>
+                               Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <!--Số điện thoại-->
                     <StackPanel Orientation="Horizontal" Margin="0 20">
@@ -146,7 +146,7 @@
                                 FontWeight="Medium"
                         Width="250" Height="50"
                                 Text="{Binding Phone}"
-                               Padding="0 15 15 15"></TextBlock>
+                               Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <!--giới tính-->
                     <StackPanel Orientation="Horizontal" Margin="0 20">
@@ -188,7 +188,7 @@
                                 FontWeight="Medium"
                         Width="250" Height="50"
                                 Text="{Binding Address}"
-                               Padding="0 15 15 15"></TextBlock>
+                               Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <Button
                             Style="{StaticResource GreenBtn}"

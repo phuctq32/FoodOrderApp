@@ -91,7 +91,18 @@ namespace FoodOrderApp.ViewModels
                 if (accCount > 0)
                 {
                     isLogin = true;
-                    CurrentAccount.Username = UserName; 
+                    if(UserName == "admin")
+                    {
+                        CurrentAccount.IsAdmin = true;
+                        CurrentAccount.IsUser = false;
+                    }
+                    else
+                    {
+                        CurrentAccount.IsAdmin = false;
+                        CurrentAccount.IsUser = true;
+                    }
+                    CurrentAccount.Username = UserName;
+                    
                     MainWindow app = new MainWindow();
                     app.ShowDialog();
                     parameter.Close();
