@@ -58,11 +58,11 @@
                                             </Grid.ColumnDefinitions>
 
                                             <CheckBox
-                                    Grid.Column="0"
-                                    Margin="20 0"
-                                    Height="13"
-                                    Width="17"
-                                    HorizontalAlignment="Left" />
+                                                Grid.Column="0"
+                                                Margin="20 0"
+                                                Height="13"
+                                                Width="17"
+                                                HorizontalAlignment="Left" />
                                             <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
                                             <Grid Grid.Column="1">
                                                 <!--hình ảnh-->

@@ -87,11 +87,9 @@
     <Compile Include="Helpers\PriceToPriceDiscount.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Data.cs" />
-    
     <Compile Include="Models\CART.cs">
       <DependentUpon>FoodData.tt</DependentUpon>
     </Compile>
-    
     <Compile Include="Models\FoodData.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -160,6 +158,9 @@
     </Compile>
     <Compile Include="Views\UserControls\MenuUC.xaml.cs">
       <DependentUpon>MenuUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\MyOrderUC.xaml.cs">
+      <DependentUpon>MyOrderUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\NumericSpinner.xaml.cs">
       <DependentUpon>NumericSpinner.xaml</DependentUpon>
@@ -253,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\MenuUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\MyOrderUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
