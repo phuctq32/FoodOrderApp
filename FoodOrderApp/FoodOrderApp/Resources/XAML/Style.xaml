@@ -31,7 +31,27 @@
                 <ControlTemplate TargetType="Button">
                     <Border
                         Background="{TemplateBinding Background}">
-                        <materialDesign:PackIcon x:Name="content" Kind="DeleteOutline" Width="20" Height="20" />
+                        <materialDesign:PackIcon x:Name="content" Kind="DeleteOutline" Width="30" Height="30" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="content" Property="Foreground" Value="{DynamicResource Orange2}"></Setter>
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="editBtn" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="{TemplateBinding Background}">
+                        <materialDesign:PackIcon x:Name="content" Kind="EditOutline" Width="30" Height="30" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
