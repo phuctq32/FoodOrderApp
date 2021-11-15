@@ -39,10 +39,57 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Orientation="Horizontal"></StackPanel>
+                    <Border 
+                        Grid.Row="0"
+                        Background="White"
+                        CornerRadius="5"
+                        Margin="25 0">
+                        <Grid>
+                            <CheckBox
+                                x:Name="selectAllCheckBox"
+                                Width="17"
+                                Height="13"
+                                HorizontalAlignment="Left"
+                                Margin="12 0 0 0"
+                                Background="{StaticResource Orange2}"/>
+                            <TextBlock
+                                Text="Món ăn"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="50 0 0 0"
+                                FontSize="18"
+                                FontWeight="DemiBold"
+                                Foreground="Black"/>
+                            <TextBlock
+                                Text="Số lượng"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="167 0 0 0"
+                                FontSize="18"
+                                FontWeight="DemiBold"
+                                Foreground="Black"/>
+                            <TextBlock
+                                Text="Giá"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="0 0 100 0"
+                                FontSize="18"
+                                FontWeight="DemiBold"
+                                Foreground="Black"/>
+                            <Button
+                                x:Name="deleteAllBtn"
+                                Grid.Column="4"
+                                Style="{StaticResource deleteBtn}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="0 0 6 0"
+                                />
+                        </Grid>
+
+                    </Border>
 
                     <Grid Grid.Row="1">
-                        <ListView x:Name="cartList">
+                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <!--Lưu ý: các phần binding chỉ là để test bên VM
@@ -153,20 +200,20 @@
                                             </Grid>
                                             <!--giá tiền tổng cộng-->
                                             <TextBlock
-                                        Grid.Column="3"
-                                        Text="$100.00"
-                                        FontSize="16"
-                                        FontWeight="DemiBold"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center" />
+                                                Grid.Column="3"
+                                                Text="$100.00"
+                                                FontSize="16"
+                                                FontWeight="DemiBold"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" />
                                             <!--nút xoá món ăn ra khỏi giỏ hàng-->
                                             <Button
-                                        Grid.Column="4"
-                                        Style="{StaticResource deleteBtn}"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Margin="0 0 10 0"
-                                                Click="Button_Click">
+                                                Grid.Column="4"
+                                                Style="{StaticResource deleteBtn}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Margin="0 0 10 0"
+                                                Background="{StaticResource Orange2}">
                                             </Button>
                                         </Grid>
 
@@ -184,6 +231,7 @@
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
+
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Background" Value="Transparent" />

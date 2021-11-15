@@ -103,12 +103,12 @@ namespace FoodOrderApp.ViewModels
 
                 case 2:
                     mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new AccountUC());
+                    mainWindow.ucWindow.Children.Add(new MyOrderUC());
                     break;
 
                 case 3:
                     mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new MyOrderUC());
+                    mainWindow.ucWindow.Children.Add(new AccountUC());
                     break;
 
                 case 4:

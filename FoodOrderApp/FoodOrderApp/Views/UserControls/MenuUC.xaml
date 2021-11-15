@@ -43,58 +43,61 @@
                     <StackPanel Orientation="Vertical" Margin="60 0 60 0">
                         <!--khung search-->
                         <materialDesign:ColorZone
-                    Mode="Standard"
-                    CornerRadius="25"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                     Height="50" Width="700"
-                    HorizontalAlignment="Left">
+                            Background="White"
+                            Mode="Standard"
+                            CornerRadius="25"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Height="50" Width="700"
+                            HorizontalAlignment="Left">
                             <DockPanel
-                        LastChildFill="True"
-                        FlowDirection="RightToLeft">
-                                <Button
-                            Style="{DynamicResource MaterialDesignToolForegroundButton}"
-                            Margin="8 -6 8 -6"
-                            DockPanel.Dock="Right"
-                            Content="{materialDesign:PackIcon Kind=Search}" />
+                                LastChildFill="True">
+                                <materialDesign:PackIcon 
+                                    Kind="Search"
+                                    Height="25"
+                                    Width="25"
+                                    Opacity="0.4"
+                                    Margin="10 12 0 0"
+                                    DockPanel.Dock="Left" />
                                 <TextBox
-                            HorizontalContentAlignment="Right"
-                            BorderBrush="Transparent"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            VerticalAlignment="Top"
-                            Height="50"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            VerticalScrollBarVisibility="Disabled" />
+                                    HorizontalContentAlignment="Left"
+                                    BorderBrush="Transparent"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    VerticalAlignment="Top"
+                                    Height="50"
+                                    FontSize="16"
+                                    AcceptsReturn="True"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Disabled" />
                             </DockPanel>
                         </materialDesign:ColorZone>
-                        <Button
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        <ComboBox Height="40" Width="150"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Margin="0 20 10 0"
+                            Foreground="Black"
+                            FontSize="16"
+                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Orange1}"
+                            materialDesign:HintAssist.Hint="Sắp xếp"
+                            VerticalContentAlignment="Center">
+                            <ComboBoxItem Content="Giá tăng"/>
+                            <ComboBoxItem Content="Giá giảm"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!--Filter-->
+                    
+                    <Button
+                        Style="{StaticResource SearchBtn}"
                         Width="160"
                         Height="50"
                         materialDesign:ButtonAssist.CornerRadius="25"
                         ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
                         HorizontalAlignment="Left"
-                        Margin="0 20 0 0">
-                            <TextBlock
-                            Text="Tìm kiếm" />
-                        </Button>
-                    </StackPanel>
-
-                    <!--Filter-->
-                    <ComboBox Height="50" Width="150"
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Right"
-                          Margin="0 0 200 0"
-                          Foreground="Black"
-                          Background="Transparent"
-                          FontSize="16"
-                          materialDesign:HintAssist.Hint="Giá"
-                          VerticalContentAlignment="Center">
-                        <ComboBoxItem Content="Giá giảm">
-                        </ComboBoxItem>
-                        <ComboBoxItem Content="Giá tăng">
-                        </ComboBoxItem>
-                    </ComboBox>
+                        VerticalAlignment="Top"
+                        Margin="-30 0 0 0">
+                        <TextBlock
+                            Text="Tìm kiếm" FontSize="17" />
+                    </Button>
                 </StackPanel>
                 <Grid Grid.Row="1">
                     <!--Lưu ý: các phần binding chỉ là để test bên VM

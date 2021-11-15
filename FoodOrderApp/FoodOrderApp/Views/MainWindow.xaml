@@ -121,8 +121,8 @@
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="AccountSettings" VerticalAlignment="Center" ></materialDesign:PackIcon>
-                                            <TextBlock x:Name="text" Text="Tài khoản" Margin="20 16 0 0" ></TextBlock>
+                                            <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="ClipboardText" VerticalAlignment="Center" ></materialDesign:PackIcon>
+                                            <TextBlock x:Name="text" Text="Đơn hàng của tôi" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
                                     </Border>
                                     <ControlTemplate.Triggers>
@@ -149,8 +149,8 @@
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border Height="50" x:Name="border" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="ClipboardText" VerticalAlignment="Center" ></materialDesign:PackIcon>
-                                            <TextBlock x:Name="text" Text="Đơn hàng của tôi" Margin="20 16 0 0" ></TextBlock>
+                                            <materialDesign:PackIcon Name="icon" Margin="30 0 0 0" Height="30" Width="30" Kind="AccountSettings" VerticalAlignment="Center" ></materialDesign:PackIcon>
+                                            <TextBlock x:Name="text" Text="Tài khoản" Margin="20 16 0 0" ></TextBlock>
                                         </StackPanel>
                                     </Border>
                                     <ControlTemplate.Triggers>
