@@ -23,10 +23,10 @@ namespace FoodOrderApp.Models
             }
         }
 
-        public OrderAppEntities DB { get; set; }
+        public fooddataEntities DB { get; set; }
         private Data()
         {
-            DB = new OrderAppEntities();
+            DB = new fooddataEntities();
         }
     }
 }
