@@ -28,11 +28,6 @@ namespace FoodOrderApp.Views.UserControls
 
         }
 
-        private void Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-           // CollectionViewSource.GetDefaultView(ViewListProducts.ItemsSource).Refresh();
-        }
-
 
         //private void addToCartBtn_Click(object sender, RoutedEventArgs e)
         //{

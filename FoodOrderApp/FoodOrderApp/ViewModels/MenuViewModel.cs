@@ -23,8 +23,9 @@ namespace FoodOrderApp.ViewModels
         public ICommand SearchCommand { get; set; }
         private string search;
         public string Search { get => search; set { search = value; OnPropertyChanged(); } }
-        public List<PRODUCT> products;
-
+        public List<PRODUCT> products; 
+        public PRODUCT pRODUCT = new PRODUCT();
+        
         public MenuViewModel()
         {
             AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
@@ -54,10 +55,53 @@ namespace FoodOrderApp.ViewModels
         }
         private bool UserFilter(object item)
         {
+           string a = RemoveSign4VietnameseString(pRODUCT.NAME_);
             if (String.IsNullOrEmpty(Search))
                 return true;
             else
-                return ((item as PRODUCT).NAME_.IndexOf(Search, StringComparison.OrdinalIgnoreCase) >= 0);
+                return (a.IndexOf(Search, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+        private static readonly string[] VietnameseSigns = new string[]
+                {
+
+            "aAeEoOuUiIdDyY",
+
+            "áàạảãâấầậẩẫăắằặẳẵ",
+
+            "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+
+            "éèẹẻẽêếềệểễ",
+
+            "ÉÈẸẺẼÊẾỀỆỂỄ",
+
+            "óòọỏõôốồộổỗơớờợởỡ",
+
+            "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+
+            "úùụủũưứừựửữ",
+
+            "ÚÙỤỦŨƯỨỪỰỬỮ",
+
+            "íìịỉĩ",
+
+            "ÍÌỊỈĨ",
+
+            "đ",
+
+            "Đ",
+
+            "ýỳỵỷỹ",
+
+            "ÝỲỴỶỸ"
+                };
+        public static string RemoveSign4VietnameseString(string str)
+        {
+            for (int i = 1; i < VietnameseSigns.Length; i++)
+            {
+                for (int j = 0; j < VietnameseSigns[i].Length; j++)
+                  str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
+            }
+            return str;
         }
         private void AddToCart(ListViewItem parameter)
         {

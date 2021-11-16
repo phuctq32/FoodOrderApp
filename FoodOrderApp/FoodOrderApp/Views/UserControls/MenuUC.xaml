@@ -68,8 +68,7 @@
                                     FontSize="16"
                                     AcceptsReturn="True"
                                     TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Disabled" 
-                                    TextChanged="Search_TextChanged"/>
+                                    VerticalScrollBarVisibility="Disabled" />
                             </DockPanel>
                         </materialDesign:ColorZone>
                         <ComboBox Height="40" Width="150"
