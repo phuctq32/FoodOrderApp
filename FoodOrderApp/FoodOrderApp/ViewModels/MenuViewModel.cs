@@ -29,24 +29,24 @@ namespace FoodOrderApp.ViewModels
 
         private void Load(MenuUC parameter)
         {
-            products = Data.Ins.DB.PRODUCTs.ToList();
+            //products = Data.Ins.DB.PRODUCTs.ToList();
 
-            parameter.ViewListProducts.ItemsSource = products;
+            //parameter.ViewListProducts.ItemsSource = products;
         }
 
         private void AddToCart(ListViewItem item)
         {
-            var product = item.DataContext as PRODUCT;
-            USER currentUser = new USER();
-            var currentUsers = Data.Ins.DB.USERS.Where(user => user.USERNAME_ == CurrentAccount.Username).ToList();
-            foreach(var user in currentUsers)
-            {
-                currentUser = user;
-            }
-            CART itemCart = new CART();
-            itemCart.USERNAME_ = currentUser.USERNAME_;
-            itemCart.PRODUCT_ = product.ID_;
-            Data.Ins.DB.CARTs.Add(itemCart);
+            //var product = item.DataContext as PRODUCT;
+            //USER currentUser = new USER();
+            //var currentUsers = Data.Ins.DB.USERS.Where(user => user.USERNAME_ == CurrentAccount.Username).ToList();
+            //foreach(var user in currentUsers)
+            //{
+            //    currentUser = user;
+            //}
+            //CART itemCart = new CART();
+            //itemCart.USERNAME_ = currentUser.USERNAME_;
+            //itemCart.PRODUCT_ = product.ID_;
+            //Data.Ins.DB.CARTs.Add(itemCart);
         }
     }
 }

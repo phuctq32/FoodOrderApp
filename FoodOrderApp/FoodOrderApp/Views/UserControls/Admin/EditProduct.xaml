@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
              mc:Ignorable="d"
-             d:DesignHeight="710" d:DesignWidth="1120">
+             Height="710" Width="1120">
     <UserControl.Resources>
         <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
         </helpers:DoubleToVisibilityConverter>
@@ -16,50 +16,61 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Text="Edit Product"
-                       FontSize="40"
-                       FontWeight="Bold"
-                       Margin="10">
-            </TextBlock>
-            <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <TextBlock Text="Món ăn"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--header-->
+            <TextBlock Text="Món ăn"
                            FontSize="24"
                            VerticalAlignment="Center"
-                           Margin="20 0"
-                           FontWeight="Medium"></TextBlock>
-                <TextBlock Text="Tên món ăn"
+                           HorizontalAlignment="Center"
+                           FontWeight="Medium"
+                           Foreground="Black"
+                           Grid.Column="0"></TextBlock>
+            <TextBlock Text="Số lượng"
                            FontSize="24"
                            VerticalAlignment="Center"
-                           Margin="20 0"
-                           FontWeight="Medium"></TextBlock>
-                <TextBlock Text="Giá món ăn"
+                           HorizontalAlignment="Center"
+                           FontWeight="Medium"
+                           Foreground="Black"
+                           Grid.Column="1"></TextBlock>
+            <TextBlock Text="Giá"
                            FontSize="24"
                            VerticalAlignment="Center"
-                           Margin="20 0"
-                           FontWeight="Medium"></TextBlock>
-                <Button
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    materialDesign:ButtonAssist.CornerRadius="25"
-                    Content="Thêm món ăn"
-                    HorizontalAlignment="Right">
-                </Button>
-            </StackPanel>
-            <ListView Grid.Row="2">
+                           HorizontalAlignment="Center"
+                           FontWeight="Medium"
+                           Foreground="Black"
+                           Grid.Column="2"></TextBlock>
+            <!--button thêm-->
+            <Button
+                Style="{StaticResource GreenBtn}"
+                Content="Thêm"
+                Width="120"
+                Height="50"
+                FontSize="20"
+                Foreground="White"
+                VerticalAlignment="Center"
+                Grid.Column="3">
+            </Button>
+            <!--list item-->
+            <ListView Grid.Row="1" Grid.ColumnSpan="4"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListViewItem>
-                    <Grid Height="120" Width="1120">
+                    <Grid Height="120" Width="1110">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="55"></ColumnDefinition>
-                                <ColumnDefinition Width="400"></ColumnDefinition>
-                                <ColumnDefinition Width="140"></ColumnDefinition>
-                                <ColumnDefinition Width="140"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                <ColumnDefinition Width="1.2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
-                            <Grid Grid.Column="1">
+                            <Grid Grid.Column="0">
                                 <!--hình ảnh-->
                                 <Rectangle
                                             RadiusY="10"
@@ -67,74 +78,93 @@
                                             Height="80"
                                             Width="80"
                                             HorizontalAlignment="Left"
-                                            Margin="0">
+                                            Margin="20 0">
                                     <Rectangle.Fill>
                                         <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
                                     </Rectangle.Fill>
                                 </Rectangle>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical" Height="120" Margin="0,0,-0.4,0" VerticalAlignment="Bottom">
                                     <!--tên món ăn-->
                                     <TextBlock
-                                                MinHeight="40"
-                                                MaxWidth="180"
-                                                Text="Tên món ăn nè"
-                                                TextWrapping="Wrap"
-                                                FontSize="15"
-                                                FontWeight="Medium"
-                                                Margin="70 20 0 0" />
+                                        Margin="0 20 0 0"
+                                        Text="Tên món ăn"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="2"></TextBlock>
                                     <TextBlock
-                                            x:Name="moneyTxt"
                                             Margin="10 5"
                                             Foreground="Black"
-                                            FontSize="16"
-                                            FontWeight="Medium"
-                                            Text="{Binding Value}"
                                             VerticalAlignment="Center"
-                                            TextDecorations="{Binding ElementName=saleTxt, Path= Text, Converter={StaticResource doubleToTxtDecorations}}">
+                                            HorizontalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="Medium"
+                                            Text="100">
                                     </TextBlock>
                                 </StackPanel>
                             </Grid>
-                            <!--nút +- số lượng-->
-                            <Grid Grid.Column="2">
-                                <local:NumericSpinner Width="70" Height="25" />
-                            </Grid>
-                            <!--giá tiền tổng cộng-->
-                            <TextBlock
-                                        Grid.Column="3"
-                                        Text="$100.00"
-                                        FontSize="16"
-                                        FontWeight="DemiBold"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center" />
-                            <!--nút xoá món ăn ra khỏi giỏ hàng-->
-                            <Button
-                                        Grid.Column="4"
-                                        Style="{StaticResource deleteBtn}"
-                                        HorizontalAlignment="Center"
+                            <!--số lượng-->
+                            <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="1"></TextBlock>
+                            <!--giá tiền-->
+                            <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       TextWrapping="Wrap"
+                                       Grid.Column="2"></TextBlock>
+                            <!--button xoá sửa-->
+                            <StackPanel Orientation="Horizontal" Grid.Column="4">
+                                <Button Style="{StaticResource editBtn}"
                                         VerticalAlignment="Center"
-                                        Margin="0 0 10 0">
-                            </Button>
-                            <Button
-                                        Grid.Column="4"
-                                        Style="{StaticResource deleteBtn}"
                                         HorizontalAlignment="Center"
+                                        Margin="60 0 0 0">
+                                </Button>
+                                <Button Style="{StaticResource deleteBtn}"
                                         VerticalAlignment="Center"
-                                        Margin="0 0 10 0">
-                            </Button>
+                                        HorizontalAlignment="Center"
+                                        Margin="50 0 0 0">
+                                </Button>
+                            </StackPanel>
                         </Grid>
-                        <!-- background -->
                         <Rectangle
-                                    x:Name="backgroundRec"
-                                    Fill="White"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    RadiusY="10"
-                                    RadiusX="10"
-                                    Panel.ZIndex="-2"
-                                    Margin="10">
+                            Fill="White"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            RadiusY="10"
+                            RadiusX="10"
+                            Panel.ZIndex="-2"
+                            Margin="10">
                         </Rectangle>
                     </Grid>
                 </ListViewItem>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Background="LightGray"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <!--loại bỏ hover, highlight effect của listview-->
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
     </Grid>
