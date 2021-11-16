@@ -85,7 +85,7 @@
                     </StackPanel>
 
                     <!--Filter-->
-                    
+
                     <Button
                         Style="{StaticResource SearchBtn}"
                         Width="160"
@@ -106,7 +106,7 @@
                               Margin="20 0"
                               Width="auto"
                               Height="auto"
-
+                              
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListView.ItemsPanel>
@@ -166,8 +166,8 @@
                                                 Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
                                             <TextBlock
                                                 x:Name="priceDiscount"
-
-                                                    Margin="0 0 10 0"
+                                                
+                                                Margin="0 0 10 0"
                                                     Foreground="Red"
                                                     FontSize="16"
                                                     FontWeight="Medium"

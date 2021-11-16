@@ -23,30 +23,21 @@ namespace FoodOrderApp.ViewModels
 
         public MenuViewModel()
         {
+            AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
-            AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
+            //AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
         }
 
         private void Load(MenuUC parameter)
         {
-            //products = Data.Ins.DB.PRODUCTs.ToList();
+            products = Data.Ins.DB.PRODUCTs.ToList();
 
-            //parameter.ViewListProducts.ItemsSource = products;
+            parameter.ViewListProducts.ItemsSource = products;
         }
 
-        private void AddToCart(ListViewItem item)
+        private void AddToCart(ListViewItem parameter)
         {
-            //var product = item.DataContext as PRODUCT;
-            //USER currentUser = new USER();
-            //var currentUsers = Data.Ins.DB.USERS.Where(user => user.USERNAME_ == CurrentAccount.Username).ToList();
-            //foreach(var user in currentUsers)
-            //{
-            //    currentUser = user;
-            //}
-            //CART itemCart = new CART();
-            //itemCart.USERNAME_ = currentUser.USERNAME_;
-            //itemCart.PRODUCT_ = product.ID_;
-            //Data.Ins.DB.CARTs.Add(itemCart);
+           
         }
     }
 }

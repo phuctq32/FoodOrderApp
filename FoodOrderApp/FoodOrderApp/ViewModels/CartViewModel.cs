@@ -22,13 +22,14 @@ namespace FoodOrderApp.ViewModels
 
         private void DisplayCart(CartUC parameter)
         {
-            //List<CART> currentUserCarts = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
-            //foreach (var item in currentUserCarts)
-            //{
-            //    var product = Data.Ins.DB.PRODUCTs.Where(p => p.ID_ == item.PRODUCT_) as PRODUCT;
-            //    CurrentAccount.ProductsInCart.Add(product);
-            //}
-            //parameter.cartList.ItemsSource = CurrentAccount.ProductsInCart;
+            List<PRODUCT> loadedListCart = new List<PRODUCT>() ;
+            List<CART> currentUserCarts = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+            foreach (var item in currentUserCarts)
+            {
+                PRODUCT product = Data.Ins.DB.PRODUCTs.Where(p => p.ID_ == item.PRODUCT_).SingleOrDefault();
+                loadedListCart.Add(product);
+            }
+            parameter.cartList.ItemsSource = loadedListCart;
         }
     }
 }
