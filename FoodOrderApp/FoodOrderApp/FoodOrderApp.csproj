@@ -285,6 +285,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Images\food.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\FoodData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FoodData.edmx</DependentUpon>
