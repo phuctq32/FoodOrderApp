@@ -82,6 +82,7 @@
     <Compile Include="CurrentAccount.cs" />
     <Compile Include="CustomMessageBox.cs" />
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\DoubleToOpacity.cs" />
     <Compile Include="Helpers\DoubleToTextDecorationsConverter.cs" />
     <Compile Include="Helpers\DoubleToVisibilityConverter.cs" />
     <Compile Include="Helpers\PriceToPriceDiscount.cs" />
@@ -134,6 +135,9 @@
     </Compile>
     <Compile Include="Views\ForgotPasswordWindow.xaml.cs">
       <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InvoiceWindow.xaml.cs">
+      <DependentUpon>InvoiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -235,6 +239,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\InvoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -284,7 +292,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
