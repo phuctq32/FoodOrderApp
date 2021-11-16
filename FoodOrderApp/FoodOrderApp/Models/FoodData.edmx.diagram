@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f5ee993ef8014073bc431027c83ea298" Name="Diagram1">
-        <EntityTypeShape EntityType="OrderAppModel.PRODUCT" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderAppModel.RECEIPT" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderAppModel.RECEIPT_DETAIL" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderAppModel.USER" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="OrderAppModel.FK_DETAIL_PRODUCT" ManuallyRouted="false" />
-        <AssociationConnector Association="OrderAppModel.FK_DETAIL_RECEIPT" ManuallyRouted="false" />
-        <AssociationConnector Association="OrderAppModel.FK_RECEIPT_USERNAME" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="OrderAppModel.CART" Width="1.5" PointX="5.25" PointY="4.625" />
-        <AssociationConnector Association="OrderAppModel.FK_CART_PRODUCT" />
-        <AssociationConnector Association="OrderAppModel.FK_CART_USERNAME" />
+      <Diagram DiagramId="2514fee57fb84f3f9e6e8baaff0b46c4" Name="Diagram1">
+        <EntityTypeShape EntityType="fooddataModel.CART" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="fooddataModel.PRODUCT" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="fooddataModel.RECEIPT" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="fooddataModel.RECEIPT_DETAIL" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="fooddataModel.USER" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="fooddataModel.FK_CART_PRODUCT" ManuallyRouted="false" />
+        <AssociationConnector Association="fooddataModel.FK_CART_USERNAME" ManuallyRouted="false" />
+        <AssociationConnector Association="fooddataModel.FK_DETAIL_PRODUCT" ManuallyRouted="false" />
+        <AssociationConnector Association="fooddataModel.FK_DETAIL_RECEIPT" ManuallyRouted="false" />
+        <AssociationConnector Association="fooddataModel.FK_RECEIPT_USERNAME" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
