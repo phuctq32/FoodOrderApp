@@ -78,13 +78,14 @@
                                 Padding="2,0,0,0"
                                 Visibility="Collapsed">
                         </TextBox>
-                        <TextBlock Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                        Width="250" Height="50"
-                               Text="{Binding Mail}"
-                               Padding="0 30 15 15">
-                        </TextBlock>
+                        <TextBlock 
+                            Foreground="Black"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Width="250" Height="50"
+                            Text="{Binding Mail}"
+                            Padding="0 30 15 15"/>
+
                     </StackPanel>
                     <!--Tên người dùng-->
                     <StackPanel Orientation="Horizontal" Margin="0 20">
@@ -96,26 +97,27 @@
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
                         <TextBox
-                                x:Name="txtUsername"
-                                materialDesign:HintAssist.Hint="Tên"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                Width="250"
-                                VerticalContentAlignment="Center"
-                                Height="50"
-                                Padding="2,0,0,0"
-                                Visibility="Collapsed">
+                            x:Name="txtUsername"
+                            materialDesign:HintAssist.Hint="Tên"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Foreground="Black"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                            Width="250"
+                            VerticalContentAlignment="Center"
+                            Height="50"
+                            Padding="2,0,0,0"
+                            Visibility="Collapsed">
                         </TextBox>
-                        <TextBlock Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                        Width="250" Height="50"
-                                Text="{Binding FULLNAME_}"
-                               Padding="0 30 15 15"></TextBlock>
+                        <TextBlock 
+                            Foreground="Black"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Width="250" Height="50"
+                            Text="{Binding FULLNAME_}"
+                            Padding="0 30 15 15"/>
                     </StackPanel>
                     <!--Số điện thoại-->
                     <StackPanel Orientation="Horizontal" Margin="0 20">
@@ -141,12 +143,13 @@
                                 Padding="2,0,0,0"
                                 Visibility="Collapsed">
                         </TextBox>
-                        <TextBlock Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                        Width="250" Height="50"
-                                Text="{Binding Phone}"
-                               Padding="0 30 15 15"></TextBlock>
+                        <TextBlock 
+                            Foreground="Black"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Width="250" Height="50"
+                            Text="{Binding Phone}"
+                            Padding="0 30 15 15"/>
                     </StackPanel>
                     <!--giới tính-->
                     <StackPanel Orientation="Horizontal" Margin="0 20">
@@ -183,12 +186,13 @@
                                 Padding="2,0,0,0"
                                 Visibility="Collapsed">
                         </TextBox>
-                        <TextBlock Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                        Width="250" Height="50"
-                                Text="{Binding Address}"
-                               Padding="0 30 15 15"></TextBlock>
+                        <TextBlock 
+                            Foreground="Black"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Width="250" Height="50"
+                            Text="{Binding Address}"
+                            Padding="0 30 15 15"/>
                     </StackPanel>
                     <Button
                             Style="{StaticResource GreenBtn}"
