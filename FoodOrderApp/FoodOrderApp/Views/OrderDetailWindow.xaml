@@ -41,28 +41,29 @@
                 <TextBlock Text="Món ăn"
                            FontSize="24"
                            VerticalAlignment="Bottom"
-                           HorizontalAlignment="Center"
+                           HorizontalAlignment="Left"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="0"></TextBlock>
+                           Grid.Column="0"
+                           Margin="40 0 0 0"/>
                 <TextBlock Text="Số lượng"
                            FontSize="24"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="1"></TextBlock>
+                           Grid.Column="1"/>
                 <TextBlock Text="Giá"
                            FontSize="24"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="2"></TextBlock>
+                           Grid.Column="2"/>
                 <ListView Grid.Row="1" Grid.ColumnSpan="3"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListViewItem>
-                        <Grid Height="120" Width="770">
+                        <Grid Height="120" Width="780">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -78,7 +79,7 @@
                                             Height="80"
                                             Width="80"
                                             HorizontalAlignment="Left"
-                                            Margin="20 0">
+                                            Margin="40 0">
                                         <Rectangle.Fill>
                                             <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
                                         </Rectangle.Fill>
@@ -95,7 +96,7 @@
                                        Foreground="Black"
                                        Grid.Column="2"></TextBlock>
                                         <TextBlock
-                                            x:Name="moneyTxt"
+                                            
                                             Margin="10 5"
                                             Foreground="Black"
                                             VerticalAlignment="Center"
@@ -131,14 +132,315 @@
                             RadiusY="10"
                             RadiusX="10"
                             Panel.ZIndex="-2"
-                            Effect="{StaticResource dropShadow}"
-                            Margin="10">
+                            Margin="10"
+                                Effect="{StaticResource dropShadow1}">
                             </Rectangle>
                         </Grid>
                     </ListViewItem>
+                    <ListViewItem>
+                        <Grid Height="120" Width="780">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
+                                <Grid Grid.Column="0">
+                                    <!--hình ảnh-->
+                                    <Rectangle
+                                            RadiusY="10"
+                                            RadiusX="10"
+                                            Height="80"
+                                            Width="80"
+                                            HorizontalAlignment="Left"
+                                            Margin="40 0">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel Orientation="Vertical" Height="120" Margin="0,0,-0.4,0" VerticalAlignment="Bottom">
+                                        <!--tên món ăn-->
+                                        <TextBlock
+                                        Margin="0 20 0 0"
+                                        Text="Tên món ăn"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="2"></TextBlock>
+                                        <TextBlock
+                                            
+                                            Margin="10 5"
+                                            Foreground="Black"
+                                            VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="Medium"
+                                            Text="100">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <!--số lượng-->
+                                <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="1"></TextBlock>
+                                <!--giá tiền tổng cộng-->
+                                <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       TextWrapping="Wrap"
+                                       Grid.Column="2"></TextBlock>
+                            </Grid>
+                            <Rectangle
+                            Fill="White"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            RadiusY="10"
+                            RadiusX="10"
+                            Panel.ZIndex="-2"
+                            Margin="10"
+                                Effect="{StaticResource dropShadow1}">
+                            </Rectangle>
+                        </Grid>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <Grid Height="120" Width="780">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
+                                <Grid Grid.Column="0">
+                                    <!--hình ảnh-->
+                                    <Rectangle
+                                            RadiusY="10"
+                                            RadiusX="10"
+                                            Height="80"
+                                            Width="80"
+                                            HorizontalAlignment="Left"
+                                            Margin="40 0">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel Orientation="Vertical" Height="120" Margin="0,0,-0.4,0" VerticalAlignment="Bottom">
+                                        <!--tên món ăn-->
+                                        <TextBlock
+                                        Margin="0 20 0 0"
+                                        Text="Tên món ăn"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="2"></TextBlock>
+                                        <TextBlock
+                                            
+                                            Margin="10 5"
+                                            Foreground="Black"
+                                            VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="Medium"
+                                            Text="100">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <!--số lượng-->
+                                <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="1"></TextBlock>
+                                <!--giá tiền tổng cộng-->
+                                <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       TextWrapping="Wrap"
+                                       Grid.Column="2"></TextBlock>
+                            </Grid>
+                            <Rectangle
+                            Fill="White"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            RadiusY="10"
+                            RadiusX="10"
+                            Panel.ZIndex="-2"
+                            Margin="10"
+                                Effect="{StaticResource dropShadow1}">
+                            </Rectangle>
+                        </Grid>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <Grid Height="120" Width="780">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
+                                <Grid Grid.Column="0">
+                                    <!--hình ảnh-->
+                                    <Rectangle
+                                            RadiusY="10"
+                                            RadiusX="10"
+                                            Height="80"
+                                            Width="80"
+                                            HorizontalAlignment="Left"
+                                            Margin="40 0">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel Orientation="Vertical" Height="120" Margin="0,0,-0.4,0" VerticalAlignment="Bottom">
+                                        <!--tên món ăn-->
+                                        <TextBlock
+                                        Margin="0 20 0 0"
+                                        Text="Tên món ăn"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="2"></TextBlock>
+                                        <TextBlock
+                                            
+                                            Margin="10 5"
+                                            Foreground="Black"
+                                            VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="Medium"
+                                            Text="100">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <!--số lượng-->
+                                <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="1"></TextBlock>
+                                <!--giá tiền tổng cộng-->
+                                <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       TextWrapping="Wrap"
+                                       Grid.Column="2"></TextBlock>
+                            </Grid>
+                            <Rectangle
+                            Fill="White"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            RadiusY="10"
+                            RadiusX="10"
+                            Panel.ZIndex="-2"
+                            Margin="10"
+                                Effect="{StaticResource dropShadow1}">
+                            </Rectangle>
+                        </Grid>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <Grid Height="120" Width="780">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
+                                <Grid Grid.Column="0">
+                                    <!--hình ảnh-->
+                                    <Rectangle
+                                            RadiusY="10"
+                                            RadiusX="10"
+                                            Height="80"
+                                            Width="80"
+                                            HorizontalAlignment="Left"
+                                            Margin="40 0">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel Orientation="Vertical" Height="120" Margin="0,0,-0.4,0" VerticalAlignment="Bottom">
+                                        <!--tên món ăn-->
+                                        <TextBlock
+                                        Margin="0 20 0 0"
+                                        Text="Tên món ăn"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="2"></TextBlock>
+                                        <TextBlock
+                                            
+                                            Margin="10 5"
+                                            Foreground="Black"
+                                            VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="Medium"
+                                            Text="100">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <!--số lượng-->
+                                <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="1"></TextBlock>
+                                <!--giá tiền tổng cộng-->
+                                <TextBlock Text="100"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       TextWrapping="Wrap"
+                                       Grid.Column="2"></TextBlock>
+                            </Grid>
+                            <Rectangle
+                            Fill="White"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            RadiusY="10"
+                            RadiusX="10"
+                            Panel.ZIndex="-2"
+                            Margin="10"
+                                Effect="{StaticResource dropShadow1}">
+                            </Rectangle>
+                        </Grid>
+                    </ListViewItem>
+                    
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Background="LightGray"></WrapPanel>
+                            <WrapPanel Background="{StaticResource GrayBackground}"></WrapPanel>
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                     <!--loại bỏ hover, highlight effect của listview-->
