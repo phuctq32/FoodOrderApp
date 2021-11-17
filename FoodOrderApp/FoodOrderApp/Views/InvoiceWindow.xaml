@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FoodOrderApp.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
         mc:Ignorable="d"
-        MinHeight="550" MaxHeight="800" Width="800"
+        MinHeight="550" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -17,28 +17,31 @@
         Foreground="{x:Null}"
         AllowsTransparency="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen" SizeToContent="Height">
+        WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
     <Grid>
         <ListView Width="auto">
-            <Grid Width="790">
-                <Button HorizontalAlignment="Left" Margin="20" VerticalAlignment="Top">
-                    <materialDesign:PackIcon Kind="Printer" />
-                </Button>
+            <Grid Width="790" >
+                
                 <Grid x:Name="print">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.8*" />
-                        <RowDefinition Height="4.2*" />
-                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="100" />
+                        <RowDefinition MinHeight="365" />
+                        <RowDefinition Height="85"/>
                     </Grid.RowDefinitions>
-                    <uc:ControlBarUC Margin="10"></uc:ControlBarUC>
-                    <Grid Margin="0 40 0 0" Grid.Row="0">
-                        <TextBlock Text="Hoá đơn"
-                                    HorizontalAlignment="Center"
-                                   VerticalAlignment="Bottom"
-                                    FontSize="40"
-                                    FontWeight="Bold"
-                                    Foreground="{StaticResource Orange1}">
-                        </TextBlock>
+                    
+                    <Grid  Grid.Row="0">
+                        <uc:ControlBarUC Margin="10"></uc:ControlBarUC>
+                        <Button HorizontalAlignment="Left" Margin="20" Background="{StaticResource Orange1}" VerticalAlignment="Top">
+                            <materialDesign:PackIcon Kind="Printer" />
+                        </Button>
+                        <TextBlock 
+                            Text="Hoá đơn"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            FontSize="40"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource Orange1}"/>
+
                     </Grid>
                     <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="20">
                         <Grid HorizontalAlignment="Stretch">
@@ -71,10 +74,11 @@
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Tên" Grid.Column="0" FontSize="12" FontWeight="ExtraLight" />
-                            <TextBlock Text="Giá" Grid.Column="1" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Center" />
-                            <TextBlock Text="Số lượng" Grid.Column="2" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Center" />
-                            <TextBlock Text="Tổng cộng" Grid.Column="3" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Right" />
+                            <TextBlock Text="Tên" Grid.Column="0" FontSize="12" FontWeight="DemiBold" />
+                            <TextBlock Text="Giá" Grid.Column="1" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" />
+                            <TextBlock Text="Số lượng" Grid.Column="2" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" />
+                            <TextBlock Text="Tổng cộng" Grid.Column="3" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Right" />
+                            <Separator Grid.ColumnSpan="4" VerticalAlignment="Bottom" Margin="0 10 0 0"></Separator>
                         </Grid>
                         <Rectangle Fill="Black" Height="1" Margin="5 2" Opacity="0.5" />
                         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -93,96 +97,7 @@
                                                TextWrapping="Wrap" />
                                 </Grid>
                             </ListViewItem>
-                            <ListViewItem>
-                                <Grid HorizontalAlignment="Stretch" Width="730">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Website design" Grid.Column="0" />
-                                    <TextBlock Margin="0 0 7 0" Text="4500" Grid.Column="1" HorizontalAlignment="Center" />
-                                    <TextBlock Text="10" Grid.Column="2" HorizontalAlignment="Center" />
-                                    <TextBlock Text="450000000000000000" Grid.Column="3" HorizontalAlignment="Right" Foreground="#FF62013C"
-                                               TextWrapping="Wrap" />
-                                </Grid>
-                            </ListViewItem>
-                            <ListViewItem>
-                                <Grid HorizontalAlignment="Stretch" Width="730">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Website design" Grid.Column="0" />
-                                    <TextBlock Margin="0 0 7 0" Text="4500" Grid.Column="1" HorizontalAlignment="Center" />
-                                    <TextBlock Text="10" Grid.Column="2" HorizontalAlignment="Center" />
-                                    <TextBlock Text="450000000000000000" Grid.Column="3" HorizontalAlignment="Right" Foreground="#FF62013C"
-                                               TextWrapping="Wrap" />
-                                </Grid>
-                            </ListViewItem>
-                            <ListViewItem>
-                                <Grid HorizontalAlignment="Stretch" Width="730">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Website design" Grid.Column="0" />
-                                    <TextBlock Margin="0 0 7 0" Text="4500" Grid.Column="1" HorizontalAlignment="Center" />
-                                    <TextBlock Text="10" Grid.Column="2" HorizontalAlignment="Center" />
-                                    <TextBlock Text="450000000000000000" Grid.Column="3" HorizontalAlignment="Right" Foreground="#FF62013C"
-                                               TextWrapping="Wrap" />
-                                </Grid>
-                            </ListViewItem>
-                            <ListViewItem>
-                                <Grid HorizontalAlignment="Stretch" Width="730">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Website design" Grid.Column="0" />
-                                    <TextBlock Margin="0 0 7 0" Text="4500" Grid.Column="1" HorizontalAlignment="Center" />
-                                    <TextBlock Text="10" Grid.Column="2" HorizontalAlignment="Center" />
-                                    <TextBlock Text="450000000000000000" Grid.Column="3" HorizontalAlignment="Right" Foreground="#FF62013C"
-                                               TextWrapping="Wrap" />
-                                </Grid>
-                            </ListViewItem>
-                            <ListViewItem>
-                                <Grid HorizontalAlignment="Stretch" Width="730">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Website design" Grid.Column="0" />
-                                    <TextBlock Margin="0 0 7 0" Text="4500" Grid.Column="1" HorizontalAlignment="Center" />
-                                    <TextBlock Text="10" Grid.Column="2" HorizontalAlignment="Center" />
-                                    <TextBlock Text="450000000000000000" Grid.Column="3" HorizontalAlignment="Right" Foreground="#FF62013C"
-                                               TextWrapping="Wrap" />
-                                </Grid>
-                            </ListViewItem>
-                            <ListViewItem>
-                                <Grid HorizontalAlignment="Stretch" Width="730">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Website design" Grid.Column="0" />
-                                    <TextBlock Margin="0 0 7 0" Text="4500" Grid.Column="1" HorizontalAlignment="Center" />
-                                    <TextBlock Text="10" Grid.Column="2" HorizontalAlignment="Center" />
-                                    <TextBlock Text="450000000000000000" Grid.Column="3" HorizontalAlignment="Right" Foreground="#FF62013C"
-                                               TextWrapping="Wrap" />
-                                </Grid>
-                            </ListViewItem>
+                            
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -198,7 +113,7 @@
                         </ListView>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="2" Margin="20 0">
+                    <StackPanel Grid.Row="2" Margin="20 0" VerticalAlignment="Bottom">
                         <Grid Margin="10 0 10 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
@@ -207,7 +122,7 @@
                             </Grid.ColumnDefinitions>
                             <!--<TextBlock Text="BANK INFO" Grid.Column="0" FontSize="12" FontWeight="ExtraLight" />
                             <TextBlock Text="DUE BY" Grid.Column="1" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Left" />-->
-                            <TextBlock Text="Tổng cộng" Grid.Column="3" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Right" />
+                            <TextBlock Text="Tổng cộng" Grid.Column="3" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Right" />
                         </Grid>
                         <Rectangle Fill="Black" Height="1" Margin="5 0" Opacity="0.5" />
                         <Grid Margin="10">
@@ -226,10 +141,10 @@
                                 <TextBlock Text="18 Jul '19" FontSize="25" Margin="5" />
                             </StackPanel>-->
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="$ 1,590.00" FontSize="25" Margin="5" HorizontalAlignment="Right" Foreground="#FF62013C" FontWeight="Bold" />
+                                <TextBlock Text="$ 1,590.00" FontSize="25" Margin="5" HorizontalAlignment="Right" Foreground="Black" FontWeight="SemiBold" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Heart" Foreground="#FF62013C" Width="20" Height="20" Margin="5" VerticalAlignment="Center" />
+                                <materialDesign:PackIcon Kind="Heart" Foreground="{StaticResource Orange1}" Width="20" Height="20" Margin="5" VerticalAlignment="Center" />
                                 <TextBlock Text="Thank you!" VerticalAlignment="Center" FontSize="20" Margin="5" FontWeight="Light" />
                             </StackPanel>
                         </Grid>
