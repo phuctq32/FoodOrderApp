@@ -20,7 +20,6 @@ namespace FoodOrderApp.ViewModels
 {
     class AccountViewModel : BaseViewModel
     {
-        public ICommand LoadedCommand { get; set; }
         public ICommand UploadImageCommand { get; set; }
 
         private string FULLNAME;
@@ -55,11 +54,7 @@ namespace FoodOrderApp.ViewModels
 
         public AccountViewModel()
         {
-            LoadedCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => Loaded(parameter));
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
-        }
-        public void Loaded(AccountUC accountUC)
-        {
             USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
             AVATAR_ = user.AVATAR_;
             FULLNAME_ = user.FULLNAME_;
@@ -68,26 +63,26 @@ namespace FoodOrderApp.ViewModels
             Mail = user.EMAIL_;
             Address = user.ADDRESS_;
         }
+
         public void UploadImage(AccountUC accountUC)
         {
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
             string containerName = "avatar";
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=phong;AccountKey=/4FmL2uepULrqhajPWW1odbS70e5L/SEYVyO7ej3Zyzgh5cw61MysAf+f73I3euXcATYPUi8nJHQ0la8XB7Ccg==;EndpointSuffix=core.windows.net";
-            //// Create a BlobServiceClient object which will be used to create a container client
-            //    BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
-            //    // Create the container and return a container client object
             BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
                 using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(openFileDialog.FileName)))
                 {
+                    BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." +AVATAR_.Split('.')[5]);
+                    blobClient.Delete();
                     containerClient.UploadBlob(CurrentAccount.Username + "." + filename[1], stream);
                     System.Windows.Forms.MessageBox.Show("Thay đổi ảnh thành công");
                 }
                 USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-                user.AVATAR_ = "https://phong.blob.core.windows.net/avatar/" + CurrentAccount.Username + "." + filename[1]; 
-                
+                user.AVATAR_ = "https://phong.blob.core.windows.net/avatar/" + CurrentAccount.Username + "." + filename[1];
+                Data.Ins.DB.SaveChanges();
             }
         }
     }
