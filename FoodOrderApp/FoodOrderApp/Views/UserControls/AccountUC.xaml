@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              Height="769"
             Width="1049"
-            DataContext="{StaticResource MainVM}"
+            DataContext="{StaticResource AccountVM}"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
             TextElement.FontSize="13"
