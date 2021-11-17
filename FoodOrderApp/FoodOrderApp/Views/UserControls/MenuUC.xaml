@@ -51,7 +51,7 @@
                             HorizontalAlignment="Left">
                             <DockPanel
                                 LastChildFill="True">
-                                <materialDesign:PackIcon 
+                                <materialDesign:PackIcon
                                     Kind="Search"
                                     Height="25"
                                     Width="25"
@@ -71,7 +71,8 @@
                                     VerticalScrollBarVisibility="Disabled" />
                             </DockPanel>
                         </materialDesign:ColorZone>
-                        <ComboBox Height="40" Width="150"
+                        <ComboBox x:Name="combox"
+                            Height="40" Width="150"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
                             Margin="0 20 10 0"
@@ -81,21 +82,15 @@
                             materialDesign:HintAssist.Hint="Sắp xếp"
                             VerticalContentAlignment="Center"
                                   SelectedItem="">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource MenuVM}, Path=IndexCommand}"
+                                        CommandParameter="{Binding ElementName=MenuUserControl}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <ComboBoxItem Content="Giá tăng" x:Name="GT">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectedIndexChanged">
-                                        <i:InvokeCommandAction Command="{Binding IndexCommand}"
-                                   CommandParameter="{Binding ElementName=MenuUserControl}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
                             </ComboBoxItem>
                             <ComboBoxItem Content="Giá giảm" x:Name="GG">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectedIndexChanged">
-                                        <i:InvokeCommandAction Command="{Binding IndexCommand}"
-                                   CommandParameter="{Binding ElementName=MenuUserControl}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
                             </ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
@@ -112,8 +107,7 @@
                         ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Margin="-30 0 0 0"
-                        >
+                        Margin="-30 0 0 0">
                         <TextBlock
                             Text="Tìm kiếm" FontSize="17" />
                     </Button>
@@ -125,7 +119,7 @@
                               Margin="20 0"
                               Width="auto"
                               Height="auto"
-                              
+
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListView.ItemsPanel>
@@ -185,7 +179,7 @@
                                                 Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
                                             <TextBlock
                                                 x:Name="priceDiscount"
-                                                
+
                                                 Margin="0 0 10 0"
                                                     Foreground="Red"
                                                     FontSize="16"
