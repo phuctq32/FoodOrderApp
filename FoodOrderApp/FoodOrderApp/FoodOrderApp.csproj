@@ -154,8 +154,8 @@
     <Compile Include="Views\UserControls\AccountUC.xaml.cs">
       <DependentUpon>AccountUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\Admin\EditProduct.xaml.cs">
-      <DependentUpon>EditProduct.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\Admin\EditProductUC.xaml.cs">
+      <DependentUpon>EditProductUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\CartUC.xaml.cs">
       <DependentUpon>CartUC.xaml</DependentUpon>
@@ -263,7 +263,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\Admin\EditProduct.xaml">
+    <Page Include="Views\UserControls\Admin\EditProductUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

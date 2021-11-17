@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodOrderApp.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
         mc:Ignorable="d"
-        Title="InvoiceWindow" MinHeight="550" Width="800"
+        MinHeight="550" MaxHeight="800" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -20,19 +21,20 @@
     <Grid>
         <ListView Width="auto">
             <Grid Width="790">
-                <Button HorizontalAlignment="Right" Margin="20" VerticalAlignment="Top">
+                <Button HorizontalAlignment="Left" Margin="20" VerticalAlignment="Top">
                     <materialDesign:PackIcon Kind="Printer" />
                 </Button>
                 <Grid x:Name="print">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1.2*" />
-                        <RowDefinition Height="4*" />
+                        <RowDefinition Height="0.8*" />
+                        <RowDefinition Height="4.2*" />
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
-
-                    <Grid Margin="30" Grid.Row="0">
+                    <uc:ControlBarUC Margin="10"></uc:ControlBarUC>
+                    <Grid Margin="0 40 0 0" Grid.Row="0">
                         <TextBlock Text="Hoá đơn"
                                     HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
                                     FontSize="40"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource Orange1}">
@@ -181,6 +183,18 @@
                                                TextWrapping="Wrap" />
                                 </Grid>
                             </ListViewItem>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
                         </ListView>
                     </StackPanel>
 
@@ -231,6 +245,18 @@
                     </StackPanel>
                 </Grid>
             </Grid>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
         <Rectangle
             Fill="White"
