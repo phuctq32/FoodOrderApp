@@ -12,56 +12,62 @@
         </helpers:DoubleToVisibilityConverter>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
     </UserControl.Resources>
-    <Grid Background="White">
+    <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2.5*"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                <ColumnDefinition Width="1.2*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <!--header-->
-            <TextBlock Text="Món ăn"
+            <Border Grid.Row="0" Background="White" Margin="15 10 15 0" CornerRadius="5"></Border>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Món ăn"
                            FontSize="24"
                            VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
+                           HorizontalAlignment="Left"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="0"></TextBlock>
-            <TextBlock Text="Số lượng"
+                           Grid.Column="0"
+                           Margin="50 10 0 0"></TextBlock>
+                <TextBlock Text="Số lượng"
                            FontSize="24"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="1"></TextBlock>
-            <TextBlock Text="Giá"
+                <TextBlock Text="Giá"
                            FontSize="24"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="2"></TextBlock>
-            <!--button thêm-->
-            <Button
-                Style="{StaticResource GreenBtn}"
-                Content="Thêm"
-                Width="120"
-                Height="50"
-                FontSize="20"
-                Foreground="White"
-                VerticalAlignment="Center"
-                Grid.Column="3">
-            </Button>
+                <!--button thêm-->
+                <Button
+                    Style="{StaticResource GreenBtn}"
+                    Content="Thêm"
+                    Width="120"
+                    Height="50"
+                    FontSize="20"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    Grid.Column="3"
+                    Margin="0 10 0 0"/>
+
+            </Grid>
+            <!--header-->
+            
             <!--list item-->
             <ListView Grid.Row="1" Grid.ColumnSpan="4"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListViewItem>
-                    <Grid Height="120" Width="1110">
+                    <Grid MinHeight="120" Width="1110">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2.5*"></ColumnDefinition>
@@ -78,31 +84,29 @@
                                             Height="80"
                                             Width="80"
                                             HorizontalAlignment="Left"
-                                            Margin="20 0">
+                                            Margin="40 0">
                                     <Rectangle.Fill>
                                         <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
                                     </Rectangle.Fill>
                                 </Rectangle>
-                                <StackPanel Orientation="Vertical" Height="120" Margin="0,0,-0.4,0" VerticalAlignment="Bottom">
+                                <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="330" HorizontalAlignment="Right">
                                     <!--tên món ăn-->
                                     <TextBlock
-                                        Margin="0 20 0 0"
-                                        Text="Tên món ăn"
-                                       FontSize="20"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Medium"
-                                       Foreground="Black"
-                                       Grid.Column="2"></TextBlock>
+                                            Margin="0 20 0 0"
+                                            Text="Tên món ăn"
+                                            FontSize="17"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            Foreground="Black"
+                                            Grid.Column="2"
+                                            TextWrapping="Wrap"/>
                                     <TextBlock
                                             Margin="10 5"
                                             Foreground="Black"
                                             VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
+                                            HorizontalAlignment="Left"
                                             FontSize="18"
-                                            FontWeight="Medium"
-                                            Text="100">
-                                    </TextBlock>
+                                            Text="100"/>
                                 </StackPanel>
                             </Grid>
                             <!--số lượng-->
@@ -110,15 +114,12 @@
                                        FontSize="18"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       FontWeight="Medium"
-                                       Foreground="Black"
                                        Grid.Column="1"></TextBlock>
-                            <!--giá tiền-->
+                            <!--giá tiền tổng cộng-->
                             <TextBlock Text="100"
                                        FontSize="18"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       FontWeight="Medium"
                                        Foreground="Black"
                                        TextWrapping="Wrap"
                                        Grid.Column="2"></TextBlock>
@@ -147,11 +148,7 @@
                         </Rectangle>
                     </Grid>
                 </ListViewItem>
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Background="LightGray"></WrapPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                
                 <!--loại bỏ hover, highlight effect của listview-->
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
