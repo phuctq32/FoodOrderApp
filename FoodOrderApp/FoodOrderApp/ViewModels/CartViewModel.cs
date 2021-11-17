@@ -37,7 +37,7 @@ namespace FoodOrderApp.ViewModels
         {
             try
             {
-
+                ///
                 PRODUCT item = parameter.DataContext as PRODUCT;
                 CART del = Data.Ins.DB.CARTs.Where(x => x.PRODUCT_ == item.ID_ && x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
                 Data.Ins.DB.CARTs.Remove(del);
