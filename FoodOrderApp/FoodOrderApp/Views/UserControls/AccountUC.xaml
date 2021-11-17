@@ -3,7 +3,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              Height="769"
             Width="1049"
@@ -16,6 +16,12 @@
             Background="{x:Null}"
             FontFamily="{DynamicResource MaterialDesignFont}"
             Foreground="{x:Null}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="UploadImage">
+            <i:InvokeCommandAction Command="{Binding UploadImageCommand}"
+                                   CommandParameter="{Binding ElementName=AccountUC}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
         <Grid>
 
@@ -26,31 +32,27 @@
                 Width="150"
                 Height="150"
                 HorizontalAlignment="Left">
-                <Rectangle
+                <Image
                 x:Name="recImage"
-                StrokeDashArray="4 2"
-                Stroke="{StaticResource Orange2}"
-                StrokeThickness="4"
-                RadiusX="4"
-                RadiusY="4"
                 Width="150"
                 Height="150"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" />
+                VerticalAlignment="Top" 
+                Source="{Binding AVATAR_}"/>
                 <Button
                 x:Name="btnSelectImage"
-                Content="Chọn ảnh"
+                Content="Thay đổi ảnh"
                 Height="35"
-                Width="100"
+                Width="130"
                 Background="{StaticResource Orange1}"
-                Command="{Binding SelectImageCommand}"
-                CommandParameter="{Binding ElementName=grdSelectImage}"
+                Command="{Binding UploadImageCommand}"
+                CommandParameter="{Binding ElementName=AccountUC}"
                 ToolTip="Chọn ảnh"
-                Margin="0,0,0,12"
+                Margin="7,0,13,-56"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 FocusVisualStyle="{x:Null}"
-                FontSize="16">
+                FontSize="16" >
                 </Button>
             </Grid>
             <Grid Margin="150 100 0 0">

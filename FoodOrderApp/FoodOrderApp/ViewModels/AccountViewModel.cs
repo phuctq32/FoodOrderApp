@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.IO;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -65,23 +67,27 @@ namespace FoodOrderApp.ViewModels
             UserName = user.USERNAME_;
             Mail = user.EMAIL_;
             Address = user.ADDRESS_;
-            accountUC.btnSelectImage.Command = UploadImageCommand;
-            accountUC.btnSelectImage.CommandParameter = accountUC; 
         }
         public void UploadImage(AccountUC accountUC)
         {
-            OpenFileDialog a = new OpenFileDialog();
-            a.ShowDialog();
-            string containerName = "ordercloud";
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=orderappcloud;AccountKey=JNOryWgw9qYsh7LwMAzeqrl7YdZdko9BvwlcANzs49ghHvn1WYw1vZAUYtue5L/wyOyG237Ya5QDuv4E9tMqeA==;EndpointSuffix=core.windows.net";
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            string containerName = "avatar";
+            string connectionString = "DefaultEndpointsProtocol=https;AccountName=phong;AccountKey=/4FmL2uepULrqhajPWW1odbS70e5L/SEYVyO7ej3Zyzgh5cw61MysAf+f73I3euXcATYPUi8nJHQ0la8XB7Ccg==;EndpointSuffix=core.windows.net";
             //// Create a BlobServiceClient object which will be used to create a container client
             //    BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
             //    // Create the container and return a container client object
             BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
-            using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(a.FileName)))
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                containerClient.UploadBlob("20520442", stream);
-                MessageBox.Show("uploaded");
+                string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
+                using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(openFileDialog.FileName)))
+                {
+                    containerClient.UploadBlob(CurrentAccount.Username + "." + filename[1], stream);
+                    System.Windows.Forms.MessageBox.Show("Thay đổi ảnh thành công");
+                }
+                USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+                user.AVATAR_ = "https://phong.blob.core.windows.net/avatar/" + CurrentAccount.Username + "." + filename[1]; 
+                
             }
         }
     }
