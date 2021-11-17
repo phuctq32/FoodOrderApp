@@ -79,9 +79,24 @@
                             FontSize="16"
                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Orange1}"
                             materialDesign:HintAssist.Hint="Sắp xếp"
-                            VerticalContentAlignment="Center">
-                            <ComboBoxItem Content="Giá tăng"/>
-                            <ComboBoxItem Content="Giá giảm"/>
+                            VerticalContentAlignment="Center"
+                                  SelectedItem="">
+                            <ComboBoxItem Content="Giá tăng" x:Name="GT">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedIndexChanged">
+                                        <i:InvokeCommandAction Command="{Binding IndexCommand}"
+                                   CommandParameter="{Binding ElementName=MenuUserControl}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBoxItem>
+                            <ComboBoxItem Content="Giá giảm" x:Name="GG">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedIndexChanged">
+                                        <i:InvokeCommandAction Command="{Binding IndexCommand}"
+                                   CommandParameter="{Binding ElementName=MenuUserControl}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
 

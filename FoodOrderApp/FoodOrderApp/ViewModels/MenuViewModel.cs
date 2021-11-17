@@ -3,6 +3,7 @@ using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -21,16 +22,23 @@ namespace FoodOrderApp.ViewModels
         public ICommand LoadedCommand { get; set; }
         public ICommand AddToCartCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand IndexCommand { get; set; }
+        public ICommand SortD { get; set; }
         private string search;
+        private int index;
+        public int Index { get => index; set { index = value; OnPropertyChanged(); } }
         public string Search { get => search; set { search = value; OnPropertyChanged(); } }
         public List<PRODUCT> products; 
         public PRODUCT pRODUCT = new PRODUCT();
         
         public MenuViewModel()
         {
+            Index = -1;
             AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
             SearchCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => BtnSearch(parameter));
+            IndexCommand = new RelayCommand<ComboBox>((parameter) => true, (parameter) => { Index = parameter.SelectedIndex;});
+            SortD = new RelayCommand<MenuUC>((parameter) => true, (parameter) => GiaT(parameter));
             //AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
 
         }
@@ -49,8 +57,26 @@ namespace FoodOrderApp.ViewModels
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource);
             view.Filter = UserFilter;
         }
+        private void GiaT(MenuUC parameter)
+        {
+            object item = new object();
+            int v = (item as PRODUCT).PRICE_;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource);
+
+            if (Index == 1)
+            {
+                view.SortDescriptions.Clear();
+                view.SortDescriptions.Add(new System.ComponentModel.SortDescription(v.ToString(), ListSortDirection.Descending));
+            }
+            else
+            {
+                view.SortDescriptions.Clear();
+                view.SortDescriptions.Add(new System.ComponentModel.SortDescription(v.ToString(), ListSortDirection.Descending));
+            }
+        }
         public void BtnSearch(MenuUC parameter)
         {
+            MessageBox.Show(Index.ToString());
             CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource).Refresh();
         }
         private bool UserFilter(object item)
