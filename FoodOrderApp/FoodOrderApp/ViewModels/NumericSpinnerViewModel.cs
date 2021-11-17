@@ -31,8 +31,7 @@ namespace FoodOrderApp.ViewModels
                     try
                     {
                         var lvi = GetAncestorOfType<ListViewItem>(parameter);
-                        PRODUCT product = lvi.DataContext as PRODUCT;
-                        CART cartToDelete = Data.Ins.DB.CARTs.Where(x => x.PRODUCT_ == product.ID_ && x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+                        CART cartToDelete = lvi.DataContext as CART;
                         Data.Ins.DB.CARTs.Remove(cartToDelete);
                         Data.Ins.DB.SaveChanges();
                         CustomMessageBox.Show("Xóa thành công!", MessageBoxButton.OK, MessageBoxImage.None);
