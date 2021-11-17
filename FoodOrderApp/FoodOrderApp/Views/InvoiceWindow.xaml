@@ -50,15 +50,20 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Margin="10">
-                                <TextBlock Text="Tên khách hàng" FontSize="20" Margin="5" />
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Date Issued:" FontSize="12" Margin="5" />
-                                    <TextBlock Text="04 Jul 2019" FontSize="12" Margin="5" FontWeight="DemiBold" />
+                                    <TextBlock Text="Mã hóa đơn" FontSize="15" Margin="5" />
+                                    <TextBlock Text="Binding ID RECEIPT" FontSize="15" Margin="5" FontWeight="DemiBold" />
+                                </StackPanel>
+                                <TextBlock Text="Binding Tên khách hàng" FontSize="12" Margin="5" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Ngày mua:" FontSize="12" Margin="5" />
+                                    <TextBlock Text="Binding datetime" FontSize="12" Margin="5" FontWeight="DemiBold" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="ID:" FontSize="12" Margin="5" />
-                                    <TextBlock Text="0001" FontSize="12" Margin="5" FontWeight="DemiBold" />
+                                    <TextBlock Text="Địa chỉ giao hàng:" FontSize="12" Margin="5" />
+                                    <TextBlock Text="Binding address" FontSize="12" Margin="5" FontWeight="DemiBold" />
                                 </StackPanel>
+                                
                             </StackPanel>
                             <StackPanel Grid.Column="1" Margin="10">
                                 <TextBlock Text="Food Order" FontSize="12" Margin="5" HorizontalAlignment="Right" />
@@ -83,21 +88,22 @@
                         <Rectangle Fill="Black" Height="1" Margin="5 2" Opacity="0.5" />
                         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListViewItem>
-                                <Grid HorizontalAlignment="Stretch" Width="730">
+                                <Grid HorizontalAlignment="Stretch" MinHeight="30" Width="730">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="3*" />
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Website design" Grid.Column="0" />
-                                    <TextBlock Margin="0 0 7 0" Text="4500" Grid.Column="1" HorizontalAlignment="Center" />
-                                    <TextBlock Text="10" Grid.Column="2" HorizontalAlignment="Center" />
-                                    <TextBlock Text="450000000000000000" Grid.Column="3" HorizontalAlignment="Right" Foreground="#FF62013C"
-                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="Website design" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    <TextBlock Margin="0 0 7 0" Text="4500" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Text="10" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Text="450000000000000000" Grid.Column="3" HorizontalAlignment="Right" FontWeight="Medium"
+                                               TextWrapping="Wrap" VerticalAlignment="Center"/>
                                 </Grid>
                             </ListViewItem>
                             
+
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Background" Value="Transparent" />
