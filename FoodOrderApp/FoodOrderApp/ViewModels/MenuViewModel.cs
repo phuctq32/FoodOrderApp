@@ -55,11 +55,14 @@ namespace FoodOrderApp.ViewModels
         }
         private bool UserFilter(object item)
         {
-           string a = RemoveSign4VietnameseString(pRODUCT.NAME_);
+            // string a = RemoveSign4VietnameseString(pRODUCT.NAME_);
+            string a = (item as PRODUCT).NAME_;
+            a = RemoveSign4VietnameseString(a);
             if (String.IsNullOrEmpty(Search))
                 return true;
             else
                 return (a.IndexOf(Search, StringComparison.OrdinalIgnoreCase) >= 0);
+                //return ((item as PRODUCT).NAME_.IndexOf(Search, StringComparison.OrdinalIgnoreCase) >= 0);
         }
         private static readonly string[] VietnameseSigns = new string[]
                 {
@@ -99,7 +102,7 @@ namespace FoodOrderApp.ViewModels
             for (int i = 1; i < VietnameseSigns.Length; i++)
             {
                 for (int j = 0; j < VietnameseSigns[i].Length; j++)
-                  str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
+                    str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
             }
             return str;
         }
