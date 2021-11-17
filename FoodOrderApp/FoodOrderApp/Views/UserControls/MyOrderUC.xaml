@@ -162,6 +162,14 @@
                 FontWeight="Medium"
                 Foreground="Black"
                 Grid.Column="3"/>
+                <TextBlock 
+                Text="Chi tiết"
+                FontSize="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontWeight="Medium"
+                Foreground="Black"
+                Grid.Column="4"/>
             </Grid>
             <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
             <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
