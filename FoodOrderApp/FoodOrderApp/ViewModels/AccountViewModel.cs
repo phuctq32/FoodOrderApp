@@ -55,6 +55,9 @@ namespace FoodOrderApp.ViewModels
         public AccountViewModel()
         {
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
+
+            //Load current account information
+
             USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
             AVATAR_ = user.AVATAR_;
             FULLNAME_ = user.FULLNAME_;
@@ -67,22 +70,42 @@ namespace FoodOrderApp.ViewModels
         public void UploadImage(AccountUC accountUC)
         {
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            
+            //Create connection to Storage
+            
             string containerName = "avatar";
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=phong;AccountKey=/4FmL2uepULrqhajPWW1odbS70e5L/SEYVyO7ej3Zyzgh5cw61MysAf+f73I3euXcATYPUi8nJHQ0la8XB7Ccg==;EndpointSuffix=core.windows.net";
             BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
+            
+            //Update Image
+
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                //Get name of Image
+
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
+                
+                //Start upload
+
                 using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(openFileDialog.FileName)))
                 {
+                    //Delete old Image
+                    
                     BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." +AVATAR_.Split('.')[5]);
                     blobClient.Delete();
+                    
+                    //Upload new Image
+                    
                     containerClient.UploadBlob(CurrentAccount.Username + "." + filename[1], stream);
-                    System.Windows.Forms.MessageBox.Show("Thay đổi ảnh thành công");
+                    CustomMessageBox.Show("Thay đổi ảnh thành công", MessageBoxButton.OKCancel, MessageBoxImage.Information);
                 }
+                
+                //Update new Image link
+                
                 USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
                 user.AVATAR_ = "https://phong.blob.core.windows.net/avatar/" + CurrentAccount.Username + "." + filename[1];
                 Data.Ins.DB.SaveChanges();
+                AVATAR_ = user.AVATAR_;
             }
         }
     }

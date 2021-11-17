@@ -33,13 +33,19 @@
                 Width="150"
                 Height="150"
                 HorizontalAlignment="Left">
-                <Image
-                x:Name="recImage"
-                Width="150"
-                Height="150"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top" 
-                Source="{Binding AVATAR_}"/>
+                <Rectangle
+                    x:Name="recImage"
+                    Width="150"
+                    Height="150"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" 
+                    RadiusY="10"
+                    RadiusX="10"
+                    Margin="0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{Binding AVATAR_}" Stretch="UniformToFill"></ImageBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
                 <Button
                 x:Name="btnSelectImage"
                 Content="Thay đổi ảnh"
