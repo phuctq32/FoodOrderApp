@@ -86,6 +86,7 @@
     <Compile Include="Helpers\DoubleToTextDecorationsConverter.cs" />
     <Compile Include="Helpers\DoubleToVisibilityConverter.cs" />
     <Compile Include="Helpers\PriceToPriceDiscount.cs" />
+    <Compile Include="Helpers\TotalPriceMultiConverter.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\CART.cs">
