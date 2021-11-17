@@ -44,7 +44,8 @@ namespace FoodOrderApp.ViewModels
                 int idCarts = Data.Ins.DB.CARTs.Count();
                 if (cartsCount == 0)
                 {
-                    Data.Ins.DB.CARTs.Add(new CART() { ID_ = item.ID_, PRODUCT_ = item.ID_, USERNAME_ = CurrentAccount.Username, AMOUNT_ = 1 });
+                    string tmpID = CurrentAccount.Username +"_"+ item.ID_;
+                    Data.Ins.DB.CARTs.Add(new CART() { ID_ = tmpID, PRODUCT_ = item.ID_, USERNAME_ = CurrentAccount.Username, AMOUNT_ = 1 });
                     Data.Ins.DB.SaveChanges();
                     CustomMessageBox.Show("Đã thêm " + item.NAME_ + " vào giỏ hàng thành công", MessageBoxButton.OK);
                 }
