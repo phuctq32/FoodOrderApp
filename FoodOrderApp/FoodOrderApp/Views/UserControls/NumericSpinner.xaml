@@ -48,6 +48,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock
                 x:Name="tb_main" 
+                Text="1"
                 x:FieldModifier="private" 
                 FontWeight="Medium" 
                 FontSize="12" 
@@ -55,7 +56,7 @@
                 HorizontalAlignment="Center"
                 Padding="0" 
                 Grid.Column="1"  
-                Text="1" />
+                 />
             <Button 
                 x:Name="cmdDown" 
                 x:FieldModifier="private" 

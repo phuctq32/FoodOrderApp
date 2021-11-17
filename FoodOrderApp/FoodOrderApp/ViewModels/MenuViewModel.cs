@@ -25,7 +25,7 @@ namespace FoodOrderApp.ViewModels
         {
             AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
-            //AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
+            
         }
 
         private void Load(MenuUC parameter)
