@@ -15,6 +15,7 @@ namespace FoodOrderApp.Helpers
         public object Convert(object[] values, Type targetType,
                object parameter, System.Globalization.CultureInfo culture)
         {
+            // tính giá trị tổng cộng của 1 loại món ăn = số lượng * giá tiền
             try
             {
                 return (Int32.Parse((string)values[0]) * (Int32.Parse(values[1].ToString()))).ToString();
