@@ -219,7 +219,7 @@
                             FontWeight="DemiBold"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" />
-                            <!--nút xoá món ăn ra khỏi giỏ hàng-->
+                            <!--nút bấm để xem chi tiết của đơn đặt hàng OrderDetailWindow-->
                             <Button
                             Grid.Column="4"
                             Style="{StaticResource detailBtn}"

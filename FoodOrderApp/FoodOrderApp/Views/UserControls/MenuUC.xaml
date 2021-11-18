@@ -152,7 +152,7 @@
                                                 Foreground="Black"
                                                 FontSize="16"
                                                 FontWeight="Medium"
-                                                Text="{Binding PRICE_}"
+                                                Text="{Binding PRICE_, StringFormat=N0}"
                                                 VerticalAlignment="Center"
                                                 Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
                                                 TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"

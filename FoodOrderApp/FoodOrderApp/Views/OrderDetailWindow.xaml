@@ -116,7 +116,7 @@
                                             HorizontalAlignment="Left"
                                             FontSize="18"
                                             Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
-                                            Text="{Binding PRODUCT.PRICE_}" />
+                                            Text="{Binding PRODUCT.PRICE_, StringFormat=N0}" />
                                             <!--GIÁ GIẢM-->
                                             <StackPanel
                                                     x:Name="stack"
