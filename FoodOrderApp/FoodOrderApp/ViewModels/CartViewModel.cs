@@ -55,7 +55,7 @@ namespace FoodOrderApp.ViewModels
             }
             catch
             {
-                CustomMessageBox.Show("Lỡi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void Down(TextBlock parameter)
