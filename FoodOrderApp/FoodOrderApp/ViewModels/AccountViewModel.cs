@@ -15,6 +15,9 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Media;
+using System.Drawing;
+using System.Windows.Media.Imaging;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -70,6 +73,7 @@ namespace FoodOrderApp.ViewModels
         public void UploadImage(AccountUC accountUC)
         {
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.Filter = "Image files | *.jpg; *.png | All files | *.*";
             
             //Create connection to Storage
             
@@ -84,15 +88,17 @@ namespace FoodOrderApp.ViewModels
                 //Get name of Image
 
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
-                
+
+                //Delete old Image
+
+                BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + AVATAR_.Split('.')[5]);
+                blobClient.Delete();
+
                 //Start upload
 
                 using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(openFileDialog.FileName)))
                 {
-                    //Delete old Image
                     
-                    BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." +AVATAR_.Split('.')[5]);
-                    blobClient.Delete();
                     
                     //Upload new Image
                     
@@ -104,8 +110,19 @@ namespace FoodOrderApp.ViewModels
                 
                 USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
                 user.AVATAR_ = "https://phong.blob.core.windows.net/avatar/" + CurrentAccount.Username + "." + filename[1];
+
+                //Load new image
+
+                System.Windows.Media.Imaging.BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(openFileDialog.FileName, UriKind.Absolute);
+                bitmap.EndInit();
+                accountUC.ImgBrush.ImageSource = bitmap;
+
+                //Save database change
+
                 Data.Ins.DB.SaveChanges();
-                AVATAR_ = user.AVATAR_;
+                
             }
         }
     }

@@ -17,12 +17,6 @@
             Background="{x:Null}"
             FontFamily="{DynamicResource MaterialDesignFont}"
             Foreground="{x:Null}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="UploadImage">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
-                                   CommandParameter="{Binding ElementName=AccountUserControl}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
         <Grid>
 
@@ -43,7 +37,7 @@
                     RadiusX="10"
                     Margin="0">
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="{Binding AVATAR_}" Stretch="UniformToFill"></ImageBrush>
+                        <ImageBrush x:Name="ImgBrush" ImageSource="{Binding AVATAR_}" Stretch="UniformToFill"></ImageBrush>
                     </Rectangle.Fill>
                 </Rectangle>
                 <Button
@@ -53,7 +47,7 @@
                 Width="130"
                 Background="{StaticResource Orange1}"
                 Command="{Binding UploadImageCommand}"
-                CommandParameter="{Binding ElementName=AccountUC}"
+                CommandParameter="{Binding ElementName=AccountUserControl}"
                 ToolTip="Chọn ảnh"
                 Margin="7,0,13,-56"
                 HorizontalAlignment="Center"
