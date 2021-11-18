@@ -18,11 +18,11 @@ namespace FoodOrderApp.Helpers
             if (value != null)
             {
                 if (Double.Parse(value.ToString().Replace("%", " ")) > 0)
-                    return "0.65";
+                    return 0.65;
                 else
-                    return "1";
+                    return 1;
             }
-            return "1";
+            return 1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,
