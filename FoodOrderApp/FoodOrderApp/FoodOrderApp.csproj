@@ -89,7 +89,6 @@
     <Compile Include="Helpers\PriceToPriceDiscount.cs" />
     <Compile Include="Helpers\PriceToStringConverter.cs" />
     <Compile Include="Helpers\UnitPriceToTotalPriceFAPConverter.cs" />
-    <Compile Include="Helpers\TotalPriceMultiConverter.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\CART.cs">

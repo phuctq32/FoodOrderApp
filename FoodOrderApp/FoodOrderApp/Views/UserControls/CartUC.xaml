@@ -21,6 +21,7 @@
     <UserControl.Resources>
         <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
         </helpers:DoubleToVisibilityConverter>
+        <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
         <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
@@ -40,7 +41,7 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Border 
+                    <Border
                         Grid.Row="0"
                         Background="White"
                         CornerRadius="5"
@@ -52,7 +53,7 @@
                                 Height="13"
                                 HorizontalAlignment="Left"
                                 Margin="12 0 0 0"
-                                Background="{StaticResource Orange2}"/>
+                                Background="{StaticResource Orange2}" />
                             <TextBlock
                                 Text="Món ăn"
                                 HorizontalAlignment="Left"
@@ -60,7 +61,7 @@
                                 Margin="50 0 0 0"
                                 FontSize="18"
                                 FontWeight="DemiBold"
-                                Foreground="Black"/>
+                                Foreground="Black" />
                             <TextBlock
                                 Text="Số lượng"
                                 HorizontalAlignment="Center"
@@ -68,7 +69,7 @@
                                 Margin="167 0 0 0"
                                 FontSize="18"
                                 FontWeight="DemiBold"
-                                Foreground="Black"/>
+                                Foreground="Black" />
                             <TextBlock
                                 Text="Giá"
                                 HorizontalAlignment="Right"
@@ -76,17 +77,15 @@
                                 Margin="0 0 100 0"
                                 FontSize="18"
                                 FontWeight="DemiBold"
-                                Foreground="Black"/>
+                                Foreground="Black" />
                             <Button
                                 x:Name="deleteAllBtn"
                                 Grid.Column="4"
                                 Style="{StaticResource deleteBtn}"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Margin="0 0 6 0"
-                                />
+                                Margin="0 0 6 0" />
                         </Grid>
-
                     </Border>
 
                     <Grid Grid.Row="1">
@@ -111,7 +110,7 @@
                                                 Height="13"
                                                 Width="17"
                                                 HorizontalAlignment="Left"
-                                                Background="{StaticResource Orange2}"/>
+                                                Background="{StaticResource Orange2}" />
                                             <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
                                             <Grid Grid.Column="1">
                                                 <!--hình ảnh-->
@@ -129,27 +128,28 @@
                                                 <StackPanel Orientation="Vertical">
                                                     <!--tên món ăn-->
                                                     <TextBlock
-                                                MinHeight="40"
+                                                        MinHeight="40"
 
-                                                MaxWidth="180"
-                                                Text="{Binding PRODUCT.NAME_}"
-                                                TextWrapping="Wrap"
-                                                FontSize="15"
-                                                FontWeight="SemiBold"
-                                                Margin="70 20 0 0" />
+                                                        MaxWidth="180"
+                                                        Text="{Binding PRODUCT.NAME_}"
+                                                        TextWrapping="Wrap"
+                                                        FontSize="15"
+                                                        FontWeight="SemiBold"
+                                                        Margin="70 20 0 0" />
                                                     <StackPanel Orientation="Horizontal"
                                                             Margin="90 0 0 0">
                                                         <!--số tiền không giảm giá-->
                                                         <!--nếu có đổi tên monneyTxt thì qua doubletovisi đổi luôn tên bên đấy-->
                                                         <TextBlock
-                                                    x:Name="price"
-                                                    Margin="10 5"
-                                                    Foreground="Black"
-                                                    FontSize="16"
-                                                    FontWeight="Medium"
-                                                    Text="{Binding PRODUCT.PRICE_}"
+                                                            x:Name="price"
+                                                            Margin="10 5"
+                                                            Foreground="Black"
+                                                            FontSize="16"
+                                                            FontWeight="Medium"
+                                                            Text="{Binding PRODUCT.PRICE_}"
+                                                            Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
                                                             TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
-                                                    VerticalAlignment="Center">
+                                                            VerticalAlignment="Center">
                                                         </TextBlock>
 
                                                         <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
@@ -203,8 +203,8 @@
                                                         <Border.OpacityMask>
                                                             <VisualBrush>
                                                                 <VisualBrush.Visual>
-                                                                    <Border 
-                                                                        Background="Black" 
+                                                                    <Border
+                                                                        Background="Black"
                                                                         SnapsToDevicePixels="True"
                                                                         CornerRadius="4"
                                                                         Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}"
@@ -219,45 +219,45 @@
                                                                 <ColumnDefinition Width="20" />
                                                             </Grid.ColumnDefinitions>
                                                             <TextBlock
-                                                                x:Name="amount" 
-                                                                FontWeight="Medium" 
-                                                                FontSize="12" 
+                                                                x:Name="amount"
+                                                                FontWeight="Medium"
+                                                                FontSize="12"
                                                                 VerticalAlignment="Center"
                                                                 HorizontalAlignment="Center"
-                                                                Padding="0" 
+                                                                Padding="0"
                                                                 Grid.Column="1"
-                                                                Text="{Binding AMOUNT_}"/>
-                                                            <Button 
+                                                                Text="{Binding AMOUNT_}" />
+                                                            <Button
                                                                 Style="{StaticResource up_down_spinner_btn}"
-                                                                Grid.Column="0" 
-                                                                Grid.Row="0" 
-                                                                Width="auto" 
+                                                                Grid.Column="0"
+                                                                Grid.Row="0"
+                                                                Width="auto"
                                                                 Height="auto"
                                                                 Content="-"
                                                                 VerticalContentAlignment="Center"
                                                                 HorizontalContentAlignment="Center"
                                                                 FontSize="16"
                                                                 Command="{Binding Source={StaticResource CartVM}, Path=DownCommand}"
-                                                                CommandParameter="{Binding ElementName=amount}"/>
-                                                            <Button 
+                                                                CommandParameter="{Binding ElementName=amount}" />
+                                                            <Button
                                                                 Style="{StaticResource up_down_spinner_btn}"
-                                                                Grid.Column="2" 
-                                                                Grid.Row="1" 
-                                                                Width="auto" 
+                                                                Grid.Column="2"
+                                                                Grid.Row="1"
+                                                                Width="auto"
                                                                 Height="auto"
                                                                 Content="+"
                                                                 VerticalContentAlignment="Center"
                                                                 HorizontalContentAlignment="Center"
                                                                 FontSize="14"
                                                                 Command="{Binding Source={StaticResource CartVM}, Path=UpCommand}"
-                                                                CommandParameter="{Binding ElementName=amount}"/>      
-                                                            <Border 
-                                                                BorderBrush="Gray" 
-                                                                IsHitTestVisible="False" 
-                                                                BorderThickness="1" 
-                                                                CornerRadius="4" 
-                                                                Grid.RowSpan="2" 
-                                                                Grid.ColumnSpan="3"/>
+                                                                CommandParameter="{Binding ElementName=amount}" />
+                                                            <Border
+                                                                BorderBrush="Gray"
+                                                                IsHitTestVisible="False"
+                                                                BorderThickness="1"
+                                                                CornerRadius="4"
+                                                                Grid.RowSpan="2"
+                                                                Grid.ColumnSpan="3" />
                                                         </Grid>
                                                     </Border>
                                                 </Grid>
@@ -271,7 +271,7 @@
                                                 VerticalAlignment="Center">
                                                 <TextBlock.Text>
                                                     <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource unitToPrice}">
-                                                        <Binding ElementName="discount" Path="Text"/>
+                                                        <Binding ElementName="discount" Path="Text" />
                                                         <Binding ElementName="price" Path="Text" />
                                                         <Binding ElementName="amount" Path="Text" />
                                                     </MultiBinding>
@@ -285,7 +285,7 @@
                                                 VerticalAlignment="Center"
                                                 Margin="0 0 10 0"
                                                 Command="{Binding Source={StaticResource CartVM}, Path=DeleteCartCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"/>
+                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
                                         </Grid>
 
                                         <!-- background -->
@@ -299,13 +299,10 @@
                                     Panel.ZIndex="-2"
                                     Margin="10">
                                         </Rectangle>
-                                        
                                     </Grid>
-                                    
                                 </DataTemplate>
-                                
                             </ListView.ItemTemplate>
-                            
+
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -334,7 +331,6 @@
                             Panel.ZIndex="-1">
                     </Rectangle>
                 </Grid>
-                
             </Grid>
         </Grid>
     </materialDesign:TransitioningContent>

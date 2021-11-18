@@ -27,6 +27,7 @@
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
         <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
+        <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
     </Window.Resources>
     <Grid>
         <Grid Margin="10">
@@ -69,115 +70,117 @@
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="2" />
-                <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
+                <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
                 <ListView Grid.Row="1" Grid.ColumnSpan="3"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListViewItem>
-                        <Grid Height="120" Width="780">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
-                                <Grid Grid.Column="0">
-                                    <!--hình ảnh-->
-                                    <Rectangle
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="120" Width="780">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
+                                    <Grid Grid.Column="0">
+                                        <!--hình ảnh-->
+                                        <Rectangle
                                             RadiusY="10"
                                             RadiusX="10"
                                             Height="80"
                                             Width="80"
                                             HorizontalAlignment="Left"
                                             Margin="40 0">
-                                        <Rectangle.Fill>
-                                            <ImageBrush ImageSource="{Binding RECEIPT_DETAIL.PRODUCT.IMAGE_}" Stretch="UniformToFill" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                    <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right">
-                                        <!--tên món ăn-->
-                                        <TextBlock
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="{Binding PRODUCT.IMAGE_}" Stretch="UniformToFill" />
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right">
+                                            <!--tên món ăn-->
+                                            <TextBlock
                                             Margin="0 20 0 0"
-                                            Text="{Binding RECEIPT_DETAIL.PRODUCT.NAME_}"
+                                            Text="{Binding PRODUCT.NAME_}"
                                             FontSize="17"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
                                             Foreground="Black"
                                             Grid.Column="2"
                                             TextWrapping="Wrap" />
-                                        <!--giá bình thường-->
-                                        <TextBlock
+                                            <!--giá bình thường-->
+                                            <TextBlock
                                             x:Name="price"
                                             Margin="10 5"
                                             Foreground="Black"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
                                             FontSize="18"
-                                            Text="{Binding RECEIPT_DETAIL.PRODUCT.PRICE_}" />
-                                        <!--GIÁ GIẢM-->
-                                        <StackPanel
+                                            Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
+                                            Text="{Binding PRODUCT.PRICE_}" />
+                                            <!--GIÁ GIẢM-->
+                                            <StackPanel
                                                     x:Name="stack"
                                                     Orientation="Horizontal"
                                                     Margin="0 5"
                                                     Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
-                                            <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
-                                            <!--giá giảm-->
-                                            <TextBlock
+                                                <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
+                                                <!--giá giảm-->
+                                                <TextBlock
                                                         Margin="10 0 10 0"
                                                         Foreground="Red"
                                                         FontSize="16"
                                                         FontWeight="Medium"
                                                         VerticalAlignment="Center">
-                                                <TextBlock.Text>
-                                                    <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
-                                                        <Binding ElementName="price" Path="Text" />
-                                                        <Binding ElementName="discount" Path="Text" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                            <!--discount-->
-                                            <Border
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
+                                                            <Binding ElementName="price" Path="Text" />
+                                                            <Binding ElementName="discount" Path="Text" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                                <!--discount-->
+                                                <Border
                                                         BorderBrush="Red"
                                                         CornerRadius="5"
                                                         BorderThickness="1">
-                                                <TextBlock
+                                                    <TextBlock
                                                         x:Name="discount"
                                                         Margin="5 0"
                                                         Foreground="Red"
                                                         FontSize="12"
                                                         FontWeight="Medium"
-                                                        Text="{Binding RECEIPT_DETAIL.PRODUCT.DISCOUNT_, StringFormat={}{0:P0}}"
+                                                        Text="{Binding PRODUCT.DISCOUNT_, StringFormat={}{0:P0}}"
                                                         VerticalAlignment="Center">
-                                                </TextBlock>
-                                            </Border>
+                                                    </TextBlock>
+                                                </Border>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                </Grid>
-                                <!--số lượng-->
-                                <TextBlock x:Name="amount"
-                                    Text="{Binding RECEIPT_DETAIL.AMOUNT_}"
+                                    </Grid>
+                                    <!--số lượng-->
+                                    <TextBlock x:Name="amount"
+                                    Text="{Binding AMOUNT_}"
                                        FontSize="18"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Grid.Column="1"></TextBlock>
-                                <!--giá tiền tổng cộng của mỗi món ăn -->
-                                <TextBlock
+                                    <!--giá tiền tổng cộng của mỗi món ăn bên UI đã tính bằng converter rồi -->
+                                    <TextBlock
                                        FontSize="18"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Foreground="Black"
                                        TextWrapping="Wrap"
                                        Grid.Column="2">
-                                    <TextBlock.Text>
-                                        <MultiBinding Converter="{StaticResource unitToPrice}">
-                                            <Binding ElementName="discount" Path="Text" />
-                                            <Binding ElementName="price" Path="Text" />
-                                            <Binding ElementName="amount" Path="Text" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </Grid>
-                            <Rectangle
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource unitToPrice}">
+                                                <Binding ElementName="discount" Path="Text" />
+                                                <Binding ElementName="price" Path="Text" />
+                                                <Binding ElementName="amount" Path="Text" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Grid>
+                                <Rectangle
                                 Fill="White"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
@@ -185,9 +188,10 @@
                                 RadiusX="10"
                                 Panel.ZIndex="-2"
                                 Margin="10">
-                            </Rectangle>
-                        </Grid>
-                    </ListViewItem>
+                                </Rectangle>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
 
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
