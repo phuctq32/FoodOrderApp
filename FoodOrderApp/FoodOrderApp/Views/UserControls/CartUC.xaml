@@ -48,6 +48,10 @@
                         <Grid>
                             <CheckBox
                                 x:Name="selectAllCheckBox"
+                                IsThreeState="True"
+                                
+                                Command="{Binding Source={StaticResource CartVM}, Path=AllCheckedCommand}"
+                                CommandParameter="{Binding ElementName=selectAllCheckBox}"
                                 Width="17"
                                 Height="13"
                                 HorizontalAlignment="Left"
@@ -90,7 +94,11 @@
                     </Border>
 
                     <Grid Grid.Row="1">
-                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}" ItemsSource="{Binding Source={StaticResource CartVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="29*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}" ItemsSource="{Binding Source={StaticResource CartVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <!--Lưu ý: các phần binding chỉ là để test bên VM
@@ -106,6 +114,9 @@
                                             </Grid.ColumnDefinitions>
 
                                             <CheckBox
+                                                x:Name="selectCheckBox"
+                                                Command="{Binding Source={StaticResource CartVM}, Path=CheckedCommand}"
+                                                CommandParameter="{Binding ElementName=selectCheckBox}"
                                                 Grid.Column="0"
                                                 Margin="20 0"
                                                 Height="13"
@@ -250,7 +261,7 @@
                                                                 HorizontalContentAlignment="Center"
                                                                 FontSize="14"
                                                                 Command="{Binding Source={StaticResource CartVM}, Path=UpCommand}"
-                                                                CommandParameter="{Binding ElementName=amount}"/>      
+                                                                CommandParameter="{Binding ElementName=amount}"/>
                                                             <Border 
                                                                 BorderBrush="Gray" 
                                                                 IsHitTestVisible="False" 
@@ -299,13 +310,13 @@
                                     Panel.ZIndex="-2"
                                     Margin="10">
                                         </Rectangle>
-                                        
+
                                     </Grid>
-                                    
+
                                 </DataTemplate>
-                                
+
                             </ListView.ItemTemplate>
-                            
+
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -334,7 +345,7 @@
                             Panel.ZIndex="-1">
                     </Rectangle>
                 </Grid>
-                
+
             </Grid>
         </Grid>
     </materialDesign:TransitioningContent>

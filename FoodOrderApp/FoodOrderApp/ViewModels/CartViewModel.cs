@@ -18,6 +18,12 @@ namespace FoodOrderApp.ViewModels
         public ICommand DeleteCartCommand { get; set; }
         public ICommand DownCommand { get; set; }
         public ICommand UpCommand { get; set; }
+        public ICommand AllCheckedCommand { get; set; }
+        public ICommand CheckedCommand { get; set; }
+
+        //private bool allChecked;
+        //public bool AllChecked { get => allChecked; set { allChecked = value; OnPropertyChanged(); } }
+
         private List<CART> currentCart;
         public List<CART> CurrentCart
         {
@@ -34,7 +40,9 @@ namespace FoodOrderApp.ViewModels
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
             DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
             DownCommand = new RelayCommand<TextBlock>(p => true, p => Down(p));
-            UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
+            UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p)); 
+             AllCheckedCommand = new RelayCommand<CheckBox>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
+             CheckedCommand = new RelayCommand<CheckBox>((parameter) => { return true; }, (parameter) => Checked(parameter));
         }
         private void Loaded(CartUC cartUC)
         {
@@ -97,5 +105,26 @@ namespace FoodOrderApp.ViewModels
                 parameter.Text = amount.ToString();
             }
         }
+
+        private void AllChecked(CheckBox parameter)
+        {
+
+            bool newVal = (parameter.IsChecked == true);
+            for (int i = 0; i < currentCart.Count; i++)
+            {
+                //// các checkbox.isCheck = newVal;
+            }
+            
+        }
+        private void Checked(CheckBox parameter)
+        {
+            //// cái thằng allChecked.IsChecked = null
+            if (parameter.IsChecked == true)
+                CustomMessageBox.Show("true", MessageBoxButton.OK);
+            else
+                CustomMessageBox.Show("false", MessageBoxButton.OK);
+
+        }
+
     }
 }
