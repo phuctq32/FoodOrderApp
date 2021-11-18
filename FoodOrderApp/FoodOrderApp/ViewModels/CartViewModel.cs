@@ -16,25 +16,31 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand LoadedCommand { get; set; }
         public ICommand DeleteCartCommand { get; set; }
-
+        public ICommand DownCommand { get; set; }
+        public ICommand UpCommand { get; set; }
+        private List<CART> currentCart;
+        public List<CART> CurrentCart
+        {
+            get => currentCart;
+            set
+            {
+                currentCart = value;
+                OnPropertyChanged("CurrentCart");
+            }
+        }
         public CartViewModel()
         {
-            LoadedCommand = new RelayCommand<CartUC>(p => true, p => DisplayCart(p));
-            DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
-        }
 
-        private void DisplayCart(CartUC parameter)
-        {
-            List<PRODUCT> loadedListCart = new List<PRODUCT>() ;
-            List<CART> currentUserCarts = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
-            //foreach (var item in currentUserCarts)
-            //{
-            //    PRODUCT product = Data.Ins.DB.PRODUCTs.Where(p => p.ID_ == item.PRODUCT_).SingleOrDefault();
-            //    loadedListCart.Add(product);
-            //}
-            parameter.cartList.ItemsSource = currentUserCarts;
+            LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
+            DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
+            DownCommand = new RelayCommand<TextBlock>(p => true, p => Down(p));
+            UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
         }
-        private void DeleteCart(ListViewItem parameter)
+        private void Loaded(CartUC cartUC)
+        {
+            CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+        }
+        protected void DeleteCart(ListViewItem parameter)
         {
             try
             {
@@ -43,12 +49,52 @@ namespace FoodOrderApp.ViewModels
                     CART cartToDelete = parameter.DataContext as CART;
                     Data.Ins.DB.CARTs.Remove(cartToDelete);
                     Data.Ins.DB.SaveChanges();
-                    CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.None);
+                    CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
                 }
             }
             catch
             {
                 CustomMessageBox.Show("Lỡi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void Down(TextBlock parameter)
+        {
+            short amount = short.Parse(parameter.Text.ToString());
+            var lvi = GetAncestorOfType<ListViewItem>(parameter);
+            if (amount == 1)
+            {
+                if (CustomMessageBox.Show("Xóa món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    CART cartToDelete = lvi.DataContext as CART;
+                    Data.Ins.DB.CARTs.Remove(cartToDelete);
+                    Data.Ins.DB.SaveChanges();
+                    CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+                }
+            }
+            else
+            {
+                CART cart = lvi.DataContext as CART;
+                amount--;
+                cart.AMOUNT_ = amount;
+                parameter.Text = amount.ToString();
+            }
+        }
+        private void Up(TextBlock parameter)
+        {
+            short amount = short.Parse(parameter.Text.ToString());
+            if (amount == short.MaxValue)
+            {
+                return;
+            }
+            else
+            {
+                var lvi = GetAncestorOfType<ListViewItem>(parameter);
+                CART cart = lvi.DataContext as CART;
+                amount++;
+                cart.AMOUNT_ = amount;
+                parameter.Text = amount.ToString();
             }
         }
     }

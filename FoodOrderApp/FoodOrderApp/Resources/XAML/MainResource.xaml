@@ -10,5 +10,4 @@
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
     <viewmodels:MenuViewModel x:Key="MenuVM"></viewmodels:MenuViewModel>
     <viewmodels:CartViewModel x:Key="CartVM"></viewmodels:CartViewModel>
-    <viewmodels:NumericSpinnerViewModel x:Key="NumericSpinnerVM"></viewmodels:NumericSpinnerViewModel>
 </ResourceDictionary>

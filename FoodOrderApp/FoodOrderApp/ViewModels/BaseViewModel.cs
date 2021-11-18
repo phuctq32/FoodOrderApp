@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -16,7 +17,7 @@ namespace FoodOrderApp.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -41,6 +42,13 @@ namespace FoodOrderApp.ViewModels
             {
                 CustomMessageBox.Show("Lỗi! Không thể gửi mã code!", MessageBoxButton.OK);
             }
+        }
+        public static T GetAncestorOfType<T>(FrameworkElement child) where T : FrameworkElement
+        {
+            var parent = VisualTreeHelper.GetParent(child);
+            if (parent != null && !(parent is T))
+                return (T)GetAncestorOfType<T>((FrameworkElement)parent);
+            return (T)parent;
         }
     }
     public class RelayCommand<T> : ICommand

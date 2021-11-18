@@ -84,6 +84,30 @@
         </Setter>
     </Style>
 
+    <Style x:Key="up_down_spinner_btn" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Margin="0" x:Name="br" BorderThickness="0" BorderBrush="{DynamicResource ThemeBrushDark}" 
+                            Background="{DynamicResource Orange1}" CornerRadius="0">
+                        <ContentPresenter x:Name="cp" TextElement.Foreground="{TemplateBinding Foreground}" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="br" Property="Background" Value="{DynamicResource Orange4}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="br" Property="Background" Value="Silver" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="GreenBtn" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
         <Setter Property="Background" Value="{DynamicResource DarkGreen}" />
         <Setter Property="Foreground" Value="White" />
@@ -122,4 +146,5 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
 </ResourceDictionary>

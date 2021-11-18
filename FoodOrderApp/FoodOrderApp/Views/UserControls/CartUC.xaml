@@ -12,19 +12,20 @@
              xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="710" d:DesignWidth="1120">
-    <UserControl.Resources>
-        <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
-        </helpers:DoubleToVisibilityConverter>
-        <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
-        <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
-        <mainlocal:CurrentAccount x:Key="currentAccount"></mainlocal:CurrentAccount>
-    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
                                    CommandParameter="{Binding ElementName=CartUserControl}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
+        </helpers:DoubleToVisibilityConverter>
+        <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
+        <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
+        <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
+        <mainlocal:CurrentAccount x:Key="currentAccount"></mainlocal:CurrentAccount>
+    </UserControl.Resources>
     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -89,7 +90,7 @@
                     </Border>
 
                     <Grid Grid.Row="1">
-                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}">
+                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}" ItemsSource="{Binding Source={StaticResource CartVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <!--Lưu ý: các phần binding chỉ là để test bên VM
@@ -109,7 +110,8 @@
                                                 Margin="20 0"
                                                 Height="13"
                                                 Width="17"
-                                                HorizontalAlignment="Left" />
+                                                HorizontalAlignment="Left"
+                                                Background="{StaticResource Orange2}"/>
                                             <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
                                             <Grid Grid.Column="1">
                                                 <!--hình ảnh-->
@@ -196,16 +198,85 @@
                                             </Grid>
                                             <!--nút +- số lượng-->
                                             <Grid Grid.Column="2">
-                                                <local:NumericSpinner Width="70" Height="25" />
+                                                <Grid x:Name="spinner" Width="70" Height="25">
+                                                    <Border>
+                                                        <Border.OpacityMask>
+                                                            <VisualBrush>
+                                                                <VisualBrush.Visual>
+                                                                    <Border 
+                                                                        Background="Black" 
+                                                                        SnapsToDevicePixels="True"
+                                                                        CornerRadius="4"
+                                                                        Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}"
+                                                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}" />
+                                                                </VisualBrush.Visual>
+                                                            </VisualBrush>
+                                                        </Border.OpacityMask>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="20" />
+                                                                <ColumnDefinition />
+                                                                <ColumnDefinition Width="20" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock
+                                                                x:Name="amount" 
+                                                                FontWeight="Medium" 
+                                                                FontSize="12" 
+                                                                VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"
+                                                                Padding="0" 
+                                                                Grid.Column="1"
+                                                                Text="{Binding AMOUNT_}"/>
+                                                            <Button 
+                                                                Style="{StaticResource up_down_spinner_btn}"
+                                                                Grid.Column="0" 
+                                                                Grid.Row="0" 
+                                                                Width="auto" 
+                                                                Height="auto"
+                                                                Content="-"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                FontSize="16"
+                                                                Command="{Binding Source={StaticResource CartVM}, Path=DownCommand}"
+                                                                CommandParameter="{Binding ElementName=amount}"/>
+                                                            <Button 
+                                                                Style="{StaticResource up_down_spinner_btn}"
+                                                                Grid.Column="2" 
+                                                                Grid.Row="1" 
+                                                                Width="auto" 
+                                                                Height="auto"
+                                                                Content="+"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                FontSize="14"
+                                                                Command="{Binding Source={StaticResource CartVM}, Path=UpCommand}"
+                                                                CommandParameter="{Binding ElementName=amount}"/>      
+                                                            <Border 
+                                                                BorderBrush="Gray" 
+                                                                IsHitTestVisible="False" 
+                                                                BorderThickness="1" 
+                                                                CornerRadius="4" 
+                                                                Grid.RowSpan="2" 
+                                                                Grid.ColumnSpan="3"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
                                             </Grid>
                                             <!--giá tiền tổng cộng-->
                                             <TextBlock
                                                 Grid.Column="3"
-                                                Text="$100.00"
                                                 FontSize="16"
                                                 FontWeight="DemiBold"
                                                 HorizontalAlignment="Center"
-                                                VerticalAlignment="Center" />
+                                                VerticalAlignment="Center">
+                                                <TextBlock.Text>
+                                                    <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource unitToPrice}">
+                                                        <Binding ElementName="discount" Path="Text"/>
+                                                        <Binding ElementName="price" Path="Text" />
+                                                        <Binding ElementName="amount" Path="Text" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                             <!--nút xoá món ăn ra khỏi giỏ hàng-->
                                             <Button
                                                 Grid.Column="4"
@@ -228,10 +299,13 @@
                                     Panel.ZIndex="-2"
                                     Margin="10">
                                         </Rectangle>
+                                        
                                     </Grid>
+                                    
                                 </DataTemplate>
+                                
                             </ListView.ItemTemplate>
-
+                            
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -260,6 +334,7 @@
                             Panel.ZIndex="-1">
                     </Rectangle>
                 </Grid>
+                
             </Grid>
         </Grid>
     </materialDesign:TransitioningContent>
