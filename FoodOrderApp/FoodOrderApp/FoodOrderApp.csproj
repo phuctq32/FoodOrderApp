@@ -57,6 +57,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -86,6 +87,8 @@
     <Compile Include="Helpers\DoubleToTextDecorationsConverter.cs" />
     <Compile Include="Helpers\DoubleToVisibilityConverter.cs" />
     <Compile Include="Helpers\PriceToPriceDiscount.cs" />
+    <Compile Include="Helpers\PriceToStringConverter.cs" />
+    <Compile Include="Helpers\UnitPriceToTotalPriceFAPConverter.cs" />
     <Compile Include="Helpers\TotalPriceMultiConverter.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Data.cs" />
@@ -173,9 +176,6 @@
     </Compile>
     <Compile Include="Views\UserControls\MyOrderUC.xaml.cs">
       <DependentUpon>MyOrderUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\NumericSpinner.xaml.cs">
-      <DependentUpon>NumericSpinner.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -286,10 +286,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\MyOrderUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserControls\NumericSpinner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

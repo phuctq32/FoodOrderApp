@@ -1,6 +1,7 @@
 ﻿using FoodOrderApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -8,24 +9,20 @@ using System.Threading.Tasks;
 
 namespace FoodOrderApp
 {
-    public class CurrentAccount
+    public class CurrentAccount : ViewModels.BaseViewModel
     {
-        private static List<PRODUCT> productsInCart;
         private static string username;
         private static string password;
+        
         public CurrentAccount()
         {
-            IsAdmin = true;
-            ProductsInCart = new List<PRODUCT>();
+            IsUser = true;
+            
         }
 
         public static bool IsAdmin { get; set; }
         public static bool IsUser { get; set; }
         
-        public static List<PRODUCT> ProductsInCart { get => productsInCart; set {
-                productsInCart = value;
-            }          
-        }
 
         public static string Username { get => username; set => username = value; }
         public static string Password { get => password; set => password = value; }
