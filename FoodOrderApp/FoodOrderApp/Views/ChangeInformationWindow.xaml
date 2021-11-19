@@ -10,7 +10,7 @@
         xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        DataContext="{StaticResource AccountVM}"
+        DataContext="{StaticResource ChangeInfoVM}"
         Height="680"
         Width="440"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -63,7 +63,7 @@
                                     Margin="10,10,20,-18" />
                                 <TextBox
                                     x:Name="txtFullname"
-                                    Text="{Binding Path=FULLNAME_,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding Path=FULLNAME_}"
                                     TabIndex="2"
                                 materialDesign:HintAssist.Hint="Họ và tên"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -89,7 +89,7 @@
                                         Margin="10,10,20,-18" />
                                 <TextBox
                                         x:Name="txtMail"
-                                        Text="{Binding Path=Mail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Text="{Binding Path=Mail}"
                                         TabIndex="0"
                                     IsEnabled="False"
                                     materialDesign:HintAssist.Hint="Email"
@@ -116,7 +116,7 @@
                                     Margin="10,10,20,-18" />
                                 <TextBox
                                     x:Name="txtPhone"
-                                    Text="{Binding Path=Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    Text="{Binding Path=Phone}"
                                     TabIndex="1"
                                 materialDesign:HintAssist.Hint="Số điện thoại"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -142,7 +142,7 @@
                                     Margin="10,10,20,-18" />
                                 <TextBox
                                     x:Name="txtAddress"
-                                    Text="{Binding Path=Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    Text="{Binding Path=Address}"
                                     TabIndex="2"
                                 materialDesign:HintAssist.Hint="Địa chỉ"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"

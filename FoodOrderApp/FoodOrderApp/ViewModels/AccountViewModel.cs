@@ -25,7 +25,6 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand UploadImageCommand { get; set; }
         public ICommand ChangeInfoCommand { get; set; }
-        public ICommand SaveInfoCommand { get; set; }
         public ICommand LoadedCommand { get; set; }
         private USER user;
         private string FULLNAME;
@@ -63,28 +62,6 @@ namespace FoodOrderApp.ViewModels
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
             ChangeInfoCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => ChangeInfo(paramater));
             LoadedCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => loaded(paramater));
-            SaveInfoCommand = new RelayCommand<ChangeInformationWindow>((parameter) => true, (parameter) => SaveChange(parameter));
-            //Load current account information
-        }
-
-        public void SaveChange(ChangeInformationWindow changeInformationWD)
-        {
-            user.PHONE_ = changeInformationWD.txtPhone.Text;
-            user.FULLNAME_ = changeInformationWD.txtFullname.Text;
-            user.ADDRESS_ = changeInformationWD.txtAddress.Text;
-            try
-            {
-                Data.Ins.DB.SaveChanges();
-                //Phone = changeInformationWD.txtPhone.Text;
-                //FULLNAME_ = changeInformationWD.txtFullname.Text;
-                //Address = changeInformationWD.txtAddress.Text;
-                CustomMessageBox.Show("Thay đổi thành công", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch
-            {
-                CustomMessageBox.Show("Thay đổi không thành công", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            changeInformationWD.Close();
         }
 
         private void loaded(AccountUC paramater)
@@ -154,14 +131,15 @@ namespace FoodOrderApp.ViewModels
         public void ChangeInfo(AccountUC accountUC)
         {
             ChangeInformationWindow changeInformationWindow = new ChangeInformationWindow();
-            changeInformationWindow.Show();
-            //USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            //AVATAR_ = user.AVATAR_;
-            //FULLNAME_ = user.FULLNAME_;
-            //Phone = user.PHONE_;
-            //UserName = user.USERNAME_;
-            //Mail = user.EMAIL_;
-            //Address = user.ADDRESS_;
+            changeInformationWindow.ShowDialog();
+
+            USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            AVATAR_ = user.AVATAR_;
+            FULLNAME_ = user.FULLNAME_;
+            Phone = user.PHONE_;
+            UserName = user.USERNAME_;
+            Mail = user.EMAIL_;
+            Address = user.ADDRESS_;
         }
     }
 }

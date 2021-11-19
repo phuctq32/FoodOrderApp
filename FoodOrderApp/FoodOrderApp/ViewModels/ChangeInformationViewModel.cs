@@ -31,7 +31,7 @@ namespace FoodOrderApp.ViewModels
 
         private string fullname;
 
-        public string Fullname
+        public string FULLNAME_
         { get => fullname; set { fullname = value; OnPropertyChanged("Fullname"); } }
 
         private string phone;
@@ -49,7 +49,7 @@ namespace FoodOrderApp.ViewModels
             SaveInfoCommand = new RelayCommand<ChangeInformationWindow>((parameter) => true, (parameter) => SaveChange(parameter));
             user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
             this.Phone = user.PHONE_;
-            this.Fullname = user.FULLNAME_;
+            this.FULLNAME_ = user.FULLNAME_;
             this.Address = user.ADDRESS_;
             this.Mail = user.EMAIL_;
         }
@@ -62,9 +62,10 @@ namespace FoodOrderApp.ViewModels
             try
             {
                 Data.Ins.DB.SaveChanges();
-                Phone = changeInformationWD.txtPhone.Text;
-                Fullname = changeInformationWD.txtFullname.Text;
-                Address = changeInformationWD.txtAddress.Text;
+                FULLNAME_ = user.FULLNAME_;
+                Phone = user.PHONE_;
+                Mail = user.EMAIL_;
+                Address = user.ADDRESS_;
                 CustomMessageBox.Show("Thay đổi thành công", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
