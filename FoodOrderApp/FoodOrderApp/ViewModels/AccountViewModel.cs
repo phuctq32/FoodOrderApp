@@ -24,6 +24,7 @@ namespace FoodOrderApp.ViewModels
     class AccountViewModel : BaseViewModel
     {
         public ICommand UploadImageCommand { get; set; }
+        public ICommand ChangeInfoCommand { get; set; }
 
         private string FULLNAME;
 
@@ -58,6 +59,7 @@ namespace FoodOrderApp.ViewModels
         public AccountViewModel()
         {
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
+            ChangeInfoCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => ChangeInfo(paramater));
 
             //Load current account information
 
@@ -111,6 +113,10 @@ namespace FoodOrderApp.ViewModels
                 USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
                 user.AVATAR_ = "https://phong.blob.core.windows.net/avatar/" + CurrentAccount.Username + "." + filename[1];
 
+                //Save database change
+
+                Data.Ins.DB.SaveChanges();
+
                 //Load new image
 
                 System.Windows.Media.Imaging.BitmapImage bitmap = new BitmapImage();
@@ -118,11 +124,15 @@ namespace FoodOrderApp.ViewModels
                 bitmap.UriSource = new Uri(openFileDialog.FileName, UriKind.Absolute);
                 bitmap.EndInit();
                 accountUC.ImgBrush.ImageSource = bitmap;
-
-                //Save database change
-
-                Data.Ins.DB.SaveChanges();
-                
+            }
+        }
+        public void ChangeInfo(AccountUC accountUC)
+        {
+            ChangeInformationWindow changeInformationWindow = new ChangeInformationWindow();
+            changeInformationWindow.Show();
+            if (changeInformationWindow.IsActive == false)
+            {
+                accountUC.txtUsername.Text = FULLNAME_;
             }
         }
     }
