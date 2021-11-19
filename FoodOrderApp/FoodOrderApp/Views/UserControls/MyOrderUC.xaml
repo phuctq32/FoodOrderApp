@@ -170,6 +170,7 @@
                 Grid.Column="4" />
             </Grid>
             <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
+            <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
             <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -201,7 +202,7 @@
                             Grid.Column="1" />
                             <!--số lượng món trong đơn-->
                             <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
-                            <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ bên VM mới được-->
+                            <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->
                             <TextBlock
                             Text=""
                             FontSize="20"
@@ -218,7 +219,7 @@
                             FontWeight="DemiBold"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" />
-                            <!--nút xoá món ăn ra khỏi giỏ hàng-->
+                            <!--nút bấm để xem chi tiết của đơn đặt hàng OrderDetailWindow-->
                             <Button
                             Grid.Column="4"
                             Style="{StaticResource detailBtn}"

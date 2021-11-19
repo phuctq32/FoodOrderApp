@@ -15,7 +15,7 @@ namespace FoodOrderApp.Helpers
             try
             {
                 if (values[0].ToString().Contains("%"))
-                    return ((Int32.Parse(values[1].ToString()) * (1 - Double.Parse(values[0].ToString().Replace("%", " ")) / 100)) * (Int32)short.Parse(values[2].ToString())).ToString();
+                    return ((Int32.Parse(values[1].ToString().Replace(",", "")) * (1 - Double.Parse(values[0].ToString().Replace("%", "")) / 100)) * (Int32)short.Parse(values[2].ToString())).ToString("N0");
             }
             catch
             {

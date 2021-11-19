@@ -16,9 +16,11 @@ namespace FoodOrderApp.Helpers
                object parameter, System.Globalization.CultureInfo culture)
         {
             if (values[1].ToString().Contains("%"))
+            {
                 return
-                (Int32.Parse((string)values[0]) - (Int32.Parse((string)values[0]) * (Double.Parse(values[1].ToString().Replace("%", " ")) / 100))).ToString();
-            return values;
+                (Int32.Parse(values[0].ToString().Replace(",", "")) * (1 - Double.Parse(values[1].ToString().Replace("%", "")) / 100)).ToString("N0");
+            }
+            return "";
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes,
