@@ -43,7 +43,7 @@ namespace FoodOrderApp.ViewModels
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
             SearchCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => BtnSearch(parameter));
             IndexCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => GetIndex(parameter));
-            SortD = new RelayCommand<MenuUC>((parameter) => true, (parameter) => GiaT(parameter));
+            SortD = new RelayCommand<MenuUC>((parameter) => true, (parameter) => BtnSearch(parameter));
             //AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
         }
 
@@ -65,42 +65,50 @@ namespace FoodOrderApp.ViewModels
             parameter.ViewListProducts.ItemsSource = products;
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource);
             view.Filter = UserFilter;
+           // view.Filter = GiaT;
+
         }
 
-        private void GiaT(MenuUC parameter)
+        private bool GiaT(object item)
         {
-            object item = new object();
+            MenuUC parameter = new MenuUC();
+            //object item = new object();
             int v = (item as PRODUCT).PRICE_;
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource);
-
-            if (Index == 1)
+           // MessageBox.Show(v.ToString());
+            if (Index == 0)
             {
-                view.SortDescriptions.Clear();
-                view.SortDescriptions.Add(new System.ComponentModel.SortDescription(v.ToString(), ListSortDirection.Descending));
+                view.SortDescriptions.ToList().Add(new System.ComponentModel.SortDescription(v.ToString(), ListSortDirection.Ascending));
+                return true;
             }
             else
+            if(Index==1)
             {
-                view.SortDescriptions.Clear();
+
                 view.SortDescriptions.Add(new System.ComponentModel.SortDescription(v.ToString(), ListSortDirection.Descending));
-            }
+                return true;
+            }else
+            return false;
         }
 
         public void BtnSearch(MenuUC parameter)
         {
-            MessageBox.Show(Index.ToString());
             CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource).Refresh();
         }
 
         private bool UserFilter(object item)
-        {
-            // string a = RemoveSign4VietnameseString(pRODUCT.NAME_);
+        { 
             string a = (item as PRODUCT).NAME_;
+            string b = search;
             a = RemoveSign4VietnameseString(a);
-            if (String.IsNullOrEmpty(Search))
+            if (b!=null)
+            {
+                b = RemoveSign4VietnameseString(b);
+            }    
+            if (string.IsNullOrEmpty(b))
                 return true;
             else
-                return (a.IndexOf(Search, StringComparison.OrdinalIgnoreCase) >= 0);
-            //return ((item as PRODUCT).NAME_.IndexOf(Search, StringComparison.OrdinalIgnoreCase) >= 0);
+                return (a.IndexOf(b, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         private static readonly string[] VietnameseSigns = new string[]
@@ -145,7 +153,13 @@ namespace FoodOrderApp.ViewModels
             }
             return str;
         }
-
+        //public bool kt(char str)
+        //{
+        //    for (int i = 1; i < VietnameseSigns.Length; i++)
+        //        for (int j = 0; j < VietnameseSigns[i].Length; j++)
+        //            if (str == VietnameseSigns[i][j]) return true || false;
+        //            //return false;
+        //}
         private void AddToCart(ListViewItem parameter)
         {
         }
