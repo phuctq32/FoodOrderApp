@@ -157,18 +157,18 @@
                                                         <!--thì collapsed-->
                                                         <!--nếu có đổi tên của stack thì qua doubletovisi đổi luôn tên bên đấy-->
                                                         <StackPanel
-                                                    x:Name="stack"
-                                                    Orientation="Horizontal"
-                                                    Margin="0 5"
-                                                    Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
+                                                            x:Name="stack"
+                                                            Orientation="Horizontal"
+                                                            Margin="0 5"
+                                                            Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
                                                             <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
                                                             <!--giá giảm-->
                                                             <TextBlock
-                                                        Margin="10 0 10 0"
-                                                        Foreground="Red"
-                                                        FontSize="16"
-                                                        FontWeight="Medium"
-                                                        VerticalAlignment="Center">
+                                                                Margin="10 0 10 0"
+                                                                Foreground="Red"
+                                                                FontSize="16"
+                                                                FontWeight="Medium"
+                                                                VerticalAlignment="Center">
                                                                 <TextBlock.Text>
                                                                     <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
                                                                         <Binding ElementName="price" Path="Text" />
@@ -178,9 +178,9 @@
                                                             </TextBlock>
                                                             <!--discount-->
                                                             <Border
-                                                        BorderBrush="Red"
-                                                        CornerRadius="5"
-                                                        BorderThickness="1">
+                                                                BorderBrush="Red"
+                                                                CornerRadius="5"
+                                                                BorderThickness="1">
                                                                 <!--{Binding Discount, StringFormat={}{0}%}-->
                                                                 <TextBlock
                                                                 x:Name="discount"
