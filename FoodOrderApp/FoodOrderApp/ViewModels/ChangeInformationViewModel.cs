@@ -22,20 +22,27 @@ namespace FoodOrderApp.ViewModels
         //public ICommand RePasswordChangedCommand { get; set; }
         //public ICommand ActivationCommand { get; set; }
 
-
         private USER user;
 
         private string mail;
-        public string Mail { get => mail; set { mail = value; OnPropertyChanged(); } }
+
+        public string Mail
+        { get => mail; set { mail = value; OnPropertyChanged("Mail"); } }
 
         private string fullname;
-        public string Fullname { get => fullname; set { fullname = value; OnPropertyChanged(); } }
+
+        public string Fullname
+        { get => fullname; set { fullname = value; OnPropertyChanged("Fullname"); } }
 
         private string phone;
-        public string Phone { get => phone; set { phone = value; OnPropertyChanged(); } }
+
+        public string Phone
+        { get => phone; set { phone = value; OnPropertyChanged("Phone"); } }
 
         private string address;
-        public string Address { get => address; set { address = value; OnPropertyChanged(); } }
+
+        public string Address
+        { get => address; set { address = value; OnPropertyChanged("Address"); } }
 
         public ChangeInformationViewModel()
         {
@@ -46,6 +53,7 @@ namespace FoodOrderApp.ViewModels
             this.Address = user.ADDRESS_;
             this.Mail = user.EMAIL_;
         }
+
         public void SaveChange(ChangeInformationWindow changeInformationWD)
         {
             user.PHONE_ = changeInformationWD.txtPhone.Text;
@@ -54,6 +62,9 @@ namespace FoodOrderApp.ViewModels
             try
             {
                 Data.Ins.DB.SaveChanges();
+                Phone = changeInformationWD.txtPhone.Text;
+                Fullname = changeInformationWD.txtFullname.Text;
+                Address = changeInformationWD.txtAddress.Text;
                 CustomMessageBox.Show("Thay đổi thành công", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch

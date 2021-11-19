@@ -17,6 +17,12 @@
             Background="{x:Null}"
             FontFamily="{DynamicResource MaterialDesignFont}"
             Foreground="{x:Null}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
+                                   CommandParameter="{Binding ElementName=AccountUserControl}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
         <Grid>
 
@@ -32,7 +38,7 @@
                     Width="150"
                     Height="150"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top" 
+                    VerticalAlignment="Top"
                     RadiusY="10"
                     RadiusX="10"
                     Margin="0">
@@ -53,7 +59,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 FocusVisualStyle="{x:Null}"
-                FontSize="16" >
+                FontSize="16">
                 </Button>
             </Grid>
             <Grid Margin="150 100 0 0">
@@ -85,7 +91,7 @@
                                 FontSize="16"
                                 FontWeight="Medium"
                         Width="250" Height="50"
-                               Text="{Binding Mail}"
+                               Text="{Binding Mail, UpdateSourceTrigger=PropertyChanged}"
                                Padding="0 30 15 15">
                         </TextBlock>
                     </StackPanel>
@@ -117,7 +123,7 @@
                                 FontSize="16"
                                 FontWeight="Medium"
                         Width="250" Height="50"
-                                Text="{Binding FULLNAME_}"
+                                Text="{Binding Path=FULLNAME_, UpdateSourceTrigger=PropertyChanged}"
                                Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <!--Số điện thoại-->
@@ -148,7 +154,7 @@
                                 FontSize="16"
                                 FontWeight="Medium"
                         Width="250" Height="50"
-                                Text="{Binding Phone}"
+                                Text="{Binding Path=Phone, UpdateSourceTrigger=PropertyChanged}"
                                Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <!--giới tính-->
@@ -190,7 +196,7 @@
                                 FontSize="16"
                                 FontWeight="Medium"
                         Width="250" Height="50"
-                                Text="{Binding Address}"
+                                Text="{Binding Path=Address, UpdateSourceTrigger=PropertyChanged}"
                                Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <Button
