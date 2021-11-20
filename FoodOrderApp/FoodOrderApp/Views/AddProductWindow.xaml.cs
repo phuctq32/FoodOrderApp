@@ -22,16 +22,6 @@ namespace FoodOrderApp.Views
         public AddProductWindow()
         {
             InitializeComponent();
-            this.updatebtn.Visibility = Visibility.Collapsed;
-        }
-        public AddProductWindow(PRODUCT pRODUCT)
-        {
-            InitializeComponent();
-            this.addbtn.Visibility = Visibility.Collapsed;
-            this.txtName.Text = pRODUCT.NAME_;
-            this.txtDiscount.Text = pRODUCT.DISCOUNT_.ToString();
-            this.txtPrice.Text = pRODUCT.PRICE_.ToString();
-            this.txtDescription.Text = pRODUCT.DESCRIPTION_;
         }
     }
 }
