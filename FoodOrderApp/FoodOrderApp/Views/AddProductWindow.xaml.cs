@@ -19,17 +19,17 @@ namespace FoodOrderApp.Views
     /// </summary>
     public partial class AddProductWindow : Window
     {
-        public AddProductWindow(bool Add)
+        public AddProductWindow()
         {
-            InitializeComponent();
-            if(Add = true)
-            {
-                this.updatebtn.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                this.addbtn.Visibility = Visibility.Collapsed;
-            }
+            this.updatebtn.Visibility = Visibility.Collapsed;
+        }
+        public AddProductWindow(PRODUCT pRODUCT)
+        {
+            this.addbtn.Visibility = Visibility.Collapsed;
+            this.txtName.Text = pRODUCT.NAME_;
+            this.txtDiscount.Text = pRODUCT.DISCOUNT_.ToString();
+            this.txtPrice.Text = pRODUCT.PRICE_.ToString();
+            this.txtDescription.Text = pRODUCT.DESCRIPTION_;
         }
     }
 }

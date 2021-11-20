@@ -16,6 +16,7 @@
         Background="{x:Null}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Foreground="{x:Null}"
+        DataContext="{StaticResource EditVM}"
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
@@ -55,6 +56,7 @@
                     <TextBox
                             materialDesign:HintAssist.Hint="Tên món ăn"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            x:Name="txtName"
                             Foreground="Black"
                             FontSize="16"
                             FontWeight="Medium"
@@ -79,6 +81,7 @@
 
                                 materialDesign:HintAssist.Hint="Giá"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                x:Name="txtPrice"
                                 Foreground="Black"
                                 FontSize="16"
                                 FontWeight="Medium"
@@ -103,6 +106,7 @@
 
                                 materialDesign:HintAssist.Hint="Khuyến mãi"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                x:Name="txtDiscount"
                                 Foreground="Black"
                                 FontSize="16"
                                 FontWeight="Medium"
@@ -173,6 +177,7 @@
                 <TextBox
                     Foreground="Black"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    x:Name="txtDescription"
                     Height="130"
                     Width="500"
                     AcceptsReturn="True"
