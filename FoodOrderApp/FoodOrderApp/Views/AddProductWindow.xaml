@@ -33,7 +33,7 @@
                 <RowDefinition Height="0.4*"></RowDefinition>
             </Grid.RowDefinitions>
             <uc:ControlBarUC x:Name="controlBar" Grid.Row="0" Grid.ColumnSpan="2"></uc:ControlBarUC>
-            <TextBlock Text="Thêm món ăn"
+            <TextBlock Text="Cập nhật món ăn"
                        Margin="0 10 0 0"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
@@ -134,15 +134,18 @@
                 Grid.Column="1">
                 <Rectangle
                 x:Name="recImage"
-                StrokeDashArray="4 2"
                 Stroke="{StaticResource Orange2}"
-                StrokeThickness="4"
+                StrokeThickness="1"
                 RadiusX="4"
                 RadiusY="4"
                 Width="130"
                 Height="130"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" />
+                VerticalAlignment="Top">
+                    <Rectangle.Fill >
+                        <ImageBrush x:Name="Image" ImageSource="{Binding Source={StaticResource AddProductVM}, Path= IMAGE_}"> </ImageBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
                 <Button
                 x:Name="btnSelectImage"
                 Content="Chọn ảnh"
@@ -152,7 +155,7 @@
                 Command="{Binding SelectImageCommand}"
                 CommandParameter="{Binding ElementName=grdSelectImage}"
                 ToolTip="Chọn ảnh"
-                Margin="0,0,6,17"
+                Margin="17,0,23,-42"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 FocusVisualStyle="{x:Null}"
