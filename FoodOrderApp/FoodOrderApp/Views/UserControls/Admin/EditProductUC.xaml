@@ -8,7 +8,7 @@
              xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
              mc:Ignorable="d"
              Height="710" Width="1120"
-             DataContext="{StaticResource MenuVM}">
+             DataContext="{StaticResource EditVM}">
     <UserControl.Resources>
         <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
         </helpers:DoubleToVisibilityConverter>
