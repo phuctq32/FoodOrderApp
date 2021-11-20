@@ -171,8 +171,8 @@
                                         x:Name="editbtn"
                                         HorizontalAlignment="Center"
                                         Margin="60 0 0 0"
-                                        Command="{Binding UpdateProductCommand}"
-                                        CommandParameter="{Binding Source= {StaticResource EditVM}, Path=UpdateProductCommand}">
+                                        Command="{Binding Source={StaticResource EditVM}, Path= UpdateProductCommand}"
+                                        CommandParameter="{Binding}">
                                     </Button>
                                     <Button Style="{StaticResource deleteBtn}"
                                         VerticalAlignment="Center"

@@ -26,7 +26,7 @@ namespace FoodOrderApp.ViewModels
         {
             LoadedCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Loaded(parameter));
             AddProductCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Add(parameter));
-            UpdateProductCommand = new RelayCommand<PRODUCT>((parameter) => true, (parameter) => Update(parameter));
+            UpdateProductCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Update(parameter));
             DeleteProductCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Delete(parameter));
         }
         public void Loaded(EditProductUC editProductUC)
@@ -39,16 +39,16 @@ namespace FoodOrderApp.ViewModels
             AddProductWindow addProductWindow = new AddProductWindow();
             addProductWindow.ShowDialog();
         }
-        public void Update(PRODUCT pRODUCT)
+        public void Update(EditProductUC editProductUC)
         {
-            AddProductWindow addProductWindow = new AddProductWindow(pRODUCT);
+            AddProductWindow addProductWindow = new AddProductWindow();
             addProductWindow.ShowDialog();
         }
         public void Delete(EditProductUC editProductUC)
         {
 
         }
-        public void OpenImage(AddProductWindow addProductWindow)
+        public void OpenImage(EditProductUC editProductUC)
         {
 
         }
