@@ -48,10 +48,8 @@
                         <Grid>
                             <CheckBox
                                 x:Name="selectAllCheckBox"
-                                IsThreeState="True"
-                                
                                 Command="{Binding Source={StaticResource CartVM}, Path=AllCheckedCommand}"
-                                CommandParameter="{Binding ElementName=selectAllCheckBox}"
+                                CommandParameter="{Binding ElementName=CartUserControl}"
                                 Width="17"
                                 Height="13"
                                 HorizontalAlignment="Left"
@@ -336,13 +334,15 @@
 
             <Grid Grid.Column="1">
                 <Grid Margin="20 50">
+                    <TextBlock x:Name="totalPriceInInvoice" Text="{Binding TotalPrice, UpdateSourceTrigger=PropertyChanged}" FontSize="25" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
                     <Rectangle
                             Fill="White"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             RadiusY="20"
                             RadiusX="20"
-                            Panel.ZIndex="-1">
+                            Panel.ZIndex="-2">
                     </Rectangle>
                 </Grid>
 
