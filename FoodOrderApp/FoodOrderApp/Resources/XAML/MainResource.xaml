@@ -7,6 +7,7 @@
     <viewmodels:ControlBarViewModel x:Key="ControlBarVM"></viewmodels:ControlBarViewModel>
     <viewmodels:SignUpViewModel x:Key="SignUpVM"></viewmodels:SignUpViewModel>
     <viewmodels:ForgotPasswordViewModel x:Key="ForgotPasswordVM"></viewmodels:ForgotPasswordViewModel>
+    <viewmodels:ChangeInformationViewModel x:Key="ChangeInfoVM"></viewmodels:ChangeInformationViewModel>
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
     <viewmodels:MenuViewModel x:Key="MenuVM"></viewmodels:MenuViewModel>
     <viewmodels:CartViewModel x:Key="CartVM"></viewmodels:CartViewModel>

@@ -80,7 +80,7 @@ namespace FoodOrderApp.ViewModels
         {
             _execute((T)parameter);
         }
-
+                    
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
