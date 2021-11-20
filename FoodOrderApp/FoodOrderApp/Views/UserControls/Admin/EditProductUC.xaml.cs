@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace FoodOrderApp.Views.UserControls.Admin
 {
     /// <summary>
-    /// Interaction logic for EditProduct.xaml
+    /// Interaction logic for EditProductUC.xaml
     /// </summary>
-    public partial class EditProduct : UserControl
+    public partial class EditProductUC : UserControl
     {
-        public EditProduct()
+        public EditProductUC()
         {
             InitializeComponent();
         }

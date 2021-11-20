@@ -44,16 +44,17 @@ namespace FoodOrderApp.ViewModels
                 int idCarts = Data.Ins.DB.CARTs.Count();
                 if (cartsCount == 0)
                 {
-                    Data.Ins.DB.CARTs.Add(new CART() { ID_ = item.ID_, PRODUCT_ = item.ID_, USERNAME_ = CurrentAccount.Username, AMOUNT_ = 1 });
+                    string tmpID = CurrentAccount.Username +"_"+ item.ID_;
+                    Data.Ins.DB.CARTs.Add(new CART() { ID_ = tmpID, PRODUCT_ = item.ID_, USERNAME_ = CurrentAccount.Username, AMOUNT_ = 1 });
                     Data.Ins.DB.SaveChanges();
-                    CustomMessageBox.Show("Đã thêm " + item.NAME_ + " vào giỏ hàng thành công", MessageBoxButton.OK);
+                    CustomMessageBox.Show("Đã thêm " + item.NAME_.ToString() + " vào giỏ hàng thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 }
                 else
-                    CustomMessageBox.Show("Món ăn " + item.NAME_ + " đã có sẵn trong giỏ hàng", MessageBoxButton.OK);
+                    CustomMessageBox.Show("Món ăn " + item.NAME_.ToString() + " đã có sẵn trong giỏ hàng", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             catch
             {
-                CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

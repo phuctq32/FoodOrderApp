@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FoodOrderApp.Views.UserControls
+namespace FoodOrderApp.Views
 {
     /// <summary>
-    /// Interaction logic for CartUC.xaml
+    /// Interaction logic for InvoiceWindow.xaml
     /// </summary>
-    public partial class CartUC : UserControl
+    public partial class InvoiceWindow : Window
     {
-        public CartUC()
+        public InvoiceWindow()
         {
             InitializeComponent();
         }

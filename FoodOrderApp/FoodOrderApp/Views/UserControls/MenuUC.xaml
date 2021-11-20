@@ -24,6 +24,7 @@
         </helpers:DoubleToVisibilityConverter>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
+        <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
     </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -51,7 +52,7 @@
                             HorizontalAlignment="Left">
                             <DockPanel
                                 LastChildFill="True">
-                                <materialDesign:PackIcon 
+                                <materialDesign:PackIcon
                                     Kind="Search"
                                     Height="25"
                                     Width="25"
@@ -79,8 +80,8 @@
                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Orange1}"
                             materialDesign:HintAssist.Hint="Sắp xếp"
                             VerticalContentAlignment="Center">
-                            <ComboBoxItem Content="Giá tăng"/>
-                            <ComboBoxItem Content="Giá giảm"/>
+                            <ComboBoxItem Content="Giá tăng" />
+                            <ComboBoxItem Content="Giá giảm" />
                         </ComboBox>
                     </StackPanel>
 
@@ -106,7 +107,7 @@
                               Margin="20 0"
                               Width="auto"
                               Height="auto"
-                              
+
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListView.ItemsPanel>
@@ -142,23 +143,24 @@
                                                         VerticalAlignment="Center"
                                                         Text="{Binding NAME_}">
                                         </TextBlock>
-                                        <!--số tiền không giảm giá
-                                    nếu có đổi tên monneyTxt thì qua doubletovisi đổi luôn tên bên đấy-->
+                                        <!--số tiền không giảm giá-->
+                                        <StackPanel>
+                                        </StackPanel>
                                         <TextBlock
                                                 x:Name="price"
                                                 Margin="10 5"
                                                 Foreground="Black"
                                                 FontSize="16"
                                                 FontWeight="Medium"
-                                                Text="{Binding PRICE_}"
+                                                Text="{Binding PRICE_, StringFormat=N0}"
                                                 VerticalAlignment="Center"
+                                                Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
                                                 TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
                                                 Visibility="Visible">
                                         </TextBlock>
                                         <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
                                     khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên
-                                    thì collapsed
-                                    nếu có đổi tên của stack thì qua doubletovisi đổi luôn tên bên đấy-->
+                                    thì collapsed-->
                                         <StackPanel
                                                 x:Name="stack"
                                                 Orientation="Horizontal"
@@ -166,7 +168,6 @@
                                                 Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
                                             <TextBlock
                                                 x:Name="priceDiscount"
-                                                
                                                 Margin="0 0 10 0"
                                                     Foreground="Red"
                                                     FontSize="16"
