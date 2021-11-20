@@ -114,7 +114,7 @@
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
                                 <TextBox
-                                    x:Name="txtUsername" 
+                                    x:Name="txtUsername"
                                     Text="{Binding UserName}"
                                     TabIndex="2"
                                 materialDesign:HintAssist.Hint="Tài khoản"
@@ -152,11 +152,11 @@
                                     Height="50"
                                     FontSize="16"
                                     FontWeight="Medium"
-                                    Padding="2,0,0,0" >
+                                    Padding="2,0,0,0">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="PasswordChanged">
-                                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                                   CommandParameter="{Binding ElementName=PasswordBox}"/>
+                                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=PasswordBox}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </PasswordBox>
@@ -183,11 +183,11 @@
                                     Height="50"
                                     FontSize="16"
                                     FontWeight="Medium"
-                                    Padding="2,0,0,0" >
+                                    Padding="2,0,0,0">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="PasswordChanged">
-                                            <i:InvokeCommandAction Command="{Binding RePasswordChangedCommand}" 
-                                                   CommandParameter="{Binding ElementName=RePasswordBox}"/>
+                                            <i:InvokeCommandAction Command="{Binding RePasswordChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=RePasswordBox}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </PasswordBox>
