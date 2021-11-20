@@ -190,6 +190,7 @@
                         HorizontalAlignment="Right">
                 <Button
                 Style="{StaticResource GreenBtn}"
+                x:Name="updatebtn"
                 Content="Cập nhật"
                 Width="120"
                 Height="50"
@@ -200,6 +201,7 @@
                 <Button
                 Style="{StaticResource GreenBtn}"
                 Content="Thêm"
+                x:Name="addbtn"
                 Width="120"
                 Height="50"
                 FontSize="20"

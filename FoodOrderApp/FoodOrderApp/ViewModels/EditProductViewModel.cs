@@ -1,5 +1,6 @@
 ﻿using FoodOrderApp.Models;
 using FoodOrderApp.Views.UserControls.Admin;
+using FoodOrderApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,11 +36,13 @@ namespace FoodOrderApp.ViewModels
         }
         public void Add(EditProductUC editProductUC)
         {
-
+            AddProductWindow addProductWindow = new AddProductWindow(true);
+            addProductWindow.ShowDialog();
         }
         public void Update(EditProductUC editProductUC)
         {
-
+            AddProductWindow addProductWindow = new AddProductWindow(false);
+            addProductWindow.ShowDialog();
         }
         public void Delete(EditProductUC editProductUC)
         {

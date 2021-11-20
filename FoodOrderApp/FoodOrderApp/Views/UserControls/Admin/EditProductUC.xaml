@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
+             xmlns:helpers="clr-namespace:FoodOrderApp.Helpers" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              Height="710" Width="1120"
              DataContext="{StaticResource EditVM}">
@@ -18,6 +18,12 @@
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
         <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
     </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
+                                   CommandParameter="{Binding ElementName=EditUC}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -85,7 +91,7 @@
                                             HorizontalAlignment="Left"
                                             Margin="40 0">
                                         <Rectangle.Fill>
-                                            <ImageBrush ImageSource="{Binding Image_}" Stretch="UniformToFill" />
+                                            <ImageBrush ImageSource="{Binding IMAGE_}" Stretch="UniformToFill" />
                                         </Rectangle.Fill>
                                     </Rectangle>
                                     <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="330" HorizontalAlignment="Right">
