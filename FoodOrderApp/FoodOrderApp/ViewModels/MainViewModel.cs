@@ -2,7 +2,6 @@
 using FoodOrderApp.Models;
 using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
-using FoodOrderApp.Views.UserControls.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,10 +76,6 @@ namespace FoodOrderApp.ViewModels
             {
                 mainWindow.ucWindow.Children.Add(new MenuUC());
             }
-            else
-            {
-                mainWindow.listViewMenu.SelectedIndex = 5;
-            }
             //USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
             //AVATAR_ = user.AVATAR_;
             //FULLNAME_ = user.FULLNAME_;
@@ -117,22 +112,6 @@ namespace FoodOrderApp.ViewModels
                     break;
 
                 case 4:
-                    mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new ContactUC());
-                    break;
-                case 5:
-                    mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new ContactUC());
-                    break;
-                case 6:
-                    mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new EditProductUC());
-                    break;
-                case 7:
-                    mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new ContactUC());
-                    break;
-                case 8:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new ContactUC());
                     break;

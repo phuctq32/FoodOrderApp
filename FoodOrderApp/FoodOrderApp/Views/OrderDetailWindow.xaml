@@ -5,9 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodOrderApp.Views"
         xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:helpers ="clr-namespace:FoodOrderApp.Helpers"
-        DataContext="{StaticResource MyOrderVM}"
         mc:Ignorable="d"
         Height="600" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -21,14 +18,6 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
-        </helpers:DoubleToVisibilityConverter>
-        <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
-        <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
-        <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
-        <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
-    </Window.Resources>
     <Grid>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -38,6 +27,7 @@
                 <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <uc:ControlBarUC x:Name="controlBar" Grid.Row="0"></uc:ControlBarUC>
+            <!--listview-->
             <Grid Grid.Row="1" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
@@ -51,151 +41,104 @@
                 <TextBlock Text="Món ăn"
                            FontSize="24"
                            VerticalAlignment="Bottom"
-                           HorizontalAlignment="Left"
+                           HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="0"
-                           Margin="40 0 0 0" />
+                           Grid.Column="0"></TextBlock>
                 <TextBlock Text="Số lượng"
                            FontSize="24"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="1" />
+                           Grid.Column="1"></TextBlock>
                 <TextBlock Text="Giá"
                            FontSize="24"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="2" />
-                <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
+                           Grid.Column="2"></TextBlock>
                 <ListView Grid.Row="1" Grid.ColumnSpan="3"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="120" Width="780">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
-                                    <Grid Grid.Column="0">
-                                        <!--hình ảnh-->
-                                        <Rectangle
+                    <ListViewItem>
+                        <Grid Height="120" Width="770">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
+                                <Grid Grid.Column="0">
+                                    <!--hình ảnh-->
+                                    <Rectangle
                                             RadiusY="10"
                                             RadiusX="10"
                                             Height="80"
                                             Width="80"
                                             HorizontalAlignment="Left"
-                                            Margin="40 0">
-                                            <Rectangle.Fill>
-                                                <ImageBrush ImageSource="{Binding PRODUCT.IMAGE_}" Stretch="UniformToFill" />
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                        <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right">
-                                            <!--tên món ăn-->
-                                            <TextBlock
-                                            Margin="0 20 0 0"
-                                            Text="{Binding PRODUCT.NAME_}"
-                                            FontSize="17"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            Foreground="Black"
-                                            Grid.Column="2"
-                                            TextWrapping="Wrap" />
-                                            <!--giá bình thường-->
-                                            <TextBlock
-                                            x:Name="price"
+                                            Margin="20 0">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel Orientation="Vertical" Height="120" Margin="0,0,-0.4,0" VerticalAlignment="Bottom">
+                                        <!--tên món ăn-->
+                                        <TextBlock
+                                        Margin="0 20 0 0"
+                                        Text="Tên món ăn"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       Grid.Column="2"></TextBlock>
+                                        <TextBlock
+                                            x:Name="moneyTxt"
                                             Margin="10 5"
                                             Foreground="Black"
                                             VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
+                                        HorizontalAlignment="Center"
                                             FontSize="18"
-                                            Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
-                                            Text="{Binding PRODUCT.PRICE_, StringFormat=N0}" />
-                                            <!--GIÁ GIẢM-->
-                                            <StackPanel
-                                                    x:Name="stack"
-                                                    Orientation="Horizontal"
-                                                    Margin="0 5"
-                                                    Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
-                                                <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
-                                                <!--giá giảm-->
-                                                <TextBlock
-                                                        Margin="10 0 10 0"
-                                                        Foreground="Red"
-                                                        FontSize="16"
-                                                        FontWeight="Medium"
-                                                        VerticalAlignment="Center">
-                                                    <TextBlock.Text>
-                                                        <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
-                                                            <Binding ElementName="price" Path="Text" />
-                                                            <Binding ElementName="discount" Path="Text" />
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                                <!--discount-->
-                                                <Border
-                                                        BorderBrush="Red"
-                                                        CornerRadius="5"
-                                                        BorderThickness="1">
-                                                    <TextBlock
-                                                        x:Name="discount"
-                                                        Margin="5 0"
-                                                        Foreground="Red"
-                                                        FontSize="12"
-                                                        FontWeight="Medium"
-                                                        Text="{Binding PRODUCT.DISCOUNT_, StringFormat={}{0:P0}}"
-                                                        VerticalAlignment="Center">
-                                                    </TextBlock>
-                                                </Border>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Grid>
-                                    <!--số lượng-->
-                                    <TextBlock x:Name="amount"
-                                    Text="{Binding AMOUNT_}"
+                                            FontWeight="Medium"
+                                            Text="100">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <!--số lượng-->
+                                <TextBlock Text="100"
                                        FontSize="18"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
                                        Grid.Column="1"></TextBlock>
-                                    <!--giá tiền tổng cộng của mỗi món ăn bên UI đã tính bằng converter rồi -->
-                                    <TextBlock
+                                <!--giá tiền tổng cộng-->
+                                <TextBlock Text="100"
                                        FontSize="18"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
+                                       FontWeight="Medium"
                                        Foreground="Black"
                                        TextWrapping="Wrap"
-                                       Grid.Column="2">
-                                        <TextBlock.Text>
-                                            <MultiBinding Converter="{StaticResource unitToPrice}">
-                                                <Binding ElementName="discount" Path="Text" />
-                                                <Binding ElementName="price" Path="Text" />
-                                                <Binding ElementName="amount" Path="Text" />
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </Grid>
-                                <Rectangle
-                                Fill="White"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                RadiusY="10"
-                                RadiusX="10"
-                                Panel.ZIndex="-2"
-                                Margin="10">
-                                </Rectangle>
+                                       Grid.Column="2"></TextBlock>
                             </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-
+                            <Rectangle
+                            Fill="White"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            RadiusY="10"
+                            RadiusX="10"
+                            Panel.ZIndex="-2"
+                            Effect="{StaticResource dropShadow}"
+                            Margin="10">
+                            </Rectangle>
+                        </Grid>
+                    </ListViewItem>
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Background="{StaticResource GrayBackground}"></WrapPanel>
+                            <WrapPanel Background="LightGray"></WrapPanel>
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                     <!--loại bỏ hover, highlight effect của listview-->
@@ -222,10 +165,7 @@
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="0"></TextBlock>
-                <!--giá tiền tổng cộng của tất cả các món ăn-->
-                <!--giá này sẽ tính bên VM rồi gán qua lại bên này MẪU NHƯ BÊN DƯỚI-->
-                <!--{Binding Source="StaticResource OrderDetailVM", Path=TotalMoney}-->
-                <TextBlock Text="100000000000"
+                <TextBlock Text="10000000000000000"
                            FontSize="30"
                            Margin="20 0"
                            VerticalAlignment="Bottom"
