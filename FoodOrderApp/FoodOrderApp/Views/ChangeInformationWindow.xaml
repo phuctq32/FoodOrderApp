@@ -1,0 +1,190 @@
+﻿<Window x:Class="FoodOrderApp.Views.ChangeInformationWindow"
+        x:Name="changeInfoWD"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FoodOrderApp.Views"
+        mc:Ignorable="d"
+        Title="ChangeInformationWindow"
+        xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        DataContext="{StaticResource ChangeInfoVM}"
+        Height="680"
+        Width="440"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{x:Null}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Foreground="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:0.2}">
+        <Grid>
+            <Grid Margin="10">
+                <uc:ControlBarUC></uc:ControlBarUC>
+                <StackPanel>
+                    <Label
+                x:Name="lblChangeinfo"
+                Content="Thay đổi thông tin"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Foreground="{StaticResource Orange1}"
+                Padding="0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="40"
+                FontWeight="Bold"
+                Margin="0,30,0,0" />
+                    <!--nhập thông tin đăng ký-->
+                    <Grid
+                        x:Name="grdInformation"
+                        Margin="10 50"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Center"
+                        Visibility="Visible">
+
+                        <StackPanel Orientation="Vertical"
+                                    VerticalAlignment="Stretch">
+                            <!--họ tên-->
+                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                    Kind="Account"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                                <TextBox
+                                    x:Name="txtFullname"
+                                    Text="{Binding Path=FULLNAME_}"
+                                    TabIndex="2"
+                                materialDesign:HintAssist.Hint="Họ và tên"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+                            <!--email-->
+                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                        Kind="Gmail"
+                                        Width="30"
+                                        Height="30"
+                                        Foreground="{StaticResource Gray}"
+                                        VerticalAlignment="Top"
+                                        Margin="10,10,20,-18" />
+                                <TextBox
+                                        x:Name="txtMail"
+                                        Text="{Binding Path=Mail}"
+                                        TabIndex="0"
+                                    IsEnabled="False"
+                                    materialDesign:HintAssist.Hint="Email"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Foreground="Black"
+                                    FontSize="16"
+                                    FontWeight="Medium"
+                                    materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                    materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                    Width="250"
+                                    VerticalContentAlignment="Center"
+                                    Height="50"
+                                    Padding="2,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+                            <!--số điện thoại-->
+                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                    Kind="Phone"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                                <TextBox
+                                    x:Name="txtPhone"
+                                    Text="{Binding Path=Phone}"
+                                    TabIndex="1"
+                                materialDesign:HintAssist.Hint="Số điện thoại"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+                            <!--địa chỉ-->
+                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                    Kind="AddressMarker"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                                <TextBox
+                                    x:Name="txtAddress"
+                                    Text="{Binding Path=Address}"
+                                    TabIndex="2"
+                                materialDesign:HintAssist.Hint="Địa chỉ"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+                            <Button
+                            TabIndex="5"
+                            IsDefault="True"
+                            Style="{StaticResource GreenBtn}"
+                            Content="Lưu thay đổi"
+                            Width="270"
+                            Height="40"
+                            Margin="0 20 0 0"
+                            FontSize="20"
+                            Foreground="White"
+                            Command="{Binding SaveInfoCommand}"
+                            CommandParameter="{Binding ElementName=changeInfoWD}">
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+            <Rectangle
+            Fill="White"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            RadiusY="10"
+            RadiusX="10"
+            Panel.ZIndex="-2"
+            Effect="{StaticResource dropShadow}"
+            Margin="10">
+            </Rectangle>
+        </Grid>
+    </materialDesign:TransitioningContent>
+</Window>
