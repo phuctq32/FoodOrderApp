@@ -49,6 +49,8 @@
                         <Grid>
                             <CheckBox
                                 x:Name="selectAllCheckBox"
+                                Command="{Binding Source={StaticResource CartVM}, Path=AllCheckedCommand}"
+                                CommandParameter="{Binding ElementName=CartUserControl}"
                                 Width="17"
                                 Height="13"
                                 HorizontalAlignment="Left"
@@ -89,7 +91,11 @@
                     </Border>
 
                     <Grid Grid.Row="1">
-                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}" ItemsSource="{Binding Source={StaticResource CartVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="29*" />
+                        </Grid.ColumnDefinitions>
+                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}" ItemsSource="{Binding Source={StaticResource CartVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <!--Lưu ý: các phần binding chỉ là để test bên VM
@@ -105,6 +111,9 @@
                                             </Grid.ColumnDefinitions>
 
                                             <CheckBox
+                                                x:Name="selectCheckBox"
+                                                Command="{Binding Source={StaticResource CartVM}, Path=CheckedCommand}"
+                                                CommandParameter="{Binding ElementName=selectCheckBox}"
                                                 Grid.Column="0"
                                                 Margin="20 0"
                                                 Height="13"
@@ -322,13 +331,15 @@
 
             <Grid Grid.Column="1">
                 <Grid Margin="20 50">
+                    <TextBlock x:Name="totalPriceInInvoice" Text="{Binding TotalPrice, UpdateSourceTrigger=PropertyChanged}" FontSize="25" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
                     <Rectangle
                             Fill="White"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             RadiusY="20"
                             RadiusX="20"
-                            Panel.ZIndex="-1">
+                            Panel.ZIndex="-2">
                     </Rectangle>
                 </Grid>
             </Grid>
