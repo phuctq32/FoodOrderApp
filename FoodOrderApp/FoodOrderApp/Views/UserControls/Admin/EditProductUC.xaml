@@ -4,13 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
              mc:Ignorable="d"
-             Height="710" Width="1120">
+             Height="710" Width="1120"
+             DataContext="{StaticResource MenuVM}">
     <UserControl.Resources>
         <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
         </helpers:DoubleToVisibilityConverter>
+        <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
+        <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
+        <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
     </UserControl.Resources>
     <Grid>
         <Grid>
@@ -22,8 +27,7 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2.5*"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2.2*"></ColumnDefinition>
                     <ColumnDefinition Width="1.2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Món ăn"
@@ -34,20 +38,13 @@
                            Foreground="Black"
                            Grid.Column="0"
                            Margin="50 10 0 0"></TextBlock>
-                <TextBlock Text="Số lượng"
-                           FontSize="24"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontWeight="Medium"
-                           Foreground="Black"
-                           Grid.Column="1"></TextBlock>
                 <TextBlock Text="Giá"
                            FontSize="24"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="2"></TextBlock>
+                           Grid.Column="1"></TextBlock>
                 <!--button thêm-->
                 <Button
                     Style="{StaticResource GreenBtn}"
@@ -58,86 +55,120 @@
                     Foreground="White"
                     VerticalAlignment="Center"
                     Grid.Column="3"
-                    Margin="0 10 0 0"/>
-
+                    Margin="0 10 0 0" />
             </Grid>
             <!--header-->
-            
+
             <!--list item-->
             <ListView Grid.Row="1" Grid.ColumnSpan="4"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListViewItem>
-                    <Grid MinHeight="120" Width="1110">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2.5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                                <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
-                            <Grid Grid.Column="0">
-                                <!--hình ảnh-->
-                                <Rectangle
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid MinHeight="120" Width="1110">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2.2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <!--hình ảnh-->
+                                    <Rectangle
                                             RadiusY="10"
                                             RadiusX="10"
                                             Height="80"
                                             Width="80"
                                             HorizontalAlignment="Left"
                                             Margin="40 0">
-                                    <Rectangle.Fill>
-                                        <ImageBrush ImageSource="/FoodOrderApp;component/Resources/Images/food.jpg" Stretch="UniformToFill" />
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="330" HorizontalAlignment="Right">
-                                    <!--tên món ăn-->
-                                    <TextBlock
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="{Binding Image_}" Stretch="UniformToFill" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="330" HorizontalAlignment="Right">
+                                        <!--tên món ăn-->
+                                        <TextBlock
                                             Margin="0 20 0 0"
-                                            Text="Tên món ăn"
+                                            Text="{Binding NAME_}"
                                             FontSize="17"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
                                             Foreground="Black"
                                             Grid.Column="2"
-                                            TextWrapping="Wrap"/>
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0"
+                                            Grid.Column="1"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                    <!--số tiền không giảm giá-->
                                     <TextBlock
-                                            Margin="10 5"
-                                            Foreground="Black"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            FontSize="18"
-                                            Text="100"/>
+                                    x:Name="price"
+                                    Margin="10 5"
+                                    Foreground="Black"
+                                    FontSize="16"
+                                    FontWeight="Medium"
+                                    Text="{Binding PRICE_, StringFormat=N0}"
+                                    Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
+                                    TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
+                                    VerticalAlignment="Center">
+                                    </TextBlock>
+                                    <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
+                                    <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
+                                    <!--thì collapsed-->
+                                    <StackPanel
+                                        x:Name="stack"
+                                        Orientation="Horizontal"
+                                        Margin="0 5"
+                                        Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
+                                        <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
+                                        <!--giá giảm-->
+                                        <TextBlock
+                                            Margin="10 0 10 0"
+                                            Foreground="Red"
+                                            FontSize="16"
+                                            FontWeight="Medium"
+                                            VerticalAlignment="Center">
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
+                                                    <Binding ElementName="price" Path="Text" />
+                                                    <Binding ElementName="discount" Path="Text" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <!--discount-->
+                                        <Border
+                                        BorderBrush="Red"
+                                        CornerRadius="5"
+                                        BorderThickness="1">
+                                            <TextBlock
+                                            x:Name="discount"
+                                            Margin="5 0"
+                                            Foreground="Red"
+                                            FontSize="12"
+                                            FontWeight="Medium"
+                                            Text="{Binding DISCOUNT_, StringFormat=P0}"
+                                            VerticalAlignment="Center">
+                                            </TextBlock>
+                                        </Border>
+                                    </StackPanel>
                                 </StackPanel>
-                            </Grid>
-                            <!--số lượng-->
-                            <TextBlock Text="100"
-                                       FontSize="18"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Grid.Column="1"></TextBlock>
-                            <!--giá tiền tổng cộng-->
-                            <TextBlock Text="100"
-                                       FontSize="18"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Foreground="Black"
-                                       TextWrapping="Wrap"
-                                       Grid.Column="2"></TextBlock>
-                            <!--button xoá sửa-->
-                            <StackPanel Orientation="Horizontal" Grid.Column="4">
-                                <Button Style="{StaticResource editBtn}"
+                                <!--button xoá sửa-->
+                                <StackPanel Orientation="Horizontal" Grid.Column="4">
+                                    <Button Style="{StaticResource editBtn}"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Margin="60 0 0 0">
-                                </Button>
-                                <Button Style="{StaticResource deleteBtn}"
+                                    </Button>
+                                    <Button Style="{StaticResource deleteBtn}"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Margin="50 0 0 0">
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                        <Rectangle
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                            <Rectangle
                             Fill="White"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
@@ -145,10 +176,11 @@
                             RadiusX="10"
                             Panel.ZIndex="-2"
                             Margin="10">
-                        </Rectangle>
-                    </Grid>
-                </ListViewItem>
-                
+                            </Rectangle>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
                 <!--loại bỏ hover, highlight effect của listview-->
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
