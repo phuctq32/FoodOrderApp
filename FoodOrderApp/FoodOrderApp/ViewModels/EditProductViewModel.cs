@@ -15,16 +15,35 @@ namespace FoodOrderApp.ViewModels
     internal class EditProductViewModel : BaseViewModel
     {
         public ICommand LoadedCommand { get; set; }
+        public ICommand AddProductCommand { get; set; }
+        public ICommand UpdateProductCommand { get; set; }
+        public ICommand DeleteProductCommand { get; set; }
+
 
         public List<PRODUCT> pRODUCTs;
         public EditProductViewModel()
         {
             LoadedCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Loaded(parameter));
+            AddProductCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Add(parameter));
+            UpdateProductCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Update(parameter));
+            DeleteProductCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Delete(parameter));
         }
         public void Loaded(EditProductUC editProductUC)
         {
             pRODUCTs = Data.Ins.DB.PRODUCTs.ToList();
-            editProductUC.
+            editProductUC.ListView.ItemsSource = pRODUCTs;
+        }
+        public void Add(EditProductUC editProductUC)
+        {
+
+        }
+        public void Update(EditProductUC editProductUC)
+        {
+
+        }
+        public void Delete(EditProductUC editProductUC)
+        {
+
         }
     }
 }
