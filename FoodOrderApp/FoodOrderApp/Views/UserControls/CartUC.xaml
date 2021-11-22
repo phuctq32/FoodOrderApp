@@ -148,7 +148,6 @@
                                                     <StackPanel Orientation="Horizontal"
                                                             Margin="90 0 0 0">
                                                         <!--số tiền không giảm giá-->
-                                                        <!--nếu có đổi tên monneyTxt thì qua doubletovisi đổi luôn tên bên đấy-->
                                                         <TextBlock
                                                             x:Name="price"
                                                             Margin="10 5"
@@ -164,7 +163,6 @@
                                                         <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
                                                         <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
                                                         <!--thì collapsed-->
-                                                        <!--nếu có đổi tên của stack thì qua doubletovisi đổi luôn tên bên đấy-->
                                                         <StackPanel
                                                             x:Name="stack"
                                                             Orientation="Horizontal"
@@ -190,16 +188,25 @@
                                                                 BorderBrush="Red"
                                                                 CornerRadius="5"
                                                                 BorderThickness="1">
-                                                                <!--{Binding Discount, StringFormat={}{0}%}-->
-                                                                <TextBlock
-                                                                x:Name="discount"
-                                                                Margin="5 0"
-                                                                Foreground="Red"
-                                                                FontSize="12"
-                                                                FontWeight="Medium"
-                                                                Text="{Binding PRODUCT.DISCOUNT_, StringFormat={}{0:P0}}"
-                                                                VerticalAlignment="Center">
-                                                                </TextBlock>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock
+                                                                        Margin="5 0 0 0"
+                                                                        Foreground="Red"
+                                                                        FontSize="12"
+                                                                        FontWeight="Medium"
+                                                                        VerticalAlignment="Center">
+                                                                        -
+                                                                    </TextBlock>
+                                                                    <TextBlock
+                                                                        x:Name="discount"
+                                                                        Margin="0 0 5 0"
+                                                                        Foreground="Red"
+                                                                        FontSize="12"
+                                                                        FontWeight="Medium"
+                                                                        Text="{Binding PRODUCT.DISCOUNT_, StringFormat=P0}"
+                                                                        VerticalAlignment="Center">
+                                                                    </TextBlock>
+                                                                </StackPanel>
                                                             </Border>
                                                         </StackPanel>
                                                     </StackPanel>

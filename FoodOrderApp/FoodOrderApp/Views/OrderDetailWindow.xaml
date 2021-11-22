@@ -143,15 +143,25 @@
                                                         BorderBrush="Red"
                                                         CornerRadius="5"
                                                         BorderThickness="1">
-                                                    <TextBlock
-                                                        x:Name="discount"
-                                                        Margin="5 0"
-                                                        Foreground="Red"
-                                                        FontSize="12"
-                                                        FontWeight="Medium"
-                                                        Text="{Binding PRODUCT.DISCOUNT_, StringFormat={}{0:P0}}"
-                                                        VerticalAlignment="Center">
-                                                    </TextBlock>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Margin="5 0 0 0"
+                                                            Foreground="Red"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            VerticalAlignment="Center">
+                                                            -
+                                                        </TextBlock>
+                                                        <TextBlock
+                                                            x:Name="discount"
+                                                            Margin="5 0"
+                                                            Foreground="Red"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            Text="{Binding PRODUCT.DISCOUNT_, StringFormat={}{0:P0}}"
+                                                            VerticalAlignment="Center">
+                                                        </TextBlock>
+                                                    </StackPanel>
                                                 </Border>
                                             </StackPanel>
                                         </StackPanel>
