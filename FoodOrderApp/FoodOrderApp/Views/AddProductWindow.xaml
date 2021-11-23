@@ -143,7 +143,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
                     <Rectangle.Fill >
-                        <ImageBrush x:Name="Image" ImageSource="{Binding Source={StaticResource AddProductVM}, Path= IMAGE_}"> </ImageBrush>
+                        <ImageBrush x:Name="Image" ImageSource="{Binding Source={StaticResource EditVM}, Path= IMAGE_}"> </ImageBrush>
                     </Rectangle.Fill>
                 </Rectangle>
                 <Button
@@ -224,6 +224,8 @@
                 FontSize="20"
                 Foreground="Black"
                 VerticalAlignment="Center"
+                Command="{Binding Source={StaticResource EditVM}, Path=CloseButtonCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:AddProductWindow}}}"
                 Margin="10 0"></Button>
             </StackPanel>
         </Grid>

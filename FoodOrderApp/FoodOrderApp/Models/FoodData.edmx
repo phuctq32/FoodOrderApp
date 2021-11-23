@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="fooddataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="foodorderappModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CART">
           <Key>
             <PropertyRef Name="ID_" />
@@ -120,7 +120,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="fooddataModelStoreContainer">
+        <EntityContainer Name="foodorderappModelStoreContainer">
           <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECEIPT" EntityType="Self.RECEIPT" Schema="dbo" store:Type="Tables" />
@@ -147,10 +147,11 @@
             <End Role="RECEIPT" EntitySet="RECEIPT" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="fooddataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="foodorderappModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CART">
           <Key>
             <PropertyRef Name="ID_" />
@@ -276,7 +277,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="fooddataEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="foodorderappEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CARTs" EntityType="Self.CART" />
           <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
           <EntitySet Name="RECEIPTs" EntityType="Self.RECEIPT" />
@@ -308,9 +309,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="fooddataModelStoreContainer" CdmEntityContainer="fooddataEntities">
+        <EntityContainerMapping StorageEntityContainer="foodorderappModelStoreContainer" CdmEntityContainer="foodorderappEntities">
           <EntitySetMapping Name="CARTs">
-            <EntityTypeMapping TypeName="fooddataModel.CART">
+            <EntityTypeMapping TypeName="foodorderappModel.CART">
               <MappingFragment StoreEntitySet="CART">
                 <ScalarProperty Name="ID_" ColumnName="ID_" />
                 <ScalarProperty Name="USERNAME_" ColumnName="USERNAME_" />
@@ -320,7 +321,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PRODUCTs">
-            <EntityTypeMapping TypeName="fooddataModel.PRODUCT">
+            <EntityTypeMapping TypeName="foodorderappModel.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCT">
                 <ScalarProperty Name="ID_" ColumnName="ID_" />
                 <ScalarProperty Name="NAME_" ColumnName="NAME_" />
@@ -334,7 +335,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RECEIPTs">
-            <EntityTypeMapping TypeName="fooddataModel.RECEIPT">
+            <EntityTypeMapping TypeName="foodorderappModel.RECEIPT">
               <MappingFragment StoreEntitySet="RECEIPT">
                 <ScalarProperty Name="ID_" ColumnName="ID_" />
                 <ScalarProperty Name="DATE_" ColumnName="DATE_" />
@@ -345,7 +346,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RECEIPT_DETAIL">
-            <EntityTypeMapping TypeName="fooddataModel.RECEIPT_DETAIL">
+            <EntityTypeMapping TypeName="foodorderappModel.RECEIPT_DETAIL">
               <MappingFragment StoreEntitySet="RECEIPT_DETAIL">
                 <ScalarProperty Name="DETAIL_ID" ColumnName="DETAIL_ID" />
                 <ScalarProperty Name="RECEIPT_ID" ColumnName="RECEIPT_ID" />
@@ -355,7 +356,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USERS">
-            <EntityTypeMapping TypeName="fooddataModel.USER">
+            <EntityTypeMapping TypeName="foodorderappModel.USER">
               <MappingFragment StoreEntitySet="USERS">
                 <ScalarProperty Name="USERNAME_" ColumnName="USERNAME_" />
                 <ScalarProperty Name="PASSWORD_" ColumnName="PASSWORD_" />

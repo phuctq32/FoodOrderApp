@@ -179,8 +179,8 @@
                                         HorizontalAlignment="Center"
                                         x:Name="deletebtn"
                                         Margin="50 0 0 0"
-                                        Command="{Binding DeleteProductCommand}"
-                                        CommandParameter="{Binding ElementName= EditUC}">
+                                        Command="{Binding Source={StaticResource EditVM},Path= DeleteProductCommand}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
                                     </Button>
                                 </StackPanel>
                             </Grid>
