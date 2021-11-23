@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodOrderApp
+namespace FoodOrderApp.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class fooddataEntities : DbContext
+    public partial class foodorderappEntities : DbContext
     {
-        public fooddataEntities()
-            : base("name=fooddataEntities")
+        public foodorderappEntities()
+            : base("name=foodorderappEntities")
         {
         }
     
