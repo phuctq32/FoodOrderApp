@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls.Admin"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="710" d:DesignWidth="1120"
             DataContext="{StaticResource MenuVM}"
@@ -124,7 +125,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock
                 Text="Mã đơn hàng"
@@ -158,21 +159,21 @@
                 FontWeight="Medium"
                 Foreground="Black"
                 Grid.Column="3" />
-                <TextBlock
+                <!--<TextBlock
                 Text="Chi tiết"
                 FontSize="20"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontWeight="Medium"
                 Foreground="Black"
-                Grid.Column="4" />
+                Grid.Column="4" />-->
             </Grid>
             <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
             <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
             <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="100" Margin="10 0">
+                        <Grid Height="100" Margin="10 5 10 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -217,75 +218,45 @@
                             FontWeight="DemiBold"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" />
-                            <!--nút bấm để xem chi tiết của đơn đặt hàng OrderDetailWindow-->
-                            <Button
-                            Grid.Column="4"
-                            Style="{StaticResource detailBtn}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="0 0 10 0">
-                            </Button>
+                            <!--nút bấm để xem chi tiết và chuyển trạng thái của đơn đặt hàng -->
+                            <Grid Grid.Column="4">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button
+                                    Style="{StaticResource detailBtn}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0 0 0 0"/>
+                                    <!-- Tab đã hoàn thành vs tab đã hủy => Collapsed thằng stackpanel này đi -->
+                                    <StackPanel Orientation="Vertical" Margin="20 0 0 0" Visibility="Visible">
+                                        <!--Tab chờ xác nhân -> Collapsed button Xong đi
+                                        Tab đang tiến hành -> Collapsed button Xác nhận đi-->
+                                        <Button
+                                        Style="{StaticResource SearchBtn}"
+                                        materialDesign:ButtonAssist.CornerRadius="15"
+                                        Width="120"
+                                        Content="Xác nhận"
+                                        Margin="0 10 0 15"/>
+                                        <Button
+                                        Style="{StaticResource SearchBtn}"
+                                        materialDesign:ButtonAssist.CornerRadius="15"
+                                        Width="120"
+                                        Content="Xong"
+                                        Margin="0 10 0 15"
+                                        Visibility="Collapsed"/>
+                                        <Button
+                                        Style="{StaticResource GrayBtn}"
+                                        materialDesign:ButtonAssist.CornerRadius="15"
+                                        Width="120"
+                                        Content="Hủy"
+                                        VerticalAlignment="Bottom"
+                                        Margin="0 0 0 5"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
                             <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="5"></Separator>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListViewItem>
-                    <Grid Height="100" Margin="10 5 10 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <!--mã đơn hàng-->
-                        <TextBlock
-                            Text="{Binding ID_}"
-                            FontSize="20"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            FontWeight="Medium"
-                            Foreground="Black" />
-
-                        <!--ngày mua-->
-                        <TextBlock
-                            Text="{Binding DATE_}"
-                            FontSize="20"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            FontWeight="Medium"
-                            Foreground="Black"
-                            Grid.Column="1" />
-                        <!--số lượng món trong đơn-->
-                        <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
-                        <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->
-                        <TextBlock
-                            Text=""
-                            FontSize="20"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            FontWeight="Medium"
-                            Foreground="Black"
-                            Grid.Column="2" />
-                        <!--giá tiền tổng cộng-->
-                        <TextBlock
-                            Grid.Column="3"
-                            Text="{Binding VALUE_}"
-                            FontSize="20"
-                            FontWeight="DemiBold"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center" />
-                        <!--nút bấm để xem chi tiết của đơn đặt hàng OrderDetailWindow-->
-                        <Button
-                            Grid.Column="4"
-                            Style="{StaticResource detailBtn}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="0 0 10 0">
-                        </Button>
-                        <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="5"></Separator>
-                    </Grid>
-                </ListViewItem>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="Background" Value="Transparent" />
