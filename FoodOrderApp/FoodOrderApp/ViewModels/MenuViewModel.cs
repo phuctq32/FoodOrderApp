@@ -19,6 +19,7 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand LoadedCommand { get; set; }
         public ICommand AddToCartCommand { get; set; }
+        //public ICommand ItemClickCommand { get; set; }
         public List<PRODUCT> products;
 
         public MenuViewModel()
@@ -26,6 +27,7 @@ namespace FoodOrderApp.ViewModels
             AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
             //AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
+            //ItemClickCommand = new RelayCommand<ListViewItem>((parameter) => parameter == null ? false : true, (parameter) => ItemClick(parameter));
         }
 
         private void Load(MenuUC parameter)
@@ -57,5 +59,10 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        //private void ItemClick(ListViewItem parameter)
+        //{
+        //    ProductDetail pd = new ProductDetail();
+        //    pd.ShowDialog();
+        //}
     }
 }

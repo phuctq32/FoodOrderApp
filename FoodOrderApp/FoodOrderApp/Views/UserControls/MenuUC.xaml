@@ -163,7 +163,7 @@
                                             <!--Phần đánh giá, nếu RATING_TIMES_ = 0 thì ẩn cái này đi-->
                                             <Grid Grid.Column="1">
                                                 <TextBlock 
-                                                Text="4.5"
+                                                Text="{Binding RATING_}"
                                                 VerticalAlignment="Center"
                                                 FontSize="16"
                                                 Margin="10 0 0 0"
@@ -266,6 +266,13 @@
                                                 Panel.ZIndex="-1"
                                                 Margin="10">
                                     </Rectangle>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction 
+                                                Command="{Binding Source={StaticResource MenuVM}, Path=ItemClickCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
