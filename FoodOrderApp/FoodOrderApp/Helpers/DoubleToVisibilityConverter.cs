@@ -15,10 +15,18 @@ namespace FoodOrderApp.Helpers
         public object Convert(object value, Type targetType, object parameter,
                               CultureInfo culture)
         {
-            if (value != null)
+            try
             {
-                //kiểm tra xem value = discount mà lớn hơn 0 thì cho stack chứa giá giảm visible
-                return (Double.Parse(value.ToString().Replace("%", " ")) > 0) ? Visibility.Visible : Visibility.Collapsed;
+                if (value != null)
+                {
+                    //kiểm tra xem value = discount mà lớn hơn 0 thì cho stack chứa giá giảm visible
+                    return (Double.Parse(value.ToString().Replace("%", " ")) > 0) ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
+            catch
+            {
+                value = "Collapsed";
+                return value;
             }
             value = "Collapsed";
             return value;
