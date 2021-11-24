@@ -49,7 +49,7 @@
                     <ColumnDefinition Width="1.2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Món ăn"
-                           FontSize="24"
+                           FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Left"
                            FontWeight="Medium"
@@ -57,14 +57,14 @@
                            Grid.Column="0"
                            Margin="40 0 0 0" />
                 <TextBlock Text="Số lượng"
-                           FontSize="24"
+                           FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="1" />
                 <TextBlock Text="Giá"
-                           FontSize="24"
+                           FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"

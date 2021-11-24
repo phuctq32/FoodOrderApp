@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:FoodOrderApp.Views"
         xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:helpers ="clr-namespace:FoodOrderApp.Helpers"
         DataContext="{StaticResource MyOrderVM}"
         mc:Ignorable="d"
-        Height="600" Width="800"
+        Height="600" Width="1000"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -43,44 +44,55 @@
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Món ăn"
-                           FontSize="24"
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Món ăn"
+                           FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Left"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="0"
                            Margin="40 0 0 0" />
-                <TextBlock Text="Số lượng"
-                           FontSize="24"
+                    <TextBlock Text="Số lượng"
+                           FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="1" />
-                <TextBlock Text="Giá"
-                           FontSize="24"
+                    <TextBlock Text="Giá"
+                           FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="2" />
+                    <TextBlock Text="Đánh giá"
+                           FontSize="20"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           FontWeight="Medium"
+                           Foreground="Black"
+                           Grid.Column="3" />
+                </Grid>
                 <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
-                <ListView Grid.Row="1" Grid.ColumnSpan="3"
+                <ListView Grid.Row="1"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Height="120" Width="780">
+                            <Grid Height="120" Width="1000">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="500"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
                                     <Grid Grid.Column="0">
@@ -189,6 +201,23 @@
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
+                                    <!--Đánh giá-->
+                                    <Grid x:Name="rating" Grid.Column="3">
+                                        <materialDesign:RatingBar
+                                            x:Name="BasicRatingBar"
+                                            Foreground="{StaticResource Orange1}"  
+                                            Value="0"
+                                            Cursor="Hand"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="ValueChanged">
+                                                    <i:InvokeCommandAction Command="{Binding RatingCommand}"
+                                                    CommandParameter="{Binding ElementName=BasicRatingBar}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </materialDesign:RatingBar>
+                                    </Grid>
                                 </Grid>
                                 <Rectangle
                                 Fill="White"
@@ -202,7 +231,6 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Background="{StaticResource GrayBackground}"></WrapPanel>
