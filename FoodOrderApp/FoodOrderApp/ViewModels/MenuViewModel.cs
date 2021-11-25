@@ -34,6 +34,7 @@ namespace FoodOrderApp.ViewModels
         { get => search; set { search = value; OnPropertyChanged(); } }
 
         //public ICommand ItemClickCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
         public List<PRODUCT> products;
         public PRODUCT pRODUCT = new PRODUCT();
 
@@ -99,14 +100,14 @@ namespace FoodOrderApp.ViewModels
         }
 
         private bool UserFilter(object item)
-        { 
+        {
             string a = (item as PRODUCT).NAME_;
             string b = search;
             a = RemoveSign4VietnameseString(a);
-            if (b!=null)
+            if (b != null)
             {
                 b = RemoveSign4VietnameseString(b);
-            }    
+            }
             if (string.IsNullOrEmpty(b))
                 return true;
             else
@@ -155,13 +156,6 @@ namespace FoodOrderApp.ViewModels
             }
             return str;
         }
-        //public bool kt(char str)
-        //{
-        //    for (int i = 1; i < VietnameseSigns.Length; i++)
-        //        for (int j = 0; j < VietnameseSigns[i].Length; j++)
-        //            if (str == VietnameseSigns[i][j]) return true || false;
-        //            //return false;
-        //}
         private void AddToCart(ListViewItem parameter)
         {
             try

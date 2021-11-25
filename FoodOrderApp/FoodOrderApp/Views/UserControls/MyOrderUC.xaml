@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              Height="710"
             Width="1120"
-            DataContext="{StaticResource MenuVM}"
+            DataContext="{StaticResource MyOrderVM}"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
             TextElement.FontSize="13"
@@ -221,11 +221,13 @@
                             VerticalAlignment="Center" />
                             <!--nút bấm để xem chi tiết của đơn đặt hàng OrderDetailWindow-->
                             <Button
-                            Grid.Column="4"
-                            Style="{StaticResource detailBtn}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="0 0 10 0">
+                                Grid.Column="4"
+                                Style="{StaticResource detailBtn}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="0 0 10 0"
+                                Command="{Binding Source={StaticResource MyOrderVM}, Path=PrintCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
                             </Button>
                             <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="5"></Separator>
                         </Grid>
