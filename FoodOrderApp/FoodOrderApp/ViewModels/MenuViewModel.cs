@@ -34,7 +34,6 @@ namespace FoodOrderApp.ViewModels
         { get => search; set { search = value; OnPropertyChanged(); } }
 
         //public ICommand ItemClickCommand { get; set; }
-        public ICommand SearchCommand { get; set; }
         public List<PRODUCT> products;
         public PRODUCT pRODUCT = new PRODUCT();
 
