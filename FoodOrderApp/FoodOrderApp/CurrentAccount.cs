@@ -16,7 +16,6 @@ namespace FoodOrderApp
         
         public CurrentAccount()
         {
-            IsUser = true;
             
         }
 
