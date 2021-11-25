@@ -64,11 +64,11 @@
                                     HorizontalContentAlignment="Left"
                                     BorderBrush="Transparent"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    VerticalAlignment="Top"
-                                    Height="50"
-                                    FontSize="16"
+                                         FontSize="22"
+                                         Margin="0 -5 0 0"
+                                         VerticalContentAlignment="Top"
+                                         Height="60"
                                     AcceptsReturn="True"
-                                    TextWrapping="Wrap"
                                     VerticalScrollBarVisibility="Disabled">
                                     <TextBox.InputBindings>
                                         <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=MenuUserControl}" Key="Enter"/>
