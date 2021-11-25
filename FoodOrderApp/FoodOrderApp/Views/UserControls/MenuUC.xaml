@@ -60,7 +60,7 @@
                                     Margin="10 12 0 0"
                                     DockPanel.Dock="Left" />
                                 <TextBox x:Name="SearchTxt"
-                                         Text="{Binding Search}"
+                                         Text="{Binding Search, Mode=TwoWay}"
                                     HorizontalContentAlignment="Left"
                                     BorderBrush="Transparent"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -69,7 +69,11 @@
                                     FontSize="16"
                                     AcceptsReturn="True"
                                     TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Disabled" />
+                                    VerticalScrollBarVisibility="Disabled">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=MenuUserControl}" Key="Enter"/>
+                                    </TextBox.InputBindings>
+                                </TextBox>
                             </DockPanel>
                         </materialDesign:ColorZone>
                         <ComboBox x:Name="combox"
@@ -85,8 +89,8 @@
                                   SelectedItem="">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource MenuVM}, Path=IndexCommand}"
-                                        CommandParameter="{Binding ElementName=MenuUserControl}" />
+                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource MenuVM}, Path=FilterCommand}"
+                                        CommandParameter="{Binding ElementName=combox}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <ComboBoxItem Content="Giá tăng" x:Name="GT">
@@ -120,7 +124,7 @@
                               Margin="20 0"
                               Width="auto"
                               Height="auto"
-
+                              ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListView.ItemsPanel>

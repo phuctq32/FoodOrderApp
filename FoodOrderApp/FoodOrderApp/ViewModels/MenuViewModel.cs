@@ -22,36 +22,35 @@ namespace FoodOrderApp.ViewModels
         public ICommand LoadedCommand { get; set; }
         public ICommand AddToCartCommand { get; set; }
         public ICommand SearchCommand { get; set; }
-        public ICommand IndexCommand { get; set; }
+        public ICommand FilterCommand { get; set; }
         public ICommand SortD { get; set; }
         private string search;
-        private int index;
-
-        public int Index
-        { get => index; set { index = value; OnPropertyChanged(); } }
 
         public string Search
-        { get => search; set { search = value; OnPropertyChanged(); } }
+        { get => search; set { search = value; OnPropertyChanged("Search"); } }
 
         //public ICommand ItemClickCommand { get; set; }
-        public List<PRODUCT> products;
+        private List<PRODUCT> products;
+        public List<PRODUCT> Products { 
+            get => products; 
+            set
+            {
+                products = value;
+                OnPropertyChanged("Products");
+            }
+        }
         public PRODUCT pRODUCT = new PRODUCT();
 
         public MenuViewModel()
         {
-            Index = -1;
+            
             AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
             SearchCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => BtnSearch(parameter));
-            IndexCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => GetIndex(parameter));
+            FilterCommand = new RelayCommand<ComboBox>((parameter) => true, (parameter) => GiaT(parameter));
             SortD = new RelayCommand<MenuUC>((parameter) => true, (parameter) => BtnSearch(parameter));
             //AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
             //ItemClickCommand = new RelayCommand<ListViewItem>((parameter) => parameter == null ? false : true, (parameter) => ItemClick(parameter));
-        }
-
-        private void GetIndex(MenuUC parameter)
-        {
-            Index = parameter.combox.SelectedIndex;
         }
 
         //private bool UserFilter(object item)
@@ -63,56 +62,52 @@ namespace FoodOrderApp.ViewModels
         //}
         private void Load(MenuUC parameter)
         {
-            products = Data.Ins.DB.PRODUCTs.ToList();
-            parameter.ViewListProducts.ItemsSource = products;
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource);
-            view.Filter = UserFilter;
-           // view.Filter = GiaT;
-
+            Products = Data.Ins.DB.PRODUCTs.ToList();
         }
 
-        private bool GiaT(object item)
+        private void GiaT(ComboBox item)
         {
-            MenuUC parameter = new MenuUC();
-            //object item = new object();
-            int v = (item as PRODUCT).PRICE_;
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource);
-           // MessageBox.Show(v.ToString());
-            if (Index == 0)
-            {
-                view.SortDescriptions.ToList().Add(new System.ComponentModel.SortDescription(v.ToString(), ListSortDirection.Ascending));
-                return true;
-            }
-            else
-            if(Index==1)
-            {
-
-                view.SortDescriptions.Add(new System.ComponentModel.SortDescription(v.ToString(), ListSortDirection.Descending));
-                return true;
-            }else
-            return false;
+            //if (item.SelectedIndex == 0)
+            //{
+            //    Products = Data.Ins.DB.PRODUCTs.OrderBy(p => p.PRICE_ * (1 - p.DISCOUNT_)).ToList();
+            //    var menuUC = GetAncestorOfType<MenuUC>(item);
+            //    CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(menuUC.ViewListProducts.ItemsSource);
+            //    view.Filter = CompareString;
+            //    CollectionViewSource.GetDefaultView(menuUC.ViewListProducts.ItemsSource).Refresh();
+            //}
+            //else
+            //if (item.SelectedIndex == 1)
+            //{
+            //    Products = Data.Ins.DB.PRODUCTs.OrderByDescending(p => p.PRICE_ * (1 - p.DISCOUNT_)).ToList();
+            //    var menuUC = GetAncestorOfType<MenuUC>(item);
+            //    CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(menuUC.ViewListProducts.ItemsSource);
+            //    view.Filter = CompareString;
+            //    CollectionViewSource.GetDefaultView(menuUC.ViewListProducts.ItemsSource).Refresh();
+            //}
         }
 
         public void BtnSearch(MenuUC parameter)
         {
-            CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource).Refresh();
+            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource);
+            //view.Filter = CompareString;
+            //CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource).Refresh();
         }
 
-        private bool UserFilter(object item)
-        {
-            string a = (item as PRODUCT).NAME_;
-            string b = search;
-            a = RemoveSign4VietnameseString(a);
-            if (b != null)
-            {
-                b = RemoveSign4VietnameseString(b);
-            }
-            if (string.IsNullOrEmpty(b))
-                return true;
-            else
-                return (a.IndexOf(b, StringComparison.OrdinalIgnoreCase) >= 0);
-        }
-
+        //private bool CompareString(object item)
+        //{
+        //    string a = (item as PRODUCT).NAME_;
+        //    Search = Search.Trim();
+        //    string b = Search;
+        //    a = RemoveSign4VietnameseString(a);
+        //    if (b != null)
+        //    {
+        //        b = RemoveSign4VietnameseString(b);
+        //    }
+        //    if (string.IsNullOrEmpty(b))
+        //        return true;
+        //    else
+        //        return (a.IndexOf(b, StringComparison.OrdinalIgnoreCase) >= 0);
+        //}
         private static readonly string[] VietnameseSigns = new string[]
                 {
             "aAeEoOuUiIdDyY",
@@ -182,5 +177,6 @@ namespace FoodOrderApp.ViewModels
         //    ProductDetail pd = new ProductDetail();
         //    pd.ShowDialog();
         //}
+        
     }
 }
