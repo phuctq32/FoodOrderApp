@@ -59,7 +59,8 @@
                                     Opacity="0.4"
                                     Margin="10 12 0 0"
                                     DockPanel.Dock="Left" />
-                                <TextBox
+                                <TextBox x:Name="SearchTxt"
+                                         Text="{Binding Search}"
                                     HorizontalContentAlignment="Left"
                                     BorderBrush="Transparent"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -71,7 +72,8 @@
                                     VerticalScrollBarVisibility="Disabled" />
                             </DockPanel>
                         </materialDesign:ColorZone>
-                        <ComboBox Height="40" Width="150"
+                        <ComboBox x:Name="combox"
+                            Height="40" Width="150"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
                             Margin="0 20 10 0"
@@ -79,15 +81,26 @@
                             FontSize="16"
                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Orange1}"
                             materialDesign:HintAssist.Hint="Sắp xếp"
-                            VerticalContentAlignment="Center">
-                            <ComboBoxItem Content="Giá tăng" />
-                            <ComboBoxItem Content="Giá giảm" />
+                            VerticalContentAlignment="Center"
+                                  SelectedItem="">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource MenuVM}, Path=IndexCommand}"
+                                        CommandParameter="{Binding ElementName=MenuUserControl}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ComboBoxItem Content="Giá tăng" x:Name="GT">
+                            </ComboBoxItem>
+                            <ComboBoxItem Content="Giá giảm" x:Name="GG">
+                            </ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
 
                     <!--Filter-->
 
-                    <Button
+                    <Button x:Name="BtnSearch"
+                            Command="{Binding SearchCommand}"
+                            CommandParameter="{Binding ElementName=MenuUserControl}"
                         Style="{StaticResource SearchBtn}"
                         Width="160"
                         Height="50"
@@ -107,6 +120,7 @@
                               Margin="20 0"
                               Width="auto"
                               Height="auto"
+
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListView.ItemsPanel>
@@ -188,6 +202,7 @@
                                                 Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
                                             <TextBlock
                                                 x:Name="priceDiscount"
+
                                                 Margin="0 0 10 0"
                                                     Foreground="Red"
                                                     FontSize="17"
