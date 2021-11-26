@@ -166,7 +166,7 @@ namespace FoodOrderApp.ViewModels
              try
              {
 
-                  Data.Ins.DB.USERS.Add(new USER() { EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
+                  Data.Ins.DB.USERS.Add(new USER() { FULLNAME_=userName, EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = Password, TYPE_ = "user" });
                   Data.Ins.DB.SaveChanges();
                  CustomMessageBox.Show("Đăng ký thành công",MessageBoxButton.OK);
                 systemCode = 0;
