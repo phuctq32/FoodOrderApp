@@ -29,7 +29,7 @@ namespace FoodOrderApp.ViewModels
         public string Search
         { get => search; set { search = value; OnPropertyChanged("Search"); } }
 
-        //public ICommand ItemClickCommand { get; set; }
+        public ICommand ItemClickCommand { get; set; }
         private List<PRODUCT> products;
         public List<PRODUCT> Products { 
             get => products; 
@@ -50,7 +50,7 @@ namespace FoodOrderApp.ViewModels
             FilterCommand = new RelayCommand<ComboBox>((parameter) => true, (parameter) => GiaT(parameter));
             SortD = new RelayCommand<MenuUC>((parameter) => true, (parameter) => BtnSearch(parameter));
             //AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
-            //ItemClickCommand = new RelayCommand<ListViewItem>((parameter) => parameter == null ? false : true, (parameter) => ItemClick(parameter));
+            ItemClickCommand = new RelayCommand<ListViewItem>((parameter) => parameter == null ? false : true, (parameter) => ItemClick(parameter));
         }
 
         //private bool UserFilter(object item)
