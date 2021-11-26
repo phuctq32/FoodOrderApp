@@ -141,7 +141,7 @@ namespace FoodOrderApp.ViewModels
             ///Tạo code
             Random random = new Random();
             systemCode = random.Next(100000, 999999);
-            sendGmail("sadam01664@gmail.com", Mail, "FOOD ORDER APP", "Your code is : " + systemCode.ToString());
+            sendGmail("phuctk61@gmail.com", Mail, "FOOD ORDER APP", "Your code is : " + systemCode.ToString());
             ///Hiện xác nhận mã 
             parameter.grdInformation.Visibility = Visibility.Collapsed;
             parameter.transitionContentSlideInside.Visibility = Visibility.Visible;
