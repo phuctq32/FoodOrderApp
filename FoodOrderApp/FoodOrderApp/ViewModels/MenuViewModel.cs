@@ -53,13 +53,6 @@ namespace FoodOrderApp.ViewModels
             ItemClickCommand = new RelayCommand<ListViewItem>((parameter) => parameter == null ? false : true, (parameter) => ItemClick(parameter));
         }
 
-        //private bool UserFilter(object item)
-        //{
-        //    if (String.IsNullOrEmpty(Search.Text))
-        //        return true;
-        //    else
-        //        return (item as PRODUCT).NAME_.IndexOf(parameter.ViewListProducts.Search.Text, StringComparison.OrdinalIgnoreCase) >= 0;
-        //}
         private void Load(MenuUC parameter)
         {
             Products = Data.Ins.DB.PRODUCTs.ToList();
