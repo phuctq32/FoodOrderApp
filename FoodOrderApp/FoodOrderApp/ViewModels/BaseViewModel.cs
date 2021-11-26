@@ -30,7 +30,7 @@ namespace FoodOrderApp.ViewModels
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                 client.EnableSsl = true;
 
-                client.Credentials = new NetworkCredential(from, "0946939284");
+                client.Credentials = new NetworkCredential(from, "teambay123");
 
                 client.Send(mess);
                 /* MessageBox.Show("Mã code đã được gửi đi thành công!", "Thành công", MessageBoxButton.OK);*/
