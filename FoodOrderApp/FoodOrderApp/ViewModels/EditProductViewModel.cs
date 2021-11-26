@@ -51,7 +51,7 @@ namespace FoodOrderApp.ViewModels
         public string DISCOUNT_
         { get => Discount; set { Discount = value; OnPropertyChanged("Discount"); } }
 
-        PRODUCT Current_Product;
+        /*private PRODUCT Current_Product;*/
 
         public List<PRODUCT> pRODUCTs;
         public EditProductViewModel()
@@ -61,7 +61,7 @@ namespace FoodOrderApp.ViewModels
             UpdateProductCommand = new RelayCommand<System.Windows.Controls.ListViewItem>((parameter) => true, (parameter) => Update(parameter));
             DeleteProductCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Delete(parameter));
             SelectImageCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => SelectImage(parameter));
-            UpdateProductCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => UpdateProduct(parameter));
+           /* UpdateProductCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => UpdateProduct(parameter));*/
             AddProductCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => AddProduct(parameter));
         }
         public void Loaded(EditProductUC editProductUC)
@@ -112,10 +112,10 @@ namespace FoodOrderApp.ViewModels
                 IMAGE_ = openFileDialog.FileName;
             }
         }
-        public void UpdateProduct(AddProductWindow addProductWindow)
+        /*public void UpdateProduct(AddProductWindow addProductWindow)
         {
             PRODUCT pRODUCT = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-        }
+        }*/
         public void AddProduct(AddProductWindow addProductWindow)
         {
 

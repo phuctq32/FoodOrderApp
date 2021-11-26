@@ -15,6 +15,10 @@ namespace FoodOrderApp.ViewModels
     public class CartViewModel : BaseViewModel
     {
         private long totalPrice;
+        private string name;
+        private string mail;
+        private string phone;
+        private string address;
         public ICommand LoadedCommand { get; set; }
         public ICommand DeleteCartCommand { get; set; }
         public ICommand DownCommand { get; set; }
@@ -45,6 +49,42 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("TotalPrice");
             }
         }
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged("TotalPrice");
+            }
+        }
+        public string Mail
+        {
+            get => mail;
+            set
+            {
+                mail = value;
+                OnPropertyChanged("TotalPrice");
+            }
+        }
+        public string Phone
+        {
+            get => phone;
+            set
+            {
+                phone = value;
+                OnPropertyChanged("TotalPrice");
+            }
+        }
+        public string Address
+        {
+            get => address;
+            set
+            {
+                address = value;
+                OnPropertyChanged("TotalPrice");
+            }
+        }
         public CartViewModel()
         {
 
@@ -54,6 +94,11 @@ namespace FoodOrderApp.ViewModels
             UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p)); 
              AllCheckedCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
              CheckedCommand = new RelayCommand<CheckBox>((parameter) => { return true; }, (parameter) => Checked(parameter));
+            var user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            Name = user.FULLNAME_;
+            Phone = user.PHONE_;
+            Mail = user.EMAIL_;
+            Address = user.ADDRESS_;
         }
         private void Loaded(CartUC cartUC)
         {
@@ -186,7 +231,7 @@ namespace FoodOrderApp.ViewModels
                 }
             }
             return res;
-        }
-
+        }   
+    
     }
 }

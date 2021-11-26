@@ -369,7 +369,7 @@
                                 VerticalAlignment="Center"
                                 Margin="20 0 0 0"/>
                             <TextBlock
-                                Text="Binding Ten"
+                                Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 FontSize="16"
@@ -384,7 +384,7 @@
                                 VerticalAlignment="Center"
                                 Margin="20 0 0 0"/>
                             <TextBlock
-                                Text="Binding mail"
+                                Text="{Binding Mail,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 VerticalAlignment="Center"
@@ -399,7 +399,7 @@
                                 VerticalAlignment="Center"
                                 Margin="20 0 0 0"/>
                             <TextBlock
-                                Text="Binding sdt"
+                                Text="{Binding Phone,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 FontSize="16"
@@ -423,7 +423,7 @@
                                 Visibility="Collapsed"/>
                             <!--hợp chưa có địa chỉ-->
                             <TextBlock
-                                Text="Chưa có."
+                                Text="{Binding Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 MaxWidth="190"
