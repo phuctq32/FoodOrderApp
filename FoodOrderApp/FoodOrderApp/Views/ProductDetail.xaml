@@ -55,7 +55,7 @@
                         RadiusY="10"
                         Effect="{StaticResource dropShadow1}">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"/>
+                                    <ImageBrush ImageSource="{Binding IMAGE_}" Stretch="UniformToFill"/>
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Grid>
@@ -66,7 +66,7 @@
                                 FontWeight="DemiBold"
                                 TextWrapping="Wrap"
                                 Height="72"
-                                Text="Một cái tên dài vaicalz thử xem có bug UI ko"/>
+                                Text="{Binding NAME_}"/>
                             <Grid Margin="0 10 0 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -117,13 +117,13 @@
                                     FontSize="25"
                                     FontWeight="Medium"
                                     VerticalAlignment="Center"
-                                    Text="90,000">
-                                    <!--<TextBlock.Text>
+                                    >
+                                    <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
                                             <Binding ElementName="price" Path="Text" />
                                             <Binding ElementName="discount" Path="Text" />
                                         </MultiBinding>
-                                    </TextBlock.Text>-->
+                                    </TextBlock.Text>
                                 </TextBlock>
                                 <Border
                                     BorderBrush="Red"
@@ -144,7 +144,7 @@
                                             Foreground="Red"
                                             FontSize="20"
                                             FontWeight="Medium"
-                                            Text="10%"
+                                            Text="{Binding }"
                                             VerticalAlignment="Center">
                                         </TextBlock>
                                     </StackPanel>

@@ -108,48 +108,48 @@ namespace FoodOrderApp.ViewModels
         //    else
         //        return (a.IndexOf(b, StringComparison.OrdinalIgnoreCase) >= 0);
         //}
-        private static readonly string[] VietnameseSigns = new string[]
-                {
-            "aAeEoOuUiIdDyY",
+        //private static readonly string[] VietnameseSigns = new string[]
+        //        {
+        //    "aAeEoOuUiIdDyY",
 
-            "áàạảãâấầậẩẫăắằặẳẵ",
+        //    "áàạảãâấầậẩẫăắằặẳẵ",
 
-            "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+        //    "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
 
-            "éèẹẻẽêếềệểễ",
+        //    "éèẹẻẽêếềệểễ",
 
-            "ÉÈẸẺẼÊẾỀỆỂỄ",
+        //    "ÉÈẸẺẼÊẾỀỆỂỄ",
 
-            "óòọỏõôốồộổỗơớờợởỡ",
+        //    "óòọỏõôốồộổỗơớờợởỡ",
 
-            "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+        //    "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
 
-            "úùụủũưứừựửữ",
+        //    "úùụủũưứừựửữ",
 
-            "ÚÙỤỦŨƯỨỪỰỬỮ",
+        //    "ÚÙỤỦŨƯỨỪỰỬỮ",
 
-            "íìịỉĩ",
+        //    "íìịỉĩ",
 
-            "ÍÌỊỈĨ",
+        //    "ÍÌỊỈĨ",
 
-            "đ",
+        //    "đ",
 
-            "Đ",
+        //    "Đ",
 
-            "ýỳỵỷỹ",
+        //    "ýỳỵỷỹ",
 
-            "ÝỲỴỶỸ"
-                };
+        //    "ÝỲỴỶỸ"
+        //        };
 
-        public static string RemoveSign4VietnameseString(string str)
-        {
-            for (int i = 1; i < VietnameseSigns.Length; i++)
-            {
-                for (int j = 0; j < VietnameseSigns[i].Length; j++)
-                    str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
-            }
-            return str;
-        }
+        //public static string RemoveSign4VietnameseString(string str)
+        //{
+        //    for (int i = 1; i < VietnameseSigns.Length; i++)
+        //    {
+        //        for (int j = 0; j < VietnameseSigns[i].Length; j++)
+        //            str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
+        //    }
+        //    return str;
+        //}
         private void AddToCart(ListViewItem parameter)
         {
             try
@@ -172,11 +172,14 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        //private void ItemClick(ListViewItem parameter)
-        //{
-        //    ProductDetail pd = new ProductDetail();
-        //    pd.ShowDialog();
-        //}
-        
+        private void ItemClick(ListViewItem parameter)
+        {
+            PRODUCT pRODUCT = parameter.DataContext as PRODUCT;
+            ProductDetail pd = new ProductDetail();
+            pd.DataContext = pRODUCT;
+            pd.ShowDialog();
+
+        }
+
     }
 }
