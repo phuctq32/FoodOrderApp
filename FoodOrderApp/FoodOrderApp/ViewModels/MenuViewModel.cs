@@ -19,8 +19,8 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand LoadedCommand { get; set; }
         public ICommand AddToCartCommand { get; set; }
+        
         public List<PRODUCT> products;
-
         public MenuViewModel()
         {
             AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
@@ -44,7 +44,7 @@ namespace FoodOrderApp.ViewModels
                 int idCarts = Data.Ins.DB.CARTs.Count();
                 if (cartsCount == 0)
                 {
-                    string tmpID = CurrentAccount.Username +"_"+ item.ID_;
+                    string tmpID = CurrentAccount.Username + "_" + item.ID_;
                     Data.Ins.DB.CARTs.Add(new CART() { ID_ = tmpID, PRODUCT_ = item.ID_, USERNAME_ = CurrentAccount.Username, AMOUNT_ = 1 });
                     Data.Ins.DB.SaveChanges();
                     CustomMessageBox.Show("Đã thêm " + item.NAME_.ToString() + " vào giỏ hàng thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
