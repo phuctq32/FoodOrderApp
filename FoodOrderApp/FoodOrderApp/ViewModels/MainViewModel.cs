@@ -80,6 +80,7 @@ namespace FoodOrderApp.ViewModels
             else
             {
                 mainWindow.listViewMenu.SelectedIndex = 5;
+                mainWindow.ucWindow.Children.Add(new DashBoardUC());
             }
             //USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
             //AVATAR_ = user.AVATAR_;
@@ -122,7 +123,7 @@ namespace FoodOrderApp.ViewModels
                     break;
                 case 5:
                     mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new ContactUC());
+                    mainWindow.ucWindow.Children.Add(new DashBoardUC());
                     break;
                 case 6:
                     mainWindow.ucWindow.Children.Clear();
@@ -130,11 +131,11 @@ namespace FoodOrderApp.ViewModels
                     break;
                 case 7:
                     mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new ContactUC());
+                    mainWindow.ucWindow.Children.Add(new OrderManagementUC());
                     break;
                 case 8:
                     mainWindow.ucWindow.Children.Clear();
-                    mainWindow.ucWindow.Children.Add(new ContactUC());
+                    mainWindow.ucWindow.Children.Add(new AccountUC());
                     break;
             }
         }
