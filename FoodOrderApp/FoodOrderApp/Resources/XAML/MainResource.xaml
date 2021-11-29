@@ -12,5 +12,6 @@
     <viewmodels:CartViewModel x:Key="CartVM"></viewmodels:CartViewModel>
     <viewmodels:EditProductViewModel x:Key="EditVM"></viewmodels:EditProductViewModel>
     <viewmodels:MyOrderViewModel x:Key="MyOrderVM"></viewmodels:MyOrderViewModel>
+    <viewmodels:ChangeInformationViewModel x:Key="ChangeInfoVM"></viewmodels:ChangeInformationViewModel>
     <viewmodels:DashBoardViewModel x:Key="DashBoardVM"></viewmodels:DashBoardViewModel>
 </ResourceDictionary>
