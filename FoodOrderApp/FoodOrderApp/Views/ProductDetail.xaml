@@ -28,89 +28,90 @@
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
         <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
     </Window.Resources>
-    <Grid>
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <uc:ControlBarUC Grid.Row="0"></uc:ControlBarUC>
-            <ScrollViewer Grid.Row="1">
-                <Grid Margin="20 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="300"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="7*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Rectangle 
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:0.15}">
+        <Grid>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <uc:ControlBarUC Grid.Row="0"></uc:ControlBarUC>
+                <ScrollViewer Grid.Row="1">
+                    <Grid Margin="20 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Rectangle 
                         Width="230"
                         Height="230"
                         RadiusX="10"
                         RadiusY="10"
                         Effect="{StaticResource dropShadow1}">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="{Binding IMAGE_}" Stretch="UniformToFill"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                        </Grid>
-                        <StackPanel Margin="20 30" Grid.Column="1">
-                            <TextBlock
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="{Binding IMAGE_}" Stretch="UniformToFill"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                            <StackPanel Margin="20 30" Grid.Column="1">
+                                <TextBlock
                                 Foreground="Black"
                                 FontSize="30"
                                 FontWeight="DemiBold"
                                 TextWrapping="Wrap"
                                 Height="72"
                                 Text="{Binding NAME_}"/>
-                            <Grid Margin="0 10 0 0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="100"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
+                                <Grid Margin="0 10 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
                                                 x:Name="price"
                                                 Margin="0 5"
                                                 Foreground="Black"
                                                 FontSize="25"
                                                 FontWeight="Medium"
-                                                Text="100,000"
+                                                Text="{Binding PRICE_, StringFormat=N0}"
                                                 VerticalAlignment="Center"
                                                 Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
                                                 TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
                                                 Visibility="Visible">
-                                </TextBlock>
-                                <!--Phần đánh giá, nếu RATING_TIMES_ = 0 thì ẩn cái này đi-->
-                                <Grid Grid.Column="1">
-                                    <TextBlock 
-                                                Text="4.5"
+                                    </TextBlock>
+                                    <!--Phần đánh giá, nếu RATING_TIMES_ = 0 thì ẩn cái này đi-->
+                                    <Grid Grid.Column="1">
+                                        <TextBlock 
+                                                Text="{Binding RATING_}"
                                                 VerticalAlignment="Center"
                                                 FontSize="25"
                                                 Margin="10 0 0 0"
                                                 Foreground="{StaticResource Orange2}"
                                                 HorizontalAlignment="Left"/>
-                                    <materialDesign:PackIcon 
+                                        <materialDesign:PackIcon 
                                                 Kind="Star"
                                                 HorizontalAlignment="Right"
                                                 Width="40"
                                                 Height="40"
                                                 Foreground="{StaticResource Orange1}"
                                                 Margin="0 0 10 0"/>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
+                                <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
                                     khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên
                                     thì collapsed-->
-                            <StackPanel
+                                <StackPanel
                                 x:Name="stack"
                                 Orientation="Horizontal"
                                 Margin="0 5"
-                                Visibility="Visible">
-                                <TextBlock
+                                Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
+                                    <TextBlock
                                     x:Name="priceDiscount"
                                     Margin="0 0 20 0"
                                     Foreground="Red"
@@ -118,41 +119,44 @@
                                     FontWeight="Medium"
                                     VerticalAlignment="Center"
                                     >
-                                    <TextBlock.Text>
-                                        <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
-                                            <Binding ElementName="price" Path="Text" />
-                                            <Binding ElementName="discount" Path="Text" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <Border
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
+                                                <Binding ElementName="price" Path="Text" />
+                                                <Binding ElementName="discount" Path="Text" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <Border
                                     BorderBrush="Red"
                                     CornerRadius="5"
                                     BorderThickness="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock
                                             Margin="5 0 0 0"
                                             Foreground="Red"
                                             FontSize="20"
                                             FontWeight="Medium"
                                             VerticalAlignment="Center">
                                             -
-                                        </TextBlock>
-                                        <TextBlock
+                                            </TextBlock>
+                                            <TextBlock
                                             x:Name="discount"
                                             Margin="0 0 5 0"
                                             Foreground="Red"
                                             FontSize="20"
                                             FontWeight="Medium"
-                                            Text="{Binding }"
+                                            Text="{Binding DISCOUNT_, StringFormat=P0}"
                                             VerticalAlignment="Center">
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Border>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+
                             </StackPanel>
                             <Button
+                            Grid.Column="1"
                                 x:Name="addToCartBtn"
-                                Margin="0 10 0 0"
+                                Margin="20 10 20 30"
                                 Width="auto"
                                 Height="65"
                                 Panel.ZIndex="99"
@@ -160,7 +164,7 @@
                                 materialDesign:ButtonAssist.CornerRadius="10"
                                 HorizontalContentAlignment="Stretch"
                                 VerticalAlignment="Bottom"
-                                Command="{Binding Source={StaticResource MenuVM}, Path=AddToCartCommand}"
+                                Command="{Binding Source={StaticResource MenuVM}, Path=AddToCartInProductDetailCommand}"
                                 CommandParameter="{Binding}">
                                 <Button.Content>
                                     <Grid>
@@ -183,54 +187,41 @@
                                     </Grid>
                                 </Button.Content>
                             </Button>
-                        </StackPanel>
-                        <Rectangle
+                            <Rectangle
                             Grid.ColumnSpan="2"
                             Width="auto"
                             Height="2"
                             Fill="Gray"
                             VerticalAlignment="Bottom"
                             Margin="20 0"/>
-                    </Grid>
+                        </Grid>
 
-                    <Grid Grid.Row="1" Margin="20">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1" Margin="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-                        <TextBlock 
+                            <TextBlock 
                             Grid.Row="0"
                             Text="Mô tả chi tiết"
                             Foreground="Black"
                             FontSize="25"
                             FontWeight="Light"
                             VerticalAlignment="Center"/>
-                        <TextBlock
+                            <TextBlock
                             Grid.Row="1"
                             Margin="0 10 0 0"
                             TextWrapping="Wrap"
-                            Text="Thành phần: Water, Cetyl Ethylhexanoate, Butylene Glycol, Glycerin, Sodium Hyaluronate, Caprylic/Capric Triglyceride, Centella Asiatica Extract, Sorbitan Stearate, Cetyl Alcohol, Butyrospermum Parkii (Shea) Butter, Argania Spinosa Kernel Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Sorbitan Sesquioleate, Glyceryl Stearate, Stearic Acid, Portulaca Oleracea Extract, Anthemis Nobilis Flower Extract, Ceramide NP, Polysorbate 60, Bees Wax, Chlorphenesin, Tocopheryl Acetate, Xanthan Gum, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Morus Alba Root Extract, Triethanolamine, Brassica Oleracea Italica (Broccoli) Extract, Guaiazulene, Acetyl Hexapeptide-8, Lecithin, Acetyl Glutamine, sh-Oligopeptide-1, sh-Oligopeptide-2, sh-Polypeptide-1, sh-Polypeptide-9, sh-Polypeptide-11, Bacillus/Soybean/Folic Acid Ferment Extract, Caprylyl Glycol, 1,2-Hexanediol
--	Công dụng:
-+ Làm dịu các vùng da kích ứng
-+ Phục hồi da.
-+ Làm giảm sưng tấy vết thương.
-+ Lấy lại sức sống cho làn da đối với những người làm việc văn phòng, chịu nhiều áp lực.
-+ Thúc đẩy hồi phục da sau tổn thương.
--      Loại da: da đỏ, kích ứng/ da nhạy cảm/ da dễ bị tổn thương.
--	Hướng dẫn sử dụng: Dùng sau bước tinh chất (hoặc sữa dưỡng). Lấy một lượng vừa đủ cho ra tay rồi vỗ lên mặt và cổ.
--	Ngày sản xuất: 3 năm trước hạn sử dụng
--	Hạn sử dụng: Xem trên sản phẩm (năm.tháng.ngày)
--	Xuất xứ: Hàn Quốc
--	Nơi sản xuất: ENBIOSCIENCE Co., LTD KOREA,  252, Namdongdaero, Namdong-gu, Incheon, Korea Hàn Quốc"
+                            Text=""
                             Foreground="Black"
                             FontSize="20"/>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </ScrollViewer>
-        </Grid>
-            
-        <Rectangle
+                </ScrollViewer>
+            </Grid>
+
+            <Rectangle
             Fill="White"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -239,6 +230,8 @@
             Panel.ZIndex="-2"
             Effect="{StaticResource dropShadow}"
             Margin="10">
-        </Rectangle>
-    </Grid>
+            </Rectangle>
+        </Grid>
+    </materialDesign:TransitioningContent>
+    
 </Window>

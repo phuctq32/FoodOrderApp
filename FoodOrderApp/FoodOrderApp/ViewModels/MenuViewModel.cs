@@ -21,6 +21,7 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand LoadedCommand { get; set; }
         public ICommand AddToCartCommand { get; set; }
+        public ICommand AddToCartInProductDetailCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand FilterCommand { get; set; }
         public ICommand SortD { get; set; }
@@ -50,6 +51,7 @@ namespace FoodOrderApp.ViewModels
             FilterCommand = new RelayCommand<ComboBox>((parameter) => true, (parameter) => GiaT(parameter));
             SortD = new RelayCommand<MenuUC>((parameter) => true, (parameter) => BtnSearch(parameter));
             AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
+            AddToCartInProductDetailCommand = new RelayCommand<PRODUCT>(p => p == null ? false : true, p => AddToCartInProductDetail(p));
             ItemClickCommand = new RelayCommand<ListViewItem>((parameter) => parameter == null ? false : true, (parameter) => ItemClick(parameter));
         }
 
@@ -159,6 +161,27 @@ namespace FoodOrderApp.ViewModels
                 }
                 else
                     CustomMessageBox.Show("Món ăn " + item.NAME_.ToString() + " đã có sẵn trong giỏ hàng", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            catch
+            {
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void AddToCartInProductDetail(PRODUCT product)
+        {
+            try
+            {
+                int cartsCount = Data.Ins.DB.CARTs.Where(x => x.USERNAME_ == CurrentAccount.Username && x.PRODUCT_ == product.ID_).Count();
+                int idCarts = Data.Ins.DB.CARTs.Count();
+                if (cartsCount == 0)
+                {
+                    string tmpID = CurrentAccount.Username + "_" + product.ID_;
+                    Data.Ins.DB.CARTs.Add(new CART() { ID_ = tmpID, PRODUCT_ = product.ID_, USERNAME_ = CurrentAccount.Username, AMOUNT_ = 1 });
+                    Data.Ins.DB.SaveChanges();
+                    CustomMessageBox.Show("Đã thêm " + product.NAME_.ToString() + " vào giỏ hàng thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                }
+                else
+                    CustomMessageBox.Show("Món ăn " + product.NAME_.ToString() + " đã có sẵn trong giỏ hàng", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             catch
             {
