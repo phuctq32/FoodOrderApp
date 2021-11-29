@@ -486,6 +486,9 @@
                     </StackPanel>
                     <Grid Grid.Row="3">
                         <Button Style="{StaticResource SearchBtn}"
+                                IsDefault="True"
+                                Command="{Binding OrderCommand}"
+                                CommandParameter="{Binding ElementName=CartUserControl}"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 Margin="5 0"
                                 Height="40"

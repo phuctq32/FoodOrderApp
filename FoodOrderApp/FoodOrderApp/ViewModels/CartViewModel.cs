@@ -25,6 +25,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand UpCommand { get; set; }
         public ICommand AllCheckedCommand { get; set; }
         public ICommand CheckedCommand { get; set; }
+        public ICommand OrderCommand { get; set; }
 
         //private bool allChecked;
         //public bool AllChecked { get => allChecked; set { allChecked = value; OnPropertyChanged(); } }
@@ -87,7 +88,7 @@ namespace FoodOrderApp.ViewModels
         }
         public CartViewModel()
         {
-
+            OrderCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => Order(parameter));
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
             DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
             DownCommand = new RelayCommand<TextBlock>(p => true, p => Down(p));
@@ -231,7 +232,13 @@ namespace FoodOrderApp.ViewModels
                 }
             }
             return res;
-        }   
-    
+        }
+        public void Order(CartUC parameter)
+        {
+            CustomMessageBox.Show("Đặt hàng thành công!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
+
+
     }
 }
