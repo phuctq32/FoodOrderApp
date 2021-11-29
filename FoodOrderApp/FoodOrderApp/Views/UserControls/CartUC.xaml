@@ -432,6 +432,9 @@
                                 Margin="20 5 0 0"
                                 Visibility="Visible"/>
                             <Button Style="{StaticResource SearchBtn}"
+                                    x:Name="SetAddress"
+                                    Command="{Binding OpenSetAddressWDCommand}"
+                                    CommandParameter="{Binding ElementName=CartUserControl}"
                                     Content="Thiết lập địa chỉ"
                                     VerticalAlignment="Top"
                                     Margin="10 5 0 0"

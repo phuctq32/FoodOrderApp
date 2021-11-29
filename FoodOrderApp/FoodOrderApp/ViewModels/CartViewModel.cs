@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using FoodOrderApp.Views;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -26,6 +27,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand AllCheckedCommand { get; set; }
         public ICommand CheckedCommand { get; set; }
         public ICommand OrderCommand { get; set; }
+        public ICommand OpenSetAddressWDCommand { get; set; }
 
         //private bool allChecked;
         //public bool AllChecked { get => allChecked; set { allChecked = value; OnPropertyChanged(); } }
@@ -88,13 +90,14 @@ namespace FoodOrderApp.ViewModels
         }
         public CartViewModel()
         {
+            OpenSetAddressWDCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => OpenSetAddress(parameter));
             OrderCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => Order(parameter));
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
             DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
             DownCommand = new RelayCommand<TextBlock>(p => true, p => Down(p));
-            UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p)); 
-             AllCheckedCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
-             CheckedCommand = new RelayCommand<CheckBox>((parameter) => { return true; }, (parameter) => Checked(parameter));
+            UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
+            AllCheckedCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
+            CheckedCommand = new RelayCommand<CheckBox>((parameter) => { return true; }, (parameter) => Checked(parameter));
             var user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
             Name = user.FULLNAME_;
             Phone = user.PHONE_;
@@ -134,7 +137,7 @@ namespace FoodOrderApp.ViewModels
             {
                 try
                 {
-                    if(CustomMessageBox.Show("Xóa món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                    if (CustomMessageBox.Show("Xóa món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                     {
                         CART cartToDelete = lvi.DataContext as CART;
                         Data.Ins.DB.CARTs.Remove(cartToDelete);
@@ -155,7 +158,7 @@ namespace FoodOrderApp.ViewModels
                 cart.AMOUNT_ = amount;
                 parameter.Text = amount.ToString();
             }
-            
+
             TotalPrice = GetTotalPrice(lv);
         }
         private void Up(TextBlock parameter)
@@ -205,7 +208,7 @@ namespace FoodOrderApp.ViewModels
             var cartUC = GetAncestorOfType<CartUC>(lv);
             foreach (var item in FindVisualChildren<CheckBox>(lv))
             {
-                if(item.IsChecked == false)
+                if (item.IsChecked == false)
                 {
                     cartUC.selectAllCheckBox.IsChecked = false;
                     isAllChecked = false;
@@ -213,7 +216,7 @@ namespace FoodOrderApp.ViewModels
                 }
             }
             if (isAllChecked)
-            { 
+            {
                 cartUC.selectAllCheckBox.IsChecked = true;
             }
         }
@@ -237,8 +240,10 @@ namespace FoodOrderApp.ViewModels
         {
             CustomMessageBox.Show("Đặt hàng thành công!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
-
-
-
+        public void OpenSetAddress(CartUC parameter)
+        {
+            ChangeInformationWindow changeInformationWindow = new ChangeInformationWindow();
+            changeInformationWindow.ShowDialog();
+        }
     }
 }
