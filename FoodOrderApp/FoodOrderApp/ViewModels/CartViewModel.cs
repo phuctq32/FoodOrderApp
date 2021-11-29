@@ -22,6 +22,7 @@ namespace FoodOrderApp.ViewModels
         private string address;
         public ICommand LoadedCommand { get; set; }
         public ICommand DeleteCartCommand { get; set; }
+        public ICommand DeleteAllCartCommand { get; set; }
         public ICommand DownCommand { get; set; }
         public ICommand UpCommand { get; set; }
         public ICommand AllCheckedCommand { get; set; }
@@ -94,6 +95,7 @@ namespace FoodOrderApp.ViewModels
             OrderCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => Order(parameter));
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
             DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
+            DeleteAllCartCommand = new RelayCommand<ListView>((parameter) => { return true; }, (parameter) => DeleteAllCart(parameter));
             DownCommand = new RelayCommand<TextBlock>(p => true, p => Down(p));
             UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
             AllCheckedCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
@@ -127,6 +129,32 @@ namespace FoodOrderApp.ViewModels
             }
             var lv = GetAncestorOfType<ListView>(parameter);
             TotalPrice = GetTotalPrice(lv);
+        }
+        protected void DeleteAllCart(ListView parameter)
+        {
+            if (parameter.Items.Count == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                if (CustomMessageBox.Show("Xóa tất cả món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    foreach (var cartToDelete in CurrentCart)
+                    {
+                        Data.Ins.DB.CARTs.Remove(cartToDelete);
+                    }
+                    Data.Ins.DB.SaveChanges();
+                    CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+                }
+            }
+            catch
+            {
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            TotalPrice = GetTotalPrice(parameter);
         }
         private void Down(TextBlock parameter)
         {
