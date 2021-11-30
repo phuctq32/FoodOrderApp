@@ -34,6 +34,7 @@ namespace FoodOrderApp.ViewModels
         //public bool AllChecked { get => allChecked; set { allChecked = value; OnPropertyChanged(); } }
 
         private List<CART> currentCart;
+
         public List<CART> CurrentCart
         {
             get => currentCart;
@@ -43,6 +44,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("CurrentCart");
             }
         }
+
         // Biến này để gán cho tổng hóa đơn, mỗi lần nhấn checkbox thì sẽ gán lại cho nó = Hàm GetTotalPrice() ở dưới
         public long TotalPrice
         {
@@ -53,6 +55,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("TotalPrice");
             }
         }
+
         public string Name
         {
             get => name;
@@ -62,6 +65,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("TotalPrice");
             }
         }
+
         public string Mail
         {
             get => mail;
@@ -71,6 +75,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("TotalPrice");
             }
         }
+
         public string Phone
         {
             get => phone;
@@ -80,6 +85,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("TotalPrice");
             }
         }
+
         public string Address
         {
             get => address;
@@ -89,6 +95,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("TotalPrice");
             }
         }
+
         public CartViewModel()
         {
             OpenSetAddressWDCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => OpenSetAddress(parameter));
@@ -106,10 +113,12 @@ namespace FoodOrderApp.ViewModels
             Mail = user.EMAIL_;
             Address = user.ADDRESS_;
         }
+
         private void Loaded(CartUC cartUC)
         {
             CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
         }
+
         protected void DeleteCart(ListViewItem parameter)
         {
             try
@@ -130,6 +139,7 @@ namespace FoodOrderApp.ViewModels
             var lv = GetAncestorOfType<ListView>(parameter);
             TotalPrice = GetTotalPrice(lv);
         }
+
         protected void DeleteAllCart(ListView parameter)
         {
             if (parameter.Items.Count == 0)
@@ -156,6 +166,7 @@ namespace FoodOrderApp.ViewModels
             }
             TotalPrice = GetTotalPrice(parameter);
         }
+
         private void Down(TextBlock parameter)
         {
             short amount = short.Parse(parameter.Text.ToString());
@@ -189,6 +200,7 @@ namespace FoodOrderApp.ViewModels
 
             TotalPrice = GetTotalPrice(lv);
         }
+
         private void Up(TextBlock parameter)
         {
             short amount = short.Parse(parameter.Text.ToString());
@@ -221,6 +233,7 @@ namespace FoodOrderApp.ViewModels
             }
             TotalPrice = GetTotalPrice(parameter.cartList);
         }
+
         private void Checked(CheckBox parameter)
         {
             //// cái thằng allChecked.IsChecked = null
@@ -264,13 +277,19 @@ namespace FoodOrderApp.ViewModels
             }
             return res;
         }
+
         public void Order(CartUC parameter)
         {
             CustomMessageBox.Show("Đặt hàng thành công!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
+
         public void OpenSetAddress(CartUC parameter)
         {
             ChangeInformationWindow changeInformationWindow = new ChangeInformationWindow();
+            changeInformationWindow.nameStack.Visibility = Visibility.Collapsed;
+            changeInformationWindow.emailStack.Visibility = Visibility.Collapsed;
+            changeInformationWindow.phoneStack.Visibility = Visibility.Collapsed;
+            changeInformationWindow.lblChangeinfo.Content = "Cập nhật địa chỉ";
             changeInformationWindow.ShowDialog();
         }
     }
