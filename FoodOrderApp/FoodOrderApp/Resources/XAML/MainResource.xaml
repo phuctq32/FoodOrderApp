@@ -13,4 +13,5 @@
     <viewmodels:EditProductViewModel x:Key="EditVM"></viewmodels:EditProductViewModel>
     <viewmodels:MyOrderViewModel x:Key="MyOrderVM"></viewmodels:MyOrderViewModel>
     <viewmodels:DashBoardViewModel x:Key="DashBoardVM"></viewmodels:DashBoardViewModel>
+    <viewmodels:AdminChatViewModel x:Key="AdminChatVM"></viewmodels:AdminChatViewModel>
 </ResourceDictionary>
