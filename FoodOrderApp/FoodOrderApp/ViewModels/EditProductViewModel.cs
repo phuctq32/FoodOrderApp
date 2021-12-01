@@ -55,7 +55,7 @@ namespace FoodOrderApp.ViewModels
         //public string DISCOUNT_
         //{ get => Discount; set { Discount = value; OnPropertyChanged("Discount"); } }
 
-        PRODUCT Current_Product;
+        /*private PRODUCT Current_Product;*/
 
         public List<PRODUCT> pRODUCTs;
         public EditProductViewModel()
@@ -125,61 +125,9 @@ namespace FoodOrderApp.ViewModels
                 IMAGE_ = openFileDialog.FileName;
             }
         }
-        public void UploadImage()
-        {
-            //Create connection to Storage
-
-            string containerName = "avatar";
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=phong;AccountKey=/4FmL2uepULrqhajPWW1odbS70e5L/SEYVyO7ej3Zyzgh5cw61MysAf+f73I3euXcATYPUi8nJHQ0la8XB7Ccg==;EndpointSuffix=core.windows.net";
-            BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
-
-            //Get name of Image
-
-            string[] filename = Path.GetFileName(IMAGE_).Split('.');
-
-            //Delete old Image
-
-            BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + Current_Product.IMAGE_.Split('.')[5]);
-            blobClient.Delete();
-
-            //Start upload
-
-            using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(IMAGE_)))
-            {
-                //Upload new Image
-
-                containerClient.UploadBlob(CurrentAccount.Username + "." + filename[1], stream);
-                CustomMessageBox.Show("Thay đổi ảnh thành công", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-            }
-
-            //Update new Image link
-
-            USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            user.AVATAR_ = "https://phong.blob.core.windows.net/avatar/" + CurrentAccount.Username + "." + filename[1];
-
-            //Save database change
-
-            Data.Ins.DB.SaveChanges();
-        
-        }
-        public void ChangeImage()
-        {
-
-        }
         public void UpdateProduct(AddProductWindow addProductWindow)
         {
             PRODUCT pRODUCT = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-            pRODUCT.DESCRIPTION_ = addProductWindow.txtDescription.Text;
-            pRODUCT.DISCOUNT_ =Convert.ToInt32(addProductWindow.txtDiscount.Text);
-            pRODUCT.NAME_ = addProductWindow.txtName.Text;
-            pRODUCT.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
-            if(!string.IsNullOrEmpty(IMAGE_))
-            {
-                ChangeImage();
-                pRODUCT.IMAGE_ = IMAGE_;
-            }
-            Data.Ins.DB.SaveChanges();
-            IMAGE_ = "";
         }
         public void AddProduct(AddProductWindow addProductWindow)
         {

@@ -23,15 +23,13 @@ namespace FoodOrderApp.ViewModels
         public ICommand OpenLogInWDCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-
+        
         private string password;
         public string Password { get => password; set { password = value; OnPropertyChanged(); } }
         private string userName;
         public string UserName { get => userName; set { userName = value; OnPropertyChanged(); } }
         private bool isLogin;
         public bool IsLogin { get => isLogin; set => isLogin = value; }
-
-
 
         public LoginViewModel()
         {
@@ -91,7 +89,8 @@ namespace FoodOrderApp.ViewModels
                 if (accCount > 0)
                 {
                     isLogin = true;
-                    if(UserName == "admin")
+                    
+                    if (UserName == "admin")
                     {
                         CurrentAccount.IsAdmin = true;
                         CurrentAccount.IsUser = false;
@@ -102,7 +101,7 @@ namespace FoodOrderApp.ViewModels
                         CurrentAccount.IsUser = true;
                     }
                     CurrentAccount.Username = UserName;
-                    
+
                     MainWindow app = new MainWindow();
                     app.ShowDialog();
                     parameter.Close();

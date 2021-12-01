@@ -24,7 +24,8 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        SizeToContent="Height">
     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:0.2}">
         <Grid>
             <Grid Margin="10">
@@ -53,7 +54,8 @@
                         <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Stretch">
                             <!--họ tên-->
-                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                            <StackPanel x:Name="nameStack"
+                                Orientation="Horizontal" Margin="0 20">
                                 <materialDesign:PackIcon
                                     Kind="Account"
                                     Width="30"
@@ -79,7 +81,8 @@
                                 </TextBox>
                             </StackPanel>
                             <!--email-->
-                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                            <StackPanel x:Name="emailStack"
+                                Orientation="Horizontal" Margin="0 20">
                                 <materialDesign:PackIcon
                                         Kind="Gmail"
                                         Width="30"
@@ -106,7 +109,8 @@
                                 </TextBox>
                             </StackPanel>
                             <!--số điện thoại-->
-                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                            <StackPanel x:Name="phoneStack"
+                                Orientation="Horizontal" Margin="0 20">
                                 <materialDesign:PackIcon
                                     Kind="Phone"
                                     Width="30"
@@ -188,4 +192,3 @@
         </Grid>
     </materialDesign:TransitioningContent>
 </Window>
- 
