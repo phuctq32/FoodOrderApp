@@ -36,222 +36,108 @@
             </Grid.ColumnDefinitions>
             <uc:ControlBarUC Grid.ColumnSpan="2"></uc:ControlBarUC>
             <Grid Grid.Column="1" Margin="0 30 0 0">
-                <StackPanel Orientation="Horizontal"
-                            Height="80"
-                            VerticalAlignment="Top">
-                    <Rectangle
-                    Width="50"
-                    Height="50"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    RadiusY="100"
-                    RadiusX="100"
-                    Margin="10 0">
-                        <Rectangle.Fill>
-                            <ImageBrush x:Name="ImgBrush" ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"></ImageBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <!--<Border Width="10" Height="10" HorizontalAlignment="Right" Margin="15" Background="Green" CornerRadius="15" VerticalAlignment="Center" />-->
-                    <TextBlock Foreground="Black"
+                <ListView Margin="0 90" HorizontalAlignment="Stretch"
+                          x:Name="listViewChat">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <!--width này là chiều ngang của listview không set item sẽ bị căn sai-->
+                            <Grid Width="1070">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--avatar và tên user-->
+                                <StackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Center" Grid.Row="0">
+                                    <Rectangle
+                                        Width="50"
+                                        Height="50"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        RadiusY="100"
+                                        RadiusX="100"
+                                        Margin="10 0">
+                                        <Rectangle.Fill>
+                                            <ImageBrush x:Name="ImgBrush" ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"></ImageBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock Foreground="Black"
                                Text="Teen usser"
                                FontSize="28"
                                VerticalAlignment="Center"
                                FontWeight="Medium" />
-                </StackPanel>
-                <ListView Margin="0 90" HorizontalAlignment="Stretch"
-                          x:Name="listViewChat">
-                    <ListViewItem>
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle
-                                Width="40"
-                                Height="40"
-                                HorizontalAlignment="Left"
-                                RadiusY="100"
-                                RadiusX="100"
-                                Margin="10 0 0 10"
-                                VerticalAlignment="Bottom">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"></ImageBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Border Background="LightGray" CornerRadius="15 15 15 0" Margin="10 12"
-                                    HorizontalAlignment="Left">
-                                <TextBox IsReadOnly="True"
-                                         MaxWidth="700"
-                                         Style="{x:Null}"
-                                         Background="Transparent"
-                                         Margin="15" FontSize="18"
-                                         BorderThickness="0" TextWrapping="Wrap">
-                                    Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                                                Parents are the ultimate role models  Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                                </TextBox>
-                            </Border>
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="{StaticResource Orange1}" CornerRadius="15 15 0 15" Margin="10 12"
-                                HorizontalAlignment="Right" MaxWidth="700">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                huihiuhiuhiuhuh98hoihiuphop
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="{StaticResource Orange1}" CornerRadius="15 15 0 15" Margin="10 12"
-                                HorizontalAlignment="Right" MaxWidth="700">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                huihiuhiuhiuhuh98hoihiuphop
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle
-                                Width="40"
-                                Height="40"
-                                HorizontalAlignment="Left"
-                                RadiusY="100"
-                                RadiusX="100"
-                                Margin="10 0 0 10"
-                                VerticalAlignment="Bottom">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"></ImageBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Border Background="LightGray" CornerRadius="15 15 15 0" Margin="10 12"
-                                    HorizontalAlignment="Left">
-                                <TextBox IsReadOnly="True"
-                                         MaxWidth="700"
-                                         Style="{x:Null}"
-                                         Background="Transparent"
-                                         Margin="15" FontSize="18"
-                                         BorderThickness="0" TextWrapping="Wrap">
-                                    Parents
-                                </TextBox>
-                            </Border>
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="{StaticResource Orange1}" CornerRadius="15 15 0 15" Margin="10 12"
-                                HorizontalAlignment="Right" MaxWidth="700">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                huihiuhiuhiuhuh98hoihiuphop
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="{StaticResource Orange1}" CornerRadius="15 15 0 15" Margin="10 12"
-                                HorizontalAlignment="Right" MaxWidth="700">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                                            Parents are the ultimate role models  Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="LightGray" CornerRadius="15 15 15 0" Margin="10 12"
-                                HorizontalAlignment="Left">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                                            Parents are the ultimate role models  Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="{StaticResource Orange1}" CornerRadius="15 15 0 15" Margin="10 12"
-                                HorizontalAlignment="Right" MaxWidth="700">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                huihiuhiuhiuhuh98hoihiuphop
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="{StaticResource Orange1}" CornerRadius="15 15 0 15" Margin="10 12"
-                                HorizontalAlignment="Right" MaxWidth="700">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                huihiuhiuhiuhuh98hoihiuphop
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="LightGray" CornerRadius="15 15 15 0" Margin="10 12"
-                                HorizontalAlignment="Left">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                                            Parents are the ultimate role models  Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="{StaticResource Orange1}" CornerRadius="15 15 0 15" Margin="10 12"
-                                HorizontalAlignment="Right" MaxWidth="700">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                huihiuhiuhiuhuh98hoihiuphop
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Border Background="{StaticResource Orange1}" CornerRadius="15 15 0 15" Margin="10 12"
-                                HorizontalAlignment="Right" MaxWidth="700">
-                            <TextBox IsReadOnly="True"
-                                     MaxWidth="700"
-                                     Style="{x:Null}"
-                                     Background="Transparent"
-                                     Margin="15" FontSize="18"
-                                     BorderThickness="0" TextWrapping="Wrap">
-                                Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                                            Parents are the ultimate role models  Parents are the ultimate role models for children. Every word, movement and action has an effect. No other person or outside force has a greater influence on a child than the parent.
-                            </TextBox>
-                        </Border>
-                    </ListViewItem>
+                                </StackPanel>
+                                <!--khung chat-->
+                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                    <Rectangle
+                                        x:Name="userAvatar"
+                                        Width="40"
+                                        Height="40"
+                                        HorizontalAlignment="Left"
+                                        RadiusY="100"
+                                        RadiusX="100"
+                                        Margin="10 10 0 10"
+                                        VerticalAlignment="Center"
+                                        Visibility="Visible">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"></ImageBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel>
+                                        <Border Background="LightGray" CornerRadius="15 15 15 0" Margin="10 12"
+                                        HorizontalAlignment="Left" x:Name="chatTextBorder">
+                                            <TextBox IsReadOnly="True"
+                                             MaxWidth="700"
+                                             Style="{x:Null}"
+                                             Background="Transparent"
+                                             Margin="15" FontSize="18"
+                                             BorderThickness="0" TextWrapping="Wrap">
+                                            </TextBox>
+                                        </Border>
+                                        <!--Ngày tháng-->
+                                        <TextBox
+                                            x:Name="dateTxtbox"
+                                            IsReadOnly="True"
+                                            Style="{x:Null}"
+                                            Background="Transparent"
+                                            FontSize="14"
+                                            BorderThickness="0"
+                                            Opacity="0.6"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 18 0">
+                                            12PM
+                                        </TextBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Type}" Value="Sender">
+                                    <!--sửa lại style nếu tin nhắn là của người gửi-->
+                                    <Setter TargetName="chatTextBorder"
+                                        Property="HorizontalAlignment"
+                                        Value="Right" />
+                                    <Setter TargetName="chatTextBorder"
+                                            Property="Background"
+                                            Value="{StaticResource Orange2}"></Setter>
+                                    <Setter TargetName="chatTextBorder"
+                                            Property="CornerRadius"
+                                            Value="15 15 0 15"></Setter>
+                                    <Setter TargetName="userAvatar"
+                                            Property="Visibility"
+                                            Value="Collapsed"></Setter>
+                                    <Setter TargetName="dateTxtbox"
+                                            Property="HorizontalAlignment"
+                                            Value="Left"></Setter>
+                                    <Setter TargetName="dateTxtbox"
+                                            Property="Margin"
+                                            Value="18 0 0 0"></Setter>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Vertical" VerticalAlignment="Bottom" ItemWidth="1070" />
+                            <WrapPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                     <ListView.ItemContainerStyle>
@@ -324,7 +210,7 @@
                 </Rectangle>
             </Grid>
 
-            <StackPanel Grid.Column="0" Margin="0 30 0 0">
+            <Grid Grid.Column="0" Margin="0 30 0 0">
 
                 <materialDesign:ColorZone
                             Background="White"
@@ -361,49 +247,61 @@
                     </DockPanel>
                 </materialDesign:ColorZone>
 
-                <ListView>
-                    <ListViewItem HorizontalAlignment="Stretch">
-                        <Grid HorizontalAlignment="Center" Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="50*" />
-                            </Grid.ColumnDefinitions>
-
-                            <Rectangle
+                <ListView Width="305"
+                          ScrollViewer.CanContentScroll="True"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          Margin="0 60 0 0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Center" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="240" />
+                                </Grid.ColumnDefinitions>
+                                <!--avatar user-->
+                                <Rectangle
                                 Width="40"
                                 Height="40"
-                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 RadiusY="100"
-                                RadiusX="100">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"></ImageBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <!--<Border Width="10" Height="10" VerticalAlignment="Bottom" Margin="5" HorizontalAlignment="Right" CornerRadius="15" Background="LightGreen" />-->
+                                RadiusX="100"
+                                Margin="5 0 0 0">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"></ImageBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
 
-                            <StackPanel Grid.Column="1">
-                                <TextBlock Text="Rayhan Alvarado" Margin="10 0" FontSize="18" />
-                                <TextBlock Text="Today is Mariah's bday!" Margin="10 0"
-                                       TextTrimming="CharacterEllipsis"
-                                       Opacity="0.6" FontSize="11" />
-                            </StackPanel>
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
+                                    <!--tên user-->
+                                    <TextBlock Text="Rayhan" Width="220" Margin="10 0" FontSize="18" TextWrapping="Wrap" />
+                                    <!--cứ binding tin nhắn mới nhất là tự nó cắt-->
+                                    <TextBlock Text="" Margin="10 0"
+                                       TextTrimming="WordEllipsis"
+                                       Opacity="0.6" FontSize="11" Width="220" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
 
-                            <!--<Border Grid.Column="2" Width="20" Height="20"
-                                CornerRadius="15"
-                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                Margin="5"
-                                    Background="{StaticResource Orange1}">
-                                <TextBlock FontSize="11" Text="2"
-                                       Foreground="White"
-
-                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>-->
-                        </Grid>
-                    </ListViewItem>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                 </ListView>
-            </StackPanel>
+            </Grid>
             <Rectangle
                 Fill="White"
                 HorizontalAlignment="Stretch"

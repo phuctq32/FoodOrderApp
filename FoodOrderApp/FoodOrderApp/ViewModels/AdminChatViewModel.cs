@@ -21,7 +21,8 @@ namespace FoodOrderApp.ViewModels
         private void Load(AdminChatWindow parameter)
         {
             //tự động scroll xuống thằng tin nhắn mới nhất
-            (parameter.listViewChat.Items.GetItemAt(parameter.listViewChat.Items.Count - 1) as ListViewItem).Focus();
+            if (parameter.listViewChat.Items.Count - 1 > 0)
+                (parameter.listViewChat.Items.GetItemAt(parameter.listViewChat.Items.Count - 1) as ListViewItem).Focus();
         }
     }
 }
