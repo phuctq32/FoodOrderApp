@@ -17,7 +17,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand RatingCommand { get; set; }
         public ICommand OpenInvoiceCommand { get; set; }
         public ICommand PrintCommand { get; set; }
-        private List<RECEIPT> receipts;
+        //private List<RECEIPT> receipts;
 
         // status = 1 là trạng thái chờ xác nhận
         // status = 2 là trạng thái đang tiến hành
@@ -26,7 +26,7 @@ namespace FoodOrderApp.ViewModels
         public MyOrderViewModel()
         {
             RatingCommand = new RelayCommand<RatingBar>(p => true, p => RatingChanged(p));
-            OpenInvoiceCommand = new RelayCommand<ListViewItem>(p => true, p => openInvoice(p));
+            //OpenInvoiceCommand = new RelayCommand<ListViewItem>(p => true, p => openInvoice(p));
             PrintCommand = new RelayCommand<InvoiceWindow>(paramater => true, paramater => print(paramater));
         }
 
@@ -51,18 +51,18 @@ namespace FoodOrderApp.ViewModels
             }
         }
 
-        private void openInvoice(ListViewItem paramater)
-        {
-            RECEIPT receipt = paramater.DataContext as RECEIPT;
-            if (CustomMessageBox.Show("Bạn có muốn in hoá đơn?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.OK)
-            {
-                InvoiceWindow invoiceWindow = new InvoiceWindow();
-                invoiceWindow.listView.ItemsSource = receipts;
-                invoiceWindow.Show();
-            }
+        //private void openInvoice(ListViewItem paramater)
+        //{
+        //    RECEIPT receipt = paramater.DataContext as RECEIPT;
+        //    if (CustomMessageBox.Show("Bạn có muốn in hoá đơn?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.OK)
+        //    {
+        //        InvoiceWindow invoiceWindow = new InvoiceWindow();
+        //        invoiceWindow.listView.ItemsSource = receipts;
+        //        invoiceWindow.Show();
+        //    }
 
-            //receipt.STATUS_
-        }
+        //    //receipt.STATUS_
+        //}
 
         private void RatingChanged(RatingBar p)
         {

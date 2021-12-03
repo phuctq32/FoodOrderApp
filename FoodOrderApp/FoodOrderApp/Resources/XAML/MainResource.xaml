@@ -11,6 +11,7 @@
     <viewmodels:MenuViewModel x:Key="MenuVM"></viewmodels:MenuViewModel>
     <viewmodels:CartViewModel x:Key="CartVM"></viewmodels:CartViewModel>
     <viewmodels:EditProductViewModel x:Key="EditVM"></viewmodels:EditProductViewModel>
+    <viewmodels:ChangeInformationViewModel x:Key="ChangeInfoVM"></viewmodels:ChangeInformationViewModel>
     <viewmodels:MyOrderViewModel x:Key="MyOrderVM"></viewmodels:MyOrderViewModel>
     <viewmodels:DashBoardViewModel x:Key="DashBoardVM"></viewmodels:DashBoardViewModel>
     <viewmodels:AdminChatViewModel x:Key="AdminChatVM"></viewmodels:AdminChatViewModel>

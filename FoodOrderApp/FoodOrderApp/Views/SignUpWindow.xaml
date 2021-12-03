@@ -236,7 +236,7 @@
                                     <TextBox
                                         x:Name="activationCode"
                                         TabIndex="0"
-                                        Text="{Binding Code}"
+                                        Text="{Binding Code,Mode=TwoWay}"
                                         materialDesign:HintAssist.Hint="Mã xác nhận"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                         Foreground="Black"
