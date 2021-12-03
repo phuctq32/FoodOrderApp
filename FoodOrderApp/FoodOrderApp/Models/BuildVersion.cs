@@ -12,14 +12,11 @@ namespace FoodOrderApp
     using System;
     using System.Collections.Generic;
     
-    public partial class RECEIPT_DETAIL
+    public partial class BuildVersion
     {
-        public string DETAIL_ID { get; set; }
-        public string RECEIPT_ID { get; set; }
-        public string PRODUCT_ { get; set; }
-        public short AMOUNT_ { get; set; }
-    
-        public virtual PRODUCT PRODUCT { get; set; }
-        public virtual RECEIPT RECEIPT { get; set; }
+        public byte SystemInformationID { get; set; }
+        public string Database_Version { get; set; }
+        public System.DateTime VersionDate { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     }
 }

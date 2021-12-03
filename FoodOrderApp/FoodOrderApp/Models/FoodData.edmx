@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="foodorderappModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="foodorderappModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BuildVersion">
+          <Key>
+            <PropertyRef Name="SystemInformationID" />
+          </Key>
+          <Property Name="SystemInformationID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Database Version" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="VersionDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="CART">
           <Key>
             <PropertyRef Name="ID_" />
@@ -13,6 +22,20 @@
           <Property Name="USERNAME_" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PRODUCT_" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="AMOUNT_" Type="smallint" />
+        </EntityType>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ErrorLogID" />
+          </Key>
+          <Property Name="ErrorLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErrorTime" Type="datetime" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ErrorNumber" Type="int" Nullable="false" />
+          <Property Name="ErrorSeverity" Type="int" />
+          <Property Name="ErrorState" Type="int" />
+          <Property Name="ErrorProcedure" Type="nvarchar" MaxLength="126" />
+          <Property Name="ErrorLine" Type="int" />
+          <Property Name="ErrorMessage" Type="nvarchar" MaxLength="4000" Nullable="false" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -59,6 +82,7 @@
           <Property Name="AVATAR_" Type="varchar" MaxLength="200" />
           <Property Name="EMAIL_" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="TYPE_" Type="char" MaxLength="5" />
+          <Property Name="IP" Type="varchar" MaxLength="15" />
         </EntityType>
         <Association Name="FK_CART_PRODUCT">
           <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
@@ -121,7 +145,9 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="foodorderappModelStoreContainer">
+          <EntitySet Name="BuildVersion" EntityType="Self.BuildVersion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECEIPT" EntityType="Self.RECEIPT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECEIPT_DETAIL" EntityType="Self.RECEIPT_DETAIL" Schema="dbo" store:Type="Tables" />
@@ -147,8 +173,7 @@
             <End Role="RECEIPT" EntitySet="RECEIPT" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="foodorderappModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -216,6 +241,7 @@
           <Property Name="TYPE_" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="CARTs" Relationship="Self.FK_CART_USERNAME" FromRole="USERS" ToRole="CART" />
           <NavigationProperty Name="RECEIPTs" Relationship="Self.FK_RECEIPT_USERNAME" FromRole="USERS" ToRole="RECEIPT" />
+          <Property Name="IP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_CART_PRODUCT">
           <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
@@ -303,7 +329,32 @@
             <End Role="USERS" EntitySet="USERS" />
             <End Role="RECEIPT" EntitySet="RECEIPTs" />
           </AssociationSet>
+          <EntitySet Name="BuildVersions" EntityType="foodorderappModel.BuildVersion" />
+          <EntitySet Name="ErrorLogs" EntityType="foodorderappModel.ErrorLog" />
         </EntityContainer>
+        <EntityType Name="BuildVersion">
+          <Key>
+            <PropertyRef Name="SystemInformationID" />
+          </Key>
+          <Property Name="SystemInformationID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Database_Version" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="VersionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ErrorLogID" />
+          </Key>
+          <Property Name="ErrorLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErrorTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorNumber" Type="Int32" Nullable="false" />
+          <Property Name="ErrorSeverity" Type="Int32" />
+          <Property Name="ErrorState" Type="Int32" />
+          <Property Name="ErrorProcedure" Type="String" MaxLength="126" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorLine" Type="Int32" />
+          <Property Name="ErrorMessage" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -358,6 +409,7 @@
           <EntitySetMapping Name="USERS">
             <EntityTypeMapping TypeName="foodorderappModel.USER">
               <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="IP" ColumnName="IP" />
                 <ScalarProperty Name="USERNAME_" ColumnName="USERNAME_" />
                 <ScalarProperty Name="PASSWORD_" ColumnName="PASSWORD_" />
                 <ScalarProperty Name="FULLNAME_" ColumnName="FULLNAME_" />
@@ -367,6 +419,31 @@
                 <ScalarProperty Name="AVATAR_" ColumnName="AVATAR_" />
                 <ScalarProperty Name="EMAIL_" ColumnName="EMAIL_" />
                 <ScalarProperty Name="TYPE_" ColumnName="TYPE_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildVersions">
+            <EntityTypeMapping TypeName="foodorderappModel.BuildVersion">
+              <MappingFragment StoreEntitySet="BuildVersion">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="VersionDate" ColumnName="VersionDate" />
+                <ScalarProperty Name="Database_Version" ColumnName="Database Version" />
+                <ScalarProperty Name="SystemInformationID" ColumnName="SystemInformationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="foodorderappModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLog">
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+                <ScalarProperty Name="ErrorProcedure" ColumnName="ErrorProcedure" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorSeverity" ColumnName="ErrorSeverity" />
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ErrorTime" ColumnName="ErrorTime" />
+                <ScalarProperty Name="ErrorLogID" ColumnName="ErrorLogID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

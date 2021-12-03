@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using FoodOrderApp.Models;
 using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
+using System.Net;
+using System.IO;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -139,6 +141,20 @@ namespace FoodOrderApp.ViewModels
         {
             SignUpWindow signUpWindow = new SignUpWindow();
             signUpWindow.ShowDialog();
+        }
+        public string GetIPAddress()
+        {
+            String address = "";
+            WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
+            using (WebResponse response = request.GetResponse())
+            using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+            {
+                address = stream.ReadToEnd();
+            }
+            int first = address.IndexOf("Address: ") + 9;
+            int last = address.LastIndexOf("</body>");
+            address = address.Substring(first, last - first);
+            return address;
         }
     }
 }

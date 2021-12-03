@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodOrderApp.Models
+namespace FoodOrderApp
 {
     using System;
     using System.Collections.Generic;
@@ -20,8 +20,7 @@ namespace FoodOrderApp.Models
             this.CARTs = new HashSet<CART>();
             this.RECEIPT_DETAIL = new HashSet<RECEIPT_DETAIL>();
         }
-
-        public static List<PRODUCT> products { get; internal set; }
+    
         public string ID_ { get; set; }
         public string NAME_ { get; set; }
         public string IMAGE_ { get; set; }

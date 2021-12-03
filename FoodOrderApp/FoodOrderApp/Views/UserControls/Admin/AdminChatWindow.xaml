@@ -194,8 +194,9 @@
                                 </TextBox>
                             </DockPanel>
                         </materialDesign:ColorZone>
-                        <Button Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                        <Button Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding SendCommand}">
                             <materialDesign:PackIcon Kind="Send" />
+                            
                         </Button>
                     </Grid>
                 </Border>
