@@ -220,6 +220,9 @@
     <Compile Include="Views\SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserChatWindow.xaml.cs">
+      <DependentUpon>UserChatWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\AccountUC.xaml.cs">
       <DependentUpon>AccountUC.xaml</DependentUpon>
     </Compile>
@@ -342,6 +345,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SignUpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserChatWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
