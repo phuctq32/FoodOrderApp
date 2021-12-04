@@ -16,6 +16,7 @@ namespace FoodOrderApp.ViewModels
     public class CartViewModel : BaseViewModel
     {
         private long totalPrice;
+        private string foodCount;
         private string name;
         private string mail;
         private string phone;
@@ -53,6 +54,15 @@ namespace FoodOrderApp.ViewModels
             {
                 totalPrice = value;
                 OnPropertyChanged("TotalPrice");
+            }
+        }
+        public string FoodCount
+        {
+            get => foodCount;
+            set
+            {
+                foodCount = value;
+                OnPropertyChanged("FoodCount");
             }
         }
 
@@ -98,6 +108,7 @@ namespace FoodOrderApp.ViewModels
 
         public CartViewModel()
         {
+            FoodCount = "0";
             OpenSetAddressWDCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => OpenSetAddress(parameter));
             OrderCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => Order(parameter));
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
@@ -223,27 +234,22 @@ namespace FoodOrderApp.ViewModels
         private void AllChecked(CartUC parameter)
         {
             bool newVal = (parameter.selectAllCheckBox.IsChecked == true);
-            //for (int i = 0; i < currentCart.Count; i++)
-            //{
-            //    //// các checkbox.isCheck = newVal;
-            //}
             foreach (var item in FindVisualChildren<CheckBox>(parameter.cartList))
-            {
+            {       
                 item.IsChecked = newVal;
             }
             TotalPrice = GetTotalPrice(parameter.cartList);
+            FoodCount = GetFoodCount(parameter.cartList).ToString();
         }
 
         private void Checked(CheckBox parameter)
         {
-            //// cái thằng allChecked.IsChecked = null
-            //if (parameter.IsChecked == true)
-            //    CustomMessageBox.Show("true", MessageBoxButton.OK);
-            //else
-            //    CustomMessageBox.Show("false", MessageBoxButton.OK);
+            
             var lv = GetAncestorOfType<ListView>(parameter);
+           
             TotalPrice = GetTotalPrice(lv);
-
+            FoodCount = GetFoodCount(lv).ToString();
+            
             // Check xem nếu checked hết thì check cái ô trên cùng
             bool isAllChecked = true;
             var cartUC = GetAncestorOfType<CartUC>(lv);
@@ -262,7 +268,22 @@ namespace FoodOrderApp.ViewModels
             }
         }
 
+        private int GetFoodCount(ListView listView)
+        {
+            int res = 0;
+            foreach (var lvi in FindVisualChildren<ListViewItem>(listView))
+            {
+                CART cart = lvi.DataContext as CART;
+                var checkBox = GetVisualChild<CheckBox>(lvi);
+                if (checkBox.IsChecked == true)
+                {
+                    res++;
+                }
+            }
+            return res;
+        }
         // Tính tổng giá của thằng item có checked = true
+
         private long GetTotalPrice(ListView listView)
         {
             long res = 0;
@@ -273,6 +294,7 @@ namespace FoodOrderApp.ViewModels
                 if (checkBox.IsChecked == true)
                 {
                     res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (Double)cart.PRODUCT.DISCOUNT_));
+                    
                 }
             }
             return res;
