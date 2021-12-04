@@ -27,7 +27,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand FilterCommand { get; set; }
         public ICommand CreateOrderCommand { get; set; }
         public ICommand SortD { get; set; }
-        private string search;
+        private string search = "";
 
         public string Search
         { get => search; set { search = value; OnPropertyChanged("Search"); } }
@@ -46,7 +46,6 @@ namespace FoodOrderApp.ViewModels
 
         public MenuViewModel()
         {
-
             Products = Data.Ins.DB.PRODUCTs.ToList();
             AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
@@ -62,6 +61,15 @@ namespace FoodOrderApp.ViewModels
         {
             CreateOrderWindow createOrderWindow = new CreateOrderWindow();
             createOrderWindow.ShowDialog();
+            List<CART> tempCarts = Data.Ins.DB.CARTs.Where(x => x.USERNAME_ == CurrentAccount.Username).ToList();
+            foreach (var cartToDelete in tempCarts)
+            {
+                Data.Ins.DB.CARTs.Remove(cartToDelete);
+            }
+            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == "admin").Single().FULLNAME_ = "";
+            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == "admin").Single().PHONE_ = "0";
+            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == "admin").Single().ADDRESS_ = "";
+            Data.Ins.DB.SaveChanges();
         }
         private void Load(MenuUC parameter)
         {
@@ -202,7 +210,6 @@ namespace FoodOrderApp.ViewModels
             ProductDetail pd = new ProductDetail();
             pd.DataContext = pRODUCT;
             pd.ShowDialog();
-
         }
 
     }

@@ -15,4 +15,5 @@
     <viewmodels:MyOrderViewModel x:Key="MyOrderVM"></viewmodels:MyOrderViewModel>
     <viewmodels:DashBoardViewModel x:Key="DashBoardVM"></viewmodels:DashBoardViewModel>
     <viewmodels:AdminChatViewModel x:Key="AdminChatVM"></viewmodels:AdminChatViewModel>
+    <viewmodels:CreateOrderViewModel x:Key="CreateOrderVM"></viewmodels:CreateOrderViewModel>
 </ResourceDictionary>

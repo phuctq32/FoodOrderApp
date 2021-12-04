@@ -11,7 +11,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Height="720"
         Width="1320"
-        DataContext="{StaticResource MenuVM}"
+        DataContext="{StaticResource CreateOrderVM}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -24,13 +24,19 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        x:Name="ForgotPasswordWD">
+        x:Name="CreateOrderWD">
     <Window.Resources>
         <helpers:DoubleToVisibilityConverter x:Key="doubleToVis"/>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"/>
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"/>
         <helpers:DoubleToOpacity x:Key="doubleToOpacity"/>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
+                                   CommandParameter="{Binding ElementName=CreateOrderWD}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -83,7 +89,7 @@
                                     AcceptsReturn="True"
                                     VerticalScrollBarVisibility="Disabled">
                                         <TextBox.InputBindings>
-                                            <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=MenuUserControl}" Key="Enter"/>
+                                            <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=CreateOrderWD}" Key="Enter"/>
                                         </TextBox.InputBindings>
                                     </TextBox>
                                 </DockPanel>
@@ -101,7 +107,7 @@
                                   SelectedItem="">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding Source={StaticResource MenuVM}, Path=FilterCommand}"
+                                        <i:InvokeCommandAction Command="{Binding FilterCommand}"
                                         CommandParameter="{Binding ElementName=combox}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
@@ -114,17 +120,18 @@
 
                         <!--Filter-->
 
-                        <Button x:Name="BtnSearch"
+                        <Button 
+                            x:Name="BtnSearch"
                             Command="{Binding SearchCommand}"
-                            CommandParameter="{Binding ElementName=MenuUserControl}"
-                        Style="{StaticResource SearchBtn}"
-                        Width="140"
-                        Height="40"
-                        materialDesign:ButtonAssist.CornerRadius="20"
-                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="-30 0 0 0">
+                            CommandParameter="{Binding ElementName=CreateOrderWD}"
+                            Style="{StaticResource SearchBtn}"
+                            Width="140"
+                            Height="40"
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="-30 0 0 0">
                             <TextBlock
                             Text="Tìm kiếm" FontSize="17" />
                         </Button>
@@ -133,10 +140,10 @@
                         <!--Lưu ý: các phần binding chỉ là để test bên VM
                 binding thì tự nhập tên mới-->
                         <ListView x:Name="ViewListProducts"
-                              Margin="20 0"
+                              Margin="20 0 0 10"
                               Width="auto"
                               Height="auto"
-                              ItemsSource="{Binding Source={StaticResource MenuVM}, Path=Products, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Visible">
                             <ListView.ItemsPanel>
@@ -297,8 +304,275 @@
                     </Grid>
                 </Grid>
 
-                <Grid x:Name="receipt">
+                <Grid x:Name="receipt" Grid.Column="1" Margin="10 20 10 10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition MinHeight="90" MaxHeight="120"/>
+                        <RowDefinition />
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
                     
+                    <Grid Grid.Row="0">
+                        <TextBlock 
+                        Text="Hóa đơn"
+                        HorizontalAlignment="Center"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource Orange2}"
+                        Margin="0 20"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition MinHeight="30"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <TextBlock
+                                Text="Tên:"
+                                Foreground="Black"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Margin="20 0 0 0"/>
+                            <TextBlock
+                                Text="Nguyễn Thị Văn A"
+                                Foreground="Black"
+                                FontWeight="Medium"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Margin="42 0 0 0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <TextBlock
+                                Text="SĐT:"
+                                Foreground="Black"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Margin="20 0 0 0"/>
+                            <TextBlock
+                                Text="0775936007"
+                                Foreground="Black"
+                                FontWeight="Medium"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Margin="40 0 0 0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock
+                                Text="Địa chỉ:"
+                                Foreground="Black"
+                                FontSize="16"
+                                Margin="20 5 0 0"/>
+                            <TextBlock
+                                Text="Binding địa chỉ dài vcl, phường a, quận b, thành phố hồ chí minh, tỉnh"
+                                Foreground="Black"
+                                FontWeight="Medium"
+                                MaxWidth="250"
+                                TextWrapping="Wrap"
+                                FontSize="16"
+                                Margin="20 5 0 0"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="10">
+                        <ScrollViewer Margin="10 0">
+                            <ListView>
+                                <ListViewItem>
+                                    <Grid Width="310" Height="100" Margin="0 0 20 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0" Margin="10 10 0 10">
+                                            <Button
+                                                Content="x"
+                                                FontSize="30"
+                                                FontWeight="Light"
+                                                Opacity="0.8"
+                                                Style="{StaticResource forgotPasswordBtn}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Visibility="Hidden">
+                                            </Button>
+                                        </Grid>
+                                        <Grid Grid.Column="1" Margin="0 10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <!--hình ảnh-->
+                                            <Rectangle
+                                                Grid.Column="0"
+                                            RadiusY="10"
+                                            RadiusX="10"
+                                            Height="67"
+                                            Width="67"
+                                            HorizontalAlignment="Left"
+                                            Margin="5 0 10 0">
+                                                <Rectangle.Fill>
+                                                    <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                                <!--tên món ăn-->
+                                                <TextBlock
+                                                        MinHeight="45"
+                                                        Width="110"
+                                                        Text="tên dài vl "
+                                                        TextWrapping="Wrap"
+                                                        FontSize="13"
+                                                        FontWeight="SemiBold"
+                                                        Margin="0 8 10 0" />
+                                                <Grid x:Name="spinner" Width="65" Height="20" HorizontalAlignment="Left">
+                                                    <Border>
+                                                        <Border.OpacityMask>
+                                                            <VisualBrush>
+                                                                <VisualBrush.Visual>
+                                                                    <Border
+                                                                        Background="Black"
+                                                                        SnapsToDevicePixels="True"
+                                                                        CornerRadius="4"
+                                                                        Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}"
+                                                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}" />
+                                                                </VisualBrush.Visual>
+                                                            </VisualBrush>
+                                                        </Border.OpacityMask>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="20" />
+                                                                <ColumnDefinition />
+                                                                <ColumnDefinition Width="20" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock
+                                                                x:Name="amount"
+                                                                FontWeight="Medium"
+                                                                FontSize="10"
+                                                                VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"
+                                                                Padding="0"
+                                                                Grid.Column="1"
+                                                                Text="{Binding AMOUNT_}" />
+                                                            <Button
+                                                                Style="{StaticResource up_down_spinner_btn}"
+                                                                Grid.Column="0"
+                                                                Grid.Row="0"
+                                                                Width="auto"
+                                                                Height="auto"
+                                                                Content="-"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                FontSize="16"
+                                                                Command="{Binding Source={StaticResource CartVM}, Path=DownCommand}"
+                                                                CommandParameter="{Binding ElementName=amount}" />
+                                                            <Button
+                                                                Style="{StaticResource up_down_spinner_btn}"
+                                                                Grid.Column="2"
+                                                                Grid.Row="1"
+                                                                Width="auto"
+                                                                Height="auto"
+                                                                Content="+"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                FontSize="14"
+                                                                Command="{Binding Source={StaticResource CartVM}, Path=UpCommand}"
+                                                                CommandParameter="{Binding ElementName=amount}" />
+                                                            <Border
+                                                                BorderBrush="Gray"
+                                                                IsHitTestVisible="False"
+                                                                BorderThickness="1"
+                                                                CornerRadius="4"
+                                                                Grid.RowSpan="2"
+                                                                Grid.ColumnSpan="3" />
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Grid Grid.Column="3" Margin="0 10 10 10">
+                                            <TextBlock
+                                                Text="100,000"
+                                                FontSize="16"
+                                                FontWeight="DemiBold"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"/>
+                                        </Grid>
+                                        <Rectangle
+                                            Grid.ColumnSpan="4"
+                                            Fill="White"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            RadiusY="10"
+                                            RadiusX="10"
+                                            Margin="10"
+                                            Panel.ZIndex="-2"/>
+                                    </Grid>
+                                </ListViewItem>
+                                
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListViewItem}">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                    <ContentPresenter />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                        </ScrollViewer>
+                        <Rectangle
+                            Grid.RowSpan="4"
+                            Fill="{StaticResource GrayBackground}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            RadiusY="1"
+                            RadiusX="1"
+                            Panel.ZIndex="-2"
+                            Margin="10 0"/>
+                    </Grid>
+                    <Grid Grid.Row="3" Margin="10 0 10 10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Text="Tổng cộng:"
+                                Foreground="Black"
+                                FontSize="20"
+                                VerticalAlignment="Top"
+                                Margin="20 0 0 0"/>
+                            <TextBlock
+                                Text="100,000,000"
+                                Foreground="Black"
+                                FontWeight="Medium"
+                                FontSize="16"
+                                Width="110"
+                                TextAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="90 0 0 0"/>
+                        </StackPanel>
+                        <Button 
+                            Style="{StaticResource SearchBtn}"
+                            Command="{Binding OrderCommand}"
+                            CommandParameter="{Binding ElementName=CartUserControl}"
+                            VerticalAlignment="Bottom"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Margin="10 10"
+                            Height="35"
+                            Content="Đặt hàng"
+                            FontSize="20"/>
+                    </Grid>
+
+                    <Rectangle
+                        Grid.RowSpan="4"
+                        Fill="White"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        RadiusY="10"
+                        RadiusX="10"
+                        Panel.ZIndex="-2"
+                        Margin="10"
+                        Effect="{StaticResource dropShadow1}"/>
+
                 </Grid>
             </Grid>
         </Grid>

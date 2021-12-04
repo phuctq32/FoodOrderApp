@@ -176,6 +176,7 @@
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\ChangeInformationViewModel.cs" />
     <Compile Include="ViewModels\ControlBarViewModel.cs" />
+    <Compile Include="ViewModels\CreateOrderViewModel.cs" />
     <Compile Include="ViewModels\DashBoardViewModel.cs" />
     <Compile Include="ViewModels\EditProductViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
