@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using FoodOrderApp.Views;
+using System.Globalization;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -299,10 +300,23 @@ namespace FoodOrderApp.ViewModels
             }
             return res;
         }
-
+        CultureInfo viVn = new CultureInfo("vi-VN");
         public void Order(CartUC parameter)
         {
-            CustomMessageBox.Show("Đặt hàng thành công!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            try
+            {
+                DateTime Now = DateTime.Now;
+                string now = Now.GetDateTimeFormats(viVn)[0];
+                // Chắc chỉnh lại Date_ thành dạng string chứ làm vậy hông biết định dạng DMY như nào -.-
+                /*Data.Ins.DB.RECEIPTs.Add(new RECEIPT() { ID_ = CurrentAccount.Username+Now.ToString(), DATE_  , USERNAME_ = CurrentAccount.Username, AMOUNT_ = 1 });
+                Data.Ins.DB.SaveChanges();*/
+            }
+            catch
+            {
+                CustomMessageBox.Show("Đặt hàng không thành công!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+
         }
 
         public void OpenSetAddress(CartUC parameter)
