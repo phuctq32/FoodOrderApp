@@ -9,7 +9,7 @@
         xmlns:helpers ="clr-namespace:FoodOrderApp.Helpers"
         DataContext="{StaticResource MyOrderVM}"
         mc:Ignorable="d"
-        Height="600" Width="800"
+        Height="700" Width="900"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -35,7 +35,7 @@
                 <RowDefinition Height="AUTO"></RowDefinition>
                 <RowDefinition Height="70"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
             </Grid.RowDefinitions>
             <uc:ControlBarUC x:Name="controlBar" Grid.Row="0"></uc:ControlBarUC>
             <Grid Grid.Row="1" Grid.RowSpan="2">
@@ -223,6 +223,54 @@
                     </ListView.ItemContainerStyle>
                 </ListView>
             </Grid>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Grid.Row="3">
+                <StackPanel Orientation="Horizontal"
+                            Margin="15 5 0 5">
+                    <TextBlock
+                        FontSize="18"
+                        Text="Tên khách hàng: "
+                        FontWeight="Medium"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock
+                        FontSize="18"
+                        Text="{Binding FULLNAME_}"
+                        FontWeight="Medium"
+                        Foreground="Black"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="15 5 0 5">
+                    <TextBlock
+                        FontSize="18"
+                        Text="Số điện thoại: "
+                        FontWeight="Medium"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock
+                        FontSize="18"
+                        Text="{Binding PHONE_}"
+                        FontWeight="Medium"
+                        Foreground="Black"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="15 5 0 5">
+                    <TextBlock
+                        FontSize="18"
+                        Text="Địa chỉ: "
+                        FontWeight="Medium"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock
+                        FontSize="18"
+                        Text="{Binding ADDRESS_}"
+                        FontWeight="Medium"
+                        MaxWidth="420"
+                        TextWrapping="Wrap"
+                        Foreground="Black"></TextBlock>
+                </StackPanel>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"
                         Grid.Row="3">
                 <TextBlock Text="Tổng giá:"
@@ -237,7 +285,7 @@
                 <!--{Binding Source="StaticResource OrderDetailVM", Path=TotalMoney}-->
                 <TextBlock Text="100000000000"
                            FontSize="30"
-                           Margin="20 0"
+                           Margin="10 0"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
