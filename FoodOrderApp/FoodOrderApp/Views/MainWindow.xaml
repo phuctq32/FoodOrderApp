@@ -355,6 +355,14 @@
                 <Border Grid.Row="0" CornerRadius="0 10 0 0" Background="White">
                     <Grid>
                         <uc:ControlBarUC x:Name="controlBar"></uc:ControlBarUC>
+                        <Button
+                              Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                              ToolTip="Nhắn tin với admin"
+                              Margin="0 10 270 0" Width="40" Height="40"
+                            HorizontalAlignment="Right"
+                            Background="{StaticResource Orange1}">
+                            <materialDesign:PackIcon Kind="Chat" />
+                        </Button>
                         <Ellipse
                             Width="40"
                             Height="40"
