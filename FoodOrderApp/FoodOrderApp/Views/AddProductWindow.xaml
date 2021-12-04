@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FoodOrderApp.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
+        x:Name="AddProductWD"
         mc:Ignorable="d"
         Height="600" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -143,7 +144,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
                     <Rectangle.Fill >
-                        <ImageBrush x:Name="Image" ImageSource="{Binding Source={StaticResource AddProductVM}, Path= IMAGE_}"> </ImageBrush>
+                        <ImageBrush x:Name="Image" ImageSource="{Binding Source={StaticResource EditVM}, Path= IMAGE_}"> </ImageBrush>
                     </Rectangle.Fill>
                 </Rectangle>
                 <Button
@@ -153,7 +154,7 @@
                 Width="100"
                 Background="{StaticResource Orange1}"
                 Command="{Binding SelectImageCommand}"
-                CommandParameter="{Binding ElementName=grdSelectImage}"
+                CommandParameter="{Binding ElementName=AddProductWD}"
                 ToolTip="Chọn ảnh"
                 Margin="17,0,23,-42"
                 HorizontalAlignment="Center"
