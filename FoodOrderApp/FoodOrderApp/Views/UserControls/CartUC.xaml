@@ -453,7 +453,7 @@
                                 VerticalAlignment="Center"
                                 Margin="20 0 0 0"/>
                             <TextBlock
-                                Text="số món"
+                                Text="{Binding FoodCount}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 FontSize="16"

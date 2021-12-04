@@ -51,7 +51,7 @@ namespace FoodOrderApp.ViewModels
         public string DISCOUNT_
         { get => Discount; set { Discount = value; OnPropertyChanged("Discount"); } }
 
-        /*private PRODUCT Current_Product;*/
+        private PRODUCT Current_Product;
 
         public List<PRODUCT> pRODUCTs;
         public EditProductViewModel()
@@ -61,8 +61,10 @@ namespace FoodOrderApp.ViewModels
             UpdateProductCommand = new RelayCommand<System.Windows.Controls.ListViewItem>((parameter) => true, (parameter) => Update(parameter));
             DeleteProductCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Delete(parameter));
             SelectImageCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => SelectImage(parameter));
-           /* UpdateProductCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => UpdateProduct(parameter));*/
-            AddProductCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => AddProduct(parameter));
+            UpdateButtonCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => UpdateProduct(parameter));
+            AddButtonCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => AddProduct(parameter));
+
+
         }
         public void Loaded(EditProductUC editProductUC)
         {
@@ -78,6 +80,7 @@ namespace FoodOrderApp.ViewModels
         public void Update(System.Windows.Controls.ListViewItem listViewItem)
         {
             PRODUCT pRODUCT = listViewItem.DataContext as PRODUCT;
+            Current_Product = pRODUCT;
             AddProductWindow addProductWindow = new AddProductWindow();
             addProductWindow.addbtn.Visibility = Visibility.Collapsed;
             addProductWindow.txtName.Text = pRODUCT.NAME_;
@@ -112,10 +115,15 @@ namespace FoodOrderApp.ViewModels
                 IMAGE_ = openFileDialog.FileName;
             }
         }
-        /*public void UpdateProduct(AddProductWindow addProductWindow)
+        public void UpdateProduct(AddProductWindow addProductWindow)
         {
             PRODUCT pRODUCT = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-        }*/
+            pRODUCT.NAME_ = addProductWindow.txtName.Text;
+            pRODUCT.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
+            pRODUCT.DESCRIPTION_ = addProductWindow.txtDescription.Text;
+            pRODUCT.DISCOUNT_ = Convert.ToInt32(addProductWindow.txtDiscount.Text);
+            Data.Ins.DB.SaveChanges();
+        }
         public void AddProduct(AddProductWindow addProductWindow)
         {
 
