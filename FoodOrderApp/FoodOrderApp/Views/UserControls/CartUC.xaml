@@ -88,7 +88,7 @@
                                 VerticalAlignment="Center"
                                 Margin="0 0 6 0"
                                 Command="{Binding DeleteAllCartCommand}"
-                                CommandParameter="{Binding ElementName=cartList}"/>
+                                CommandParameter="{Binding ElementName=cartList}" />
                         </Grid>
                     </Border>
 
@@ -341,27 +341,27 @@
             <Grid Grid.Column="1">
                 <Grid Margin="20 50">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="90"/>
-                        <RowDefinition/>
-                        <RowDefinition Height="100"/>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="90" />
+                        <RowDefinition />
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBlock 
+                        <TextBlock
                         Text="Hóa đơn"
                         HorizontalAlignment="Center"
                         FontSize="30"
                         FontWeight="Bold"
                         Foreground="{StaticResource Orange2}"
-                        Margin="0 20"/>
+                        Margin="0 20" />
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition MinHeight="30"/>
-                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition MinHeight="30" />
+                            <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Orientation="Horizontal">
                             <TextBlock
@@ -369,14 +369,14 @@
                                 Foreground="Black"
                                 FontSize="16"
                                 VerticalAlignment="Center"
-                                Margin="20 0 0 0"/>
+                                Margin="20 0 0 0" />
                             <TextBlock
                                 Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 FontSize="16"
                                 VerticalAlignment="Center"
-                                Margin="20 0 0 0"/>
+                                Margin="20 0 0 0" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <TextBlock
@@ -384,14 +384,14 @@
                                 Foreground="Black"
                                 FontSize="16"
                                 VerticalAlignment="Center"
-                                Margin="20 0 0 0"/>
+                                Margin="20 0 0 0" />
                             <TextBlock
                                 Text="{Binding Mail,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 VerticalAlignment="Center"
                                 FontSize="16"
-                                Margin="20 0 0 0"/>
+                                Margin="20 0 0 0" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Orientation="Horizontal">
                             <TextBlock
@@ -399,21 +399,21 @@
                                 Foreground="Black"
                                 FontSize="16"
                                 VerticalAlignment="Center"
-                                Margin="20 0 0 0"/>
+                                Margin="20 0 0 0" />
                             <TextBlock
                                 Text="{Binding Phone,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 FontSize="16"
                                 VerticalAlignment="Center"
-                                Margin="20 0 0 0"/>
+                                Margin="20 0 0 0" />
                         </StackPanel>
                         <StackPanel Grid.Row="3" Orientation="Horizontal">
                             <TextBlock
                                 Text="Địa chỉ:"
                                 Foreground="Black"
                                 FontSize="16"
-                                Margin="20 5 0 0"/>
+                                Margin="20 5 0 0" />
                             <TextBlock
                                 Text="Binding địa chỉ"
                                 Foreground="Black"
@@ -422,7 +422,7 @@
                                 TextWrapping="Wrap"
                                 FontSize="16"
                                 Margin="20 5 0 0"
-                                Visibility="Collapsed"/>
+                                Visibility="Collapsed" />
                             <!--hợp chưa có địa chỉ-->
                             <TextBlock
                                 Text="{Binding Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -432,7 +432,7 @@
                                 TextWrapping="Wrap"
                                 FontSize="16"
                                 Margin="20 5 0 0"
-                                Visibility="Visible"/>
+                                Visibility="Visible" />
                             <Button Style="{StaticResource SearchBtn}"
                                     x:Name="SetAddress"
                                     Command="{Binding OpenSetAddressWDCommand}"
@@ -443,16 +443,17 @@
                                     Width="120"
                                     Height="22"
                                     FontSize="10"
-                                    materialDesign:ButtonAssist.CornerRadius="10"/>
+                                    materialDesign:ButtonAssist.CornerRadius="10" />
                         </StackPanel>
                         <StackPanel Grid.Row="4" Orientation="Horizontal">
                             <TextBlock
+
                                 Text="Tổng số món ăn:"
                                 Foreground="Black"
                                 FontSize="16"
                                 VerticalAlignment="Center"
-                                Margin="20 0 0 0"/>
-                            <TextBlock
+                                Margin="20 0 0 0" />
+                            <TextBlock x:Name="totalProduct"
                                 Text="{Binding FoodCount}"
                                 Foreground="Black"
                                 FontWeight="Medium"
@@ -460,26 +461,26 @@
                                 Width="90"
                                 TextAlignment="Right"
                                 VerticalAlignment="Center"
-                                Margin="45 0 0 0"/>
+                                Margin="45 0 0 0" />
                         </StackPanel>
-                        <Rectangle 
-                            Grid.Row="4" 
-                            VerticalAlignment="Bottom" 
-                            Height="1" 
-                            HorizontalAlignment="Stretch" 
+                        <Rectangle
+                            Grid.Row="4"
+                            VerticalAlignment="Bottom"
+                            Height="1"
+                            HorizontalAlignment="Stretch"
                             Fill="Black"
-                            Margin="15 0"/>
+                            Margin="15 0" />
                     </Grid>
-                    
+
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        
+
                         <TextBlock
                                 Text="Tổng cộng:"
                                 Foreground="Black"
                                 FontSize="20"
                                 VerticalAlignment="Top"
-                                Margin="20 10 0 0"/>
-                        <TextBlock
+                                Margin="20 10 0 0" />
+                        <TextBlock x:Name="totalPrice"
                                 Text="{Binding TotalPrice, StringFormat=N0}"
                                 Foreground="Black"
                                 FontWeight="Medium"
@@ -487,7 +488,7 @@
                                 Width="110"
                                 TextAlignment="Right"
                                 VerticalAlignment="Top"
-                                Margin="45 10 0 0"/>
+                                Margin="45 10 0 0" />
                     </StackPanel>
                     <Grid Grid.Row="3">
                         <Button Style="{StaticResource SearchBtn}"
@@ -498,7 +499,7 @@
                                 Margin="5 0"
                                 Height="40"
                                 Content="Đặt hàng"
-                                FontSize="20"/>
+                                FontSize="20" />
                     </Grid>
                     <Rectangle
                             Fill="White"
