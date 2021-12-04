@@ -1,4 +1,4 @@
-﻿using FoodOrderApp.Views.UserControls.Admin;
+﻿using FoodOrderApp.Views;
 using FoodOrderApp.Models;
 using System;
 using System.Collections.Generic;
@@ -15,21 +15,21 @@ using System.Threading;
 
 namespace FoodOrderApp.ViewModels
 {
-    internal class AdminChatViewModel : BaseViewModel
+    internal class UserChatViewModel : BaseViewModel
     {
         public ICommand LoadedCommand { get; set; }
         public ICommand SendCommand { get; set; }
 
         public string message = null;
 
-        public TcpClient server;
-        public AdminChatViewModel()
+        public TcpClient client;
+        public UserChatViewModel()
         {
-            LoadedCommand = new RelayCommand<AdminChatWindow>((parameter) => true, (parameter) => Load(parameter));
-            SendCommand = new RelayCommand<AdminChatWindow>((parameter) => true, (parameter) => Send(parameter));
+            LoadedCommand = new RelayCommand<UserChatWindow>((parameter) => true, (parameter) => Load(parameter));
+            SendCommand = new RelayCommand<UserChatWindow>((parameter) => true, (parameter) => Send(parameter));
         }
 
-        private void Load(AdminChatWindow parameter)
+        private void Load(UserChatWindow parameter)
         {
             //tự động scroll xuống thằng tin nhắn mới nhất
             if (parameter.listViewChat.Items.Count - 1 > 0)
@@ -39,13 +39,13 @@ namespace FoodOrderApp.ViewModels
             listen.IsBackground = true;
             listen.Start();
         }
-        private void Send(AdminChatWindow parameter)
+        private void Send(UserChatWindow parameter)
         {
-            if(!string.IsNullOrEmpty(parameter.messageTxt.Text))
+            if (!string.IsNullOrEmpty(parameter.messageTxt.Text))
             {
                 message = parameter.messageTxt.Text;
                 byte[] snd = Serialize(message);
-                NetworkStream networkStream = server.GetStream();
+                NetworkStream networkStream = client.GetStream();
                 networkStream.Write(snd, 0, snd.Length);
             }
         }
@@ -53,7 +53,7 @@ namespace FoodOrderApp.ViewModels
         {
             try
             {
-                while(true)
+                while (true)
                 {
                     byte[] data = new byte[2048];
                     message = (string)Deserialize(data);
@@ -73,7 +73,7 @@ namespace FoodOrderApp.ViewModels
         }
         private object Deserialize(byte[] data)
         {
-            NetworkStream networkStream = server.GetStream();
+            NetworkStream networkStream = client.GetStream();
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             return binaryFormatter.Deserialize(networkStream);
         }
@@ -91,7 +91,8 @@ namespace FoodOrderApp.ViewModels
 
             // Start listening for client requests.
             server.Start();
-            
+
         }
+
     }
 }

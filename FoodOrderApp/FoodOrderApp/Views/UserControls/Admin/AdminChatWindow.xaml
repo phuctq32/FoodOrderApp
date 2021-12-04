@@ -191,13 +191,13 @@
                                     AcceptsReturn="True"
                                     VerticalScrollBarVisibility="Disabled">
                                     <TextBox.InputBindings>
-                                        <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=MenuUserControl}" Key="Enter" />
+                                        <!--<KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=MenuUserControl}" Key="Enter" />-->
                                     </TextBox.InputBindings>
                                 </TextBox>
                             </DockPanel>
                         </materialDesign:ColorZone>
                         <!--nút gửi-->
-                        <Button Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                        <Button Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Command="{Binding SendCommand}" CommandParameter="{Binding ElementName=AdminChatWd}">
                             <materialDesign:PackIcon Kind="Send" />
                             
                         </Button>
