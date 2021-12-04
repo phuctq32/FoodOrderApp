@@ -103,7 +103,7 @@ namespace FoodOrderApp.ViewModels
                         CurrentAccount.IsUser = true;
                     }
                     CurrentAccount.Username = UserName;
-
+                    GetIPAddress();
                     MainWindow app = new MainWindow();
                     app.ShowDialog();
                     parameter.Close();
@@ -142,7 +142,7 @@ namespace FoodOrderApp.ViewModels
             SignUpWindow signUpWindow = new SignUpWindow();
             signUpWindow.ShowDialog();
         }
-        public string GetIPAddress()
+        public void GetIPAddress()
         {
             String address = "";
             WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
@@ -154,7 +154,11 @@ namespace FoodOrderApp.ViewModels
             int first = address.IndexOf("Address: ") + 9;
             int last = address.LastIndexOf("</body>");
             address = address.Substring(first, last - first);
-            return address;
+
+
+            USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName).SingleOrDefault();
+            uSER.IP = address;
+            Data.Ins.DB.SaveChanges();
         }
     }
 }
