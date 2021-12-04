@@ -228,6 +228,9 @@
     <Compile Include="Views\UserControls\Admin\OrderManagementUC.xaml.cs">
       <DependentUpon>OrderManagementUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\Admin\SetUserInformationWindow.xaml.cs">
+      <DependentUpon>SetUserInformationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\CartUC.xaml.cs">
       <DependentUpon>CartUC.xaml</DependentUpon>
     </Compile>
@@ -352,6 +355,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\Admin\OrderManagementUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\Admin\SetUserInformationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
