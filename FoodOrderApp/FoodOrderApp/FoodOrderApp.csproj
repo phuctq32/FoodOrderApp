@@ -139,16 +139,10 @@
     <Compile Include="Helpers\PriceToStringConverter.cs" />
     <Compile Include="Helpers\UnitPriceToTotalPriceFAPConverter.cs" />
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\BuildVersion.cs">
-      <DependentUpon>FoodData.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CART.cs">
       <DependentUpon>FoodData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Data.cs" />
-    <Compile Include="Models\ErrorLog.cs">
-      <DependentUpon>FoodData.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\FoodData.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

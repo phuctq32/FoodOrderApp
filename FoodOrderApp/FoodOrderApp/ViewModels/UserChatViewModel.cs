@@ -79,18 +79,21 @@ namespace FoodOrderApp.ViewModels
         }
         public void Connect()
         {
-            TcpListener server = null;
             USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
 
-            // Set the TcpListener on port 13000.
+            // Set the TcpClient on port 13000.
             Int32 port = 13000;
-            IPAddress serverAddr = IPAddress.Parse(uSER.IP);
+            IPAddress clientAddr = IPAddress.Parse(uSER.IP);
+            IPEndPoint iPEndPoint = new IPEndPoint(clientAddr, port);
+
+            USER admin = Data.Ins.DB.USERS.Where(x => x.TYPE_ == "admin").SingleOrDefault();
+            IPAddress serverAddr = IPAddress.Parse(admin.IP);
 
             // TcpListener server = new TcpListener(port);
-            server = new TcpListener(serverAddr, port);
+            client = new TcpClient(iPEndPoint);
 
             // Start listening for client requests.
-            server.Start();
+            client.Connect(serverAddr, port);
 
         }
 

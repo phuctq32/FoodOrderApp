@@ -30,7 +30,5 @@ namespace FoodOrderApp.Models
         public virtual DbSet<RECEIPT> RECEIPTs { get; set; }
         public virtual DbSet<RECEIPT_DETAIL> RECEIPT_DETAIL { get; set; }
         public virtual DbSet<USER> USERS { get; set; }
-        public virtual DbSet<BuildVersion> BuildVersions { get; set; }
-        public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
     }
 }
