@@ -223,6 +223,9 @@
     <Compile Include="Views\UserControls\Admin\AdminChatWindow.xaml.cs">
       <DependentUpon>AdminChatWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\Admin\CreateOrderWindow.xaml.cs">
+      <DependentUpon>CreateOrderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Admin\DashBoardUC.xaml.cs">
       <DependentUpon>DashBoardUC.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\Admin\AdminChatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\Admin\CreateOrderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

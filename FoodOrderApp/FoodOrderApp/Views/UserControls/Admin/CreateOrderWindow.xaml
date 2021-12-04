@@ -1,0 +1,316 @@
+﻿<Window x:Class="FoodOrderApp.Views.UserControls.Admin.CreateOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls.Admin"
+        mc:Ignorable="d"
+        xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="720"
+        Width="1320"
+        DataContext="{StaticResource MenuVM}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{x:Null}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Foreground="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        x:Name="ForgotPasswordWD">
+    <Window.Resources>
+        <helpers:DoubleToVisibilityConverter x:Key="doubleToVis"/>
+        <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"/>
+        <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"/>
+        <helpers:DoubleToOpacity x:Key="doubleToOpacity"/>
+    </Window.Resources>
+    <Grid>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <uc:ControlBarUC Grid.Row="0"/>
+            
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="menu" Grid.Column="0" Margin="10 20 10 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <!--phần search-->
+                        <StackPanel Orientation="Vertical" Margin="60 0 60 0">
+                            <!--khung search-->
+                            <materialDesign:ColorZone
+                            Background="White"
+                            Mode="Standard"
+                            CornerRadius="20"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Height="40" Width="500"
+                            HorizontalAlignment="Left">
+                                <DockPanel
+                                LastChildFill="True">
+                                    <materialDesign:PackIcon
+                                    Kind="Search"
+                                    Height="25"
+                                    Width="25"
+                                    Opacity="0.4"
+                                    Margin="10 8 0 0"
+                                    DockPanel.Dock="Left" />
+                                    <TextBox x:Name="SearchTxt"
+                                         Text="{Binding Search, Mode=TwoWay}"
+                                    HorizontalContentAlignment="Left"
+                                    BorderBrush="Transparent"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         FontSize="22"
+                                         Margin="0 -5 0 0"
+                                         VerticalContentAlignment="Top"
+                                         Height="60"
+                                    AcceptsReturn="True"
+                                    VerticalScrollBarVisibility="Disabled">
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=MenuUserControl}" Key="Enter"/>
+                                        </TextBox.InputBindings>
+                                    </TextBox>
+                                </DockPanel>
+                            </materialDesign:ColorZone>
+                            <ComboBox x:Name="combox"
+                            Height="40" Width="150"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Margin="0 20 10 0"
+                            Foreground="Black"
+                            FontSize="16"
+                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Orange1}"
+                            materialDesign:HintAssist.Hint="Sắp xếp"
+                            VerticalContentAlignment="Center"
+                                  SelectedItem="">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding Source={StaticResource MenuVM}, Path=FilterCommand}"
+                                        CommandParameter="{Binding ElementName=combox}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <ComboBoxItem Content="Giá tăng" x:Name="GT">
+                                </ComboBoxItem>
+                                <ComboBoxItem Content="Giá giảm" x:Name="GG">
+                                </ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!--Filter-->
+
+                        <Button x:Name="BtnSearch"
+                            Command="{Binding SearchCommand}"
+                            CommandParameter="{Binding ElementName=MenuUserControl}"
+                        Style="{StaticResource SearchBtn}"
+                        Width="140"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="20"
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="-30 0 0 0">
+                            <TextBlock
+                            Text="Tìm kiếm" FontSize="17" />
+                        </Button>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <!--Lưu ý: các phần binding chỉ là để test bên VM
+                binding thì tự nhập tên mới-->
+                        <ListView x:Name="ViewListProducts"
+                              Margin="20 0"
+                              Width="auto"
+                              Height="auto"
+                              ItemsSource="{Binding Source={StaticResource MenuVM}, Path=Products, UpdateSourceTrigger=PropertyChanged}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Visible">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="itemProduct" Margin="10 0">
+                                        <StackPanel
+                                    Width="150" Height="270"
+                                    Margin="15 20 15 0">
+                                            <!--hình món ăn-->
+                                            <Rectangle
+                                                Width="135"
+                                                Height="100"
+                                                RadiusY="10"
+                                                RadiusX="10"
+                                                Margin="0">
+                                                <Rectangle.Fill>
+                                                    <ImageBrush ImageSource="{Binding IMAGE_}" Stretch="UniformToFill" />
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                            <!--tên món ăn-->
+                                            <TextBlock
+                                                        Margin="10 10 0 10"
+                                                        Foreground="Black"
+                                                        FontWeight="Bold"
+                                                        FontSize="16"
+                                                        Height="auto"
+                                                        TextWrapping="Wrap"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding NAME_}">
+                                            </TextBlock>
+                                            <!--số tiền không giảm giá-->
+                                            <Grid>
+                                                <TextBlock
+                                                x:Name="price"
+                                                Margin="10 5"
+                                                Foreground="Black"
+                                                FontSize="17"
+                                                FontWeight="Medium"
+                                                Text="{Binding PRICE_, StringFormat=N0}"
+                                                VerticalAlignment="Center"
+                                                Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
+                                                TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
+                                                Visibility="Visible">
+                                                </TextBlock>
+                                            </Grid>
+                                            <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
+                                    khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên
+                                    thì collapsed-->
+                                            <StackPanel
+                                                x:Name="stack"
+                                                Orientation="Horizontal"
+                                                Margin="10 5"
+                                                Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
+                                                <TextBlock
+                                                x:Name="priceDiscount"
+
+                                                Margin="0 0 10 0"
+                                                    Foreground="Red"
+                                                    FontSize="17"
+                                                    FontWeight="Medium"
+                                                    VerticalAlignment="Center">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
+                                                            <Binding ElementName="price" Path="Text" />
+                                                            <Binding ElementName="discount" Path="Text" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                                <Border
+                                                    BorderBrush="Red"
+                                                    CornerRadius="5"
+                                                    BorderThickness="1">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock
+                                                        Margin="5 0 0 0"
+                                                        Foreground="Red"
+                                                        FontSize="12"
+                                                        FontWeight="Medium"
+                                                        VerticalAlignment="Center">
+                                                        -
+                                                        </TextBlock>
+                                                        <TextBlock
+                                                        x:Name="discount"
+                                                        Margin="0 0 5 0"
+                                                        Foreground="Red"
+                                                        FontSize="12"
+                                                        FontWeight="Medium"
+                                                        Text="{Binding DISCOUNT_, StringFormat=P0}"
+                                                        VerticalAlignment="Center">
+                                                        </TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <!--nút bấm thêm vào giỏ hàng-->
+                                        <Button
+                                        x:Name="addToCartBtn"
+                                        Margin="20 10 20 20"
+                                        Width="auto"
+                                        Height="40"
+                                        Panel.ZIndex="99"
+                                        Style="{StaticResource SearchBtn}"
+                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                        HorizontalContentAlignment="Stretch"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding Source={StaticResource MenuVM}, Path=AddToCartCommand}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
+                                            <Button.Content>
+                                                <Grid>
+                                                    <materialDesign:PackIcon x:Name="icon"
+                                                                         Margin="0 0 0 0"
+                                                                         Height="25" Width="25"
+                                                                         Kind="CartAdd"
+                                                                         VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                         Foreground="White"></materialDesign:PackIcon>
+                                                </Grid>
+                                            </Button.Content>
+                                        </Button>
+                                        <!--nền đừng quan tâm-->
+                                        <Rectangle
+                                                Fill="White"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                RadiusY="10"
+                                                RadiusX="10"
+                                                Panel.ZIndex="-1"
+                                                Margin="10">
+                                        </Rectangle>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction 
+                                                Command="{Binding Source={StaticResource MenuVM}, Path=ItemClickCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <!--loại bỏ hover, highlight effect của listview-->
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="receipt">
+                    
+                </Grid>
+            </Grid>
+        </Grid>
+        <Rectangle
+            Fill="{StaticResource GrayBackground}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            RadiusY="10"
+            RadiusX="10"
+            Panel.ZIndex="-2"
+            Effect="{StaticResource dropShadow}"
+            Margin="10">
+        </Rectangle>
+    </Grid>
+</Window>
