@@ -164,7 +164,7 @@
                                 materialDesign:ButtonAssist.CornerRadius="10"
                                 HorizontalContentAlignment="Stretch"
                                 VerticalAlignment="Bottom"
-                                Command="{Binding Source={StaticResource MenuVM}, Path=AddToCartInProductDetailCommand}"
+                                Command="{Binding Source={StaticResource CartVM}, Path=AddToCartInProductDetailCommand}"
                                 CommandParameter="{Binding}">
                                 <Button.Content>
                                     <Grid>

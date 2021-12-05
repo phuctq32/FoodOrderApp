@@ -25,7 +25,6 @@ namespace FoodOrderApp.ViewModels
         public ICommand AddToCartInProductDetailCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand FilterCommand { get; set; }
-        public ICommand CreateOrderCommand { get; set; }
         public ICommand SortD { get; set; }
         private string search = "";
 
@@ -47,7 +46,6 @@ namespace FoodOrderApp.ViewModels
         public MenuViewModel()
         {
             Products = Data.Ins.DB.PRODUCTs.ToList();
-            AddToCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => AddToCart(parameter));
             LoadedCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => Load(parameter));
             SearchCommand = new RelayCommand<MenuUC>((parameter) => true, (parameter) => BtnSearch(parameter));
             FilterCommand = new RelayCommand<ComboBox>((parameter) => true, (parameter) => GiaT(parameter));
@@ -55,22 +53,8 @@ namespace FoodOrderApp.ViewModels
             AddToCartCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => AddToCart(p));
             AddToCartInProductDetailCommand = new RelayCommand<PRODUCT>(p => p == null ? false : true, p => AddToCartInProductDetail(p));
             ItemClickCommand = new RelayCommand<ListViewItem>((parameter) => parameter == null ? false : true, (parameter) => ItemClick(parameter));
-            CreateOrderCommand = new RelayCommand<OrderManagementUC>(p => p == null ? false : true, (p) => CreateOrder(p));
         }
-        private void CreateOrder(OrderManagementUC parameter)
-        {
-            CreateOrderWindow createOrderWindow = new CreateOrderWindow();
-            createOrderWindow.ShowDialog();
-            List<CART> tempCarts = Data.Ins.DB.CARTs.Where(x => x.USERNAME_ == CurrentAccount.Username).ToList();
-            foreach (var cartToDelete in tempCarts)
-            {
-                Data.Ins.DB.CARTs.Remove(cartToDelete);
-            }
-            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == "admin").Single().FULLNAME_ = "";
-            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == "admin").Single().PHONE_ = "0";
-            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == "admin").Single().ADDRESS_ = "";
-            Data.Ins.DB.SaveChanges();
-        }
+        
         private void Load(MenuUC parameter)
         {
             Products = Data.Ins.DB.PRODUCTs.ToList();
