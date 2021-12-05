@@ -254,7 +254,9 @@
                 <ListView Width="275"
                           ScrollViewer.CanContentScroll="True"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          Margin="0 60 0 0">
+                          ItemsSource= "{Binding User, UpdateSourceTrigger=PropertyChanged}"
+                          Margin="0 60 0 0"
+                          x:Name="listviewUser">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid HorizontalAlignment="Center" Margin="10">
@@ -271,13 +273,13 @@
                                 RadiusX="100"
                                 Margin="5 0 0 0">
                                     <Rectangle.Fill>
-                                        <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"></ImageBrush>
+                                        <ImageBrush ImageSource="{Binding AVATAR_}" Stretch="UniformToFill"></ImageBrush>
                                     </Rectangle.Fill>
                                 </Rectangle>
 
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
                                     <!--tên user-->
-                                    <TextBlock Text="Rayhan" Width="220" Margin="10 0" FontSize="18" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding USERNAME_}" Width="220" Margin="10 0" FontSize="18" TextWrapping="Wrap" />
                                     <!--cứ binding tin nhắn mới nhất là tự nó cắt-->
                                     <TextBlock Text="" Margin="10 0"
                                        TextTrimming="WordEllipsis"

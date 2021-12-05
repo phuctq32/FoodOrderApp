@@ -22,15 +22,27 @@ namespace FoodOrderApp.ViewModels
 
         public string message = null;
 
-        public TcpClient server;
+        public TcpListener server;
+        public TcpClient client;
+        List<USER> uSERs;
+        public List<USER> User
+        {
+            get => uSERs;
+            set
+            {
+                uSERs = value;
+                OnPropertyChanged("User");
+            }
+        }
         public AdminChatViewModel()
         {
             LoadedCommand = new RelayCommand<AdminChatWindow>((parameter) => true, (parameter) => Load(parameter));
             SendCommand = new RelayCommand<AdminChatWindow>((parameter) => true, (parameter) => Send(parameter));
         }
-
         private void Load(AdminChatWindow parameter)
         {
+            uSERs = Data.Ins.DB.USERS.Where(x => x.TYPE_ == "user").ToList();
+            parameter.listviewUser.ItemsSource = uSERs;
             //tự động scroll xuống thằng tin nhắn mới nhất
             if (parameter.listViewChat.Items.Count - 1 > 0)
                 (parameter.listViewChat.Items.GetItemAt(parameter.listViewChat.Items.Count - 1) as ListViewItem).Focus();
@@ -41,12 +53,19 @@ namespace FoodOrderApp.ViewModels
         }
         private void Send(AdminChatWindow parameter)
         {
-            if(!string.IsNullOrEmpty(parameter.messageTxt.Text))
+            if (!string.IsNullOrEmpty(parameter.messageTxt.Text))
             {
-                message = parameter.messageTxt.Text;
-                byte[] snd = Serialize(message);
-                NetworkStream networkStream = server.GetStream();
-                networkStream.Write(snd, 0, snd.Length);
+                if (client != null)
+                {
+                    message = parameter.messageTxt.Text;
+                    byte[] snd = Serialize(message);
+                    NetworkStream networkStream = client.GetStream();
+                    networkStream.Write(snd, 0, snd.Length);
+                }
+                else
+                {
+                    CustomMessageBox.Show("Người dùng hiện không có mặt hoặc lỗi kết nối", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
             }
         }
         private void Receive()
@@ -55,6 +74,7 @@ namespace FoodOrderApp.ViewModels
             {
                 while(true)
                 {
+                    client = server.AcceptTcpClient();
                     byte[] data = new byte[2048];
                     message = (string)Deserialize(data);
                 }
@@ -73,21 +93,19 @@ namespace FoodOrderApp.ViewModels
         }
         private object Deserialize(byte[] data)
         {
-            NetworkStream networkStream = server.GetStream();
+            NetworkStream networkStream = client.GetStream();
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             return binaryFormatter.Deserialize(networkStream);
         }
         public void Connect()
         {
-            TcpListener server = null;
             USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
 
             // Set the TcpListener on port 13000.
             Int32 port = 13000;
-            IPAddress serverAddr = IPAddress.Parse(uSER.IP);
 
             // TcpListener server = new TcpListener(port);
-            server = new TcpListener(serverAddr, port);
+            server = new TcpListener(IPAddress.Any, port);
 
             // Start listening for client requests.
             server.Start();

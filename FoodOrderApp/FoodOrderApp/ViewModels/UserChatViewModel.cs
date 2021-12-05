@@ -15,7 +15,7 @@ using System.Threading;
 
 namespace FoodOrderApp.ViewModels
 {
-    internal class UserChatViewModel : BaseViewModel
+    internal class UserChatViewModel : BaseViewModel    
     {
         public ICommand LoadedCommand { get; set; }
         public ICommand SendCommand { get; set; }

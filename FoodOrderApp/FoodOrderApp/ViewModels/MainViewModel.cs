@@ -20,6 +20,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand CloseWindowCommand { get; set; }
         public ICommand SwitchTabCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
+        public ICommand ChatCommand { get; set; }
 
         private string FULLNAME;
 
@@ -69,6 +70,7 @@ namespace FoodOrderApp.ViewModels
             });
             SwitchTabCommand = new RelayCommand<MainWindow>(p => true, (p) => SwitchTab(p));
             LogOutCommand = new RelayCommand<MainWindow>(p => true, (p) => LogOut(p));
+            ChatCommand = new RelayCommand<MainWindow>(p => true, (p) => Chat(p));
         }
 
         private void Loaded(MainWindow mainWindow)
@@ -147,6 +149,19 @@ namespace FoodOrderApp.ViewModels
                 mainWindow.Close();
                 LoginWindow loginWindow = new LoginWindow();
                 loginWindow.ShowDialog();
+            }
+        }
+        private void Chat(MainWindow mainWindow)
+        {
+            if(CurrentAccount.IsAdmin)
+            {
+                AdminChatWindow adminChatWindow = new AdminChatWindow();
+                adminChatWindow.ShowDialog();
+            }
+            else
+            {
+                UserChatWindow userChatWindow = new UserChatWindow();
+                userChatWindow.ShowDialog();
             }
         }
     }
