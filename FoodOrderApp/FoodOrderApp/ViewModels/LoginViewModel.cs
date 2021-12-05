@@ -23,11 +23,16 @@ namespace FoodOrderApp.ViewModels
         public ICommand OpenLogInWDCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-        
         private string password;
-        public string Password { get => password; set { password = value; OnPropertyChanged(); } }
+
+        public string Password
+        { get => password; set { password = value; OnPropertyChanged(); } }
+
         private string userName;
-        public string UserName { get => userName; set { userName = value; OnPropertyChanged(); } }
+
+        public string UserName
+        { get => userName; set { userName = value; OnPropertyChanged(); } }
+
         private bool isLogin;
         public bool IsLogin { get => isLogin; set => isLogin = value; }
 
@@ -39,8 +44,9 @@ namespace FoodOrderApp.ViewModels
             OpenForgotPasswordWDCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenForgotPasswordWindow(parameter));
             OpenSignUpWDCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
             LoadedCommand = new RelayCommand<ControlBarUC>(p => true, (p) => Loaded(p));
-            CloseWindowCommand = CloseWindowCommand = new RelayCommand<UserControl>((p) => p == null ? false : true, p => {
-                if(CustomMessageBox.Show("Thoát ứng dụng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            CloseWindowCommand = CloseWindowCommand = new RelayCommand<UserControl>((p) => p == null ? false : true, p =>
+            {
+                if (CustomMessageBox.Show("Thoát ứng dụng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     FrameworkElement window = ControlBarViewModel.GetParentWindow(p);
                     var w = window as Window;
@@ -55,10 +61,8 @@ namespace FoodOrderApp.ViewModels
 
         public void Login(LoginWindow parameter)
         {
-            
             try
             {
-
                 isLogin = false;
                 if (parameter == null)
                 {
@@ -81,15 +85,15 @@ namespace FoodOrderApp.ViewModels
                 //string passEncode = MD5Hash(Password)   ;
                 int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == Password).Count();
                 Data.Ins.DB.USERS.ToList();
-                /*List<USER> acc = Data.Ins.DB.USERS.ToList(); 
+                /*List<USER> acc = Data.Ins.DB.USERS.ToList();
                 foreach (var a in acc)
                 {
                     MessageBox.Show(a.USERNAME_ + a.PASSWORD_);
-                } */   
+                } */
                 if (accCount > 0)
                 {
                     isLogin = true;
-                    
+
                     if (UserName == "admin")
                     {
                         CurrentAccount.IsAdmin = true;
@@ -103,7 +107,7 @@ namespace FoodOrderApp.ViewModels
                     CurrentAccount.Username = UserName;
 
                     MainWindow app = new MainWindow();
-                    app.ShowDialog();
+                    app.Show();
                     parameter.Close();
                     parameter.txtPassword.Clear();
                 }
@@ -113,14 +117,12 @@ namespace FoodOrderApp.ViewModels
                     CustomMessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác!", MessageBoxButton.OK, MessageBoxImage.Error);
                     parameter.txtPassword.Focus();
                 }
-
             }
             catch
             {
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
             }
         }
-
 
         public void Loaded(ControlBarUC cb)
         {
@@ -130,7 +132,6 @@ namespace FoodOrderApp.ViewModels
 
         public void OpenForgotPasswordWindow(LoginWindow parameter)
         {
-
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
             forgotPasswordWindow.ShowDialog();
         }
