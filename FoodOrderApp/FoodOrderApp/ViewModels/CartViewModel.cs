@@ -358,9 +358,23 @@ namespace FoodOrderApp.ViewModels
                 receipt.RECEIPT_DETAIL = receipt_detail;
 
                 // tạo thành công rồi thì xoá list cart rồi cập nhập lại source để binding lên UI
-                foreach (var cart in currentCart)
+                /*foreach (var cart in currentCart)
                 {
                     Data.Ins.DB.CARTs.Remove(cart);
+                }
+                Data.Ins.DB.SaveChanges();
+                CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();*/
+                
+                //New này chỉ xóa những cái đang được check thôi
+                foreach (var lvi in FindVisualChildren<ListViewItem>(parameter.cartList))
+                {
+                    CART cart = lvi.DataContext as CART;
+                    var checkBox = GetVisualChild<CheckBox>(lvi);
+                    if (checkBox.IsChecked == true)
+                    {
+                        Data.Ins.DB.CARTs.Remove(cart);
+                    }
+
                 }
                 Data.Ins.DB.SaveChanges();
                 CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
