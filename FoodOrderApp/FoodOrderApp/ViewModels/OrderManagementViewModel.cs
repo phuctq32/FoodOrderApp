@@ -55,6 +55,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand LoadedCommand { get; set; }
         public ICommand OpenOrderDetailWindowCommand { get; set; }
         public ICommand ConfirmReceiptCommand { get; set; }
+        public ICommand SelectionChangedCommand { get; set; }
 
         // status = 1 là trạng thái chờ xác nhận
         // status = 2 là trạng thái đang tiến hành
@@ -65,6 +66,7 @@ namespace FoodOrderApp.ViewModels
             LoadedCommand = new RelayCommand<OrderManagementUC>(p => p == null ? false : true, p => Load(p));
             OpenOrderDetailWindowCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => OpenOrderDetailWindow(p));
             ConfirmReceiptCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => ConfirmReceipt(p));
+            SelectionChangedCommand = new RelayCommand<OrderManagementUC>((parameter) => { return true; }, (parameter) => SelectionChanged(parameter));
         }
 
         private void ConfirmReceipt(ListViewItem p)
@@ -83,6 +85,7 @@ namespace FoodOrderApp.ViewModels
             // chỗ này t định code chuyển trạng thái kiểu vầy, đã thử và được nhá
             //Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).Single().STATUS_ = "2";
             //Data.Ins.DB.SaveChanges();
+
         }
 
         private void OpenOrderDetailWindow(ListViewItem p)
@@ -98,6 +101,12 @@ namespace FoodOrderApp.ViewModels
         {
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == "1").ToList();
             Status = p.statusListView.SelectedIndex;
+        }
+        private void SelectionChanged(OrderManagementUC parameter)
+        {
+            ListReceipt.Clear();
+            Status = parameter.statusListView.SelectedIndex;
+            ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == Status.ToString()).ToList();
         }
 
         private void print(InvoiceWindow paramater)
