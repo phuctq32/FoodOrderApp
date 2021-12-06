@@ -95,6 +95,7 @@ namespace FoodOrderApp.ViewModels
         private void Load(OrderManagementUC p)
         {
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == "1").ToList();
+
         }
 
         private void print(InvoiceWindow paramater)
