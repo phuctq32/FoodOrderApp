@@ -142,6 +142,21 @@
     <Compile Include="Models\CART.cs">
       <DependentUpon>FoodData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CHAT.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CHAT.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CHAT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CHAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CHAT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CHAT.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\FoodData.Context.cs">
       <AutoGen>True</AutoGen>
@@ -157,6 +172,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FoodData.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MESSAGE_.cs">
+      <DependentUpon>CHAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PRODUCT.cs">
       <DependentUpon>FoodData.tt</DependentUpon>
@@ -274,6 +293,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FoodData.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Models\CHAT.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CHAT.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\CHAT.edmx.diagram">
+      <DependentUpon>CHAT.edmx</DependentUpon>
+    </None>
     <None Include="Models\FoodData.edmx.diagram">
       <DependentUpon>FoodData.edmx</DependentUpon>
     </None>
@@ -412,6 +438,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Models\CHAT.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CHAT.edmx</DependentUpon>
+      <LastGenOutput>CHAT.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\CHAT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CHAT.edmx</DependentUpon>
+      <LastGenOutput>CHAT.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\FoodData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FoodData.edmx</DependentUpon>

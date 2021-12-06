@@ -20,9 +20,9 @@ namespace FoodOrderApp.ViewModels
         public ICommand LoadedCommand { get; set; }
         public ICommand SendCommand { get; set; }
 
-        public string message = null;
-
+        public string message;
         public TcpClient client;
+        UserChatWindow userChatWindow;
         public UserChatViewModel()
         {
             LoadedCommand = new RelayCommand<UserChatWindow>((parameter) => true, (parameter) => Load(parameter));
@@ -31,9 +31,11 @@ namespace FoodOrderApp.ViewModels
 
         private void Load(UserChatWindow parameter)
         {
+            parameter.listViewChat.ItemsSource = Message.Ins.ms.MESSAGE_.Where(x=>x.USERNAME_ == CurrentAccount.Username).ToList();
             //tự động scroll xuống thằng tin nhắn mới nhất
             if (parameter.listViewChat.Items.Count - 1 > 0)
                 (parameter.listViewChat.Items.GetItemAt(parameter.listViewChat.Items.Count - 1) as ListViewItem).Focus();
+            userChatWindow = parameter;
             Connect();
             Thread listen = new Thread(Receive);
             listen.IsBackground = true;
@@ -43,10 +45,23 @@ namespace FoodOrderApp.ViewModels
         {
             if (!string.IsNullOrEmpty(parameter.messageTxt.Text))
             {
-                message = parameter.messageTxt.Text;
-                byte[] snd = Serialize(message);
-                NetworkStream networkStream = client.GetStream();
-                networkStream.Write(snd, 0, snd.Length);
+                if (client != null)
+                {
+                    message = parameter.messageTxt.Text;
+                    byte[] snd = Serialize(message);
+                    NetworkStream networkStream = client.GetStream();
+                    networkStream.Write(snd, 0, snd.Length);
+
+                    MESSAGE_ sendMessage = new MESSAGE_();
+                    sendMessage.DATE_ = DateTime.Now;
+                    sendMessage.MESSAGE_DATA = message;
+                    sendMessage.TYPE_ = "Sender";
+                    sendMessage.ID = CurrentAccount.Username + Message.Ins.ms.MESSAGE_.Where(x => x.USERNAME_ == CurrentAccount.Username).Count().ToString();
+
+                    parameter.listViewChat.Items.Add(sendMessage);
+                    Message.Ins.ms.MESSAGE_.Add(sendMessage);
+                    Message.Ins.ms.SaveChanges();
+                }
             }
         }
         private void Receive()
@@ -57,6 +72,17 @@ namespace FoodOrderApp.ViewModels
                 {
                     byte[] data = new byte[2048];
                     message = (string)Deserialize(data);
+
+                    MESSAGE_ receiveMessage = new MESSAGE_();
+                    receiveMessage.DATE_ = DateTime.Now;
+                    receiveMessage.MESSAGE_DATA = message;
+                    receiveMessage.TYPE_ = "Receiver";
+                    receiveMessage.ID = CurrentAccount.Username + Message.Ins.ms.MESSAGE_.Where(x => x.USERNAME_ == CurrentAccount.Username).Count().ToString();
+
+                    userChatWindow.listViewChat.Items.Add(receiveMessage);
+
+                    Message.Ins.ms.MESSAGE_.Add(receiveMessage);
+                    Message.Ins.ms.SaveChanges();
                 }
             }
             catch

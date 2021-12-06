@@ -24,6 +24,7 @@ namespace FoodOrderApp.ViewModels
 
         public TcpListener server;
         public TcpClient client;
+        AdminChatWindow adminChatWindow;
         List<USER> uSERs;
         public List<USER> User
         {
@@ -46,6 +47,7 @@ namespace FoodOrderApp.ViewModels
             //tự động scroll xuống thằng tin nhắn mới nhất
             if (parameter.listViewChat.Items.Count - 1 > 0)
                 (parameter.listViewChat.Items.GetItemAt(parameter.listViewChat.Items.Count - 1) as ListViewItem).Focus();
+            adminChatWindow = parameter;
             Connect();
             Thread listen = new Thread(Receive);
             listen.IsBackground = true;
@@ -55,12 +57,20 @@ namespace FoodOrderApp.ViewModels
         {
             if (!string.IsNullOrEmpty(parameter.messageTxt.Text))
             {
-                if (client != null)
+                if (client == null)
                 {
                     message = parameter.messageTxt.Text;
                     byte[] snd = Serialize(message);
-                    NetworkStream networkStream = client.GetStream();
-                    networkStream.Write(snd, 0, snd.Length);
+                    //NetworkStream networkStream = client.GetStream();
+                    //networkStream.Write(snd, 0, snd.Length);
+                    MESSAGE_ sendMessage = new MESSAGE_();
+                    sendMessage.ID = CurrentAccount.Username + Message.Ins.ms.MESSAGE_.Where(x => x.USERNAME_ == CurrentAccount.Username).Count().ToString();
+                    sendMessage.MESSAGE_DATA = message;
+                    sendMessage.TYPE_ = "Sender";
+                    sendMessage.DATE_ = DateTime.Now;
+                    parameter.listViewChat.Items.Add(sendMessage);
+                    Message.Ins.ms.MESSAGE_.Add(sendMessage);
+                    Message.Ins.ms.SaveChanges();
                 }
                 else
                 {
@@ -77,6 +87,17 @@ namespace FoodOrderApp.ViewModels
                     client = server.AcceptTcpClient();
                     byte[] data = new byte[2048];
                     message = (string)Deserialize(data);
+
+                    MESSAGE_ receiveMessage = new MESSAGE_();
+                    receiveMessage.MESSAGE_DATA = message;
+                    receiveMessage.ID = CurrentAccount.Username + Message.Ins.ms.MESSAGE_.Where(x => x.USERNAME_ == CurrentAccount.Username).Count().ToString();
+                    receiveMessage.TYPE_ = "Receiver";
+                    receiveMessage.DATE_ = DateTime.Now;
+
+                    adminChatWindow.listViewChat.Items.Add(receiveMessage);
+
+                    Message.Ins.ms.MESSAGE_.Add(receiveMessage);
+                    Message.Ins.ms.SaveChanges();
                 }
             }
             catch

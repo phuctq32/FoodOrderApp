@@ -50,7 +50,7 @@
                     <!--width này là chiều ngang của listview không set item sẽ bị căn sai-->
                     <Grid Width="400">
                         <!--khung chat-->
-                        <StackPanel>
+                        <StackPanel x:Name="chatTextStack">
                             <Border Background="LightGray" CornerRadius="15 15 15 0" Margin="10 12"
                                         HorizontalAlignment="Left" x:Name="chatTextBorder">
                                 <TextBox IsReadOnly="True"
@@ -58,7 +58,8 @@
                                              Style="{x:Null}"
                                              Background="Transparent"
                                              Margin="15" FontSize="18"
-                                             BorderThickness="0" TextWrapping="Wrap">
+                                             BorderThickness="0" TextWrapping="Wrap"
+                                         Text="{Binding MESSAGE_DATA}">
                                 </TextBox>
                             </Border>
                             <!--Ngày tháng-->
@@ -71,20 +72,23 @@
                                             BorderThickness="0"
                                             Opacity="0.6"
                                             HorizontalAlignment="Right"
-                                            Margin="0 0 18 0">
-                                12PM
+                                            Margin="0 0 18 0"
+                                            Text="{Binding DATE_, StringFormat={} {0:dd/MM/YYYY HH:mm:ss}}">
                             </TextBox>
                         </StackPanel>
                     </Grid>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Type}" Value="Sender">
+                        <DataTrigger Binding="{Binding TYPE_}" Value="Sender">
                             <!--cái này dùng để sửa lại style nếu tin nhắn là của người gửi-->
-                            <Setter TargetName="chatTextBorder"
+                            <Setter TargetName="chatTextStack"
                                         Property="HorizontalAlignment"
                                         Value="Right" />
                             <Setter TargetName="chatTextBorder"
                                             Property="Background"
                                             Value="{StaticResource Orange2}"></Setter>
+                            <Setter TargetName="chatTextBorder"
+                                            Property="HorizontalAlignment"
+                                            Value="Right"></Setter>
                             <Setter TargetName="chatTextBorder"
                                             Property="CornerRadius"
                                             Value="15 15 0 15"></Setter>
@@ -153,7 +157,7 @@
                                     AcceptsReturn="True"
                                     VerticalScrollBarVisibility="Disabled">
                             <TextBox.InputBindings>
-                                <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=MenuUserControl}" Key="Enter" />
+                                <!--<KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=MenuUserControl}" Key="Enter" />-->
                             </TextBox.InputBindings>
                         </TextBox>
                     </DockPanel>
