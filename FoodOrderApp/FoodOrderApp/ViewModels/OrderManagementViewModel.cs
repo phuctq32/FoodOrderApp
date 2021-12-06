@@ -27,6 +27,7 @@ namespace FoodOrderApp.ViewModels
             set
             {
                 listReceipt = value;
+                OnPropertyChanged("Status");
                 OnPropertyChanged("ListReceipt");
             }
         }
@@ -96,20 +97,26 @@ namespace FoodOrderApp.ViewModels
                     tmp++;
                 item.STATUS_ = tmp.ToString();
             }
-            
+            ListReceipt.Clear();
             Data.Ins.DB.SaveChanges();
-        }private void CancelReceipt(ListViewItem parameter)
+            SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
+        }
+        private void CancelReceipt(ListViewItem parameter)
         {
             RECEIPT receipt = parameter.DataContext as RECEIPT;
             List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
             foreach (var item in listConfirmReceipt)
             {
                 int tmp =  Int32.Parse(item.STATUS_);
-                tmp = 3;
+                if (tmp != 3)
+                    tmp = 3;
+                else
+                    tmp = 0;
                 item.STATUS_ = tmp.ToString();
             }
-
+            ListReceipt.Clear();
             Data.Ins.DB.SaveChanges();
+            SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
         }
 
         private void OpenOrderDetailWindow(ListViewItem p)
@@ -123,7 +130,7 @@ namespace FoodOrderApp.ViewModels
 
         private void Load(OrderManagementUC p)
         {
-            ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == "1").ToList();
+            ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == "0").ToList();
             Status = p.statusListView.SelectedIndex;
         }
         private void SelectionChanged(OrderManagementUC parameter)
