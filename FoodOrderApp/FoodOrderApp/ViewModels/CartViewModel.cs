@@ -173,7 +173,6 @@ namespace FoodOrderApp.ViewModels
                         {
                             Data.Ins.DB.CARTs.Remove(cart);
                         }
-
                     }
                     Data.Ins.DB.SaveChanges();
                     CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
@@ -364,7 +363,7 @@ namespace FoodOrderApp.ViewModels
                 }
                 Data.Ins.DB.SaveChanges();
                 CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();*/
-                
+
                 //New này chỉ xóa những cái đang được check thôi
                 foreach (var lvi in FindVisualChildren<ListViewItem>(parameter.cartList))
                 {
@@ -374,7 +373,6 @@ namespace FoodOrderApp.ViewModels
                     {
                         Data.Ins.DB.CARTs.Remove(cart);
                     }
-
                 }
                 Data.Ins.DB.SaveChanges();
                 CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
@@ -386,7 +384,7 @@ namespace FoodOrderApp.ViewModels
 
                 CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
             }
-            catch (DbEntityValidationException e)
+            catch //(DbEntityValidationException e)
             {
                 // code để xem lỗi lệnh entity lỗi chỗ nào
                 //foreach (var eve in e.EntityValidationErrors)
