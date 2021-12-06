@@ -55,6 +55,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand LoadedCommand { get; set; }
         public ICommand OpenOrderDetailWindowCommand { get; set; }
         public ICommand ConfirmReceiptCommand { get; set; }
+        public ICommand CancelReceiptCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
 
         // status = 1 là trạng thái chờ xác nhận
@@ -66,12 +67,13 @@ namespace FoodOrderApp.ViewModels
             LoadedCommand = new RelayCommand<OrderManagementUC>(p => p == null ? false : true, p => Load(p));
             OpenOrderDetailWindowCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => OpenOrderDetailWindow(p));
             ConfirmReceiptCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => ConfirmReceipt(p));
+            CancelReceiptCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => CancelReceipt(parameter));
             SelectionChangedCommand = new RelayCommand<OrderManagementUC>((parameter) => { return true; }, (parameter) => SelectionChanged(parameter));
         }
 
-        private void ConfirmReceipt(ListViewItem p)
+        private void ConfirmReceipt(ListViewItem parameter)
         {
-            RECEIPT receipt = p.DataContext as RECEIPT;
+            RECEIPT receipt = parameter.DataContext as RECEIPT;
             // đoạn này t với th phúc định kiểu như: bấm xác nhận đơn hàng thì sẽ hiện ra hỏi có in hoá đơn không
             // có thì hiện ra khung in hoá đơn rồi chuyển trạng thái
             // không thì chỉ chuyển trạng thái thôi
@@ -90,11 +92,23 @@ namespace FoodOrderApp.ViewModels
             foreach (var item in listConfirmReceipt)
             {
                 int tmp =  Int32.Parse(item.STATUS_);
-                if (tmp <= 2)
+                if (tmp <= 1)
                     tmp++;
                 item.STATUS_ = tmp.ToString();
             }
             
+            Data.Ins.DB.SaveChanges();
+        }private void CancelReceipt(ListViewItem parameter)
+        {
+            RECEIPT receipt = parameter.DataContext as RECEIPT;
+            List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
+            foreach (var item in listConfirmReceipt)
+            {
+                int tmp =  Int32.Parse(item.STATUS_);
+                tmp = 3;
+                item.STATUS_ = tmp.ToString();
+            }
+
             Data.Ins.DB.SaveChanges();
         }
 
