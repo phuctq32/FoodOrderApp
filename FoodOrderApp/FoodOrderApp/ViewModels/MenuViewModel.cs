@@ -204,6 +204,7 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void ItemClick(ListViewItem parameter)
         {
             PRODUCT pRODUCT = parameter.DataContext as PRODUCT;

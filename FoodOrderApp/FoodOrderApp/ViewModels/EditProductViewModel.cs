@@ -63,8 +63,6 @@ namespace FoodOrderApp.ViewModels
             SelectImageCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => SelectImage(parameter));
             UpdateButtonCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => UpdateProduct(parameter));
             AddButtonCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => AddProduct(parameter));
-
-
         }
         public void Loaded(EditProductUC editProductUC)
         {
