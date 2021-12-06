@@ -121,18 +121,22 @@ namespace FoodOrderApp.ViewModels
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new ContactUC());
                     break;
+
                 case 5:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new DashBoardUC());
                     break;
+
                 case 6:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new EditProductUC());
                     break;
+
                 case 7:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new OrderManagementUC());
                     break;
+
                 case 8:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new AccountUC());
@@ -144,9 +148,9 @@ namespace FoodOrderApp.ViewModels
         {
             if (CustomMessageBox.Show("Bạn có muốn đăng xuất?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                mainWindow.Close();
                 LoginWindow loginWindow = new LoginWindow();
-                loginWindow.ShowDialog();
+                loginWindow.Show();
+                mainWindow.Close();
             }
         }
     }

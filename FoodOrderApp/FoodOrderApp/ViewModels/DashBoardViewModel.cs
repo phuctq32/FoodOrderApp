@@ -14,7 +14,11 @@ namespace FoodOrderApp.ViewModels
 {
     internal class DashBoardViewModel : BaseViewModel
     {
-        public ICommand LoadedCommand;
+        public int TotalProduct { get; set; }
+        public int TotalValue { get; set; }
+        public int TotalOrder { get; set; }
+        public int TotalCustomer { get; set; }
+
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
@@ -23,13 +27,13 @@ namespace FoodOrderApp.ViewModels
 
         public DashBoardViewModel()
         {
-            LoadedCommand = new RelayCommand<DashBoardUC>((parameter) => true, (paramater) => loaded(paramater));
-        }
+            TotalProduct = Data.Ins.DB.PRODUCTs.Count();
+            TotalCustomer = Data.Ins.DB.USERS.Count() - 1;
+            TotalOrder = Data.Ins.DB.RECEIPTs.Count();
+            receipts = Data.Ins.DB.RECEIPTs.ToList();
+            TotalValue = calculateTotalSales();
+            //TotalValue =
 
-        private void loaded(DashBoardUC paramater)
-        {
-            // get receipt data from db
-            receipts = Data.Ins.DB.RECEIPTs.Where(x => x.USER.USERNAME_ == CurrentAccount.Username).ToList();
             // set up X axis, display 5 column
             DateTime now = DateTime.Now;
             DateTime _1DayBefore = DateTime.Now.Date.AddDays(-1);
@@ -44,37 +48,23 @@ namespace FoodOrderApp.ViewModels
                             now.ToString("dd.MM")};
             // calculate sales for each day
             int salesNow = calculateSales(out salesNow, now);
-            int sales1DayBefore = calculateSales(out salesNow, _1DayBefore);
-            int sales2DayBefore = calculateSales(out salesNow, _2DayBefore);
-            int sales3DayBefore = calculateSales(out salesNow, _3DayBefore);
-            int sales4DayBefore = calculateSales(out salesNow, _4DayBefore);
+            int sales1DayBefore = calculateSales(out sales1DayBefore, _1DayBefore);
+            int sales2DayBefore = calculateSales(out sales2DayBefore, _2DayBefore);
+            int sales3DayBefore = calculateSales(out sales3DayBefore, _3DayBefore);
+            int sales4DayBefore = calculateSales(out sales4DayBefore, _4DayBefore);
             // create a line and add data into chart
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
                 {
-                    Title = "2021",
-                    Values = new ChartValues<double> { sales4DayBefore, sales3DayBefore, sales2DayBefore, sales1DayBefore, salesNow },
+                    Title = now.Year.ToString(),
+                    Values = new ChartValues<long> { sales4DayBefore, sales3DayBefore, sales2DayBefore, sales1DayBefore, salesNow },
                     PointGeometry = DefaultGeometries.Circle,
                     PointGeometrySize = 15
                 }
             };
 
-            YFormatter = value => value.ToString("C");
-
-            //modifying the series collection will animate and update the chart
-            //SeriesCollection.Add(new LineSeries
-            //{
-            //    Title = "Series 4",
-            //    Values = new ChartValues<double> { 5, 3, 2, 4 },
-            //    LineSmoothness = 0, //0: straight lines, 1: really smooth lines
-            //    PointGeometry = Geometry.Parse("m 25 70.36218 20 -28 -20 22 -8 -6 z"),
-            //    PointGeometrySize = 50,
-            //    PointForeground = Brushes.Gray
-            //});
-
-            //modifying any series values will also animate and update the chart
-            //SeriesCollection[0].Values.
+            YFormatter = value => value.ToString("N0");
         }
 
         private int calculateSales(out int sales, DateTime dateTime)
@@ -82,10 +72,24 @@ namespace FoodOrderApp.ViewModels
             sales = 0;
             foreach (var receipt in receipts)
             {
-                if (receipt.DATE_ == dateTime)
+                if (receipt.DATE_.ToShortDateString() == dateTime.ToShortDateString())
                     sales += receipt.VALUE_;
             }
             return sales;
+        }
+
+        private int calculateTotalSales()
+        {
+            if (receipts != null)
+            {
+                int sales = 0;
+                foreach (var receipt in receipts)
+                {
+                    sales += receipt.VALUE_;
+                }
+                return sales;
+            }
+            return 0;
         }
     }
 }
