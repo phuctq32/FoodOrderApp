@@ -83,8 +83,12 @@ namespace FoodOrderApp.ViewModels
             //    //invoiceWindow.listView.ItemsSource = receipt;
             //}
             // chỗ này t định code chuyển trạng thái kiểu vầy, đã thử và được nhá
-            //Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).Single().STATUS_ = "2";
+            //Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).Single().STATUS_ = "1";
             //Data.Ins.DB.SaveChanges();
+
+            Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).Single().STATUS_ = "1";
+            Data.Ins.DB.SaveChanges();
+
 
         }
 

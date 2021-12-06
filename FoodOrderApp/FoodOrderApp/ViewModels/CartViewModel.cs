@@ -33,8 +33,6 @@ namespace FoodOrderApp.ViewModels
         public ICommand OrderCommand { get; set; }
         public ICommand OpenSetAddressWDCommand { get; set; }
 
-        //private bool allChecked;
-        //public bool AllChecked { get => allChecked; set { allChecked = value; OnPropertyChanged(); } }
 
         private List<CART> currentCart;
 
@@ -315,18 +313,13 @@ namespace FoodOrderApp.ViewModels
             {
                 DateTime Now = DateTime.Now;
                 string now = Now.GetDateTimeFormats(viVn)[0];
-                // Chắc chỉnh lại Date_ thành dạng string chứ làm vậy hông biết định dạng DMY như nào -.-
 
                 HashSet<RECEIPT_DETAIL> receipt_detail = new HashSet<RECEIPT_DETAIL>();
 
                 int countReceipt = Data.Ins.DB.RECEIPTs.Count() + 1;
-                //tạo trước receipt để add lên db trước rồi mới
                 RECEIPT receipt = new RECEIPT();
                 receipt.ID_ = countReceipt.ToString();
-                // status mặc định là 1 là đơn hàng chưa được xác nhận
                 receipt.STATUS_ = "1";
-                // date thì cứ để như v không sao đâu,
-                // khi nào cần xài theo dạng viVn thì lấy về rồi mình tự chuyển sau
                 receipt.DATE_ = Now;
                 receipt.USERNAME_ = CurrentAccount.Username;
                 receipt.VALUE_ = (int)totalPrice;
@@ -355,14 +348,6 @@ namespace FoodOrderApp.ViewModels
                     Data.Ins.DB.RECEIPT_DETAIL.Add(receipt_de);
                 }
                 receipt.RECEIPT_DETAIL = receipt_detail;
-
-                // tạo thành công rồi thì xoá list cart rồi cập nhập lại source để binding lên UI
-                /*foreach (var cart in currentCart)
-                {
-                    Data.Ins.DB.CARTs.Remove(cart);
-                }
-                Data.Ins.DB.SaveChanges();
-                CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();*/
 
                 //New này chỉ xóa những cái đang được check thôi
                 foreach (var lvi in FindVisualChildren<ListViewItem>(parameter.cartList))
