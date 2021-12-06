@@ -86,10 +86,16 @@ namespace FoodOrderApp.ViewModels
             //Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).Single().STATUS_ = "1";
             //Data.Ins.DB.SaveChanges();
 
-            Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).Single().STATUS_ = "1";
+            List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
+            foreach (var item in listConfirmReceipt)
+            {
+                int tmp =  Int32.Parse(item.STATUS_);
+                if (tmp <= 2)
+                    tmp++;
+                item.STATUS_ = tmp.ToString();
+            }
+            
             Data.Ins.DB.SaveChanges();
-
-
         }
 
         private void OpenOrderDetailWindow(ListViewItem p)
