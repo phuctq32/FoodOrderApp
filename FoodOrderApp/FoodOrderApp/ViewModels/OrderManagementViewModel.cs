@@ -13,6 +13,7 @@ using FoodOrderApp.Views;
 using System.Globalization;
 using System.Data.Entity.Validation;
 using FoodOrderApp.Views.UserControls.Admin;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -47,6 +48,7 @@ namespace FoodOrderApp.ViewModels
             get;
             set;
         }
+        public int Status;
 
         private int totalProductEachReceipt;
 
@@ -95,7 +97,7 @@ namespace FoodOrderApp.ViewModels
         private void Load(OrderManagementUC p)
         {
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == "1").ToList();
-
+            Status = p.statusListView.SelectedIndex;
         }
 
         private void print(InvoiceWindow paramater)
