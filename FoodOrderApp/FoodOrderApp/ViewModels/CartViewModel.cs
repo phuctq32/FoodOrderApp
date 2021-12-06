@@ -25,7 +25,7 @@ namespace FoodOrderApp.ViewModels
         private string address;
         public ICommand LoadedCommand { get; set; }
         public ICommand DeleteCartCommand { get; set; }
-        public ICommand DeleteAllCartCommand { get; set; }
+        public ICommand DeleteIsCheckedCartCommand { get; set; }
         public ICommand DownCommand { get; set; }
         public ICommand UpCommand { get; set; }
         public ICommand AllCheckedCommand { get; set; }
@@ -116,7 +116,7 @@ namespace FoodOrderApp.ViewModels
             OrderCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => Order(parameter));
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
             DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
-            DeleteAllCartCommand = new RelayCommand<ListView>((parameter) => { return true; }, (parameter) => DeleteAllCart(parameter));
+            DeleteIsCheckedCartCommand = new RelayCommand<ListView>((parameter) => { return true; }, (parameter) => DeleteIsCheckedCart(parameter));
             DownCommand = new RelayCommand<TextBlock>(p => true, p => Down(p));
             UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
             AllCheckedCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
@@ -154,7 +154,7 @@ namespace FoodOrderApp.ViewModels
             TotalPrice = GetTotalPrice(lv);
         }
 
-        protected void DeleteAllCart(ListView parameter)
+        protected void DeleteIsCheckedCart(ListView parameter)
         {
             if (parameter.Items.Count == 0)
             {
@@ -163,11 +163,17 @@ namespace FoodOrderApp.ViewModels
 
             try
             {
-                if (CustomMessageBox.Show("Xóa tất cả món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                if (CustomMessageBox.Show("Xóa các món ăn đang được chọn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
-                    foreach (var cartToDelete in CurrentCart)
+                    foreach (var lvi in FindVisualChildren<ListViewItem>(parameter))
                     {
-                        Data.Ins.DB.CARTs.Remove(cartToDelete);
+                        CART cart = lvi.DataContext as CART;
+                        var checkBox = GetVisualChild<CheckBox>(lvi);
+                        if (checkBox.IsChecked == true)
+                        {
+                            Data.Ins.DB.CARTs.Remove(cart);
+                        }
+
                     }
                     Data.Ins.DB.SaveChanges();
                     CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);

@@ -87,7 +87,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Margin="0 0 6 0"
-                                Command="{Binding DeleteAllCartCommand}"
+                                Command="{Binding DeleteIsCheckedCartCommand}"
                                 CommandParameter="{Binding ElementName=cartList}" />
                         </Grid>
                     </Border>
