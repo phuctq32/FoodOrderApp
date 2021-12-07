@@ -19,6 +19,7 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand LoadedCommand { get; set; }
         public ICommand SendCommand { get; set; }
+        public ICommand SelectionChangeCommand { get; set; }
 
         public string message = null;
 
@@ -39,6 +40,7 @@ namespace FoodOrderApp.ViewModels
         {
             LoadedCommand = new RelayCommand<AdminChatWindow>((parameter) => true, (parameter) => Load(parameter));
             SendCommand = new RelayCommand<AdminChatWindow>((parameter) => true, (parameter) => Send(parameter));
+            SelectionChangeCommand = new RelayCommand<ListViewItem>((parameter) => true, (parameter) => SelectionChange(parameter));
         }
         private void Load(AdminChatWindow parameter)
         {
@@ -131,6 +133,13 @@ namespace FoodOrderApp.ViewModels
             // Start listening for client requests.
             server.Start();
             
+        }
+        public void SelectionChange(ListViewItem listViewItem)
+        {
+            USER user = listViewItem.DataContext as USER;
+            adminChatWindow.listViewChat.ItemsSource = Message.Ins.ms.MESSAGE_.Where(x => x.USERNAME_ == user.USERNAME_).ToList();
+            listViewItem.IsSelected = true;
+
         }
     }
 }
