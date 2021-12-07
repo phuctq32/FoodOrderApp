@@ -59,12 +59,12 @@ namespace FoodOrderApp.ViewModels
         {
             if (!string.IsNullOrEmpty(parameter.messageTxt.Text))
             {
-                if (client == null)
+                if (client != null)
                 {
                     message = parameter.messageTxt.Text;
                     byte[] snd = Serialize(message);
-                    //NetworkStream networkStream = client.GetStream();
-                    //networkStream.Write(snd, 0, snd.Length);
+                    NetworkStream networkStream = client.GetStream();
+                    networkStream.Write(snd, 0, snd.Length);
                     MESSAGE_ sendMessage = new MESSAGE_();
                     sendMessage.ID = CurrentAccount.Username + Message.Ins.ms.MESSAGE_.Where(x => x.USERNAME_ == CurrentAccount.Username).Count().ToString();
                     sendMessage.MESSAGE_DATA = message;
