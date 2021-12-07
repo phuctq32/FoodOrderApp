@@ -19,6 +19,11 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource UserChatVM}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger>
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=UserChatWD}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <uc:ControlBarUC></uc:ControlBarUC>
         <!--avatar và tên user-->

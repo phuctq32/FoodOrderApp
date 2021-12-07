@@ -21,14 +21,13 @@ namespace FoodOrderApp.ViewModels
         public ICommand SendCommand { get; set; }
 
         public string message;
-        public TcpClient client;
+        public Socket client;
         UserChatWindow userChatWindow;
         public UserChatViewModel()
         {
             LoadedCommand = new RelayCommand<UserChatWindow>((parameter) => true, (parameter) => Load(parameter));
             SendCommand = new RelayCommand<UserChatWindow>((parameter) => true, (parameter) => Send(parameter));
         }
-
         private void Load(UserChatWindow parameter)
         {
             parameter.listViewChat.ItemsSource = Message.Ins.ms.MESSAGE_.Where(x=>x.USERNAME_ == CurrentAccount.Username).ToList();
@@ -45,12 +44,11 @@ namespace FoodOrderApp.ViewModels
         {
             if (!string.IsNullOrEmpty(parameter.messageTxt.Text))
             {
-                if (client != null)
+                if (client.Connected)
                 {
                     message = parameter.messageTxt.Text;
                     byte[] snd = Serialize(message);
-                    NetworkStream networkStream = client.GetStream();
-                    networkStream.Write(snd, 0, snd.Length);
+                    client.Send(snd, 0, snd.Length, SocketFlags.None);
 
                     MESSAGE_ sendMessage = new MESSAGE_();
                     sendMessage.DATE_ = DateTime.Now;
@@ -61,6 +59,10 @@ namespace FoodOrderApp.ViewModels
                     parameter.listViewChat.Items.Add(sendMessage);
                     Message.Ins.ms.MESSAGE_.Add(sendMessage);
                     Message.Ins.ms.SaveChanges();
+                }
+                else
+                {
+                    CustomMessageBox.Show("Không thể kết nối đến máy chủ", System.Windows.MessageBoxButton.OK);
                 }
             }
         }
@@ -99,9 +101,9 @@ namespace FoodOrderApp.ViewModels
         }
         private object Deserialize(byte[] data)
         {
-            NetworkStream networkStream = client.GetStream();
+            MemoryStream memoryStream = new MemoryStream(data);
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            return binaryFormatter.Deserialize(networkStream);
+            return binaryFormatter.Deserialize(memoryStream);
         }
         public void Connect()
         {
@@ -110,13 +112,14 @@ namespace FoodOrderApp.ViewModels
             // Set the TcpClient on port 13000.
             Int32 port = 13000;
             IPAddress clientAddr = IPAddress.Parse(uSER.IP);
-            IPEndPoint iPEndPoint = new IPEndPoint(clientAddr, port);
 
             USER admin = Data.Ins.DB.USERS.Where(x => x.TYPE_ == "admin").SingleOrDefault();
             IPAddress serverAddr = IPAddress.Parse(admin.IP);
+            IPEndPoint iPEndPoint = new IPEndPoint(serverAddr, port);
 
             // TcpListener server = new TcpListener(port);
-            client = new TcpClient(iPEndPoint);
+
+            client = new Socket(SocketType.Stream, ProtocolType.Tcp);
 
             // Start listening for client requests.
             client.Connect(serverAddr, port);
