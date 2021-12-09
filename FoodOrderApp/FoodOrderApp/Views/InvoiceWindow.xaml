@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:FoodOrderApp.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:uc="clr-namespace:FoodOrderApp.Views.UserControls"
         xmlns:helper="clr-namespace:FoodOrderApp.Helpers"
+        DataContext="{StaticResource OrderManagementVM}"
         mc:Ignorable="d"
         MinHeight="550" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -61,17 +62,20 @@
                                     <StackPanel Grid.Column="0" Margin="10">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Mã hóa đơn" FontSize="15" Margin="5" />
-                                            <TextBlock Text="{Binding ID_}" FontSize="15" Margin="5" FontWeight="DemiBold" />
+                                            <TextBlock Text="{Binding RECEIPT.ID_}" FontSize="15" Margin="5" FontWeight="DemiBold" />
+                                        </StackPanel >
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Khách hàng" FontSize="12" Margin="5" />
+                                            <TextBlock Text="{Binding RECEIPT.USER.FULLNAME_}" FontSize="12" Margin="5" FontWeight="DemiBold"  />
                                         </StackPanel>
-                                        <TextBlock Text="{Binding USER.FULLNAME_}" FontSize="12" Margin="5" />
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Ngày mua:" FontSize="12" Margin="5" />
-                                            <TextBlock Text="{Binding DATE_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
+                                            <TextBlock Text="{Binding RECEIPT.DATE_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Địa chỉ giao hàng:" FontSize="12" Margin="5" />
                                             <!--ADDRESS CỦA USER-->
-                                            <TextBlock Text="{Binding USER.ADDRESS_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
+                                            <TextBlock Text="{Binding RECEIPT.USER.ADDRESS_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Margin="10">
@@ -94,7 +98,7 @@
                                 </Grid>
                                 <!--LISTVIEW RECEIPT_DETAIL-->
                                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                          ItemsSource="{Binding RECEIPT_DETAIL}">
+                                          ItemsSource="{Binding Source={StaticResource OrderManagementVM}, Path=ListReceiptDetail}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <Grid HorizontalAlignment="Stretch" MinHeight="38" Width="730">
@@ -111,7 +115,7 @@
                                                 <TextBlock x:Name="price" Margin="0 0 7 0" Text="{Binding PRODUCT.PRICE_, StringFormat=N0}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                 <!--DISCOUNT CHO VÀO ĐỂ CÓ CÁI BINDING ĐỂ TÍNH THẰNG TỔNG CHỨ K HIỂN THỊ-->
                                                 <Border
-                                                    BorderBrush="Red"
+                                                    BorderBrush="Transparent"
                                                     CornerRadius="5"
                                                     BorderThickness="1">
                                                     <TextBlock
@@ -176,7 +180,7 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="2">
                                         <!--GIÁ TỔNG CỘNG CỦA ĐƠN HÀNG-->
-                                        <TextBlock Text="{Binding VALUE_}" FontSize="25" Margin="5" HorizontalAlignment="Right" Foreground="Black" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding RECEIPT.VALUE_, StringFormat= N0}" FontSize="25" Margin="5" HorizontalAlignment="Right" Foreground="Black" FontWeight="SemiBold" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="Heart" Foreground="{StaticResource Orange1}" Width="20" Height="20" Margin="5" VerticalAlignment="Center" />

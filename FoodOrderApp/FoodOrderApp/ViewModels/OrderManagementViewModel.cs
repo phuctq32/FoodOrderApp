@@ -116,13 +116,12 @@ namespace FoodOrderApp.ViewModels
         private void ConfirmReceipt(ListViewItem parameter)
         {
             RECEIPT receipt = parameter.DataContext as RECEIPT;
-            List<RECEIPT_DETAIL> listReceipt = Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == receipt.ID_).ToList();
+            ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == receipt.ID_).ToList();
             if (CustomMessageBox.Show("In hóa đơn?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 InvoiceWindow invoiceWindow = new InvoiceWindow();
-                invoiceWindow.listView.ItemsSource = receipt;
+                invoiceWindow.listView.ItemsSource = ListReceiptDetail;
                 invoiceWindow.Show();
-
             }
             // đoạn này t với th phúc định kiểu như: bấm xác nhận đơn hàng thì sẽ hiện ra hỏi có in hoá đơn không
             // có thì hiện ra khung in hoá đơn rồi chuyển trạng thái
