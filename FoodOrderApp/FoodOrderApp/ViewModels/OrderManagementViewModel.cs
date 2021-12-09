@@ -31,6 +31,46 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("ListReceipt");
             }
         }
+        private string fullname;
+        public string Fullname
+        {
+            get => fullname;
+            set
+            {
+                fullname = value;
+                OnPropertyChanged("Fullname");
+            }
+        }
+        private string address;
+        public string Address 
+        { 
+            get => address;
+            set
+            {
+                address = value;
+                OnPropertyChanged("Address");
+            }
+        }
+        private string phone;
+        public string Phone
+        {
+            get => phone;
+            set
+            {
+                phone = value;
+                OnPropertyChanged("Phone");
+            }
+        }
+        private int VALUE;
+        public int Value 
+        { 
+            get => VALUE;
+            set 
+            {
+                VALUE = value;
+                OnPropertyChanged("Value");
+            }
+        }
 
         private List<RECEIPT_DETAIL> listReceiptDetail;
 
@@ -60,10 +100,10 @@ namespace FoodOrderApp.ViewModels
         public ICommand CancelReceiptCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
 
-        // status = 1 là trạng thái chờ xác nhận
-        // status = 2 là trạng thái đang tiến hành
-        // status = 3 là trạng thái đã hoàn thành
-        // status = 4 là trạng thái đã huỷ
+        // status = 0 là trạng thái chờ xác nhận
+        // status = 1 là trạng thái đang tiến hành
+        // status = 2 là trạng thái đã hoàn thành
+        // status = 3 là trạng thái đã huỷ
         public OrderManagementViewModel()
         {
             LoadedCommand = new RelayCommand<OrderManagementUC>(p => p == null ? false : true, p => Load(p));
@@ -76,6 +116,14 @@ namespace FoodOrderApp.ViewModels
         private void ConfirmReceipt(ListViewItem parameter)
         {
             RECEIPT receipt = parameter.DataContext as RECEIPT;
+            List<RECEIPT_DETAIL> listReceipt = Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == receipt.ID_).ToList();
+            if (CustomMessageBox.Show("In hóa đơn?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                InvoiceWindow invoiceWindow = new InvoiceWindow();
+                invoiceWindow.listView.ItemsSource = receipt;
+                invoiceWindow.Show();
+
+            }
             // đoạn này t với th phúc định kiểu như: bấm xác nhận đơn hàng thì sẽ hiện ra hỏi có in hoá đơn không
             // có thì hiện ra khung in hoá đơn rồi chuyển trạng thái
             // không thì chỉ chuyển trạng thái thôi
@@ -89,20 +137,21 @@ namespace FoodOrderApp.ViewModels
             // chỗ này t định code chuyển trạng thái kiểu vầy, đã thử và được nhá
             //Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).Single().STATUS_ = "1";
             //Data.Ins.DB.SaveChanges();
-
-            List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
-            foreach (var item in listConfirmReceipt)
+            else
             {
-                int tmp = Int32.Parse(item.STATUS_);
-                if (tmp <= 1)
-                    tmp++;
-                item.STATUS_ = tmp.ToString();
+                //List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
+                //foreach (var item in listConfirmReceipt)
+                //{
+                //    int tmp = Int32.Parse(item.STATUS_);
+                //    if (tmp <= 1)
+                //        tmp++;
+                //    item.STATUS_ = tmp.ToString();
+                //}
+                //ListReceipt.Clear();
+                //Data.Ins.DB.SaveChanges();
+                //SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
             }
-            ListReceipt.Clear();
-            Data.Ins.DB.SaveChanges();
-            SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
         }
-
         private void CancelReceipt(ListViewItem parameter)
         {
             RECEIPT receipt = parameter.DataContext as RECEIPT;
@@ -126,6 +175,11 @@ namespace FoodOrderApp.ViewModels
             RECEIPT receipt = p.DataContext as RECEIPT;
             OrderDetailAdminWindow orderDetailAdminWindow = new OrderDetailAdminWindow();
             ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(receiptDetail => receiptDetail.RECEIPT_ID == receipt.ID_).ToList();
+            //USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == receipt.USERNAME_).SingleOrDefault();
+            Fullname = receipt.USER.FULLNAME_;
+            Address = receipt.USER.ADDRESS_;
+            Phone = receipt.USER.PHONE_;
+            Value = receipt.VALUE_;
             orderDetailAdminWindow.listReceiptDetail.ItemsSource = listReceiptDetail;
             orderDetailAdminWindow.ShowDialog();
         }

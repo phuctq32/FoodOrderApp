@@ -237,7 +237,7 @@
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
-                        Text="{Binding FULLNAME_}"
+                        Text="{Binding Source={StaticResource OrderManagementVM}, Path=Fullname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         FontWeight="Medium"
                         Foreground="Black"></TextBlock>
                 </StackPanel>
@@ -251,7 +251,7 @@
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
-                        Text="{Binding PHONE_}"
+                        Text="{Binding Phone}"
                         FontWeight="Medium"
                         Foreground="Black"></TextBlock>
                 </StackPanel>
@@ -265,7 +265,7 @@
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
-                        Text="{Binding ADDRESS_}"
+                        Text="{Binding Address}"
                         FontWeight="Medium"
                         MaxWidth="420"
                         TextWrapping="Wrap"
@@ -282,7 +282,7 @@
                            Foreground="Black"
                            Grid.Column="0"></TextBlock>
                 <!--TỔNG GIÁ TRỊ CỦA ĐƠN HÀNG BINDING VALUE CỦA RECEIPT-->
-                <TextBlock Text="{Binding VALUE_}"
+                <TextBlock Text="{Binding Value}"
                            FontSize="30"
                            Margin="10 0"
                            VerticalAlignment="Bottom"

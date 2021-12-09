@@ -319,7 +319,7 @@ namespace FoodOrderApp.ViewModels
                 int countReceipt = Data.Ins.DB.RECEIPTs.Count() + 1;
                 RECEIPT receipt = new RECEIPT();
                 receipt.ID_ = countReceipt.ToString();
-                receipt.STATUS_ = "1";
+                receipt.STATUS_ = "0";
                 receipt.DATE_ = Now;
                 receipt.USERNAME_ = CurrentAccount.Username;
                 receipt.VALUE_ = (int)totalPrice;
