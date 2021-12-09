@@ -70,7 +70,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Ngày mua:" FontSize="12" Margin="5" />
-                                            <TextBlock Text="{Binding RECEIPT.DATE_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
+                                            <TextBlock Text="{Binding RECEIPT.DATE_, StringFormat={} {0:dd/MM/yyyy HH:mm}}" FontSize="12" Margin="5" FontWeight="DemiBold" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Địa chỉ giao hàng:" FontSize="12" Margin="5" />
@@ -98,7 +98,7 @@
                                 </Grid>
                                 <!--LISTVIEW RECEIPT_DETAIL-->
                                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                          ItemsSource="{Binding Source={StaticResource OrderManagementVM}, Path=ListReceiptDetail}">
+                                    ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <Grid HorizontalAlignment="Stretch" MinHeight="38" Width="730">
