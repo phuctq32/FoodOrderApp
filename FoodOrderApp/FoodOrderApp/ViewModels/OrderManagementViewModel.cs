@@ -49,9 +49,10 @@ namespace FoodOrderApp.ViewModels
             get;
             set;
         }
-        public int Status;
 
-        private int totalProductEachReceipt;
+        public int Status { get; set; }
+
+        public int numberOfDistinctProduct { get; set; }
 
         public ICommand LoadedCommand { get; set; }
         public ICommand OpenOrderDetailWindowCommand { get; set; }
@@ -92,7 +93,7 @@ namespace FoodOrderApp.ViewModels
             List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
             foreach (var item in listConfirmReceipt)
             {
-                int tmp =  Int32.Parse(item.STATUS_);
+                int tmp = Int32.Parse(item.STATUS_);
                 if (tmp <= 1)
                     tmp++;
                 item.STATUS_ = tmp.ToString();
@@ -101,13 +102,14 @@ namespace FoodOrderApp.ViewModels
             Data.Ins.DB.SaveChanges();
             SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
         }
+
         private void CancelReceipt(ListViewItem parameter)
         {
             RECEIPT receipt = parameter.DataContext as RECEIPT;
             List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
             foreach (var item in listConfirmReceipt)
             {
-                int tmp =  Int32.Parse(item.STATUS_);
+                int tmp = Int32.Parse(item.STATUS_);
                 if (tmp != 3)
                     tmp = 3;
                 else
@@ -133,6 +135,7 @@ namespace FoodOrderApp.ViewModels
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == "0").ToList();
             Status = p.statusListView.SelectedIndex;
         }
+
         private void SelectionChanged(OrderManagementUC parameter)
         {
             ListReceipt.Clear();
@@ -161,14 +164,5 @@ namespace FoodOrderApp.ViewModels
                 paramater.controlBar.Visibility = Visibility.Visible;
             }
         }
-
-        //int calculateTotalItem()
-        //{
-        //    totalProductEachReceipt = 0;
-        //    foreach (var item in listReceiptDetail)
-        //    {
-        //        totalProductEachReceipt += item.AMOUNT_
-        //    }
-        //}
     }
 }

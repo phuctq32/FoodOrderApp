@@ -137,6 +137,7 @@
     <Compile Include="Helpers\DoubleToVisibilityConverter.cs" />
     <Compile Include="Helpers\PriceToPriceDiscount.cs" />
     <Compile Include="Helpers\PriceToStringConverter.cs" />
+    <Compile Include="Helpers\StatusToVisibilityConverter.cs" />
     <Compile Include="Helpers\UnitPriceToTotalPriceFAPConverter.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\CART.cs">

@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls.Admin"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:helpers ="clr-namespace:FoodOrderApp.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="710" d:DesignWidth="1120"
             DataContext="{StaticResource OrderManagementVM}"
@@ -18,6 +19,9 @@
             Background="{x:Null}"
             FontFamily="{DynamicResource MaterialDesignFont}"
             Foreground="{x:Null}">
+    <UserControl.Resources>
+        <helpers:StatusToVisibilityConverter x:Key="statusToVisibility"></helpers:StatusToVisibilityConverter>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
@@ -40,7 +44,7 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged" >
+                    <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName=OrderManagementUserControl}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -139,53 +143,46 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="180"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock
-                Text="Mã đơn hàng"
-                FontSize="20"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontWeight="Medium"
-                Foreground="Black"
-                Grid.Column="0" />
+                    Text="Mã đơn hàng"
+                    FontSize="20"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontWeight="Medium"
+                    Foreground="Black"
+                    Grid.Column="0" />
                 <TextBlock
-                Text="Ngày mua"
-                FontSize="20"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontWeight="Medium"
-                Foreground="Black"
-                Grid.Column="1" />
+                    Text="Ngày mua"
+                    FontSize="20"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontWeight="Medium"
+                    Foreground="Black"
+                    Grid.Column="1" />
                 <TextBlock
-                Text="Số lượng"
-                FontSize="20"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontWeight="Medium"
-                Foreground="Black"
-                Grid.Column="2" />
+                    Text="Số lượng"
+                    FontSize="20"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontWeight="Medium"
+                    Foreground="Black"
+                    Grid.Column="2" />
                 <TextBlock
-                Text="Tổng tiền"
-                FontSize="20"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontWeight="Medium"
-                Foreground="Black"
-                Grid.Column="3" />
-                <!--<TextBlock
-                Text="Chi tiết"
-                FontSize="20"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontWeight="Medium"
-                Foreground="Black"
-                Grid.Column="4" />-->
+                    Margin="0 0 40 0"
+                    Text="Tổng tiền"
+                    FontSize="20"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontWeight="Medium"
+                    Foreground="Black"
+                    Grid.Column="3" />
             </Grid>
             <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
             <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
             <ListView x:Name="receiptListView"
-                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
+                    Grid.Row="1" Grid.Column="0"
                       ItemsSource="{Binding Path=ListReceipt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -195,83 +192,113 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                <ColumnDefinition Width="180"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <!--mã đơn hàng-->
                             <TextBlock
-                            Text="{Binding ID_}"
-                            FontSize="20"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            FontWeight="Medium"
-                            Foreground="Black" />
+                                Text="{Binding ID_}"
+                                FontSize="20"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                FontWeight="Medium"
+                                Foreground="Black"
+                                Grid.Column="0" />
 
                             <!--ngày mua-->
                             <TextBlock
-                            Text="{Binding DATE_}"
-                            FontSize="20"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            FontWeight="Medium"
-                            Foreground="Black"
-                            Grid.Column="1" />
+                                Text="{Binding DATE_, StringFormat={}{0:dd/MM/yyyy}}"
+                                FontSize="20"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                FontWeight="Medium"
+                                Foreground="Black"
+                                Grid.Column="1" />
                             <!--số lượng món trong đơn-->
                             <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
                             <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->
                             <TextBlock
-                            Text=""
-                            FontSize="20"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            FontWeight="Medium"
-                            Foreground="Black"
-                            Grid.Column="2" />
+                                Text=""
+                                FontSize="20"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                FontWeight="Medium"
+                                Foreground="Black"
+                                Grid.Column="2" />
                             <!--giá tiền tổng cộng-->
                             <TextBlock
-                            Grid.Column="3"
-                            Text="{Binding VALUE_, StringFormat=N0}"
-                            FontSize="20"
-                            FontWeight="DemiBold"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center" />
+                                Grid.Column="3"
+                                Margin="0 0 20 0"
+                                Text="{Binding VALUE_, StringFormat=N0}"
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
                             <!--nút bấm để xem chi tiết và chuyển trạng thái của đơn đặt hàng -->
                             <Grid Grid.Column="4">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Button
-                                    Style="{StaticResource detailBtn}"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Margin="0 0 0 0"
-                                    Command="{Binding Source={StaticResource OrderManagementVM}, Path=OpenOrderDetailWindowCommand}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
+                                        Style="{StaticResource detailBtn}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding Source={StaticResource OrderManagementVM}, Path=OpenOrderDetailWindowCommand}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
                                     <!-- Tab đã hoàn thành vs tab đã hủy => Collapsed thằng stackpanel này đi -->
-                                    <StackPanel Orientation="Vertical" Margin="20 0 0 0" Visibility="Visible">
+                                    <StackPanel x:Name="stackBtn" Orientation="Vertical" Margin="20 0 0 0">
+                                        <StackPanel.Visibility>
+                                            <MultiBinding Converter="{StaticResource statusToVisibility}">
+                                                <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
+                                                <Binding ElementName="stackBtn" Path="Name"></Binding>
+                                            </MultiBinding>
+                                        </StackPanel.Visibility>
                                         <!--Tab chờ xác nhân -> Collapsed button Xong đi
                                         Tab đang tiến hành -> Collapsed button Xác nhận đi-->
                                         <Button
-                                        Style="{StaticResource SearchBtn}"
-                                        materialDesign:ButtonAssist.CornerRadius="15"
-                                        Width="120"
-                                        Content="Xác nhận"
-                                        Margin="0 10 0 15"
-                                        Command="{Binding Source={StaticResource OrderManagementVM}, Path=ConfirmReceiptCommand}"
-                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
+                                            x:Name="confirmBtn"
+                                            Style="{StaticResource SearchBtn}"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Width="120"
+                                            Content="Xác nhận"
+                                            Margin="0 10 0 15"
+                                            Command="{Binding Source={StaticResource OrderManagementVM}, Path=ConfirmReceiptCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
+                                            <Button.Visibility>
+                                                <MultiBinding Converter="{StaticResource statusToVisibility}">
+                                                    <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
+                                                    <Binding ElementName="confirmBtn" Path="Name"></Binding>
+                                                </MultiBinding>
+                                            </Button.Visibility>
+                                        </Button>
                                         <Button
-                                        Style="{StaticResource SearchBtn}"
-                                        materialDesign:ButtonAssist.CornerRadius="15"
-                                        Width="120"
-                                        Content="Xong"
-                                        Margin="0 10 0 15"
-                                        Visibility="Collapsed" />
+                                            x:Name="doneBtn"
+                                            Style="{StaticResource SearchBtn}"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Width="120"
+                                            Content="Xong"
+                                            Margin="0 10 0 15">
+                                            <Button.Visibility>
+                                                <MultiBinding Converter="{StaticResource statusToVisibility}">
+                                                    <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
+                                                    <Binding ElementName="doneBtn" Path="Name"></Binding>
+                                                </MultiBinding>
+                                            </Button.Visibility>
+                                        </Button>
                                         <Button
-                                        Style="{StaticResource GrayBtn}"
-                                        materialDesign:ButtonAssist.CornerRadius="15"
-                                        Width="120"
-                                        Content="Hủy"
-                                        VerticalAlignment="Bottom"
-                                        Command="{Binding Source={StaticResource OrderManagementVM}, Path=CancelReceiptCommand}"
-                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
-                                        Margin="0 0 0 5" />
+                                            x:Name="cancelBtn"
+                                            Style="{StaticResource GrayBtn}"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Width="120"
+                                            Content="Hủy"
+                                            VerticalAlignment="Bottom"
+                                            Command="{Binding Source={StaticResource OrderManagementVM}, Path=CancelReceiptCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                            Margin="0 0 0 5">
+                                            <Button.Visibility>
+                                                <MultiBinding Converter="{StaticResource statusToVisibility}">
+                                                    <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
+                                                    <Binding ElementName="cancelBtn" Path="Name"></Binding>
+                                                </MultiBinding>
+                                            </Button.Visibility>
+                                        </Button>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
