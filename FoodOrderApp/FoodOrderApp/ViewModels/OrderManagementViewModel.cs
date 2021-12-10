@@ -83,13 +83,17 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("ListReceiptDetail");
             }
         }
+        private RECEIPT receipt;
 
-        public int countItemInReceipt
+        public RECEIPT Receipt
         {
-            get;
-            set;
+            get => receipt;
+            set
+            {
+                receipt = value;
+                OnPropertyChanged("Receipt");
+            }
         }
-
         public int Status { get; set; }
 
         public int numberOfDistinctProduct { get; set; }
@@ -115,7 +119,7 @@ namespace FoodOrderApp.ViewModels
 
         private void ConfirmReceipt(ListViewItem parameter)
         {
-            RECEIPT receipt = parameter.DataContext as RECEIPT;
+            receipt = parameter.DataContext as RECEIPT;
             ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == receipt.ID_).ToList();
             if (CustomMessageBox.Show("In hóa đơn?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
