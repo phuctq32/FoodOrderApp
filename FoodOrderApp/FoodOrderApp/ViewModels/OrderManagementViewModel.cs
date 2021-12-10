@@ -125,7 +125,19 @@ namespace FoodOrderApp.ViewModels
             {
                 InvoiceWindow invoiceWindow = new InvoiceWindow();
                 invoiceWindow.listView.ItemsSource = ListReceiptDetail;
-                invoiceWindow.Show();
+                invoiceWindow.ShowDialog();
+                List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
+                foreach (var item in listConfirmReceipt)
+                {
+                    int tmp = Int32.Parse(item.STATUS_);
+                    if (tmp <= 1)
+                        tmp++;
+                    item.STATUS_ = tmp.ToString();
+                }
+                ListReceipt.Clear();
+                Data.Ins.DB.SaveChanges();
+                SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
+
             }
             // đoạn này t với th phúc định kiểu như: bấm xác nhận đơn hàng thì sẽ hiện ra hỏi có in hoá đơn không
             // có thì hiện ra khung in hoá đơn rồi chuyển trạng thái
@@ -142,17 +154,17 @@ namespace FoodOrderApp.ViewModels
             //Data.Ins.DB.SaveChanges();
             else
             {
-                //List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
-                //foreach (var item in listConfirmReceipt)
-                //{
-                //    int tmp = Int32.Parse(item.STATUS_);
-                //    if (tmp <= 1)
-                //        tmp++;
-                //    item.STATUS_ = tmp.ToString();
-                //}
-                //ListReceipt.Clear();
-                //Data.Ins.DB.SaveChanges();
-                //SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
+                List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
+                foreach (var item in listConfirmReceipt)
+                {
+                    int tmp = Int32.Parse(item.STATUS_);
+                    if (tmp <= 1)
+                        tmp++;
+                    item.STATUS_ = tmp.ToString();
+                }
+                ListReceipt.Clear();
+                Data.Ins.DB.SaveChanges();
+                SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
             }
         }
         private void CancelReceipt(ListViewItem parameter)
