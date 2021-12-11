@@ -82,7 +82,8 @@
                            Grid.Column="3" />
                 </Grid>
                 <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
-                <ListView Grid.Row="1"
+                <ListView x:Name="ListOtherUser"
+                    Grid.Row="1"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -263,7 +264,7 @@
                 <!--giá tiền tổng cộng của tất cả các món ăn-->
                 <!--giá này sẽ tính bên VM rồi gán qua lại bên này MẪU NHƯ BÊN DƯỚI-->
                 <!--{Binding Source="StaticResource OrderDetailVM", Path=TotalMoney}-->
-                <TextBlock Text="100000000000"
+                <TextBlock Text="{Binding Value}"
                            FontSize="30"
                            Margin="20 0"
                            VerticalAlignment="Bottom"

@@ -16,6 +16,27 @@ namespace FoodOrderApp.ViewModels
 {
     internal class MyOrderViewModel : BaseViewModel
     {
+        private List<RECEIPT_DETAIL> listReceiptDetail;
+
+        public List<RECEIPT_DETAIL> ListReceiptDetail
+        {
+            get => listReceiptDetail;
+            set
+            {
+                listReceiptDetail = value;
+                OnPropertyChanged("ListReceiptDetail");
+            }
+        }
+        private int VALUE;
+        public int Value
+        {
+            get => VALUE;
+            set
+            {
+                VALUE = value;
+                OnPropertyChanged("Value");
+            }
+        }
         private List<RECEIPT> listReceipt;
 
         public List<RECEIPT> ListReceipt
@@ -37,6 +58,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand RatingCommand { get; set; }
         public ICommand LoadedCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
+        public ICommand OpenOrderDetailWindowCommand { get; set; }
         public ICommand OpenInvoiceCommand { get; set; }
         public ICommand PrintCommand { get; set; }
         //private List<RECEIPT> receipts;
@@ -50,10 +72,20 @@ namespace FoodOrderApp.ViewModels
             RatingCommand = new RelayCommand<RatingBar>(p => true, p => RatingChanged(p));
             LoadedCommand = new RelayCommand<MyOrderUC>(p => p == null ? false : true, p => Load(p));
             SelectionChangedCommand = new RelayCommand<MyOrderUC>((parameter) => { return true; }, (parameter) => SelectionChanged(parameter));
+            OpenOrderDetailWindowCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => OpenOrderDetailWindow(p));
             //OpenInvoiceCommand = new RelayCommand<ListViewItem>(p => true, p => openInvoice(p));
             PrintCommand = new RelayCommand<InvoiceWindow>(paramater => true, paramater => print(paramater));
         }
-
+        private void OpenOrderDetailWindow(ListViewItem p)
+        {
+            RECEIPT receipt = p.DataContext as RECEIPT;
+            OrderDetailWindow orderDetailWindow = new OrderDetailWindow();
+            ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(receiptDetail => receiptDetail.RECEIPT_ID == receipt.ID_).ToList();
+            //USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == receipt.USERNAME_).SingleOrDefault();
+            Value = receipt.VALUE_;
+            orderDetailWindow.ListOtherUser.ItemsSource = listReceiptDetail;
+            orderDetailWindow.ShowDialog();
+        }
         private void print(InvoiceWindow paramater)
         {
             PrintDialog printDialog = new PrintDialog();

@@ -207,7 +207,7 @@
 
                             <!--ngày mua-->
                             <TextBlock
-                            Text="{Binding DATE_}"
+                            Text="{Binding DATE_, StringFormat={}{0:dd/MM/yyyy}}"
                             FontSize="20"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
@@ -218,7 +218,7 @@
                             <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
                             <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->
                             <TextBlock
-                            Text=""
+                            Text="{Binding RECEIPT_DETAIL.Count}"
                             FontSize="20"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
@@ -233,6 +233,13 @@
                             FontWeight="DemiBold"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" />
+                            <Button
+                                        Style="{StaticResource detailBtn}"
+                                        Grid.Column="4"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding Source={StaticResource MyOrderVM}, Path=OpenOrderDetailWindowCommand}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
                             <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="5"></Separator>
                         </Grid>
                     </DataTemplate>
