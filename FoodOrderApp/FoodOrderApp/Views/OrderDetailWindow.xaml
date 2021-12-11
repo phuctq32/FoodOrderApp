@@ -213,7 +213,7 @@
                                             VerticalAlignment="Center">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="ValueChanged">
-                                                    <i:InvokeCommandAction Command="{Binding RatingCommand}"
+                                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource MyOrderVM},Path= RatingCommand}"
                                                     CommandParameter="{Binding ElementName=BasicRatingBar}" />
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>

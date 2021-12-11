@@ -166,11 +166,16 @@ namespace FoodOrderApp.ViewModels
             Status = parameter.statusListViewUser.SelectedIndex;
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == Status.ToString() && receipt.USER.USERNAME_ == CurrentAccount.Username).ToList();
         }
-
+        
         private void RatingChanged(RatingBar p)
         {
-            //CustomMessageBox.Show(p.Value.ToString());
-            //p.IsEnabled = false;
+            PRODUCT rODUCT;
+            ListViewItem listViewItem = GetAncestorOfType<ListViewItem>(p);
+            rODUCT = listViewItem.DataContext as PRODUCT;
+            Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATING_ = (Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATING_ + Convert.ToInt32(p.Value))/ (Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_+1);
+            Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_ = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_ + 1;
+            Data.Ins.DB.SaveChanges();
+
         }
     }
 }
