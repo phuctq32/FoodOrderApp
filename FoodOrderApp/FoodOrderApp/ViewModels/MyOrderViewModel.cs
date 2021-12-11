@@ -27,6 +27,36 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("ListReceiptDetail");
             }
         }
+        private string fullname;
+        public string Fullname
+        {
+            get => fullname;
+            set
+            {
+                fullname = value;
+                OnPropertyChanged("Fullname");
+            }
+        }
+        private string address;
+        public string Address
+        {
+            get => address;
+            set
+            {
+                address = value;
+                OnPropertyChanged("Address");
+            }
+        }
+        private string phone;
+        public string Phone
+        {
+            get => phone;
+            set
+            {
+                phone = value;
+                OnPropertyChanged("Phone");
+            }
+        }
         private int VALUE;
         public int Value
         {
@@ -78,13 +108,32 @@ namespace FoodOrderApp.ViewModels
         }
         private void OpenOrderDetailWindow(ListViewItem p)
         {
+            //MyOrderUC pa = new MyOrderUC();
             RECEIPT receipt = p.DataContext as RECEIPT;
             OrderDetailWindow orderDetailWindow = new OrderDetailWindow();
+            OrderDetailAdminWindow orderDetailAdminWindow = new OrderDetailAdminWindow();
             ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(receiptDetail => receiptDetail.RECEIPT_ID == receipt.ID_).ToList();
             //USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == receipt.USERNAME_).SingleOrDefault();
+            Fullname = receipt.USER.FULLNAME_;
+            Address = receipt.USER.ADDRESS_;
+            Phone = receipt.USER.PHONE_;
             Value = receipt.VALUE_;
-            orderDetailWindow.ListOtherUser.ItemsSource = listReceiptDetail;
-            orderDetailWindow.ShowDialog();
+            string Status = receipt.STATUS_;
+            if (Status == "0"|| Status == "1" || Status == "3")
+            {
+                orderDetailAdminWindow.listReceiptDetail.ItemsSource = listReceiptDetail;
+                orderDetailAdminWindow.Address.Visibility = Visibility.Collapsed;
+                orderDetailAdminWindow.PhoneNumber.Visibility = Visibility.Collapsed;
+                orderDetailAdminWindow.Customer.Visibility = Visibility.Collapsed;
+                orderDetailAdminWindow.value.Text = Value.ToString();
+                orderDetailAdminWindow.ShowDialog();
+            }
+            else 
+            {
+                orderDetailWindow.ListOtherUser.ItemsSource = listReceiptDetail;
+                orderDetailWindow.ShowDialog();
+            }
+            
         }
         private void print(InvoiceWindow paramater)
         {

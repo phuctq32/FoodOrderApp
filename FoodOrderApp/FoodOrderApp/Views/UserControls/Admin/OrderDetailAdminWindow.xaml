@@ -228,12 +228,14 @@
                         HorizontalAlignment="Left"
                         Grid.Row="3">
                 <StackPanel Orientation="Horizontal"
-                            Margin="15 5 0 5">
+                            Margin="15 5 0 5"
+                            x:Name="Customer">
                     <TextBlock
                         FontSize="18"
                         Text="Tên khách hàng: "
                         FontWeight="Medium"
-                        Foreground="Black">
+                        Foreground="Black"
+                        >
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
@@ -242,12 +244,14 @@
                         Foreground="Black"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
-                            Margin="15 5 0 5">
+                            Margin="15 5 0 5"
+                            x:Name="PhoneNumber">
                     <TextBlock
                         FontSize="18"
                         Text="Số điện thoại: "
                         FontWeight="Medium"
-                        Foreground="Black">
+                        Foreground="Black"
+                        >
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
@@ -256,12 +260,14 @@
                         Foreground="Black"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
-                            Margin="15 5 0 5">
+                            Margin="15 5 0 5"
+                            x:Name="Address">
                     <TextBlock
                         FontSize="18"
                         Text="Địa chỉ: "
                         FontWeight="Medium"
-                        Foreground="Black">
+                        Foreground="Black"
+                        >
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
@@ -282,14 +288,15 @@
                            Foreground="Black"
                            Grid.Column="0"></TextBlock>
                 <!--TỔNG GIÁ TRỊ CỦA ĐƠN HÀNG BINDING VALUE CỦA RECEIPT-->
-                <TextBlock Text="{Binding Value}"
+                <TextBlock Text="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, StringFormat=N0}"
                            FontSize="30"
                            Margin="10 0"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
-                           Grid.Column="0"></TextBlock>
+                           Grid.Column="0"
+                           x:Name="value"></TextBlock>
             </StackPanel>
         </Grid>
         <Rectangle
