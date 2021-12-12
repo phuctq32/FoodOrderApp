@@ -169,12 +169,21 @@ namespace FoodOrderApp.ViewModels
         
         private void RatingChanged(RatingBar p)
         {
-            PRODUCT rODUCT;
-            ListViewItem listViewItem = GetAncestorOfType<ListViewItem>(p);
-            rODUCT = listViewItem.DataContext as PRODUCT;
-            Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATING_ = (Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATING_ + Convert.ToInt32(p.Value))/ (Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_+1);
-            Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_ = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_ + 1;
-            Data.Ins.DB.SaveChanges();
+            try
+            {
+                ListViewItem listViewItem = GetAncestorOfType<ListViewItem>(p);
+                RECEIPT_DETAIL rECEIPT_DETAIL = listViewItem.DataContext as RECEIPT_DETAIL;
+                decimal? oldRatingPoint = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_;
+                int? ratingTime = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATE_TIMES_;
+                Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_ = (oldRatingPoint * ratingTime + p.Value) / (ratingTime + 1);
+                Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATE_TIMES_ = ratingTime + 1;
+                Data.Ins.DB.SaveChanges();
+                p.IsEnabled = false;
+            }
+            catch
+            {
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
     }
