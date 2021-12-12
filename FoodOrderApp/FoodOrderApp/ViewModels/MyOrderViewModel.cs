@@ -114,9 +114,9 @@ namespace FoodOrderApp.ViewModels
             OrderDetailAdminWindow orderDetailAdminWindow = new OrderDetailAdminWindow();
             ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(receiptDetail => receiptDetail.RECEIPT_ID == receipt.ID_).ToList();
             //USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == receipt.USERNAME_).SingleOrDefault();
-            Fullname = receipt.USER.FULLNAME_;
-            Address = receipt.USER.ADDRESS_;
-            Phone = receipt.USER.PHONE_;
+            //Fullname = receipt.USER.FULLNAME_;
+            //Address = receipt.USER.ADDRESS_;
+            //Phone = receipt.USER.PHONE_;
             Value = receipt.VALUE_;
             string Status = receipt.STATUS_;
             if (Status == "0"|| Status == "1" || Status == "3")
