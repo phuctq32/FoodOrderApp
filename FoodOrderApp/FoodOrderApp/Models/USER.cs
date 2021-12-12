@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodOrderApp.Models
+namespace FoodOrderApp
 {
     using System;
     using System.Collections.Generic;
@@ -30,6 +30,7 @@ namespace FoodOrderApp.Models
         public string AVATAR_ { get; set; }
         public string EMAIL_ { get; set; }
         public string TYPE_ { get; set; }
+        public string IP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }

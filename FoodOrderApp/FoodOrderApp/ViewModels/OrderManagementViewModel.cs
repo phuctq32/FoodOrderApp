@@ -31,7 +31,9 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("ListReceipt");
             }
         }
+
         private string fullname;
+
         public string Fullname
         {
             get => fullname;
@@ -41,9 +43,11 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Fullname");
             }
         }
+
         private string address;
-        public string Address 
-        { 
+
+        public string Address
+        {
             get => address;
             set
             {
@@ -51,7 +55,9 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Address");
             }
         }
+
         private string phone;
+
         public string Phone
         {
             get => phone;
@@ -61,11 +67,13 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Phone");
             }
         }
+
         private int VALUE;
-        public int Value 
-        { 
+
+        public int Value
+        {
             get => VALUE;
-            set 
+            set
             {
                 VALUE = value;
                 OnPropertyChanged("Value");
@@ -83,6 +91,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("ListReceiptDetail");
             }
         }
+
         private RECEIPT receipt;
 
         public RECEIPT Receipt
@@ -94,6 +103,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Receipt");
             }
         }
+
         public int Status { get; set; }
 
         public int numberOfDistinctProduct { get; set; }
@@ -137,21 +147,7 @@ namespace FoodOrderApp.ViewModels
                 ListReceipt.Clear();
                 Data.Ins.DB.SaveChanges();
                 SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
-
             }
-            // đoạn này t với th phúc định kiểu như: bấm xác nhận đơn hàng thì sẽ hiện ra hỏi có in hoá đơn không
-            // có thì hiện ra khung in hoá đơn rồi chuyển trạng thái
-            // không thì chỉ chuyển trạng thái thôi
-            // cái invoice t tạo bị sai nên chưa làm được khúc in hoá đơn nên chỗ in để t tự thêm sau
-            // m cứ chuyển trạng thái trước đi
-            //if (CustomMessageBox.Show("Bạn có muốn in hoá đơn?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            //{
-            //    InvoiceWindow invoiceWindow = new InvoiceWindow();
-            //    //invoiceWindow.listView.ItemsSource = receipt;
-            //}
-            // chỗ này t định code chuyển trạng thái kiểu vầy, đã thử và được nhá
-            //Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).Single().STATUS_ = "1";
-            //Data.Ins.DB.SaveChanges();
             else
             {
                 List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
@@ -167,6 +163,7 @@ namespace FoodOrderApp.ViewModels
                 SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
             }
         }
+
         private void CancelReceipt(ListViewItem parameter)
         {
             RECEIPT receipt = parameter.DataContext as RECEIPT;
@@ -210,28 +207,6 @@ namespace FoodOrderApp.ViewModels
             ListReceipt.Clear();
             Status = parameter.statusListView.SelectedIndex;
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == Status.ToString()).ToList();
-        }
-
-        private void print(InvoiceWindow paramater)
-        {
-            // code để t in invoice thoai
-            PrintDialog printDialog = new PrintDialog();
-            try
-            {
-                if (printDialog.ShowDialog() == true)
-                {
-                    paramater.printBtn.Visibility = Visibility.Collapsed;
-                    paramater.controlBar.Visibility = Visibility.Collapsed;
-                    printDialog.PrintVisual(paramater.print, "Invoice");
-                }
-                paramater.printBtn.Visibility = Visibility.Visible;
-                paramater.controlBar.Visibility = Visibility.Visible;
-            }
-            catch
-            {
-                paramater.printBtn.Visibility = Visibility.Visible;
-                paramater.controlBar.Visibility = Visibility.Visible;
-            }
         }
     }
 }

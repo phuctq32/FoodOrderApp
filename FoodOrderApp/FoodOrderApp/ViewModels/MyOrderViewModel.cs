@@ -27,7 +27,9 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("ListReceiptDetail");
             }
         }
+
         private string fullname;
+
         public string Fullname
         {
             get => fullname;
@@ -37,7 +39,9 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Fullname");
             }
         }
+
         private string address;
+
         public string Address
         {
             get => address;
@@ -47,7 +51,9 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Address");
             }
         }
+
         private string phone;
+
         public string Phone
         {
             get => phone;
@@ -57,7 +63,9 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Phone");
             }
         }
+
         private int VALUE;
+
         public int Value
         {
             get => VALUE;
@@ -67,6 +75,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Value");
             }
         }
+
         private List<RECEIPT> listReceipt;
 
         public List<RECEIPT> ListReceipt
@@ -75,15 +84,16 @@ namespace FoodOrderApp.ViewModels
             set
             {
                 listReceipt = value;
-                OnPropertyChanged("Status");
                 OnPropertyChanged("ListReceipt");
             }
         }
+
         public int countItemInReceipt
         {
             get;
             set;
         }
+
         public int Status;
         public ICommand RatingCommand { get; set; }
         public ICommand LoadedCommand { get; set; }
@@ -106,6 +116,7 @@ namespace FoodOrderApp.ViewModels
             //OpenInvoiceCommand = new RelayCommand<ListViewItem>(p => true, p => openInvoice(p));
             PrintCommand = new RelayCommand<InvoiceWindow>(paramater => true, paramater => print(paramater));
         }
+
         private void OpenOrderDetailWindow(ListViewItem p)
         {
             //MyOrderUC pa = new MyOrderUC();
@@ -119,7 +130,7 @@ namespace FoodOrderApp.ViewModels
             Phone = receipt.USER.PHONE_;
             Value = receipt.VALUE_;
             string Status = receipt.STATUS_;
-            if (Status == "0"|| Status == "1" || Status == "3")
+            if (Status == "0" || Status == "1" || Status == "3")
             {
                 orderDetailAdminWindow.listReceiptDetail.ItemsSource = listReceiptDetail;
                 orderDetailAdminWindow.Address.Visibility = Visibility.Collapsed;
@@ -128,13 +139,13 @@ namespace FoodOrderApp.ViewModels
                 orderDetailAdminWindow.value.Text = Value.ToString();
                 orderDetailAdminWindow.ShowDialog();
             }
-            else 
+            else
             {
                 orderDetailWindow.ListOtherUser.ItemsSource = listReceiptDetail;
                 orderDetailWindow.ShowDialog();
             }
-            
         }
+
         private void print(InvoiceWindow paramater)
         {
             PrintDialog printDialog = new PrintDialog();
@@ -155,27 +166,52 @@ namespace FoodOrderApp.ViewModels
                 paramater.controlBar.Visibility = Visibility.Visible;
             }
         }
+
         private void Load(MyOrderUC p)
         {
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == "0" && receipt.USER.USERNAME_ == CurrentAccount.Username).ToList();
             Status = p.statusListViewUser.SelectedIndex;
         }
+
         private void SelectionChanged(MyOrderUC parameter)
         {
             ListReceipt.Clear();
             Status = parameter.statusListViewUser.SelectedIndex;
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == Status.ToString() && receipt.USER.USERNAME_ == CurrentAccount.Username).ToList();
         }
-        
+
         private void RatingChanged(RatingBar p)
         {
-            PRODUCT rODUCT;
-            ListViewItem listViewItem = GetAncestorOfType<ListViewItem>(p);
-            rODUCT = listViewItem.DataContext as PRODUCT;
-            Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATING_ = (Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATING_ + Convert.ToInt32(p.Value))/ (Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_+1);
-            Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_ = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rODUCT.ID_).Single().RATE_TIMES_ + 1;
-            Data.Ins.DB.SaveChanges();
+            try
+            {
+                ListViewItem listViewItem = GetAncestorOfType<ListViewItem>(p);
+                RECEIPT_DETAIL rECEIPT_DETAIL = listViewItem.DataContext as RECEIPT_DETAIL;
+                decimal? oldRatingPoint = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_;
+                int? ratingTime = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATE_TIMES_;
+                // rated mặc định là true = chưa đánh giá, đặt true để cho trùng với thuộc tính isEnable=true là hiện
+                if (!rECEIPT_DETAIL.RATED_)
+                {
+                    // rated = false đã đánh giá rồi, thì gán lại rating và disable rating bar
+                    p.Value = rECEIPT_DETAIL.RATING_;
+                    p.IsEnabled = false;
+                }
+                else
+                {
+                    // tính toán lại số sao cập nhật lại cho PRODUCT
+                    Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_ = (oldRatingPoint * ratingTime + p.Value) / (ratingTime + 1);
+                    Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATE_TIMES_ = ratingTime + 1;
+                    // lưu thông tin là món ăn đã được đánh giá, số sao
+                    Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == rECEIPT_DETAIL.RECEIPT_ID && x.PRODUCT.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATED_ = false;
+                    Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == rECEIPT_DETAIL.RECEIPT_ID && x.PRODUCT.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_ = byte.Parse(p.Value.ToString());
 
+                    Data.Ins.DB.SaveChanges();
+                    p.IsEnabled = false;
+                }
+            }
+            catch
+            {
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

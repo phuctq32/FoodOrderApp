@@ -10,7 +10,7 @@
         xmlns:helpers ="clr-namespace:FoodOrderApp.Helpers"
         DataContext="{StaticResource MyOrderVM}"
         mc:Ignorable="d"
-        Height="600" Width="1000"
+        Height="600" Width="1025"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -83,7 +83,7 @@
                 </Grid>
                 <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
                 <ListView x:Name="ListOtherUser"
-                    Grid.Row="1"
+                            Grid.Row="1"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -206,11 +206,12 @@
                                     <Grid x:Name="rating" Grid.Column="3">
                                         <materialDesign:RatingBar
                                             x:Name="BasicRatingBar"
-                                            Foreground="{StaticResource Orange1}"  
-                                            Value="0"
+                                            Foreground="{StaticResource Orange1}"
+                                            Value="{Binding RATING_}"
+                                            IsEnabled="{Binding RATED_}"
                                             Cursor="Hand"
                                             HorizontalAlignment="Center"
-                                            VerticalAlignment="Center">
+                                            VerticalAlignment="Center" Opacity="2">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="ValueChanged">
                                                     <i:InvokeCommandAction Command="{Binding Source={StaticResource MyOrderVM},Path= RatingCommand}"
@@ -261,9 +262,6 @@
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="0"></TextBlock>
-                <!--giá tiền tổng cộng của tất cả các món ăn-->
-                <!--giá này sẽ tính bên VM rồi gán qua lại bên này MẪU NHƯ BÊN DƯỚI-->
-                <!--{Binding Source="StaticResource OrderDetailVM", Path=TotalMoney}-->
                 <TextBlock Text="{Binding Value}"
                            FontSize="30"
                            Margin="20 0"
