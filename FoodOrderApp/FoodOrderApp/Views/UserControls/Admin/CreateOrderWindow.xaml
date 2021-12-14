@@ -336,6 +336,7 @@
                                 VerticalAlignment="Center"
                                 Margin="20 0 0 0"/>
                             <TextBlock
+                                x:Name="nameTxt"
                                 Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
@@ -351,6 +352,7 @@
                                 VerticalAlignment="Center"
                                 Margin="20 0 0 0"/>
                             <TextBlock
+                                x:Name="phoneNumberTxt"
                                 Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
@@ -365,6 +367,7 @@
                                 FontSize="16"
                                 Margin="20 5 0 0"/>
                             <TextBlock
+                                x:Name="addressTxt"
                                 Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
@@ -376,7 +379,7 @@
                     </Grid>
                     <Grid Grid.Row="2" Margin="10">
                         <ScrollViewer Margin="10 0">
-                            <ListView ItemsSource="{Binding Source={StaticResource CreateOrderVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView x:Name="carts" ItemsSource="{Binding Source={StaticResource CreateOrderVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid Width="310" Height="100" Margin="0 0 20 0">
@@ -574,7 +577,7 @@
                                 VerticalAlignment="Top"
                                 Margin="20 0 0 0"/>
                             <TextBlock
-                                Text="{Binding TotalPrice, StringFormat=N0}"
+                                Text="{Binding TotalPrice, StringFormat=N0, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 FontSize="16"
@@ -585,8 +588,8 @@
                         </StackPanel>
                         <Button 
                             Style="{StaticResource SearchBtn}"
-                            Command="{Binding OrderCommand}"
-                            CommandParameter="{Binding ElementName=CartUserControl}"
+                            Command="{Binding Source={StaticResource CreateOrderVM}, Path=OrderCommand}"
+                            CommandParameter="{Binding ElementName=CreateOrderWD}"
                             VerticalAlignment="Bottom"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Margin="10 10"

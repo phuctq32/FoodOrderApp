@@ -5,6 +5,7 @@ using FoodOrderApp.Views.UserControls.Admin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -69,6 +70,7 @@ namespace FoodOrderApp.ViewModels
         public ICommand UpCommand { get; set; }
         public ICommand AddToCartCommand { get; set; }
         public ICommand DeleteCartCommand { get; set; }
+        public ICommand OrderCommand { get; set; }
 
         public CreateOrderViewModel()
         {
@@ -85,6 +87,7 @@ namespace FoodOrderApp.ViewModels
             DownCommand = new RelayCommand<TextBlock>(p => true, p => Down(p));
             UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
             DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
+            OrderCommand = new RelayCommand<CreateOrderWindow>((parameter) => parameter == null ? false : true, (parameter) => Order(parameter));
         }
         private void Load(CreateOrderWindow parameter)
         {
@@ -301,6 +304,80 @@ namespace FoodOrderApp.ViewModels
             }
             var lv = GetAncestorOfType<ListView>(parameter);
             TotalPrice = GetTotalPrice(lv);
+        }
+        private CultureInfo viVn = new CultureInfo("vi-VN");
+
+        public void Order(CreateOrderWindow parameter)
+        {
+            try
+            {
+                DateTime Now = DateTime.Now;
+                string now = Now.GetDateTimeFormats(viVn)[0];
+
+                HashSet<RECEIPT_DETAIL> receipt_detail = new HashSet<RECEIPT_DETAIL>();
+
+                int countReceipt = Data.Ins.DB.RECEIPTs.Count() + 1;
+                RECEIPT receipt = new RECEIPT();
+                receipt.ID_ = countReceipt.ToString();
+                receipt.STATUS_ = "0";
+                receipt.DATE_ = Now;
+                receipt.USERNAME_ = CurrentAccount.Username;
+                receipt.VALUE_ = (int)TotalPrice;
+
+                USER user = Data.Ins.DB.USERS.Where(user1 => user1.USERNAME_ == CurrentAccount.Username).Single();
+                receipt.USER = user;
+
+                int countReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Count() + 1;
+
+                foreach (CART cart in CurrentCart)
+                {
+                    receipt_detail.Add(new RECEIPT_DETAIL()
+                    {
+                        DETAIL_ID = countReceiptDetail.ToString(),
+                        AMOUNT_ = (short)cart.AMOUNT_,
+                        RECEIPT_ID = receipt.ID_,
+                        PRODUCT_ = cart.PRODUCT_,
+                        PRODUCT = cart.PRODUCT,
+                        RECEIPT = receipt
+                    });
+                    countReceiptDetail++;
+                }
+
+                foreach (var receipt_de in receipt_detail)
+                {
+                    Data.Ins.DB.RECEIPT_DETAIL.Add(receipt_de);
+                }
+                receipt.RECEIPT_DETAIL = receipt_detail;
+
+                //New này chỉ xóa những cái đang được check thôi
+                foreach (var lvi in FindVisualChildren<ListViewItem>(parameter.carts))
+                {
+                    CART cart = lvi.DataContext as CART;
+                    Data.Ins.DB.CARTs.Remove(cart);
+                }
+                Data.Ins.DB.SaveChanges();
+                CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+
+                //reset giá trị về mặc định
+                TotalPrice = 0;
+
+                CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
+            }
+            catch //(DbEntityValidationException e)
+            {
+                // code để xem lỗi lệnh entity lỗi chỗ nào
+                //foreach (var eve in e.EntityValidationErrors)
+                //{
+                //    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                //        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                //    foreach (var ve in eve.ValidationErrors)
+                //    {
+                //        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                //            ve.PropertyName, ve.ErrorMessage);
+                //    }
+                //}
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
