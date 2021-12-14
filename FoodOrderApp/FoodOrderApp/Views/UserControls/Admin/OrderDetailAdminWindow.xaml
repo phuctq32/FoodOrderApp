@@ -224,7 +224,7 @@
                     </ListView.ItemContainerStyle>
                 </ListView>
             </Grid>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+            <StackPanel x:Name="userInfomation" Orientation="Vertical" VerticalAlignment="Center"
                         HorizontalAlignment="Left"
                         Grid.Row="3">
                 <StackPanel Orientation="Horizontal"

@@ -190,9 +190,16 @@ namespace FoodOrderApp.ViewModels
             OrderDetailAdminWindow orderDetailAdminWindow = new OrderDetailAdminWindow();
             ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(receiptDetail => receiptDetail.RECEIPT_ID == receipt.ID_).ToList();
             //USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == receipt.USERNAME_).SingleOrDefault();
-            Fullname = receipt.USER.FULLNAME_;
-            Address = receipt.USER.ADDRESS_;
-            Phone = receipt.USER.PHONE_;
+            if(!(receipt.USERNAME_ == "admin"))
+            {
+                Fullname = receipt.USER.FULLNAME_;
+                Address = receipt.USER.ADDRESS_;
+                Phone = receipt.USER.PHONE_;
+            }
+            else
+            {
+                orderDetailAdminWindow.userInfomation.Visibility = Visibility.Hidden;
+            }
             Value = receipt.VALUE_;
             orderDetailAdminWindow.listReceiptDetail.ItemsSource = listReceiptDetail;
             orderDetailAdminWindow.ShowDialog();

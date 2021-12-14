@@ -172,7 +172,6 @@
       <DependentUpon>FoodData.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountViewModel.cs" />
-    <Compile Include="ViewModels\AdminChatViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\ChangeInformationViewModel.cs" />
@@ -222,9 +221,6 @@
     </Compile>
     <Compile Include="Views\UserControls\AccountUC.xaml.cs">
       <DependentUpon>AccountUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\Admin\AdminChatWindow.xaml.cs">
-      <DependentUpon>AdminChatWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\Admin\CreateOrderWindow.xaml.cs">
       <DependentUpon>CreateOrderWindow.xaml</DependentUpon>
@@ -356,10 +352,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\AccountUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserControls\Admin\AdminChatWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

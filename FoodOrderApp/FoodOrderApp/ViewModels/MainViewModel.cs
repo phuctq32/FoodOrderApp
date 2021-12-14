@@ -75,6 +75,7 @@ namespace FoodOrderApp.ViewModels
         {
             if (CurrentAccount.IsUser)
             {
+                mainWindow.listViewMenu.SelectedIndex = 0;
                 mainWindow.ucWindow.Children.Add(new MenuUC());
             }
             else
