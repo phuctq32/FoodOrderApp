@@ -18,7 +18,7 @@ namespace FoodOrderApp.ViewModels
     public class CartViewModel : BaseViewModel
     {
         private long totalPrice;
-        private string foodCount;
+        private int foodCount;
         private string name;
         private string mail;
         private string phone;
@@ -57,7 +57,7 @@ namespace FoodOrderApp.ViewModels
             }
         }
 
-        public string FoodCount
+        public int FoodCount
         {
             get => foodCount;
             set
@@ -109,7 +109,7 @@ namespace FoodOrderApp.ViewModels
 
         public CartViewModel()
         {
-            FoodCount = "0";
+            FoodCount = 0;
             OpenSetAddressWDCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => OpenSetAddress(parameter));
             OrderCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => Order(parameter));
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
@@ -245,7 +245,7 @@ namespace FoodOrderApp.ViewModels
                 item.IsChecked = newVal;
             }
             TotalPrice = GetTotalPrice(parameter.cartList);
-            FoodCount = GetFoodCount(parameter.cartList).ToString();
+            FoodCount = GetFoodCount(parameter.cartList);
         }
 
         private void Checked(CheckBox parameter)
@@ -253,7 +253,7 @@ namespace FoodOrderApp.ViewModels
             var lv = GetAncestorOfType<ListView>(parameter);
 
             TotalPrice = GetTotalPrice(lv);
-            FoodCount = GetFoodCount(lv).ToString();
+            FoodCount = GetFoodCount(lv);
 
             // Check xem nếu checked hết thì check cái ô trên cùng
             bool isAllChecked = true;
@@ -322,7 +322,7 @@ namespace FoodOrderApp.ViewModels
                 receipt.STATUS_ = "0";
                 receipt.DATE_ = Now;
                 receipt.USERNAME_ = CurrentAccount.Username;
-                receipt.VALUE_ = (int)totalPrice;
+                receipt.VALUE_ = (int)TotalPrice;
 
                 USER user = Data.Ins.DB.USERS.Where(user1 => user1.USERNAME_ == CurrentAccount.Username).Single();
                 receipt.USER = user;
@@ -364,8 +364,8 @@ namespace FoodOrderApp.ViewModels
 
                 //reset giá trị về mặc định
                 parameter.selectAllCheckBox.IsChecked = false;
-                parameter.totalPrice.Text = "0";
-                parameter.totalProduct.Text = "0";
+                TotalPrice = 0;
+                FoodCount = 0;
 
                 CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
             }
