@@ -6,7 +6,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              DataContext="{StaticResource CartVM}"
-             xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
              xmlns:mainlocal="clr-namespace:FoodOrderApp"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
@@ -162,9 +161,6 @@
                                                             VerticalAlignment="Center">
                                                         </TextBlock>
 
-                                                        <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
-                                                        <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
-                                                        <!--thì collapsed-->
                                                         <StackPanel
                                                             x:Name="stack"
                                                             Orientation="Horizontal"

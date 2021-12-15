@@ -56,12 +56,10 @@
           <Property Name="PASSWORD_" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FULLNAME_" Type="nvarchar" MaxLength="100" />
           <Property Name="ADDRESS_" Type="nvarchar" MaxLength="100" />
-          <Property Name="SEX_" Type="nvarchar" MaxLength="3" />
           <Property Name="PHONE_" Type="varchar" MaxLength="10" />
           <Property Name="AVATAR_" Type="varchar" MaxLength="200" />
           <Property Name="EMAIL_" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="TYPE_" Type="char" MaxLength="5" />
-          <Property Name="IP" Type="varchar" MaxLength="15" />
         </EntityType>
         <Association Name="FK_CART_PRODUCT">
           <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
@@ -213,14 +211,12 @@
           <Property Name="PASSWORD_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FULLNAME_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ADDRESS_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SEX_" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="PHONE_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="AVATAR_" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TYPE_" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="CARTs" Relationship="Self.FK_CART_USERNAME" FromRole="USERS" ToRole="CART" />
           <NavigationProperty Name="RECEIPTs" Relationship="Self.FK_RECEIPT_USERNAME" FromRole="USERS" ToRole="RECEIPT" />
-          <Property Name="IP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_CART_PRODUCT">
           <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
@@ -365,12 +361,10 @@
           <EntitySetMapping Name="USERS">
             <EntityTypeMapping TypeName="foodorderappModel.USER">
               <MappingFragment StoreEntitySet="USERS">
-                <ScalarProperty Name="IP" ColumnName="IP" />
                 <ScalarProperty Name="USERNAME_" ColumnName="USERNAME_" />
                 <ScalarProperty Name="PASSWORD_" ColumnName="PASSWORD_" />
                 <ScalarProperty Name="FULLNAME_" ColumnName="FULLNAME_" />
                 <ScalarProperty Name="ADDRESS_" ColumnName="ADDRESS_" />
-                <ScalarProperty Name="SEX_" ColumnName="SEX_" />
                 <ScalarProperty Name="PHONE_" ColumnName="PHONE_" />
                 <ScalarProperty Name="AVATAR_" ColumnName="AVATAR_" />
                 <ScalarProperty Name="EMAIL_" ColumnName="EMAIL_" />

@@ -16,7 +16,7 @@ namespace FoodOrderApp.ViewModels
     {
         public int TotalProduct { get; set; }
         public int TotalValue { get; set; }
-        public int TotalOrder { get; set; }
+        public int TotalReceipt { get; set; }
         public int TotalCustomer { get; set; }
 
         public SeriesCollection SeriesCollection { get; set; }
@@ -29,10 +29,9 @@ namespace FoodOrderApp.ViewModels
         {
             TotalProduct = Data.Ins.DB.PRODUCTs.Count();
             TotalCustomer = Data.Ins.DB.USERS.Count() - 1;
-            TotalOrder = Data.Ins.DB.RECEIPTs.Count();
+            TotalReceipt = Data.Ins.DB.RECEIPTs.Where(x => x.STATUS_ == "2").Count();
             receipts = Data.Ins.DB.RECEIPTs.ToList();
             TotalValue = calculateTotalSales();
-            //TotalValue =
 
             // set up X axis, display 5 column
             DateTime now = DateTime.Now;

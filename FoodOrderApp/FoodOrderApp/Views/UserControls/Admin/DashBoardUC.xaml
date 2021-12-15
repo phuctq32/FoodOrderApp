@@ -63,7 +63,7 @@
                     </Border>
                     <TextBlock Text="Số đơn hàng" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
 
-                    <TextBlock Text="{Binding TotalOrder}"
+                    <TextBlock Text="{Binding TotalReceipt}"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="20 10" FontSize="40" />
                 </Grid>

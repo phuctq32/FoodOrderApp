@@ -190,7 +190,7 @@ namespace FoodOrderApp.ViewModels
             OrderDetailAdminWindow orderDetailAdminWindow = new OrderDetailAdminWindow();
             ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(receiptDetail => receiptDetail.RECEIPT_ID == receipt.ID_).ToList();
             //USER uSER = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == receipt.USERNAME_).SingleOrDefault();
-            if(!(receipt.USERNAME_ == "admin"))
+            if (!(receipt.USERNAME_ == "admin"))
             {
                 Fullname = receipt.USER.FULLNAME_;
                 Address = receipt.USER.ADDRESS_;
@@ -199,6 +199,7 @@ namespace FoodOrderApp.ViewModels
             else
             {
                 orderDetailAdminWindow.userInfomation.Visibility = Visibility.Hidden;
+                orderDetailAdminWindow.adminInformation.Visibility = Visibility.Visible;
             }
             Value = receipt.VALUE_;
             orderDetailAdminWindow.listReceiptDetail.ItemsSource = listReceiptDetail;
@@ -239,6 +240,7 @@ namespace FoodOrderApp.ViewModels
                 paramater.controlBar.Visibility = Visibility.Visible;
             }
         }
+
         private void DoneReceipt(ListViewItem parameter)
         {
             receipt = parameter.DataContext as RECEIPT;

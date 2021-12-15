@@ -25,12 +25,10 @@ namespace FoodOrderApp
         public string PASSWORD_ { get; set; }
         public string FULLNAME_ { get; set; }
         public string ADDRESS_ { get; set; }
-        public string SEX_ { get; set; }
         public string PHONE_ { get; set; }
         public string AVATAR_ { get; set; }
         public string EMAIL_ { get; set; }
         public string TYPE_ { get; set; }
-        public string IP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }

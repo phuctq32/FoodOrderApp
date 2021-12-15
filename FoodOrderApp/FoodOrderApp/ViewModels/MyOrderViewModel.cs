@@ -114,7 +114,6 @@ namespace FoodOrderApp.ViewModels
             SelectionChangedCommand = new RelayCommand<MyOrderUC>((parameter) => { return true; }, (parameter) => SelectionChanged(parameter));
             OpenOrderDetailWindowCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => OpenOrderDetailWindow(p));
             //OpenInvoiceCommand = new RelayCommand<ListViewItem>(p => true, p => openInvoice(p));
-            PrintCommand = new RelayCommand<InvoiceWindow>(paramater => true, paramater => print(paramater));
         }
 
         private void OpenOrderDetailWindow(ListViewItem p)
@@ -143,27 +142,6 @@ namespace FoodOrderApp.ViewModels
             {
                 orderDetailWindow.ListOtherUser.ItemsSource = listReceiptDetail;
                 orderDetailWindow.ShowDialog();
-            }
-        }
-
-        private void print(InvoiceWindow paramater)
-        {
-            PrintDialog printDialog = new PrintDialog();
-            try
-            {
-                if (printDialog.ShowDialog() == true)
-                {
-                    paramater.printBtn.Visibility = Visibility.Collapsed;
-                    paramater.controlBar.Visibility = Visibility.Collapsed;
-                    printDialog.PrintVisual(paramater.print, "Invoice");
-                }
-                paramater.printBtn.Visibility = Visibility.Visible;
-                paramater.controlBar.Visibility = Visibility.Visible;
-            }
-            catch
-            {
-                paramater.printBtn.Visibility = Visibility.Visible;
-                paramater.controlBar.Visibility = Visibility.Visible;
             }
         }
 

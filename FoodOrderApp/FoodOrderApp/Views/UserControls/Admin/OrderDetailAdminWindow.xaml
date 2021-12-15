@@ -117,6 +117,7 @@
                                             HorizontalAlignment="Left"
                                             FontSize="18"
                                             Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
+                                            TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
                                             Text="{Binding PRODUCT.PRICE_, StringFormat=N0}" />
                                             <!--GIÁ GIẢM-->
                                             <StackPanel
@@ -226,7 +227,8 @@
             </Grid>
             <StackPanel x:Name="userInfomation" Orientation="Vertical" VerticalAlignment="Center"
                         HorizontalAlignment="Left"
-                        Grid.Row="3">
+                        Grid.Row="3"
+                        Visibility="Visible">
                 <StackPanel Orientation="Horizontal"
                             Margin="15 5 0 5"
                             x:Name="Customer">
@@ -234,8 +236,7 @@
                         FontSize="18"
                         Text="Tên khách hàng: "
                         FontWeight="Medium"
-                        Foreground="Black"
-                        >
+                        Foreground="Black">
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
@@ -250,8 +251,7 @@
                         FontSize="18"
                         Text="Số điện thoại: "
                         FontWeight="Medium"
-                        Foreground="Black"
-                        >
+                        Foreground="Black">
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
@@ -266,8 +266,7 @@
                         FontSize="18"
                         Text="Địa chỉ: "
                         FontWeight="Medium"
-                        Foreground="Black"
-                        >
+                        Foreground="Black">
                     </TextBlock>
                     <TextBlock
                         FontSize="18"
@@ -277,6 +276,18 @@
                         TextWrapping="Wrap"
                         Foreground="Black"></TextBlock>
                 </StackPanel>
+            </StackPanel>
+            <StackPanel x:Name="adminInformation" Orientation="Vertical" VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Grid.Row="3"
+                        Margin="10 0  0 0"
+                        Visibility="Collapsed">
+                <TextBlock
+                        FontSize="20"
+                        Text="Người đặt: Admin"
+                        FontWeight="Medium"
+                        Foreground="Black">
+                </TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"
                         Grid.Row="3">
