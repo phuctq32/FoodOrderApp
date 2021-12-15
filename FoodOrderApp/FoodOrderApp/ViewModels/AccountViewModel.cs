@@ -1,22 +1,13 @@
-﻿using FoodOrderApp;
-using FoodOrderApp.Models;
+﻿using FoodOrderApp.Models;
 using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.IO;
 using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
 using System.Windows.Forms;
-using Microsoft.Win32;
-using System.Media;
-using System.Drawing;
 using System.Windows.Media.Imaging;
 
 namespace FoodOrderApp.ViewModels

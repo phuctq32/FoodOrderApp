@@ -3,15 +3,11 @@ using FoodOrderApp.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using FoodOrderApp.Views;
 using System.Globalization;
-using System.Data.Entity.Validation;
 
 namespace FoodOrderApp.ViewModels
 {
