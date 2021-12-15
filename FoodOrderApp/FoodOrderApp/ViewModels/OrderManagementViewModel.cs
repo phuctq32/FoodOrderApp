@@ -108,6 +108,8 @@ namespace FoodOrderApp.ViewModels
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand DoneReceiptCommand { get; set; }
 
+        public ICommand PrintCommand { get; set; }
+
         // status = 0 là trạng thái chờ xác nhận
         // status = 1 là trạng thái đang tiến hành
         // status = 2 là trạng thái đã hoàn thành
@@ -120,6 +122,7 @@ namespace FoodOrderApp.ViewModels
             CancelReceiptCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => CancelReceipt(parameter));
             SelectionChangedCommand = new RelayCommand<OrderManagementUC>((parameter) => { return true; }, (parameter) => SelectionChanged(parameter));
             DoneReceiptCommand = new RelayCommand<ListViewItem>(p => p == null ? false : true, p => DoneReceipt(p));
+            PrintCommand = new RelayCommand<InvoiceWindow>(paramater => true, paramater => print(paramater));
         }
 
         private void ConfirmReceipt(ListViewItem parameter)
@@ -130,6 +133,7 @@ namespace FoodOrderApp.ViewModels
             {
                 InvoiceWindow invoiceWindow = new InvoiceWindow();
                 invoiceWindow.listView.ItemsSource = ListReceiptDetail;
+                invoiceWindow.receiptValue.Text = receipt.VALUE_.ToString("N0");
                 invoiceWindow.ShowDialog();
                 List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
                 foreach (var item in listConfirmReceipt)
@@ -212,9 +216,24 @@ namespace FoodOrderApp.ViewModels
             ListReceipt = Data.Ins.DB.RECEIPTs.Where(receipt => receipt.STATUS_ == Status.ToString()).ToList();
         }
 
+        private void DoneReceipt(ListViewItem parameter)
+        {
+            receipt = parameter.DataContext as RECEIPT;
+            List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
+            foreach (var item in listConfirmReceipt)
+            {
+                int tmp = Int32.Parse(item.STATUS_);
+                if (tmp < 2)
+                    tmp++;
+                item.STATUS_ = tmp.ToString();
+            }
+            ListReceipt.Clear();
+            Data.Ins.DB.SaveChanges();
+            SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
+        }
+
         private void print(InvoiceWindow paramater)
         {
-            // code để t in invoice thoai
             PrintDialog printDialog = new PrintDialog();
             try
             {
@@ -232,22 +251,6 @@ namespace FoodOrderApp.ViewModels
                 paramater.printBtn.Visibility = Visibility.Visible;
                 paramater.controlBar.Visibility = Visibility.Visible;
             }
-        }
-
-        private void DoneReceipt(ListViewItem parameter)
-        {
-            receipt = parameter.DataContext as RECEIPT;
-            List<RECEIPT> listConfirmReceipt = Data.Ins.DB.RECEIPTs.Where(receiptDB => receiptDB.ID_ == receipt.ID_).ToList();
-            foreach (var item in listConfirmReceipt)
-            {
-                int tmp = Int32.Parse(item.STATUS_);
-                if (tmp < 2)
-                    tmp++;
-                item.STATUS_ = tmp.ToString();
-            }
-            ListReceipt.Clear();
-            Data.Ins.DB.SaveChanges();
-            SelectionChanged(GetAncestorOfType<OrderManagementUC>(parameter));
         }
     }
 }

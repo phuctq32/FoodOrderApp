@@ -29,7 +29,6 @@ namespace FoodOrderApp.ViewModels
         public ICommand OrderCommand { get; set; }
         public ICommand OpenSetAddressWDCommand { get; set; }
 
-
         private List<CART> currentCart;
 
         public List<CART> CurrentCart
@@ -334,6 +333,8 @@ namespace FoodOrderApp.ViewModels
                         RECEIPT_ID = receipt.ID_,
                         PRODUCT_ = cart.PRODUCT_,
                         PRODUCT = cart.PRODUCT,
+                        RATED_ = true,
+                        RATING_ = 0,
                         RECEIPT = receipt
                     });
                     countReceiptDetail++;
