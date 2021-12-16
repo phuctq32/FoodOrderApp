@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="foodorderappModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="foodorderappModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CART">
           <Key>
             <PropertyRef Name="ID_" />
@@ -45,6 +45,8 @@
           <Property Name="RECEIPT_ID" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="PRODUCT_" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="AMOUNT_" Type="smallint" Nullable="false" />
+          <Property Name="RATING_" Type="tinyint" Nullable="false" />
+          <Property Name="RATED_" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="USERS">
           <Key>
@@ -54,7 +56,6 @@
           <Property Name="PASSWORD_" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FULLNAME_" Type="nvarchar" MaxLength="100" />
           <Property Name="ADDRESS_" Type="nvarchar" MaxLength="100" />
-          <Property Name="SEX_" Type="nvarchar" MaxLength="3" />
           <Property Name="PHONE_" Type="varchar" MaxLength="10" />
           <Property Name="AVATAR_" Type="varchar" MaxLength="200" />
           <Property Name="EMAIL_" Type="varchar" MaxLength="100" Nullable="false" />
@@ -147,8 +148,7 @@
             <End Role="RECEIPT" EntitySet="RECEIPT" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="foodorderappModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -200,6 +200,8 @@
           <Property Name="AMOUNT_" Type="Int16" Nullable="false" />
           <NavigationProperty Name="PRODUCT" Relationship="Self.FK_DETAIL_PRODUCT" FromRole="RECEIPT_DETAIL" ToRole="PRODUCT" />
           <NavigationProperty Name="RECEIPT" Relationship="Self.FK_DETAIL_RECEIPT" FromRole="RECEIPT_DETAIL" ToRole="RECEIPT" />
+          <Property Name="RATING_" Type="Byte" Nullable="false" />
+          <Property Name="RATED_" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="USER">
           <Key>
@@ -209,7 +211,6 @@
           <Property Name="PASSWORD_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FULLNAME_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ADDRESS_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SEX_" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="PHONE_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="AVATAR_" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -348,6 +349,8 @@
           <EntitySetMapping Name="RECEIPT_DETAIL">
             <EntityTypeMapping TypeName="foodorderappModel.RECEIPT_DETAIL">
               <MappingFragment StoreEntitySet="RECEIPT_DETAIL">
+                <ScalarProperty Name="RATED_" ColumnName="RATED_" />
+                <ScalarProperty Name="RATING_" ColumnName="RATING_" />
                 <ScalarProperty Name="DETAIL_ID" ColumnName="DETAIL_ID" />
                 <ScalarProperty Name="RECEIPT_ID" ColumnName="RECEIPT_ID" />
                 <ScalarProperty Name="PRODUCT_" ColumnName="PRODUCT_" />
@@ -362,7 +365,6 @@
                 <ScalarProperty Name="PASSWORD_" ColumnName="PASSWORD_" />
                 <ScalarProperty Name="FULLNAME_" ColumnName="FULLNAME_" />
                 <ScalarProperty Name="ADDRESS_" ColumnName="ADDRESS_" />
-                <ScalarProperty Name="SEX_" ColumnName="SEX_" />
                 <ScalarProperty Name="PHONE_" ColumnName="PHONE_" />
                 <ScalarProperty Name="AVATAR_" ColumnName="AVATAR_" />
                 <ScalarProperty Name="EMAIL_" ColumnName="EMAIL_" />

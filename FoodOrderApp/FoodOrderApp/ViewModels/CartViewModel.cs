@@ -3,38 +3,31 @@ using FoodOrderApp.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using FoodOrderApp.Views;
 using System.Globalization;
-using System.Data.Entity.Validation;
 
 namespace FoodOrderApp.ViewModels
 {
     public class CartViewModel : BaseViewModel
     {
         private long totalPrice;
-        private string foodCount;
+        private int foodCount;
         private string name;
         private string mail;
         private string phone;
         private string address;
         public ICommand LoadedCommand { get; set; }
         public ICommand DeleteCartCommand { get; set; }
-        public ICommand DeleteAllCartCommand { get; set; }
+        public ICommand DeleteIsCheckedCartCommand { get; set; }
         public ICommand DownCommand { get; set; }
         public ICommand UpCommand { get; set; }
         public ICommand AllCheckedCommand { get; set; }
         public ICommand CheckedCommand { get; set; }
         public ICommand OrderCommand { get; set; }
         public ICommand OpenSetAddressWDCommand { get; set; }
-
-        //private bool allChecked;
-        //public bool AllChecked { get => allChecked; set { allChecked = value; OnPropertyChanged(); } }
 
         private List<CART> currentCart;
 
@@ -59,7 +52,7 @@ namespace FoodOrderApp.ViewModels
             }
         }
 
-        public string FoodCount
+        public int FoodCount
         {
             get => foodCount;
             set
@@ -111,12 +104,12 @@ namespace FoodOrderApp.ViewModels
 
         public CartViewModel()
         {
-            FoodCount = "0";
+            FoodCount = 0;
             OpenSetAddressWDCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => OpenSetAddress(parameter));
             OrderCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => Order(parameter));
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
             DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
-            DeleteAllCartCommand = new RelayCommand<ListView>((parameter) => { return true; }, (parameter) => DeleteAllCart(parameter));
+            DeleteIsCheckedCartCommand = new RelayCommand<ListView>((parameter) => { return true; }, (parameter) => DeleteIsCheckedCart(parameter));
             DownCommand = new RelayCommand<TextBlock>(p => true, p => Down(p));
             UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
             AllCheckedCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
@@ -154,7 +147,7 @@ namespace FoodOrderApp.ViewModels
             TotalPrice = GetTotalPrice(lv);
         }
 
-        protected void DeleteAllCart(ListView parameter)
+        protected void DeleteIsCheckedCart(ListView parameter)
         {
             if (parameter.Items.Count == 0)
             {
@@ -163,11 +156,16 @@ namespace FoodOrderApp.ViewModels
 
             try
             {
-                if (CustomMessageBox.Show("Xóa tất cả món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                if (CustomMessageBox.Show("Xóa các món ăn đang được chọn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
-                    foreach (var cartToDelete in CurrentCart)
+                    foreach (var lvi in FindVisualChildren<ListViewItem>(parameter))
                     {
-                        Data.Ins.DB.CARTs.Remove(cartToDelete);
+                        CART cart = lvi.DataContext as CART;
+                        var checkBox = GetVisualChild<CheckBox>(lvi);
+                        if (checkBox.IsChecked == true)
+                        {
+                            Data.Ins.DB.CARTs.Remove(cart);
+                        }
                     }
                     Data.Ins.DB.SaveChanges();
                     CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
@@ -242,7 +240,7 @@ namespace FoodOrderApp.ViewModels
                 item.IsChecked = newVal;
             }
             TotalPrice = GetTotalPrice(parameter.cartList);
-            FoodCount = GetFoodCount(parameter.cartList).ToString();
+            FoodCount = GetFoodCount(parameter.cartList);
         }
 
         private void Checked(CheckBox parameter)
@@ -250,7 +248,7 @@ namespace FoodOrderApp.ViewModels
             var lv = GetAncestorOfType<ListView>(parameter);
 
             TotalPrice = GetTotalPrice(lv);
-            FoodCount = GetFoodCount(lv).ToString();
+            FoodCount = GetFoodCount(lv);
 
             // Check xem nếu checked hết thì check cái ô trên cùng
             bool isAllChecked = true;
@@ -296,7 +294,7 @@ namespace FoodOrderApp.ViewModels
                 var checkBox = GetVisualChild<CheckBox>(lvi);
                 if (checkBox.IsChecked == true)
                 {
-                    res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (Double)cart.PRODUCT.DISCOUNT_));
+                    res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (decimal)cart.PRODUCT.DISCOUNT_));
                 }
             }
             return res;
@@ -310,21 +308,16 @@ namespace FoodOrderApp.ViewModels
             {
                 DateTime Now = DateTime.Now;
                 string now = Now.GetDateTimeFormats(viVn)[0];
-                // Chắc chỉnh lại Date_ thành dạng string chứ làm vậy hông biết định dạng DMY như nào -.-
 
                 HashSet<RECEIPT_DETAIL> receipt_detail = new HashSet<RECEIPT_DETAIL>();
 
                 int countReceipt = Data.Ins.DB.RECEIPTs.Count() + 1;
-                //tạo trước receipt để add lên db trước rồi mới
                 RECEIPT receipt = new RECEIPT();
                 receipt.ID_ = countReceipt.ToString();
-                // status mặc định là 1 là đơn hàng chưa được xác nhận
-                receipt.STATUS_ = "1";
-                // date thì cứ để như v không sao đâu,
-                // khi nào cần xài theo dạng viVn thì lấy về rồi mình tự chuyển sau
+                receipt.STATUS_ = "0";
                 receipt.DATE_ = Now;
                 receipt.USERNAME_ = CurrentAccount.Username;
-                receipt.VALUE_ = (int)totalPrice;
+                receipt.VALUE_ = (int)TotalPrice;
 
                 USER user = Data.Ins.DB.USERS.Where(user1 => user1.USERNAME_ == CurrentAccount.Username).Single();
                 receipt.USER = user;
@@ -340,6 +333,8 @@ namespace FoodOrderApp.ViewModels
                         RECEIPT_ID = receipt.ID_,
                         PRODUCT_ = cart.PRODUCT_,
                         PRODUCT = cart.PRODUCT,
+                        RATED_ = true,
+                        RATING_ = 0,
                         RECEIPT = receipt
                     });
                     countReceiptDetail++;
@@ -351,22 +346,27 @@ namespace FoodOrderApp.ViewModels
                 }
                 receipt.RECEIPT_DETAIL = receipt_detail;
 
-                // tạo thành công rồi thì xoá list cart rồi cập nhập lại source để binding lên UI
-                foreach (var cart in currentCart)
+                //New này chỉ xóa những cái đang được check thôi
+                foreach (var lvi in FindVisualChildren<ListViewItem>(parameter.cartList))
                 {
-                    Data.Ins.DB.CARTs.Remove(cart);
+                    CART cart = lvi.DataContext as CART;
+                    var checkBox = GetVisualChild<CheckBox>(lvi);
+                    if (checkBox.IsChecked == true)
+                    {
+                        Data.Ins.DB.CARTs.Remove(cart);
+                    }
                 }
                 Data.Ins.DB.SaveChanges();
                 CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
 
                 //reset giá trị về mặc định
                 parameter.selectAllCheckBox.IsChecked = false;
-                parameter.totalPrice.Text = "0";
-                parameter.totalProduct.Text = "0";
+                TotalPrice = 0;
+                FoodCount = 0;
 
                 CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
             }
-            catch (DbEntityValidationException e)
+            catch //(DbEntityValidationException e)
             {
                 // code để xem lỗi lệnh entity lỗi chỗ nào
                 //foreach (var eve in e.EntityValidationErrors)

@@ -6,7 +6,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              DataContext="{StaticResource CartVM}"
-             xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
              xmlns:mainlocal="clr-namespace:FoodOrderApp"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
@@ -87,7 +86,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Margin="0 0 6 0"
-                                Command="{Binding DeleteAllCartCommand}"
+                                Command="{Binding DeleteIsCheckedCartCommand}"
                                 CommandParameter="{Binding ElementName=cartList}" />
                         </Grid>
                     </Border>
@@ -162,9 +161,6 @@
                                                             VerticalAlignment="Center">
                                                         </TextBlock>
 
-                                                        <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %-->
-                                                        <!--khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên-->
-                                                        <!--thì collapsed-->
                                                         <StackPanel
                                                             x:Name="stack"
                                                             Orientation="Horizontal"
@@ -454,7 +450,7 @@
                                 VerticalAlignment="Center"
                                 Margin="20 0 0 0" />
                             <TextBlock x:Name="totalProduct"
-                                Text="{Binding FoodCount}"
+                                Text="{Binding FoodCount, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 FontSize="16"
@@ -481,7 +477,7 @@
                                 VerticalAlignment="Top"
                                 Margin="20 10 0 0" />
                         <TextBlock x:Name="totalPrice"
-                                Text="{Binding TotalPrice, StringFormat=N0}"
+                                Text="{Binding TotalPrice, StringFormat=N0, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
                                 FontSize="16"

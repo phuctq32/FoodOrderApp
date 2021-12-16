@@ -63,7 +63,7 @@
                     </Border>
                     <TextBlock Text="Số đơn hàng" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
 
-                    <TextBlock Text="{Binding TotalOrder}"
+                    <TextBlock Text="{Binding TotalReceipt}"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="20 10" FontSize="40" />
                 </Grid>
@@ -110,8 +110,8 @@
             </Grid>
         </StackPanel>
         <Grid Grid.Column="1">
-            <lvc:CartesianChart 
-                Series="{Binding SeriesCollection}" 
+            <lvc:CartesianChart
+                Series="{Binding SeriesCollection}"
                 LegendLocation="Right"
                 Margin="30">
                 <lvc:CartesianChart.AxisY>
@@ -122,16 +122,15 @@
                 </lvc:CartesianChart.AxisX>
             </lvc:CartesianChart>
             <Rectangle
-            Fill="White"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            RadiusY="10"
-            RadiusX="10"
-            Panel.ZIndex="-2"
-            Effect="{StaticResource dropShadow}"
-            Margin="10">
+                Fill="White"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                RadiusY="10"
+                RadiusX="10"
+                Panel.ZIndex="-2"
+                Effect="{StaticResource dropShadow}"
+                Margin="10">
             </Rectangle>
         </Grid>
-        
     </Grid>
 </UserControl>

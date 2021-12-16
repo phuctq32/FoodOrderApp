@@ -157,18 +157,6 @@
                                 Text="{Binding Path=Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
-                    <!--giới tính-->
-                    <StackPanel Orientation="Horizontal" Margin="0 20">
-                        <materialDesign:PackIcon
-                                    Kind="GenderMaleFemale"
-                                    Width="30"
-                                    Height="30"
-                                    Foreground="{StaticResource Gray}"
-                                    VerticalAlignment="Center"
-                                    Margin="10,10,20,0" />
-                        <RadioButton Content="Nam" Margin="0 0 50 0" Foreground="{StaticResource Gray}"></RadioButton>
-                        <RadioButton Content="Nữ" HorizontalAlignment="Center" Foreground="{StaticResource Gray}"></RadioButton>
-                    </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0 20">
                         <materialDesign:PackIcon

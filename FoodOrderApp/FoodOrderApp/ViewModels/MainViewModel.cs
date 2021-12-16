@@ -1,13 +1,6 @@
-﻿using FoodOrderApp;
-using FoodOrderApp.Models;
-using FoodOrderApp.Views;
+﻿using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 using FoodOrderApp.Views.UserControls.Admin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -75,6 +68,7 @@ namespace FoodOrderApp.ViewModels
         {
             if (CurrentAccount.IsUser)
             {
+                mainWindow.listViewMenu.SelectedIndex = 0;
                 mainWindow.ucWindow.Children.Add(new MenuUC());
             }
             else
@@ -121,18 +115,22 @@ namespace FoodOrderApp.ViewModels
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new ContactUC());
                     break;
+
                 case 5:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new DashBoardUC());
                     break;
+
                 case 6:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new EditProductUC());
                     break;
+
                 case 7:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new OrderManagementUC());
                     break;
+
                 case 8:
                     mainWindow.ucWindow.Children.Clear();
                     mainWindow.ucWindow.Children.Add(new AccountUC());
@@ -144,9 +142,9 @@ namespace FoodOrderApp.ViewModels
         {
             if (CustomMessageBox.Show("Bạn có muốn đăng xuất?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                mainWindow.Close();
                 LoginWindow loginWindow = new LoginWindow();
-                loginWindow.ShowDialog();
+                loginWindow.Show();
+                mainWindow.Close();
             }
         }
     }

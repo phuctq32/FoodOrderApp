@@ -4,13 +4,7 @@ using FoodOrderApp.Views.UserControls;
 using FoodOrderApp.Views.UserControls.Admin;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -188,6 +182,7 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void ItemClick(ListViewItem parameter)
         {
             PRODUCT pRODUCT = parameter.DataContext as PRODUCT;

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodOrderApp.Models
+namespace FoodOrderApp
 {
     using System;
     using System.Collections.Generic;
@@ -25,7 +25,6 @@ namespace FoodOrderApp.Models
         public string PASSWORD_ { get; set; }
         public string FULLNAME_ { get; set; }
         public string ADDRESS_ { get; set; }
-        public string SEX_ { get; set; }
         public string PHONE_ { get; set; }
         public string AVATAR_ { get; set; }
         public string EMAIL_ { get; set; }
