@@ -294,7 +294,7 @@ namespace FoodOrderApp.ViewModels
                 var checkBox = GetVisualChild<CheckBox>(lvi);
                 if (checkBox.IsChecked == true)
                 {
-                    res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (Double)cart.PRODUCT.DISCOUNT_));
+                    res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (decimal)cart.PRODUCT.DISCOUNT_));
                 }
             }
             return res;

@@ -181,6 +181,10 @@ namespace FoodOrderApp.ViewModels
 
                     Data.Ins.DB.SaveChanges();
                     p.IsEnabled = false;
+
+                    // bug khi thay đổi rating của product
+                    MenuViewModel menuViewModel = new MenuViewModel();
+                    menuViewModel.Products = Data.Ins.DB.PRODUCTs.ToList();
                 }
             }
             catch
