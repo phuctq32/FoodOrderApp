@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -52,6 +54,23 @@ namespace FoodOrderApp.ViewModels
                 }
             });
         }
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
+        }
 
         public void Login(LoginWindow parameter)
         {
@@ -76,14 +95,10 @@ namespace FoodOrderApp.ViewModels
                     return;
                 }
 
-                //string passEncode = MD5Hash(Password)   ;
-                int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == Password).Count();
+                string passEncode = MD5Hash(Base64Encode( Password));
+                int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).Count();
                 Data.Ins.DB.USERS.ToList();
-                /*List<USER> acc = Data.Ins.DB.USERS.ToList();
-                foreach (var a in acc)
-                {
-                    MessageBox.Show(a.USERNAME_ + a.PASSWORD_);
-                } */
+            
                 if (accCount > 0)
                 {
                     isLogin = true;
