@@ -20,7 +20,8 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        Icon="/Resources/Images/app-icon.png">
     <Window.Resources>
         <helpers:DoubleToVisibilityConverter x:Key="doubleToVis">
         </helpers:DoubleToVisibilityConverter>

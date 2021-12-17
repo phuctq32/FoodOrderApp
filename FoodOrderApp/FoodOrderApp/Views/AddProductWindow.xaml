@@ -20,7 +20,8 @@
         DataContext="{StaticResource EditVM}"
         AllowsTransparency="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/Images/app-icon.png">
     <Grid>
         <Grid Margin="10">
             <Grid.ColumnDefinitions>

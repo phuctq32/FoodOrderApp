@@ -22,7 +22,8 @@
         Foreground="{x:Null}"
         AllowsTransparency="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/Images/app-icon.png">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
@@ -49,7 +50,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-                    <Image Source="/Resources/Images/food.jpg" Stretch="UniformToFill" Height="60" Width="60" Margin="0 0 0 60" ></Image>
+                    <Image Source="/Resources/Images/app-icon.png" Stretch="UniformToFill" Height="80" Width="80" Margin="0 20 0 60" ></Image>
                 </Grid>
 
                 <Separator Margin="20 151" BorderBrush="Black" Height="3" ></Separator>
@@ -352,14 +353,14 @@
                     <RowDefinition Height="90"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" CornerRadius="0 10 0 0" Background="White">
+                <Border Grid.Row="0" CornerRadius="0 10 0 0" Background="white">
                     <Grid>
                         <uc:ControlBarUC x:Name="controlBar"></uc:ControlBarUC>
                         <Ellipse
                             Width="40"
                             Height="40"
                             HorizontalAlignment="Right"
-                            Margin="0 10 200 0">
+                            Margin="0 10 210 0">
                             <Ellipse.Fill>
                                 <ImageBrush ImageSource="{Binding AVATAR_}" Stretch="UniformToFill" />
                             </Ellipse.Fill>
@@ -374,7 +375,7 @@
                     </Grid>
                 </Border>
                 <Grid Grid.Row="1">
-                    <Border  CornerRadius="10" Background="#FFF7F9F9">
+                    <Border  CornerRadius="10" Background="#e0f2f1">
                         <Grid x:Name="ucWindow">
                         </Grid>
                     </Border>
@@ -382,7 +383,7 @@
             </Grid>
         </Grid>
         <Rectangle
-            Fill="White"
+            Fill="white"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             RadiusY="10"

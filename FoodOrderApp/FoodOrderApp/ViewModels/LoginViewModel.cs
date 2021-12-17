@@ -79,7 +79,7 @@ namespace FoodOrderApp.ViewModels
                     return;
                 }
 
-                string passEncode = MD5Hash(Base64Encode( Password));
+                string passEncode = MD5Hash(Base64Encode(Password));
                 int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).Count();
                 Data.Ins.DB.USERS.ToList();
             

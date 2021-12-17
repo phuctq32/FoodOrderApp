@@ -24,7 +24,8 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        x:Name="CreateOrderWD">
+        x:Name="CreateOrderWD"
+        Icon="/Resources/Images/app-icon.png">
     <Window.Resources>
         <helpers:DoubleToVisibilityConverter x:Key="doubleToVis"/>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"/>
