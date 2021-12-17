@@ -35,7 +35,7 @@
             Command="{Binding Source={StaticResource CreateOrderVM}, Path=OpenSetUserInformationWindowCommand}"
             CommandParameter="{Binding ElementName=OrderManagementUserControl}"/>
         <Border Grid.Row="0" Background="White" Width="730" HorizontalAlignment="Center" Margin="0 2 0 0" CornerRadius="5" Effect="{StaticResource dropShadow1}">
-            <ListView
+            <ListView x:Name="statusListView"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   SelectedIndex="0">
                 <ListView.ItemsPanel>
