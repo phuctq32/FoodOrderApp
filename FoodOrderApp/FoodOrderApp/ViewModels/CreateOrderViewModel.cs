@@ -86,6 +86,7 @@ namespace FoodOrderApp.ViewModels
         {
             Products = Data.Ins.DB.PRODUCTs.ToList();
             CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+            TotalPrice = 0;
         }
         private void OpenSetUserInformationWindow(OrderManagementUC parameter)
         {
@@ -268,6 +269,12 @@ namespace FoodOrderApp.ViewModels
                     Data.Ins.DB.CARTs.Add(new CART() { ID_ = tmpID, PRODUCT_ = item.ID_, USERNAME_ = CurrentAccount.Username, AMOUNT_ = 1 });
                     Data.Ins.DB.SaveChanges();
                     CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+                    long res = 0;
+                    foreach (var cart in CurrentCart)
+                    {
+                        res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (Double)cart.PRODUCT.DISCOUNT_));
+                    }
+                    TotalPrice = res;
                     CustomMessageBox.Show("Đã thêm " + item.NAME_.ToString() + " vào giỏ hàng thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 }
                 else
@@ -289,14 +296,19 @@ namespace FoodOrderApp.ViewModels
                     Data.Ins.DB.SaveChanges();
                     CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                     CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+                    long res = 0;
+                    foreach(var cart in CurrentCart)
+                    {
+                        res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (Double)cart.PRODUCT.DISCOUNT_));
+                    }
+                    TotalPrice = res;
                 }
             }
             catch
             {
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            var lv = GetAncestorOfType<ListView>(parameter);
-            TotalPrice = GetTotalPrice(lv);
+            
         }
         private CultureInfo viVn = new CultureInfo("vi-VN");
 

@@ -10,7 +10,7 @@
              xmlns:helpers ="clr-namespace:FoodOrderApp.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="710" d:DesignWidth="1120"
-            DataContext="{StaticResource CreateOrderVM}"
+            DataContext="{StaticResource OrderManagementVM}"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
             TextElement.FontSize="13"
@@ -43,7 +43,7 @@
             HorizontalAlignment="Right"
             Margin="0 0 10 0"
             materialDesign:ButtonAssist.CornerRadius="15"
-            Command="{Binding OpenSetUserInformationWindowCommand}"
+            Command="{Binding Source={StaticResource CreateOrderVM}, Path=OpenSetUserInformationWindowCommand}"
             CommandParameter="{Binding ElementName=OrderManagementUserControl}"/>
         <Border Grid.Row="0" Background="White" Width="730" HorizontalAlignment="Center" Margin="0 2 0 0" CornerRadius="5" Effect="{StaticResource dropShadow1}">
             <ListView

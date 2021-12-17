@@ -136,15 +136,23 @@ namespace FoodOrderApp.ViewModels
                     Data.Ins.DB.CARTs.Remove(cartToDelete);
                     Data.Ins.DB.SaveChanges();
                     CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    var lv = GetAncestorOfType<ListView>(parameter);
+                    var cartUC = GetAncestorOfType<CartUC>(parameter);
+                    if (cartUC.selectAllCheckBox.IsChecked == true)
+                    {
+                        cartUC.selectAllCheckBox.IsChecked = false;
+                    }
                     CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+                    TotalPrice = GetTotalPrice(lv);
+                    FoodCount = GetFoodCount(lv);
+
                 }
             }
             catch
             {
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            var lv = GetAncestorOfType<ListView>(parameter);
-            TotalPrice = GetTotalPrice(lv);
+            
         }
 
         protected void DeleteIsCheckedCart(ListView parameter)
@@ -177,6 +185,7 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             TotalPrice = GetTotalPrice(parameter);
+            FoodCount = GetFoodCount(parameter);
         }
 
         private void Down(TextBlock parameter)
