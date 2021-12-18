@@ -608,12 +608,13 @@
                         RadiusX="10"
                         Panel.ZIndex="-2"
                         Margin="10"
-                        Effect="{StaticResource dropShadow1}" />
-                    </Grid>
+                        Effect="{StaticResource dropShadow1}"/>
+
                 </Grid>
             </Grid>
-            <Rectangle
-            Fill="{StaticResource GrayBackground}"
+        </Grid>
+        <Rectangle
+            Fill="#fafafa"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             RadiusY="10"
