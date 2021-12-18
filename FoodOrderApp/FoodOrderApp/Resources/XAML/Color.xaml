@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:FoodOrderApp.Resources.XAML">
 
     <SolidColorBrush x:Key="Gray" Color="#616161"></SolidColorBrush>
-    <SolidColorBrush x:Key="GrayBackground" Color="#FFF7F9F9"></SolidColorBrush>
+    <SolidColorBrush x:Key="GrayBackground" Color="#e0f2f1"></SolidColorBrush>
     <SolidColorBrush x:Key="DarkGreen" Color="#2e7d3e"></SolidColorBrush>
     <SolidColorBrush x:Key="LightGreen" Color="#1ed760"></SolidColorBrush>
     <SolidColorBrush x:Key="Orange1" Color="#ff6f00"></SolidColorBrush>

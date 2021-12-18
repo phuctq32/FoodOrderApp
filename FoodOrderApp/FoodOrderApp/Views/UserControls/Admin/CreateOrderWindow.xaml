@@ -614,7 +614,7 @@
             </Grid>
         </Grid>
         <Rectangle
-            Fill="{StaticResource GrayBackground}"
+            Fill="#fafafa"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             RadiusY="10"
