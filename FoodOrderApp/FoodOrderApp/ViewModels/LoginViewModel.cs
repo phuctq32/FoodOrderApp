@@ -54,11 +54,13 @@ namespace FoodOrderApp.ViewModels
                 }
             });
         }
+
         public static string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
+
         public static string MD5Hash(string input)
         {
             StringBuilder hash = new StringBuilder();
@@ -87,6 +89,12 @@ namespace FoodOrderApp.ViewModels
                     parameter.txtUsername.Focus();
                     return;
                 }
+                if (parameter.txtUsername.Text.Contains(" "))
+                {
+                    CustomMessageBox.Show("Tên đăng nhập không được chứa khoảng trắng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    parameter.txtUsername.Focus();
+                    return;
+                }
                 //check password
                 if (string.IsNullOrEmpty(parameter.txtPassword.Password))
                 {
@@ -94,11 +102,17 @@ namespace FoodOrderApp.ViewModels
                     parameter.txtPassword.Focus();
                     return;
                 }
+                if (parameter.txtPassword.Password.Contains(" "))
+                {
+                    CustomMessageBox.Show("Mật khẩu không được chứa khoảng trắng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    parameter.txtPassword.Focus();
+                    return;
+                }
 
-                string passEncode = MD5Hash(Base64Encode( Password));
+                string passEncode = MD5Hash(Base64Encode(Password));
                 int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).Count();
                 Data.Ins.DB.USERS.ToList();
-            
+
                 if (accCount > 0)
                 {
                     isLogin = true;

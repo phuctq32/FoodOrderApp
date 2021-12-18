@@ -110,10 +110,6 @@ namespace FoodOrderApp.ViewModels
 
         public ICommand PrintCommand { get; set; }
 
-        // status = 0 là trạng thái chờ xác nhận
-        // status = 1 là trạng thái đang tiến hành
-        // status = 2 là trạng thái đã hoàn thành
-        // status = 3 là trạng thái đã huỷ
         public OrderManagementViewModel()
         {
             LoadedCommand = new RelayCommand<OrderManagementUC>(p => p == null ? false : true, p => Load(p));

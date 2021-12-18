@@ -28,12 +28,13 @@
                                    CommandParameter="{Binding ElementName=OrderManagementUserControl}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Button
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button
             Grid.Row="0"
             Content="Thêm"
             FontSize="18"
@@ -44,120 +45,120 @@
             Margin="0 0 10 0"
             materialDesign:ButtonAssist.CornerRadius="15"
             Command="{Binding Source={StaticResource CreateOrderVM}, Path=OpenSetUserInformationWindowCommand}"
-            CommandParameter="{Binding ElementName=OrderManagementUserControl}"/>
-        <Border Grid.Row="0" Background="White" Width="730" HorizontalAlignment="Center" Margin="0 2 0 0" CornerRadius="5" Effect="{StaticResource dropShadow1}">
-            <ListView
+            CommandParameter="{Binding ElementName=OrderManagementUserControl}" />
+            <Border Grid.Row="0" Background="White" Width="730" HorizontalAlignment="Center" Margin="0 2 0 0" CornerRadius="5" Effect="{StaticResource dropShadow1}">
+                <ListView
                     x:Name="statusListView"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   SelectedIndex="0">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"></StackPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName=OrderManagementUserControl}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <ListViewItem>
-                    <ListViewItem.Template>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border Height="40" Width="150" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
-                                <TextBlock x:Name="text" Text="Chờ xác nhận" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListViewItem.Template>
-                </ListViewItem>
-                <ListViewItem>
-                    <ListViewItem.Template>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border Height="40" Width="160" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
-                                <TextBlock x:Name="text" Text="Đang tiến hành" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListViewItem.Template>
-                </ListViewItem>
-                <ListViewItem>
-                    <ListViewItem.Template>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border Height="40" Width="150" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
-                                <TextBlock x:Name="text" Text="Đã hoàn thành" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListViewItem.Template>
-                </ListViewItem>
-                <ListViewItem>
-                    <ListViewItem.Template>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border Height="40" Width="100" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
-                                <TextBlock x:Name="text" Text="Đã hủy" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListViewItem.Template>
-                </ListViewItem>
-            </ListView>
-        </Border>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName=OrderManagementUserControl}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListViewItem>
+                        <ListViewItem.Template>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Height="40" Width="150" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
+                                    <TextBlock x:Name="text" Text="Chờ xác nhận" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ListViewItem.Template>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <ListViewItem.Template>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Height="40" Width="160" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
+                                    <TextBlock x:Name="text" Text="Đang tiến hành" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ListViewItem.Template>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <ListViewItem.Template>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Height="40" Width="150" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
+                                    <TextBlock x:Name="text" Text="Đã hoàn thành" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ListViewItem.Template>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <ListViewItem.Template>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Height="40" Width="100" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
+                                    <TextBlock x:Name="text" Text="Đã hủy" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ListViewItem.Template>
+                    </ListViewItem>
+                </ListView>
+            </Border>
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="10 10 10 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="180"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock
+                <Grid Grid.Row="0" Margin="10 10 10 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
                     Text="Mã đơn hàng"
                     FontSize="20"
                     VerticalAlignment="Center"
@@ -165,7 +166,7 @@
                     FontWeight="Medium"
                     Foreground="Black"
                     Grid.Column="0" />
-                <TextBlock
+                    <TextBlock
                     Text="Ngày mua"
                     FontSize="20"
                     VerticalAlignment="Center"
@@ -173,7 +174,7 @@
                     FontWeight="Medium"
                     Foreground="Black"
                     Grid.Column="1" />
-                <TextBlock
+                    <TextBlock
                     Text="Số lượng"
                     FontSize="20"
                     VerticalAlignment="Center"
@@ -181,7 +182,7 @@
                     FontWeight="Medium"
                     Foreground="Black"
                     Grid.Column="2" />
-                <TextBlock
+                    <TextBlock
                     Margin="0 0 40 0"
                     Text="Tổng tiền"
                     FontSize="20"
@@ -190,24 +191,24 @@
                     FontWeight="Medium"
                     Foreground="Black"
                     Grid.Column="3" />
-            </Grid>
-            <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
-            <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
-            <ListView x:Name="receiptListView"
+                </Grid>
+                <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
+                <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
+                <ListView x:Name="receiptListView"
                     Grid.Row="1" Grid.Column="0"
                       ItemsSource="{Binding Path=ListReceipt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="100" Margin="10 5 10 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="180"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <!--mã đơn hàng-->
-                            <TextBlock
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="100" Margin="10 5 10 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="180"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--mã đơn hàng-->
+                                <TextBlock
                                 Text="{Binding ID_}"
                                 FontSize="20"
                                 VerticalAlignment="Center"
@@ -216,8 +217,8 @@
                                 Foreground="Black"
                                 Grid.Column="0" />
 
-                            <!--ngày mua-->
-                            <TextBlock
+                                <!--ngày mua-->
+                                <TextBlock
                                 Text="{Binding DATE_, StringFormat={}{0:dd/MM/yyyy}}"
                                 FontSize="20"
                                 VerticalAlignment="Center"
@@ -225,10 +226,10 @@
                                 FontWeight="Medium"
                                 Foreground="Black"
                                 Grid.Column="1" />
-                            <!--số lượng món trong đơn-->
-                            <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
-                            <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->
-                            <TextBlock
+                                <!--số lượng món trong đơn-->
+                                <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
+                                <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->
+                                <TextBlock
                                 Text="{Binding RECEIPT_DETAIL.Count}"
                                 FontSize="20"
                                 VerticalAlignment="Center"
@@ -236,8 +237,8 @@
                                 FontWeight="Medium"
                                 Foreground="Black"
                                 Grid.Column="2" />
-                            <!--giá tiền tổng cộng-->
-                            <TextBlock
+                                <!--giá tiền tổng cộng-->
+                                <TextBlock
                                 Grid.Column="3"
                                 Margin="0 0 20 0"
                                 Text="{Binding VALUE_, StringFormat=N0}"
@@ -245,26 +246,26 @@
                                 FontWeight="DemiBold"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center" />
-                            <!--nút bấm để xem chi tiết và chuyển trạng thái của đơn đặt hàng -->
-                            <Grid Grid.Column="4">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button
+                                <!--nút bấm để xem chi tiết và chuyển trạng thái của đơn đặt hàng -->
+                                <Grid Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button
                                         Style="{StaticResource detailBtn}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Command="{Binding Source={StaticResource OrderManagementVM}, Path=OpenOrderDetailWindowCommand}"
                                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
-                                    <!-- Tab đã hoàn thành vs tab đã hủy => Collapsed thằng stackpanel này đi -->
-                                    <StackPanel x:Name="stackBtn" Orientation="Vertical" Margin="20 0 0 0">
-                                        <StackPanel.Visibility>
-                                            <MultiBinding Converter="{StaticResource statusToVisibility}">
-                                                <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
-                                                <Binding ElementName="stackBtn" Path="Name"></Binding>
-                                            </MultiBinding>
-                                        </StackPanel.Visibility>
-                                        <!--Tab chờ xác nhân -> Collapsed button Xong đi
+                                        <!-- Tab đã hoàn thành vs tab đã hủy => Collapsed thằng stackpanel này đi -->
+                                        <StackPanel x:Name="stackBtn" Orientation="Vertical" Margin="20 0 0 0">
+                                            <StackPanel.Visibility>
+                                                <MultiBinding Converter="{StaticResource statusToVisibility}">
+                                                    <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
+                                                    <Binding ElementName="stackBtn" Path="Name"></Binding>
+                                                </MultiBinding>
+                                            </StackPanel.Visibility>
+                                            <!--Tab chờ xác nhân -> Collapsed button Xong đi
                                         Tab đang tiến hành -> Collapsed button Xác nhận đi-->
-                                        <Button
+                                            <Button
                                             x:Name="confirmBtn"
                                             Style="{StaticResource SearchBtn}"
                                             materialDesign:ButtonAssist.CornerRadius="15"
@@ -273,14 +274,14 @@
                                             Margin="0 10 0 15"
                                             Command="{Binding Source={StaticResource OrderManagementVM}, Path=ConfirmReceiptCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
-                                            <Button.Visibility>
-                                                <MultiBinding Converter="{StaticResource statusToVisibility}">
-                                                    <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
-                                                    <Binding ElementName="confirmBtn" Path="Name"></Binding>
-                                                </MultiBinding>
-                                            </Button.Visibility>
-                                        </Button>
-                                        <Button
+                                                <Button.Visibility>
+                                                    <MultiBinding Converter="{StaticResource statusToVisibility}">
+                                                        <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
+                                                        <Binding ElementName="confirmBtn" Path="Name"></Binding>
+                                                    </MultiBinding>
+                                                </Button.Visibility>
+                                            </Button>
+                                            <Button
                                             x:Name="doneBtn"
                                             Style="{StaticResource SearchBtn}"
                                             materialDesign:ButtonAssist.CornerRadius="15"
@@ -289,14 +290,14 @@
                                             Margin="0 10 0 15"
                                             Command="{Binding Source={StaticResource OrderManagementVM}, Path=DoneReceiptCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
-                                            <Button.Visibility>
-                                                <MultiBinding Converter="{StaticResource statusToVisibility}">
-                                                    <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
-                                                    <Binding ElementName="doneBtn" Path="Name"></Binding>
-                                                </MultiBinding>
-                                            </Button.Visibility>
-                                        </Button>
-                                        <Button
+                                                <Button.Visibility>
+                                                    <MultiBinding Converter="{StaticResource statusToVisibility}">
+                                                        <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
+                                                        <Binding ElementName="doneBtn" Path="Name"></Binding>
+                                                    </MultiBinding>
+                                                </Button.Visibility>
+                                            </Button>
+                                            <Button
                                             x:Name="cancelBtn"
                                             Style="{StaticResource GrayBtn}"
                                             materialDesign:ButtonAssist.CornerRadius="15"
@@ -306,34 +307,34 @@
                                             Command="{Binding Source={StaticResource OrderManagementVM}, Path=CancelReceiptCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
                                             Margin="0 0 0 5">
-                                            <Button.Visibility>
-                                                <MultiBinding Converter="{StaticResource statusToVisibility}">
-                                                    <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
-                                                    <Binding ElementName="cancelBtn" Path="Name"></Binding>
-                                                </MultiBinding>
-                                            </Button.Visibility>
-                                        </Button>
+                                                <Button.Visibility>
+                                                    <MultiBinding Converter="{StaticResource statusToVisibility}">
+                                                        <Binding Source="{StaticResource OrderManagementVM}" Path="Status"></Binding>
+                                                        <Binding ElementName="cancelBtn" Path="Name"></Binding>
+                                                    </MultiBinding>
+                                                </Button.Visibility>
+                                            </Button>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
+                                </Grid>
+                                <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="5"></Separator>
                             </Grid>
-                            <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="5"></Separator>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                    <ContentPresenter />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
-            <Rectangle
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+                <Rectangle
                 Fill="White"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
@@ -345,7 +346,8 @@
                 Grid.ColumnSpan="5"
                 Grid.Row="0"
                 Grid.RowSpan="2">
-            </Rectangle>
+                </Rectangle>
+            </Grid>
         </Grid>
-    </Grid>
+    </materialDesign:TransitioningContent>
 </UserControl>

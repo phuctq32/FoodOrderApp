@@ -48,9 +48,9 @@ namespace FoodOrderApp.ViewModels
 
         public void SaveChange(ChangeInformationWindow changeInformationWD)
         {
-            user.PHONE_ = changeInformationWD.txtPhone.Text;
-            user.FULLNAME_ = changeInformationWD.txtFullname.Text;
-            user.ADDRESS_ = changeInformationWD.txtAddress.Text;
+            user.PHONE_ = changeInformationWD.txtPhone.Text.Trim();
+            user.FULLNAME_ = changeInformationWD.txtFullname.Text.Trim();
+            user.ADDRESS_ = changeInformationWD.txtAddress.Text.Trim();
             try
             {
                 Data.Ins.DB.SaveChanges();
@@ -68,4 +68,3 @@ namespace FoodOrderApp.ViewModels
         }
     }
 }
-

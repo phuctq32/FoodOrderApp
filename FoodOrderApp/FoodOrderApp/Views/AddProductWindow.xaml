@@ -21,20 +21,21 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="0.8*"></RowDefinition>
-                <RowDefinition Height="0.4*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <uc:ControlBarUC x:Name="controlBar" Grid.Row="0" Grid.ColumnSpan="2"></uc:ControlBarUC>
-            <TextBlock Text="Cập nhật món ăn"
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:0.2}">
+        <Grid>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="0.8*"></RowDefinition>
+                    <RowDefinition Height="0.4*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <uc:ControlBarUC x:Name="controlBar" Grid.Row="0" Grid.ColumnSpan="2"></uc:ControlBarUC>
+                <TextBlock Text="Cập nhật món ăn"
                        Margin="0 10 0 0"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
@@ -43,18 +44,18 @@
                            Foreground="{StaticResource Orange1}"
                            Grid.Column="0"
                        Grid.ColumnSpan="2"></TextBlock>
-            <!--tên, giá, khuyến mãi-->
-            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="40 30 0 0">
-                <!--tên món ăn-->
-                <StackPanel Orientation="Horizontal" Margin="0">
-                    <materialDesign:PackIcon
+                <!--tên, giá, khuyến mãi-->
+                <StackPanel Orientation="Vertical" Grid.Row="1" Margin="40 30 0 0">
+                    <!--tên món ăn-->
+                    <StackPanel Orientation="Horizontal" Margin="0">
+                        <materialDesign:PackIcon
                                     Kind="Food"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-15" />
-                    <TextBox
+                        <TextBox
                             materialDesign:HintAssist.Hint="Tên món ăn"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             x:Name="txtName"
@@ -67,18 +68,18 @@
                             VerticalContentAlignment="Center"
                             Height="50"
                             Padding="2,0,0,0">
-                    </TextBox>
-                </StackPanel>
-                <!--giá-->
-                <StackPanel Orientation="Horizontal" Margin="0 10">
-                    <materialDesign:PackIcon
+                        </TextBox>
+                    </StackPanel>
+                    <!--giá-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10">
+                        <materialDesign:PackIcon
                                     Kind="Money"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-15" />
-                    <TextBox
+                        <TextBox
 
                                 materialDesign:HintAssist.Hint="Giá"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -92,18 +93,18 @@
                                 VerticalContentAlignment="Center"
                                 Height="50"
                                 Padding="2,0,0,0">
-                    </TextBox>
-                </StackPanel>
-                <!--khuyến mãi-->
-                <StackPanel Orientation="Horizontal" Margin="0 10">
-                    <materialDesign:PackIcon
+                        </TextBox>
+                    </StackPanel>
+                    <!--khuyến mãi-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10">
+                        <materialDesign:PackIcon
                                     Kind="Discount"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-10" />
-                    <TextBox
+                        <TextBox
 
                                 materialDesign:HintAssist.Hint="Khuyến mãi"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -117,23 +118,23 @@
                                 VerticalContentAlignment="Center"
                                 Height="50"
                                 Padding="2,0,0,0">
-                    </TextBox>
-                    <TextBlock
+                        </TextBox>
+                        <TextBlock
                         Margin="0 10 0 0"
                         VerticalAlignment="Center"
                         FontSize="20"
                         FontWeight="Bold">%</TextBlock>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-            <!--chọn hình món ăn-->
-            <Grid
+                <!--chọn hình món ăn-->
+                <Grid
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Width="140"
                 Height="140"
                 Grid.Row="1"
                 Grid.Column="1">
-                <Rectangle
+                    <Rectangle
                 x:Name="recImage"
                 Stroke="{StaticResource Orange2}"
                 StrokeThickness="1"
@@ -143,11 +144,11 @@
                 Height="130"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
-                    <Rectangle.Fill >
-                        <ImageBrush x:Name="Image" ImageSource="{Binding Source={StaticResource EditVM}, Path= IMAGE_}"> </ImageBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-                <Button
+                        <Rectangle.Fill>
+                            <ImageBrush x:Name="Image" ImageSource="{Binding Source={StaticResource EditVM}, Path= IMAGE_}"></ImageBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Button
                 x:Name="btnSelectImage"
                 Content="Chọn ảnh"
                 Height="35"
@@ -161,24 +162,24 @@
                 VerticalAlignment="Bottom"
                 FocusVisualStyle="{x:Null}"
                 FontSize="16">
-                </Button>
-            </Grid>
-            <!--mô tả món ăn-->
-            <StackPanel
+                    </Button>
+                </Grid>
+                <!--mô tả món ăn-->
+                <StackPanel
                 Orientation="Horizontal"
                 Grid.Row="2"
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 Margin="40 0 0 0">
-                <materialDesign:PackIcon
+                    <materialDesign:PackIcon
                                     Kind="InformationCircleOutline"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Gray}"
                                     VerticalAlignment="Top"
                                     Margin="10,10,20,-15" />
-                <TextBox
+                    <TextBox
                     Foreground="Black"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     x:Name="txtDescription"
@@ -190,14 +191,14 @@
                     materialDesign:HintAssist.Hint="Mô tả"
                     materialDesign:HintAssist.Foreground="{StaticResource Gray}"
                     materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}">
-                </TextBox>
-            </StackPanel>
-            <!--3 button cập nhật thêm xoá sửa-->
-            <StackPanel Orientation="Horizontal"
+                    </TextBox>
+                </StackPanel>
+                <!--3 button cập nhật thêm xoá sửa-->
+                <StackPanel Orientation="Horizontal"
                         Grid.Row="3"
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Right">
-                <Button
+                    <Button
                 Style="{StaticResource GreenBtn}"
                 x:Name="updatebtn"
                 Content="Cập nhật"
@@ -207,7 +208,7 @@
                 Foreground="White"
                 VerticalAlignment="Center"
                 Margin="10 0"></Button>
-                <Button
+                    <Button
                 Style="{StaticResource GreenBtn}"
                 Content="Thêm"
                 x:Name="addbtn"
@@ -217,7 +218,7 @@
                 Foreground="White"
                 VerticalAlignment="Center"
                 Margin="10 0"></Button>
-                <Button
+                    <Button
                 Style="{StaticResource GrayBtn}"
                 Content="Huỷ"
                 Width="120"
@@ -226,9 +227,9 @@
                 Foreground="Black"
                 VerticalAlignment="Center"
                 Margin="10 0"></Button>
-            </StackPanel>
-        </Grid>
-        <Rectangle
+                </StackPanel>
+            </Grid>
+            <Rectangle
             Fill="White"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -237,6 +238,7 @@
             Panel.ZIndex="-2"
             Effect="{StaticResource dropShadow}"
             Margin="10">
-        </Rectangle>
-    </Grid>
+            </Rectangle>
+        </Grid>
+    </materialDesign:TransitioningContent>
 </Window>

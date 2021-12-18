@@ -20,108 +20,109 @@
                                    CommandParameter="{Binding ElementName=DashBoardUserControl}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <StackPanel>
-            <Grid Margin="0 10 0 0">
-                <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
-                    <Rectangle.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1" />
-                    </Rectangle.Effect>
-                </Rectangle>
-                <Grid Margin="25" Height="120">
-                    <Border CornerRadius="0 0 10 10" Background="{StaticResource Orange1}"
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Grid Margin="0 10 0 0">
+                    <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <Grid Margin="25" Height="120">
+                        <Border CornerRadius="0 0 10 10" Background="{StaticResource Orange1}"
                             Width="40" Height="50"
                             HorizontalAlignment="Left" VerticalAlignment="Top"
                             Margin="15 0">
-                        <materialDesign:PackIcon Kind="Money"
+                            <materialDesign:PackIcon Kind="Money"
                                                  HorizontalAlignment="Center" VerticalAlignment="Bottom"
                                                  Margin="5"
                                                  Foreground="White"
                                                  Width="25" Height="25" />
-                    </Border>
-                    <TextBlock Text="Doanh thu" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
-                    <TextBlock Text="{Binding TotalValue}"
+                        </Border>
+                        <TextBlock Text="Doanh thu" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
+                        <TextBlock Text="{Binding TotalValue}"
                                TextWrapping="Wrap"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="10 10 5 15" FontSize="30" />
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid>
-                <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
-                    <Rectangle.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1" />
-                    </Rectangle.Effect>
-                </Rectangle>
-                <Grid Margin="25" Height="120">
-                    <Border CornerRadius="0 0 10 10" Background="Gold" Width="40" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15 0">
+                <Grid>
+                    <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <Grid Margin="25" Height="120">
+                        <Border CornerRadius="0 0 10 10" Background="Gold" Width="40" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15 0">
 
-                        <materialDesign:PackIcon Kind="Cart" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="25" Height="25" />
-                    </Border>
-                    <TextBlock Text="Số đơn hàng" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
+                            <materialDesign:PackIcon Kind="Cart" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="25" Height="25" />
+                        </Border>
+                        <TextBlock Text="Số đơn hàng" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
 
-                    <TextBlock Text="{Binding TotalReceipt}"
+                        <TextBlock Text="{Binding TotalReceipt}"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="20 10" FontSize="40" />
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid>
-                <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
-                    <Rectangle.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1" />
-                    </Rectangle.Effect>
-                </Rectangle>
-                <Grid Margin="25" Height="120">
-                    <Border CornerRadius="0 0 10 10" Background="BlueViolet" Width="40" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15 0">
+                <Grid>
+                    <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <Grid Margin="25" Height="120">
+                        <Border CornerRadius="0 0 10 10" Background="BlueViolet" Width="40" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15 0">
 
-                        <materialDesign:PackIcon Kind="Food" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="25" Height="25" />
-                    </Border>
-                    <TextBlock Text="Số món ăn" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
+                            <materialDesign:PackIcon Kind="Food" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="25" Height="25" />
+                        </Border>
+                        <TextBlock Text="Số món ăn" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
 
-                    <TextBlock Text="{Binding TotalProduct}"
+                        <TextBlock Text="{Binding TotalProduct}"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="10" FontSize="40" />
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid>
-                <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
-                    <Rectangle.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1" />
-                    </Rectangle.Effect>
-                </Rectangle>
-                <Grid Margin="25" Height="120">
-                    <Border CornerRadius="0 0 10 10"
+                <Grid>
+                    <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <Grid Margin="25" Height="120">
+                        <Border CornerRadius="0 0 10 10"
                             Background="LawnGreen" Width="40" Height="50"
                             HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15 0">
-                        <materialDesign:PackIcon Kind="Person"
+                            <materialDesign:PackIcon Kind="Person"
                                                  HorizontalAlignment="Center" VerticalAlignment="Bottom"
                                                  Margin="5" Foreground="White"
                                                  Width="25" Height="25" />
-                    </Border>
-                    <TextBlock Text="Số khách hàng" FontWeight="Bold" HorizontalAlignment="Right" Margin="15 15 5 15" FontSize="24" VerticalAlignment="Top" />
+                        </Border>
+                        <TextBlock Text="Số khách hàng" FontWeight="Bold" HorizontalAlignment="Right" Margin="15 15 5 15" FontSize="24" VerticalAlignment="Top" />
 
-                    <TextBlock Text="{Binding TotalCustomer}"
+                        <TextBlock Text="{Binding TotalCustomer}"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="10" FontSize="40" />
+                    </Grid>
                 </Grid>
-            </Grid>
-        </StackPanel>
-        <Grid Grid.Column="1">
-            <lvc:CartesianChart
+            </StackPanel>
+            <Grid Grid.Column="1">
+                <lvc:CartesianChart
                 Series="{Binding SeriesCollection}"
                 LegendLocation="Right"
                 Margin="30">
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Doanh thu" LabelFormatter="{Binding YFormatter}" ></lvc:Axis>
-                </lvc:CartesianChart.AxisY>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Ngày" Labels="{Binding Labels}"></lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-            </lvc:CartesianChart>
-            <Rectangle
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Doanh thu" LabelFormatter="{Binding YFormatter}" ></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Ngày" Labels="{Binding Labels}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
+                <Rectangle
                 Fill="White"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
@@ -130,7 +131,8 @@
                 Panel.ZIndex="-2"
                 Effect="{StaticResource dropShadow}"
                 Margin="10">
-            </Rectangle>
+                </Rectangle>
+            </Grid>
         </Grid>
-    </Grid>
+    </materialDesign:TransitioningContent>
 </UserControl>

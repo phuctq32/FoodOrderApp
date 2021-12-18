@@ -26,11 +26,11 @@
         ResizeMode="CanMinimize"
         x:Name="CreateOrderWD">
     <Window.Resources>
-        <helpers:DoubleToVisibilityConverter x:Key="doubleToVis"/>
-        <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"/>
-        <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"/>
-        <helpers:DoubleToOpacity x:Key="doubleToOpacity"/>
-        <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"/>
+        <helpers:DoubleToVisibilityConverter x:Key="doubleToVis" />
+        <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations" />
+        <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount" />
+        <helpers:DoubleToOpacity x:Key="doubleToOpacity" />
+        <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice" />
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -38,47 +38,48 @@
                                    CommandParameter="{Binding ElementName=CreateOrderWD}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            
-            <uc:ControlBarUC Grid.Row="0"/>
-            
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="7*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:0.2}">
+        <Grid>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-                <Grid x:Name="menu" Grid.Column="0" Margin="10 20 10 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="120"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal">
-                        <!--phần search-->
-                        <StackPanel Orientation="Vertical" Margin="60 0 60 0">
-                            <!--khung search-->
-                            <materialDesign:ColorZone
+                <uc:ControlBarUC Grid.Row="0" />
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid x:Name="menu" Grid.Column="0" Margin="10 20 10 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="120"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <!--phần search-->
+                            <StackPanel Orientation="Vertical" Margin="60 0 60 0">
+                                <!--khung search-->
+                                <materialDesign:ColorZone
                             Background="White"
                             Mode="Standard"
                             CornerRadius="20"
                             materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Height="40" Width="500"
                             HorizontalAlignment="Left">
-                                <DockPanel
+                                    <DockPanel
                                 LastChildFill="True">
-                                    <materialDesign:PackIcon
+                                        <materialDesign:PackIcon
                                     Kind="Search"
                                     Height="25"
                                     Width="25"
                                     Opacity="0.4"
                                     Margin="10 8 0 0"
                                     DockPanel.Dock="Left" />
-                                    <TextBox x:Name="SearchTxt"
+                                        <TextBox x:Name="SearchTxt"
                                          Text="{Binding Search, Mode=TwoWay}"
                                     HorizontalContentAlignment="Left"
                                     BorderBrush="Transparent"
@@ -89,13 +90,13 @@
                                          Height="60"
                                     AcceptsReturn="True"
                                     VerticalScrollBarVisibility="Disabled">
-                                        <TextBox.InputBindings>
-                                            <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=CreateOrderWD}" Key="Enter"/>
-                                        </TextBox.InputBindings>
-                                    </TextBox>
-                                </DockPanel>
-                            </materialDesign:ColorZone>
-                            <ComboBox x:Name="combox"
+                                            <TextBox.InputBindings>
+                                                <KeyBinding Command="{Binding Path=SearchCommand}" CommandParameter="{Binding ElementName=CreateOrderWD}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+                                    </DockPanel>
+                                </materialDesign:ColorZone>
+                                <ComboBox x:Name="combox"
                             Height="40" Width="150"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
@@ -106,22 +107,22 @@
                             materialDesign:HintAssist.Hint="Sắp xếp"
                             VerticalContentAlignment="Center"
                                   SelectedItem="">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding FilterCommand}"
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding FilterCommand}"
                                         CommandParameter="{Binding ElementName=combox}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <ComboBoxItem Content="Giá tăng" x:Name="GT">
-                                </ComboBoxItem>
-                                <ComboBoxItem Content="Giá giảm" x:Name="GG">
-                                </ComboBoxItem>
-                            </ComboBox>
-                        </StackPanel>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <ComboBoxItem Content="Giá tăng" x:Name="GT">
+                                    </ComboBoxItem>
+                                    <ComboBoxItem Content="Giá giảm" x:Name="GG">
+                                    </ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
 
-                        <!--Filter-->
+                            <!--Filter-->
 
-                        <Button 
+                            <Button
                             x:Name="BtnSearch"
                             Command="{Binding SearchCommand}"
                             CommandParameter="{Binding ElementName=CreateOrderWD}"
@@ -133,44 +134,44 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Margin="-30 0 0 0">
-                            <TextBlock
+                                <TextBlock
                             Text="Tìm kiếm" FontSize="17" />
-                        </Button>
-                    </StackPanel>
-                    <Grid Grid.Row="1">
-                        <!--Lưu ý: các phần binding chỉ là để test bên VM
+                            </Button>
+                        </StackPanel>
+                        <Grid Grid.Row="1">
+                            <!--Lưu ý: các phần binding chỉ là để test bên VM
                 binding thì tự nhập tên mới-->
-                        <ListView x:Name="ViewListProducts"
+                            <ListView x:Name="ViewListProducts"
                               Margin="20 0 0 10"
                               Width="auto"
                               Height="auto"
                               ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Visible">
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal"></WrapPanel>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid x:Name="itemProduct" Margin="10 0">
-                                        <StackPanel
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"></WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid x:Name="itemProduct" Margin="10 0">
+                                            <StackPanel
                                     Width="150" Height="270"
                                     Margin="15 20 15 0">
-                                            <!--hình món ăn-->
-                                            <Rectangle
+                                                <!--hình món ăn-->
+                                                <Rectangle
                                                 Width="135"
                                                 Height="100"
                                                 RadiusY="10"
                                                 RadiusX="10"
                                                 Margin="0">
-                                                <Rectangle.Fill>
-                                                    <ImageBrush ImageSource="{Binding IMAGE_}" Stretch="UniformToFill" />
-                                                </Rectangle.Fill>
-                                            </Rectangle>
-                                            <!--tên món ăn-->
-                                            <TextBlock
+                                                    <Rectangle.Fill>
+                                                        <ImageBrush ImageSource="{Binding IMAGE_}" Stretch="UniformToFill" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <!--tên món ăn-->
+                                                <TextBlock
                                                         Margin="10 10 0 10"
                                                         Foreground="Black"
                                                         FontWeight="Bold"
@@ -179,10 +180,10 @@
                                                         TextWrapping="Wrap"
                                                         VerticalAlignment="Center"
                                                         Text="{Binding NAME_}">
-                                            </TextBlock>
-                                            <!--số tiền không giảm giá-->
-                                            <Grid>
-                                                <TextBlock
+                                                </TextBlock>
+                                                <!--số tiền không giảm giá-->
+                                                <Grid>
+                                                    <TextBlock
                                                 x:Name="price"
                                                 Margin="10 5"
                                                 Foreground="Black"
@@ -193,17 +194,17 @@
                                                 Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
                                                 TextDecorations="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToTxtDecorations}}"
                                                 Visibility="Visible">
-                                                </TextBlock>
-                                            </Grid>
-                                            <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
+                                                    </TextBlock>
+                                                </Grid>
+                                                <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
                                     khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên
                                     thì collapsed-->
-                                            <StackPanel
+                                                <StackPanel
                                                 x:Name="stack"
                                                 Orientation="Horizontal"
                                                 Margin="10 5"
                                                 Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
-                                                <TextBlock
+                                                    <TextBlock
                                                 x:Name="priceDiscount"
 
                                                 Margin="0 0 10 0"
@@ -211,27 +212,27 @@
                                                     FontSize="17"
                                                     FontWeight="Medium"
                                                     VerticalAlignment="Center">
-                                                    <TextBlock.Text>
-                                                        <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
-                                                            <Binding ElementName="price" Path="Text" />
-                                                            <Binding ElementName="discount" Path="Text" />
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                                <Border
+                                                        <TextBlock.Text>
+                                                            <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
+                                                                <Binding ElementName="price" Path="Text" />
+                                                                <Binding ElementName="discount" Path="Text" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                    <Border
                                                     BorderBrush="Red"
                                                     CornerRadius="5"
                                                     BorderThickness="1">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
                                                         Margin="5 0 0 0"
                                                         Foreground="Red"
                                                         FontSize="12"
                                                         FontWeight="Medium"
                                                         VerticalAlignment="Center">
                                                         -
-                                                        </TextBlock>
-                                                        <TextBlock
+                                                            </TextBlock>
+                                                            <TextBlock
                                                         x:Name="discount"
                                                         Margin="0 0 5 0"
                                                         Foreground="Red"
@@ -239,13 +240,13 @@
                                                         FontWeight="Medium"
                                                         Text="{Binding DISCOUNT_, StringFormat=P0}"
                                                         VerticalAlignment="Center">
-                                                        </TextBlock>
-                                                    </StackPanel>
-                                                </Border>
+                                                            </TextBlock>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                        <!--nút bấm thêm vào giỏ hàng-->
-                                        <Button
+                                            <!--nút bấm thêm vào giỏ hàng-->
+                                            <Button
                                         x:Name="addToCartBtn"
                                         Margin="20 10 20 20"
                                         Width="auto"
@@ -257,19 +258,19 @@
                                         VerticalAlignment="Bottom"
                                         Command="{Binding Source={StaticResource CreateOrderVM}, Path=AddToCartCommand}"
                                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
-                                            <Button.Content>
-                                                <Grid>
-                                                    <materialDesign:PackIcon x:Name="icon"
+                                                <Button.Content>
+                                                    <Grid>
+                                                        <materialDesign:PackIcon x:Name="icon"
                                                                          Margin="0 0 0 0"
                                                                          Height="25" Width="25"
                                                                          Kind="CartAdd"
                                                                          VerticalAlignment="Center" HorizontalAlignment="Center"
                                                                          Foreground="White"></materialDesign:PackIcon>
-                                                </Grid>
-                                            </Button.Content>
-                                        </Button>
-                                        <!--nền đừng quan tâm-->
-                                        <Rectangle
+                                                    </Grid>
+                                                </Button.Content>
+                                            </Button>
+                                            <!--nền đừng quan tâm-->
+                                            <Rectangle
                                                 Fill="White"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
@@ -277,273 +278,18 @@
                                                 RadiusX="10"
                                                 Panel.ZIndex="-1"
                                                 Margin="10">
-                                        </Rectangle>
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction 
+                                            </Rectangle>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction
                                                 Command="{Binding Source={StaticResource MenuVM}, Path=ItemClickCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                            <!--loại bỏ hover, highlight effect của listview-->
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListViewItem}">
-                                    <Setter Property="Background" Value="Transparent" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                                <ContentPresenter />
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                        </ListView>
-                    </Grid>
-                </Grid>
-
-                <Grid x:Name="receipt" Grid.Column="1" Margin="10 20 10 10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition MinHeight="90" MaxHeight="120"/>
-                        <RowDefinition />
-                        <RowDefinition Height="100"/>
-                    </Grid.RowDefinitions>
-                    
-                    <Grid Grid.Row="0">
-                        <TextBlock 
-                        Text="Hóa đơn"
-                        HorizontalAlignment="Center"
-                        FontSize="30"
-                        FontWeight="Bold"
-                        Foreground="{StaticResource Orange2}"
-                        Margin="0 20"/>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition MinHeight="30"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Orientation="Horizontal">
-                            <TextBlock
-                                Text="Tên:"
-                                Foreground="Black"
-                                FontSize="16"
-                                VerticalAlignment="Center"
-                                Margin="20 0 0 0"/>
-                            <TextBlock
-                                x:Name="nameTxt"
-                                Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
-                                Foreground="Black"
-                                FontWeight="Medium"
-                                FontSize="16"
-                                VerticalAlignment="Center"
-                                Margin="42 0 0 0"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <TextBlock
-                                Text="SĐT:"
-                                Foreground="Black"
-                                FontSize="16"
-                                VerticalAlignment="Center"
-                                Margin="20 0 0 0"/>
-                            <TextBlock
-                                x:Name="phoneNumberTxt"
-                                Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-                                Foreground="Black"
-                                FontWeight="Medium"
-                                FontSize="16"
-                                VerticalAlignment="Center"
-                                Margin="40 0 0 0"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="2" Orientation="Horizontal">
-                            <TextBlock
-                                Text="Địa chỉ:"
-                                Foreground="Black"
-                                FontSize="16"
-                                Margin="20 5 0 0"/>
-                            <TextBlock
-                                x:Name="addressTxt"
-                                Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
-                                Foreground="Black"
-                                FontWeight="Medium"
-                                MaxWidth="250"
-                                TextWrapping="Wrap"
-                                FontSize="16"
-                                Margin="20 5 0 0"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid Grid.Row="2" Margin="10">
-                        <ScrollViewer Margin="10 0">
-                            <ListView x:Name="carts" ItemsSource="{Binding Source={StaticResource CreateOrderVM}, Path=CurrentCart, UpdateSourceTrigger=PropertyChanged}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Width="310" Height="100" Margin="0 0 20 0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="30"/>
-                                                <ColumnDefinition Width="200"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid Grid.Column="0" Margin="10 10 0 10">
-                                                <Button
-                                                    x:Name="deleteBtn"
-                                                    Content="x"
-                                                    FontSize="30"
-                                                    FontWeight="Light"
-                                                    Opacity="0.8"
-                                                    Style="{StaticResource forgotPasswordBtn}"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Visibility="Collapsed"
-                                                    Command="{Binding Source={StaticResource CreateOrderVM}, Path=DeleteCartCommand}"
-                                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"/>
-
-                                            </Grid>
-                                            <Grid Grid.Column="1" Margin="0 10">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="auto"/>
-                                                    <ColumnDefinition/>
-                                                </Grid.ColumnDefinitions>
-                                                <!--hình ảnh-->
-                                                <Rectangle
-                                                Grid.Column="0"
-                                            RadiusY="10"
-                                            RadiusX="10"
-                                            Height="67"
-                                            Width="67"
-                                            HorizontalAlignment="Left"
-                                            Margin="5 0 10 0">
-                                                    <Rectangle.Fill>
-                                                        <ImageBrush ImageSource="{Binding PRODUCT.IMAGE_}" Stretch="UniformToFill" />
-                                                    </Rectangle.Fill>
-                                                </Rectangle>
-                                                <StackPanel Orientation="Vertical" Grid.Column="1">
-                                                    <!--tên món ăn-->
-                                                    <TextBlock
-                                                        MinHeight="45"
-                                                        Width="110"
-                                                        Text="{Binding PRODUCT.NAME_}"
-                                                        TextWrapping="Wrap"
-                                                        FontSize="13"
-                                                        FontWeight="SemiBold"
-                                                        Margin="0 8 10 0" />
-                                                    <Grid x:Name="spinner" Width="65" Height="20" HorizontalAlignment="Left">
-                                                        <Border>
-                                                            <Border.OpacityMask>
-                                                                <VisualBrush>
-                                                                    <VisualBrush.Visual>
-                                                                        <Border
-                                                                        Background="Black"
-                                                                        SnapsToDevicePixels="True"
-                                                                        CornerRadius="4"
-                                                                        Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}"
-                                                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}" />
-                                                                    </VisualBrush.Visual>
-                                                                </VisualBrush>
-                                                            </Border.OpacityMask>
-                                                            <Grid>
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="20" />
-                                                                    <ColumnDefinition />
-                                                                    <ColumnDefinition Width="20" />
-                                                                </Grid.ColumnDefinitions>
-                                                                <TextBlock
-                                                                    x:Name="amount"
-                                                                    FontWeight="Medium"
-                                                                    FontSize="10"
-                                                                    VerticalAlignment="Center"
-                                                                    HorizontalAlignment="Center"
-                                                                    Padding="0"
-                                                                    Grid.Column="1"
-                                                                    Text="{Binding AMOUNT_, UpdateSourceTrigger=PropertyChanged}" />
-                                                                <Button
-                                                                    Style="{StaticResource up_down_spinner_btn}"
-                                                                    Grid.Column="0"
-                                                                    Grid.Row="0"
-                                                                    Width="auto"
-                                                                    Height="auto"
-                                                                    Content="-"
-                                                                    VerticalContentAlignment="Center"
-                                                                    HorizontalContentAlignment="Center"
-                                                                    FontSize="16"
-                                                                    Command="{Binding Source={StaticResource CreateOrderVM}, Path=DownCommand}"
-                                                                    CommandParameter="{Binding ElementName=amount}" />
-                                                                <Button
-                                                                    Style="{StaticResource up_down_spinner_btn}"
-                                                                    Grid.Column="2"
-                                                                    Grid.Row="1"
-                                                                    Width="auto"
-                                                                    Height="auto"
-                                                                    Content="+"
-                                                                    VerticalContentAlignment="Center"
-                                                                    HorizontalContentAlignment="Center"
-                                                                    FontSize="14"
-                                                                    Command="{Binding Source={StaticResource CreateOrderVM}, Path=UpCommand}"
-                                                                    CommandParameter="{Binding ElementName=amount}" />
-                                                                <Border
-                                                                    BorderBrush="Gray"
-                                                                    IsHitTestVisible="False"
-                                                                    BorderThickness="1"
-                                                                    CornerRadius="4"
-                                                                    Grid.RowSpan="2"
-                                                                    Grid.ColumnSpan="3" />
-                                                            </Grid>
-                                                        </Border>
-                                                    </Grid>
-                                                </StackPanel>
-                                            </Grid>
-                                            <Grid Grid.Column="3" Margin="0 10 10 10">
-                                                <TextBlock 
-                                                    x:Name="discount"
-                                                    Text="{Binding PRODUCT.DISCOUNT_, StringFormat=P0}"
-                                                    Visibility="Collapsed"/>
-                                                <TextBlock 
-                                                    x:Name="price"
-                                                    Text="{Binding PRODUCT.PRICE_, StringFormat=N0}"
-                                                    Visibility="Collapsed"/>
-                                                <TextBlock
-                                                FontSize="16"
-                                                FontWeight="DemiBold"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center">
-                                                    <TextBlock.Text>
-                                                        <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource unitToPrice}">
-                                                            <Binding ElementName="discount" Path="Text" />
-                                                            <Binding ElementName="price" Path="Text" />
-                                                            <Binding ElementName="amount" Path="Text" />
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                            </Grid>
-                                            <Rectangle
-                                                Grid.ColumnSpan="4"
-                                                Fill="White"
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch"
-                                                RadiusY="10"
-                                                RadiusX="10"
-                                                Margin="10"
-                                                Panel.ZIndex="-2"/>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseEnter">
-                                                    <i:InvokeCommandAction 
-                                                        Command="{Binding Source={StaticResource CreateOrderVM}, Path=HoverItemCommand}"
-                                                        CommandParameter="{Binding ElementName=deleteBtn}"/>
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="MouseLeave">
-                                                    <i:InvokeCommandAction 
-                                                        Command="{Binding Source={StaticResource CreateOrderVM}, Path=CancelHoverItemCommand}"
-                                                        CommandParameter="{Binding ElementName=deleteBtn}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
-
+                                <!--loại bỏ hover, highlight effect của listview-->
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="{x:Type ListViewItem}">
                                         <Setter Property="Background" Value="Transparent" />
@@ -557,8 +303,262 @@
                                     </Style>
                                 </ListView.ItemContainerStyle>
                             </ListView>
-                        </ScrollViewer>
-                        <Rectangle
+                        </Grid>
+                    </Grid>
+
+                    <Grid x:Name="receipt" Grid.Column="1" Margin="10 20 10 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70" />
+                            <RowDefinition MinHeight="90" MaxHeight="120" />
+                            <RowDefinition />
+                            <RowDefinition Height="100" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <TextBlock
+                        Text="Hóa đơn"
+                        HorizontalAlignment="Center"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource Orange2}"
+                        Margin="0 20" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition MinHeight="30" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <TextBlock
+                                Text="Tên:"
+                                Foreground="Black"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Margin="20 0 0 0" />
+                                <TextBlock
+                                x:Name="nameTxt"
+                                Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
+                                Foreground="Black"
+                                FontWeight="Medium"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Margin="42 0 0 0" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <TextBlock
+                                Text="SĐT:"
+                                Foreground="Black"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Margin="20 0 0 0" />
+                                <TextBlock
+                                x:Name="phoneNumberTxt"
+                                Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
+                                Foreground="Black"
+                                FontWeight="Medium"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Margin="40 0 0 0" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <TextBlock
+                                Text="Địa chỉ:"
+                                Foreground="Black"
+                                FontSize="16"
+                                Margin="20 5 0 0" />
+                                <TextBlock
+                                x:Name="addressTxt"
+                                Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                                Foreground="Black"
+                                FontWeight="Medium"
+                                MaxWidth="250"
+                                TextWrapping="Wrap"
+                                FontSize="16"
+                                Margin="20 5 0 0" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="10">
+                            <ScrollViewer Margin="10 0">
+                                <ListView x:Name="carts" ItemsSource="{Binding Source={StaticResource CreateOrderVM}, Path=CurrentCart, UpdateSourceTrigger=PropertyChanged}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Width="310" Height="100" Margin="0 0 20 0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30" />
+                                                    <ColumnDefinition Width="200" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Margin="10 10 0 10">
+                                                    <Button
+                                                    x:Name="deleteBtn"
+                                                    Content="x"
+                                                    FontSize="30"
+                                                    FontWeight="Light"
+                                                    Opacity="0.8"
+                                                    Style="{StaticResource forgotPasswordBtn}"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Visibility="Collapsed"
+                                                    Command="{Binding Source={StaticResource CreateOrderVM}, Path=DeleteCartCommand}"
+                                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
+                                                </Grid>
+                                                <Grid Grid.Column="1" Margin="0 10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <!--hình ảnh-->
+                                                    <Rectangle
+                                                Grid.Column="0"
+                                            RadiusY="10"
+                                            RadiusX="10"
+                                            Height="67"
+                                            Width="67"
+                                            HorizontalAlignment="Left"
+                                            Margin="5 0 10 0">
+                                                        <Rectangle.Fill>
+                                                            <ImageBrush ImageSource="{Binding PRODUCT.IMAGE_}" Stretch="UniformToFill" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                                                        <!--tên món ăn-->
+                                                        <TextBlock
+                                                        MinHeight="45"
+                                                        Width="110"
+                                                        Text="{Binding PRODUCT.NAME_}"
+                                                        TextWrapping="Wrap"
+                                                        FontSize="13"
+                                                        FontWeight="SemiBold"
+                                                        Margin="0 8 10 0" />
+                                                        <Grid x:Name="spinner" Width="65" Height="20" HorizontalAlignment="Left">
+                                                            <Border>
+                                                                <Border.OpacityMask>
+                                                                    <VisualBrush>
+                                                                        <VisualBrush.Visual>
+                                                                            <Border
+                                                                        Background="Black"
+                                                                        SnapsToDevicePixels="True"
+                                                                        CornerRadius="4"
+                                                                        Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}"
+                                                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Border.OpacityMask>
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="20" />
+                                                                        <ColumnDefinition />
+                                                                        <ColumnDefinition Width="20" />
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBlock
+                                                                    x:Name="amount"
+                                                                    FontWeight="Medium"
+                                                                    FontSize="10"
+                                                                    VerticalAlignment="Center"
+                                                                    HorizontalAlignment="Center"
+                                                                    Padding="0"
+                                                                    Grid.Column="1"
+                                                                    Text="{Binding AMOUNT_, UpdateSourceTrigger=PropertyChanged}" />
+                                                                    <Button
+                                                                    Style="{StaticResource up_down_spinner_btn}"
+                                                                    Grid.Column="0"
+                                                                    Grid.Row="0"
+                                                                    Width="auto"
+                                                                    Height="auto"
+                                                                    Content="-"
+                                                                    VerticalContentAlignment="Center"
+                                                                    HorizontalContentAlignment="Center"
+                                                                    FontSize="16"
+                                                                    Command="{Binding Source={StaticResource CreateOrderVM}, Path=DownCommand}"
+                                                                    CommandParameter="{Binding ElementName=amount}" />
+                                                                    <Button
+                                                                    Style="{StaticResource up_down_spinner_btn}"
+                                                                    Grid.Column="2"
+                                                                    Grid.Row="1"
+                                                                    Width="auto"
+                                                                    Height="auto"
+                                                                    Content="+"
+                                                                    VerticalContentAlignment="Center"
+                                                                    HorizontalContentAlignment="Center"
+                                                                    FontSize="14"
+                                                                    Command="{Binding Source={StaticResource CreateOrderVM}, Path=UpCommand}"
+                                                                    CommandParameter="{Binding ElementName=amount}" />
+                                                                    <Border
+                                                                    BorderBrush="Gray"
+                                                                    IsHitTestVisible="False"
+                                                                    BorderThickness="1"
+                                                                    CornerRadius="4"
+                                                                    Grid.RowSpan="2"
+                                                                    Grid.ColumnSpan="3" />
+                                                                </Grid>
+                                                            </Border>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Grid>
+                                                <Grid Grid.Column="3" Margin="0 10 10 10">
+                                                    <TextBlock
+                                                    x:Name="discount"
+                                                    Text="{Binding PRODUCT.DISCOUNT_, StringFormat=P0}"
+                                                    Visibility="Collapsed" />
+                                                    <TextBlock
+                                                    x:Name="price"
+                                                    Text="{Binding PRODUCT.PRICE_, StringFormat=N0}"
+                                                    Visibility="Collapsed" />
+                                                    <TextBlock
+                                                FontSize="16"
+                                                FontWeight="DemiBold"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource unitToPrice}">
+                                                                <Binding ElementName="discount" Path="Text" />
+                                                                <Binding ElementName="price" Path="Text" />
+                                                                <Binding ElementName="amount" Path="Text" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Grid>
+                                                <Rectangle
+                                                Grid.ColumnSpan="4"
+                                                Fill="White"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                RadiusY="10"
+                                                RadiusX="10"
+                                                Margin="10"
+                                                Panel.ZIndex="-2" />
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseEnter">
+                                                        <i:InvokeCommandAction
+                                                        Command="{Binding Source={StaticResource CreateOrderVM}, Path=HoverItemCommand}"
+                                                        CommandParameter="{Binding ElementName=deleteBtn}" />
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="MouseLeave">
+                                                        <i:InvokeCommandAction
+                                                        Command="{Binding Source={StaticResource CreateOrderVM}, Path=CancelHoverItemCommand}"
+                                                        CommandParameter="{Binding ElementName=deleteBtn}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                        <ContentPresenter />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+                            </ScrollViewer>
+                            <Rectangle
                             Grid.RowSpan="4"
                             Fill="{StaticResource GrayBackground}"
                             HorizontalAlignment="Stretch"
@@ -566,17 +566,17 @@
                             RadiusY="1"
                             RadiusX="1"
                             Panel.ZIndex="-2"
-                            Margin="10 0"/>
-                    </Grid>
-                    <Grid Grid.Row="3" Margin="10 0 10 10">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
+                            Margin="10 0" />
+                        </Grid>
+                        <Grid Grid.Row="3" Margin="10 0 10 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
                                 Text="Tổng cộng:"
                                 Foreground="Black"
                                 FontSize="20"
                                 VerticalAlignment="Top"
-                                Margin="20 0 0 0"/>
-                            <TextBlock
+                                Margin="20 0 0 0" />
+                                <TextBlock
                                 Text="{Binding TotalPrice, StringFormat=N0, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="Black"
                                 FontWeight="Medium"
@@ -584,9 +584,9 @@
                                 Width="110"
                                 TextAlignment="Right"
                                 VerticalAlignment="Top"
-                                Margin="70 0 0 0"/>
-                        </StackPanel>
-                        <Button 
+                                Margin="70 0 0 0" />
+                            </StackPanel>
+                            <Button
                             Style="{StaticResource SearchBtn}"
                             Command="{Binding Source={StaticResource CreateOrderVM}, Path=OrderCommand}"
                             CommandParameter="{Binding ElementName=CreateOrderWD}"
@@ -595,10 +595,10 @@
                             Margin="10 10"
                             Height="35"
                             Content="Đặt hàng"
-                            FontSize="20"/>
-                    </Grid>
+                            FontSize="20" />
+                        </Grid>
 
-                    <Rectangle
+                        <Rectangle
                         Grid.RowSpan="4"
                         Fill="White"
                         HorizontalAlignment="Stretch"
@@ -607,12 +607,11 @@
                         RadiusX="10"
                         Panel.ZIndex="-2"
                         Margin="10"
-                        Effect="{StaticResource dropShadow1}"/>
-
+                        Effect="{StaticResource dropShadow1}" />
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-        <Rectangle
+            <Rectangle
             Fill="{StaticResource GrayBackground}"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -621,6 +620,7 @@
             Panel.ZIndex="-2"
             Effect="{StaticResource dropShadow}"
             Margin="10">
-        </Rectangle>
-    </Grid>
+            </Rectangle>
+        </Grid>
+    </materialDesign:TransitioningContent>
 </Window>

@@ -30,28 +30,30 @@
         <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
         <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
     </Window.Resources>
-    <Grid>
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="AUTO"></RowDefinition>
-                <RowDefinition Height="70"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
-            </Grid.RowDefinitions>
-            <uc:ControlBarUC x:Name="controlBar" Grid.Row="0"></uc:ControlBarUC>
-            <Grid Grid.Row="1" Grid.RowSpan="2">
+
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:0.2}">
+        <Grid>
+            <Grid Margin="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="AUTO"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="500"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Món ăn"
+                <uc:ControlBarUC x:Name="controlBar" Grid.Row="0"></uc:ControlBarUC>
+                <Grid Grid.Row="1" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="500"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Món ăn"
                            FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Left"
@@ -59,59 +61,59 @@
                            Foreground="Black"
                            Grid.Column="0"
                            Margin="40 0 0 0" />
-                    <TextBlock Text="Số lượng"
+                        <TextBlock Text="Số lượng"
                            FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="1" />
-                    <TextBlock Text="Giá"
+                        <TextBlock Text="Giá"
                            FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="2" />
-                    <TextBlock Text="Đánh giá"
+                        <TextBlock Text="Đánh giá"
                            FontSize="20"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="3" />
-                </Grid>
-                <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
-                <ListView x:Name="ListOtherUser"
+                    </Grid>
+                    <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
+                    <ListView x:Name="ListOtherUser"
                             Grid.Row="1"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="120" Width="1000">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="500"></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                                        <ColumnDefinition Width="150"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
-                                    <Grid Grid.Column="0">
-                                        <!--hình ảnh-->
-                                        <Rectangle
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="120" Width="1000">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="500"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="150"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <!--hình, tên, giá giảm và chưa giảm của 1 món ăn-->
+                                        <Grid Grid.Column="0">
+                                            <!--hình ảnh-->
+                                            <Rectangle
                                             RadiusY="10"
                                             RadiusX="10"
                                             Height="80"
                                             Width="80"
                                             HorizontalAlignment="Left"
                                             Margin="40 0">
-                                            <Rectangle.Fill>
-                                                <ImageBrush ImageSource="{Binding PRODUCT.IMAGE_}" Stretch="UniformToFill" />
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                        <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right">
-                                            <!--tên món ăn-->
-                                            <TextBlock
+                                                <Rectangle.Fill>
+                                                    <ImageBrush ImageSource="{Binding PRODUCT.IMAGE_}" Stretch="UniformToFill" />
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                            <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right">
+                                                <!--tên món ăn-->
+                                                <TextBlock
                                             Margin="0 20 0 0"
                                             Text="{Binding PRODUCT.NAME_}"
                                             FontSize="17"
@@ -120,8 +122,8 @@
                                             Foreground="Black"
                                             Grid.Column="2"
                                             TextWrapping="Wrap" />
-                                            <!--giá bình thường-->
-                                            <TextBlock
+                                                <!--giá bình thường-->
+                                                <TextBlock
                                             x:Name="price"
                                             Margin="10 5"
                                             Foreground="Black"
@@ -130,42 +132,42 @@
                                             FontSize="18"
                                             Opacity="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToOpacity}}"
                                             Text="{Binding PRODUCT.PRICE_, StringFormat=N0}" />
-                                            <!--GIÁ GIẢM-->
-                                            <StackPanel
+                                                <!--GIÁ GIẢM-->
+                                                <StackPanel
                                                     x:Name="stack"
                                                     Orientation="Horizontal"
                                                     Margin="0 5"
                                                     Visibility="{Binding ElementName=discount, Path= Text, Converter={StaticResource doubleToVis}}">
-                                                <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
-                                                <!--giá giảm-->
-                                                <TextBlock
+                                                    <materialDesign:PackIcon x:Name="arrow" Kind="ArrowRight" VerticalAlignment="Center" />
+                                                    <!--giá giảm-->
+                                                    <TextBlock
                                                         Margin="10 0 10 0"
                                                         Foreground="Red"
                                                         FontSize="16"
                                                         FontWeight="Medium"
                                                         VerticalAlignment="Center">
-                                                    <TextBlock.Text>
-                                                        <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
-                                                            <Binding ElementName="price" Path="Text" />
-                                                            <Binding ElementName="discount" Path="Text" />
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                                <!--discount-->
-                                                <Border
+                                                        <TextBlock.Text>
+                                                            <MultiBinding Converter="{StaticResource priceToPriceDiscount}">
+                                                                <Binding ElementName="price" Path="Text" />
+                                                                <Binding ElementName="discount" Path="Text" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                    <!--discount-->
+                                                    <Border
                                                         BorderBrush="Red"
                                                         CornerRadius="5"
                                                         BorderThickness="1">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
                                                             Margin="5 0 0 0"
                                                             Foreground="Red"
                                                             FontSize="12"
                                                             FontWeight="Medium"
                                                             VerticalAlignment="Center">
                                                             -
-                                                        </TextBlock>
-                                                        <TextBlock
+                                                            </TextBlock>
+                                                            <TextBlock
                                                             x:Name="discount"
                                                             Margin="5 0"
                                                             Foreground="Red"
@@ -173,38 +175,38 @@
                                                             FontWeight="Medium"
                                                             Text="{Binding PRODUCT.DISCOUNT_, StringFormat={}{0:P0}}"
                                                             VerticalAlignment="Center">
-                                                        </TextBlock>
-                                                    </StackPanel>
-                                                </Border>
+                                                            </TextBlock>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                    </Grid>
-                                    <!--số lượng-->
-                                    <TextBlock x:Name="amount"
+                                        </Grid>
+                                        <!--số lượng-->
+                                        <TextBlock x:Name="amount"
                                     Text="{Binding AMOUNT_}"
                                        FontSize="18"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Grid.Column="1"></TextBlock>
-                                    <!--giá tiền tổng cộng của mỗi món ăn bên UI đã tính bằng converter rồi -->
-                                    <TextBlock
+                                        <!--giá tiền tổng cộng của mỗi món ăn bên UI đã tính bằng converter rồi -->
+                                        <TextBlock
                                        FontSize="18"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Foreground="Black"
                                        TextWrapping="Wrap"
                                        Grid.Column="2">
-                                        <TextBlock.Text>
-                                            <MultiBinding Converter="{StaticResource unitToPrice}">
-                                                <Binding ElementName="discount" Path="Text" />
-                                                <Binding ElementName="price" Path="Text" />
-                                                <Binding ElementName="amount" Path="Text" />
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                    <!--Đánh giá-->
-                                    <Grid x:Name="rating" Grid.Column="3">
-                                        <materialDesign:RatingBar
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource unitToPrice}">
+                                                    <Binding ElementName="discount" Path="Text" />
+                                                    <Binding ElementName="price" Path="Text" />
+                                                    <Binding ElementName="amount" Path="Text" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <!--Đánh giá-->
+                                        <Grid x:Name="rating" Grid.Column="3">
+                                            <materialDesign:RatingBar
                                             x:Name="BasicRatingBar"
                                             Foreground="{StaticResource Orange1}"
                                             Value="{Binding RATING_}"
@@ -212,16 +214,16 @@
                                             Cursor="Hand"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center" Opacity="2">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="ValueChanged">
-                                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource MyOrderVM},Path= RatingCommand}"
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="ValueChanged">
+                                                        <i:InvokeCommandAction Command="{Binding Source={StaticResource MyOrderVM},Path= RatingCommand}"
                                                     CommandParameter="{Binding ElementName=BasicRatingBar}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </materialDesign:RatingBar>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </materialDesign:RatingBar>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                                <Rectangle
+                                    <Rectangle
                                 Fill="White"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
@@ -229,40 +231,40 @@
                                 RadiusX="10"
                                 Panel.ZIndex="-2"
                                 Margin="10">
-                                </Rectangle>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Background="{StaticResource GrayBackground}"></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <!--loại bỏ hover, highlight effect của listview-->
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                        <ContentPresenter />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </Grid>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                    </Rectangle>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Background="{StaticResource GrayBackground}"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <!--loại bỏ hover, highlight effect của listview-->
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"
                         Grid.Row="3">
-                <TextBlock Text="Tổng giá:"
+                    <TextBlock Text="Tổng giá:"
                            FontSize="30"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="0"></TextBlock>
-                <TextBlock Text="{Binding Value}"
+                    <TextBlock Text="{Binding Value}"
                            FontSize="30"
                            Margin="20 0"
                            VerticalAlignment="Bottom"
@@ -270,9 +272,9 @@
                            FontWeight="Medium"
                            Foreground="Black"
                            Grid.Column="0"></TextBlock>
-            </StackPanel>
-        </Grid>
-        <Rectangle
+                </StackPanel>
+            </Grid>
+            <Rectangle
             Fill="White"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -281,6 +283,7 @@
             Panel.ZIndex="-2"
             Effect="{StaticResource dropShadow}"
             Margin="10">
-        </Rectangle>
-    </Grid>
+            </Rectangle>
+        </Grid>
+    </materialDesign:TransitioningContent>
 </Window>

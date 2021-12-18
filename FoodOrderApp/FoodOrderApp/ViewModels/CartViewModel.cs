@@ -68,7 +68,7 @@ namespace FoodOrderApp.ViewModels
             set
             {
                 name = value;
-                OnPropertyChanged("TotalPrice");
+                OnPropertyChanged("Name");
             }
         }
 
@@ -78,7 +78,7 @@ namespace FoodOrderApp.ViewModels
             set
             {
                 mail = value;
-                OnPropertyChanged("TotalPrice");
+                OnPropertyChanged("Mail");
             }
         }
 
@@ -88,7 +88,7 @@ namespace FoodOrderApp.ViewModels
             set
             {
                 phone = value;
-                OnPropertyChanged("TotalPrice");
+                OnPropertyChanged("Phone");
             }
         }
 
@@ -98,7 +98,7 @@ namespace FoodOrderApp.ViewModels
             set
             {
                 address = value;
-                OnPropertyChanged("TotalPrice");
+                OnPropertyChanged("Address");
             }
         }
 
@@ -145,14 +145,12 @@ namespace FoodOrderApp.ViewModels
                     CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
                     TotalPrice = GetTotalPrice(lv);
                     FoodCount = GetFoodCount(lv);
-
                 }
             }
             catch
             {
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
         }
 
         protected void DeleteIsCheckedCart(ListView parameter)
@@ -401,6 +399,5 @@ namespace FoodOrderApp.ViewModels
             changeInformationWindow.lblChangeinfo.Content = "Cập nhật địa chỉ";
             changeInformationWindow.ShowDialog();
         }
-        
     }
 }

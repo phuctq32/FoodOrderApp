@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FoodOrderApp.Views.UserControls"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              Height="710"
@@ -19,129 +19,130 @@
             Background="{x:Null}"
             FontFamily="{DynamicResource MaterialDesignFont}"
             Foreground="{x:Null}">
-    <Grid>
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <i:InvokeCommandAction Command="{Binding LoadedCommand}"
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
+        <Grid>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadedCommand}"
                                    CommandParameter="{Binding ElementName=MyOrderManagementUserControl}" />
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="White" Width="670" HorizontalAlignment="Center" Margin="0 2 0 0" CornerRadius="5" Effect="{StaticResource dropShadow1}">
-            <ListView x:Name="statusListViewUser"
-                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                  SelectedIndex="0">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"></StackPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged" >
-                        <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName=MyOrderManagementUserControl}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <ListViewItem>
-                    <ListViewItem.Template>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border Height="40" Width="150" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
-                                <TextBlock x:Name="text" Text="Chờ xác nhận" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListViewItem.Template>
-                </ListViewItem>
-                <ListViewItem>
-                    <ListViewItem.Template>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border Height="40" Width="160" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
-                                <TextBlock x:Name="text" Text="Đang giao hàng" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListViewItem.Template>
-                </ListViewItem>
-                <ListViewItem>
-                    <ListViewItem.Template>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border Height="40" Width="100" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
-                                <TextBlock x:Name="text" Text="Đã giao" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListViewItem.Template>
-                </ListViewItem>
-                <ListViewItem>
-                    <ListViewItem.Template>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border Height="40" Width="100" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
-                                <TextBlock x:Name="text" Text="Đã hủy" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListViewItem.Template>
-                </ListViewItem>
-            </ListView>
-        </Border>
-
-        <Grid Grid.Row="1">
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50" />
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="White" Width="670" HorizontalAlignment="Center" Margin="0 2 0 0" CornerRadius="5" Effect="{StaticResource dropShadow1}">
+                <ListView x:Name="statusListViewUser"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  SelectedIndex="0">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName=MyOrderManagementUserControl}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListViewItem>
+                        <ListViewItem.Template>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Height="40" Width="150" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
+                                    <TextBlock x:Name="text" Text="Chờ xác nhận" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ListViewItem.Template>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <ListViewItem.Template>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Height="40" Width="160" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
+                                    <TextBlock x:Name="text" Text="Đang giao hàng" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ListViewItem.Template>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <ListViewItem.Template>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Height="40" Width="100" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
+                                    <TextBlock x:Name="text" Text="Đã giao" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ListViewItem.Template>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <ListViewItem.Template>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Height="40" Width="100" x:Name="border" BorderBrush="Transparent" BorderThickness="0 0 0 4" Margin="20 0">
+                                    <TextBlock x:Name="text" Text="Đã hủy" TextAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="text" Property="TextBlock.Foreground" Value="{DynamicResource Orange2}"></Setter>
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Orange2}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ListViewItem.Template>
+                    </ListViewItem>
+                </ListView>
+            </Border>
 
-            <Grid Grid.Row="0" Margin="10 10 10 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="10 10 10 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
                 Text="Mã đơn hàng"
                 FontSize="20"
                 VerticalAlignment="Center"
@@ -149,7 +150,7 @@
                 FontWeight="Medium"
                 Foreground="Black"
                 Grid.Column="0" />
-                <TextBlock
+                    <TextBlock
                 Text="Ngày mua"
                 FontSize="20"
                 VerticalAlignment="Center"
@@ -157,7 +158,7 @@
                 FontWeight="Medium"
                 Foreground="Black"
                 Grid.Column="1" />
-                <TextBlock
+                    <TextBlock
                 Text="Số lượng"
                 FontSize="20"
                 VerticalAlignment="Center"
@@ -165,7 +166,7 @@
                 FontWeight="Medium"
                 Foreground="Black"
                 Grid.Column="2" />
-                <TextBlock
+                    <TextBlock
                 Text="Tổng tiền"
                 FontSize="20"
                 VerticalAlignment="Center"
@@ -173,7 +174,7 @@
                 FontWeight="Medium"
                 Foreground="Black"
                 Grid.Column="3" />
-                <TextBlock
+                    <TextBlock
                 Text="Chi tiết"
                 FontSize="20"
                 VerticalAlignment="Center"
@@ -181,23 +182,23 @@
                 FontWeight="Medium"
                 Foreground="Black"
                 Grid.Column="4" />
-            </Grid>
-            <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
-            <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
-            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
+                </Grid>
+                <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
+                <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
+                <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
                       ItemsSource="{Binding Path=ListReceipt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="100" Margin="10 5 10 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <!--mã đơn hàng-->
-                            <TextBlock
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="100" Margin="10 5 10 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--mã đơn hàng-->
+                                <TextBlock
                             Text="{Binding ID_}"
                             FontSize="20"
                             VerticalAlignment="Center"
@@ -205,8 +206,8 @@
                             FontWeight="Medium"
                             Foreground="Black" />
 
-                            <!--ngày mua-->
-                            <TextBlock
+                                <!--ngày mua-->
+                                <TextBlock
                             Text="{Binding DATE_, StringFormat={}{0:dd/MM/yyyy}}"
                             FontSize="20"
                             VerticalAlignment="Center"
@@ -214,10 +215,10 @@
                             FontWeight="Medium"
                             Foreground="Black"
                             Grid.Column="1" />
-                            <!--số lượng món trong đơn-->
-                            <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
-                            <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->
-                            <TextBlock
+                                <!--số lượng món trong đơn-->
+                                <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
+                                <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->
+                                <TextBlock
                             Text="{Binding RECEIPT_DETAIL.Count}"
                             FontSize="20"
                             VerticalAlignment="Center"
@@ -225,39 +226,39 @@
                             FontWeight="Medium"
                             Foreground="Black"
                             Grid.Column="2" />
-                            <!--giá tiền tổng cộng-->
-                            <TextBlock
+                                <!--giá tiền tổng cộng-->
+                                <TextBlock
                             Grid.Column="3"
                             Text="{Binding VALUE_, StringFormat=N0}"
                             FontSize="20"
                             FontWeight="DemiBold"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" />
-                            <Button
+                                <Button
                                         Style="{StaticResource detailBtn}"
                                         Grid.Column="4"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Command="{Binding Source={StaticResource MyOrderVM}, Path=OpenOrderDetailWindowCommand}"
                                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
-                            <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="5"></Separator>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                    <ContentPresenter />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
-            <Rectangle
+                                <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="5"></Separator>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+                <Rectangle
                 Fill="White"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
@@ -269,7 +270,8 @@
                 Grid.ColumnSpan="5"
                 Grid.Row="0"
                 Grid.RowSpan="2">
-            </Rectangle>
+                </Rectangle>
+            </Grid>
         </Grid>
-    </Grid>
+    </materialDesign:TransitioningContent>
 </UserControl>
