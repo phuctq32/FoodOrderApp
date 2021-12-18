@@ -49,16 +49,19 @@
                             <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill" />
                         </Rectangle.Fill>
                     </Rectangle>
+                    <Grid Grid.Row="2">
+                        
+                    </Grid>
                     <StackPanel
                     Grid.Row="2"
                     Grid.Column="0"
                     Grid.RowSpan="2"
                     Margin="8 24 8 0"
                     HorizontalAlignment="Stretch">
-
                         <TextBlock
                         Grid.Row="2"
                         Grid.RowSpan="2"
+                            Foreground="{StaticResource Gray}"
                         FontWeight="Bold" Margin="20 10" HorizontalAlignment="Center"
                         FontSize="24">
                         Food Order
@@ -80,42 +83,55 @@ Lần đầu tiên bạn được thưởng thức hải sản theo một cách 
             <Grid Grid.Column="1" Grid.RowSpan="3" Grid.Row="1">
                 <TextBlock 
                     Text="Liên hệ"
-                    FontSize="30"
-                    Foreground="Black"
-                    FontWeight="DemiBold"
-                    Margin="30 0 0 0"
-                    Width="100"
-                    Height="40"
-                    HorizontalAlignment="Left"
+                    FontSize="40"
+                    Foreground="{StaticResource Gray}"
+                    FontWeight="Bold"
+                    Margin="0 30 0 0"
+                    Width="150"
+                    Height="50"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Top"/>
                 
                 <StackPanel 
                     Orientation="Vertical" 
                     VerticalAlignment="Top"                    
                     HorizontalAlignment="Center"
-                    Margin="0 50 0 0">
-                    <StackPanel Orientation="Horizontal" Margin="0 20">
-                        <materialDesign:PackIcon Kind="MapMarker" Height="40" Width="40" />
-                        <Label
-                           Margin="10 0 0 0"
-                           FontSize="20"
-                           Content="Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh."/>
+                    Margin="0 100 0 0">
+                    <StackPanel Orientation="Horizontal" Margin="10 20 40 20">
+                        <materialDesign:PackIcon Kind="MapMarker" Foreground="{StaticResource Orange2}" Height="40" Width="40" />
+                        <TextBlock
+                            TextWrapping="Wrap"
+                            Width="350"
+                            Margin="20 0 0 0"
+                            FontSize="20"
+                            FontWeight="DemiBold"
+                            Text="Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh."/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0 20">
-                        <materialDesign:PackIcon Kind="Phone" Height="40" Width="40" />
+                    <StackPanel Orientation="Horizontal" Margin="10 20">
+                        <materialDesign:PackIcon Kind="Phone" Foreground="{StaticResource LightGreen}" Height="40" Width="40" />
                         <Label
-                            Margin="10 0 0 0"
+                            Margin="20 5 0 0"
+                            FontWeight="DemiBold"
                             Content="0123456789" 
                             FontSize="20"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0 20">
-                        <materialDesign:PackIcon Kind="Email" Height="40" Width="40" />
+                    <StackPanel Orientation="Horizontal" Margin="10 20">
+                        <materialDesign:PackIcon Kind="Email" Foreground="OrangeRed" Height="40" Width="40" />
                         <Label
-                            Margin="10 0 0 0"
-                            Content="info@gmail.com" 
+                            Margin="20 5 0 0"
+                            FontWeight="DemiBold"
+                            Content="teambaylttq@gmail.com" 
                             FontSize="20"/>
                     </StackPanel>
                 </StackPanel>
+                <Rectangle
+                    Fill="White"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    RadiusY="10"
+                    RadiusX="10"
+                    Panel.ZIndex="-2"
+                    Margin="-5 -5 20 0"/>
             </Grid>
 
             

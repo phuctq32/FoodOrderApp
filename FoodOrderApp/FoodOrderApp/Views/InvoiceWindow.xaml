@@ -19,7 +19,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         AllowsTransparency="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
+        WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
+        Icon="/Resources/Images/app-icon.png">
     <Window.Resources>
         <helper:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helper:UnitPriceToTotalPriceFAPConverter>
         <helper:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helper:PriceToPriceDiscount>

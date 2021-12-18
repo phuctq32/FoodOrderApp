@@ -2,6 +2,8 @@
 using FoodOrderApp.Views;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -124,8 +126,9 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Mã xác nhận không được chứa khoảng trắng!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            string tmpCode = systemCode.ToString().Trim();
-            string tmp = Code.Trim();
+            string tmpCode = systemCode.ToString();
+            string tmp = Code;
+            string passEncode = MD5Hash(Base64Encode(Password));
             if (tmp != tmpCode)
             {
                 CustomMessageBox.Show("Mã xác nhận không đúng!!", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -133,8 +136,9 @@ namespace FoodOrderApp.ViewModels
             }
             try
             {
-                USER user = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == Mail.Trim()).SingleOrDefault();
-                user.PASSWORD_ = Password.Trim();
+
+                USER user = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == Mail).SingleOrDefault();
+                user.PASSWORD_ = passEncode;
                 Data.Ins.DB.SaveChanges();
                 CustomMessageBox.Show("Đổi mật khẩu thành công!", MessageBoxButton.OK);
                 systemCode = 0;
@@ -145,5 +149,25 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
             }
         }
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
+        }
+
+
+
     }
 }

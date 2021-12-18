@@ -2,6 +2,8 @@
 using FoodOrderApp.Views;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -193,23 +195,44 @@ namespace FoodOrderApp.ViewModels
             }
             string tmpCode = systemCode.ToString();
             string tmp = Code;
-            if (tmp != tmpCode)
+            string passEncode = MD5Hash(Base64Encode(Password));
+            if (tmp != tmpCode )
             {
                 CustomMessageBox.Show("Mã xác nhận không đúng!!", MessageBoxButton.OK);
                 return;
             }
-            try
-            {
-                Data.Ins.DB.USERS.Add(new USER() { FULLNAME_ = userName.Trim(), EMAIL_ = Mail.Trim(), PHONE_ = Phone.Trim(), USERNAME_ = UserName.Trim(), PASSWORD_ = Password.Trim(), TYPE_ = "user" });
-                Data.Ins.DB.SaveChanges();
-                CustomMessageBox.Show("Đăng ký thành công", MessageBoxButton.OK);
+             try
+             {
+
+                  Data.Ins.DB.USERS.Add(new USER() { FULLNAME_=userName, EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = passEncode, TYPE_ = "user" });
+                  Data.Ins.DB.SaveChanges();
+                 CustomMessageBox.Show("Đăng ký thành công",MessageBoxButton.OK);
                 systemCode = 0;
-                parameter.Close();
-            }
-            catch
-            {
-                CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
-            }
+                 parameter.Close();
+             }
+             catch
+             {
+                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu");
+             }
+
         }
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
+        }
+
     }
 }
