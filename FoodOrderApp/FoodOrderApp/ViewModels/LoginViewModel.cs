@@ -112,9 +112,9 @@ namespace FoodOrderApp.ViewModels
                     CurrentAccount.Username = UserName;
 
                     MainWindow app = new MainWindow();
-                    app.Show();
                     parameter.Close();
                     parameter.txtPassword.Clear();
+                    app.Show();
                 }
                 else
                 {

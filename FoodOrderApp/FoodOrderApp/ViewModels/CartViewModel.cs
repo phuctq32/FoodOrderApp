@@ -104,7 +104,6 @@ namespace FoodOrderApp.ViewModels
 
         public CartViewModel()
         {
-            FoodCount = 0;
             OpenSetAddressWDCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => OpenSetAddress(parameter));
             OrderCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => Order(parameter));
             LoadedCommand = new RelayCommand<CartUC>(p => p == null ? false : true, p => Loaded(p));
@@ -114,16 +113,23 @@ namespace FoodOrderApp.ViewModels
             UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
             AllCheckedCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
             CheckedCommand = new RelayCommand<CheckBox>((parameter) => { return true; }, (parameter) => Checked(parameter));
-            var user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            Name = user.FULLNAME_;
-            Phone = user.PHONE_;
-            Mail = user.EMAIL_;
-            Address = user.ADDRESS_;
+            
         }
 
         private void Loaded(CartUC cartUC)
         {
             CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
+            var user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            Name = user.FULLNAME_;
+            Phone = user.PHONE_;
+            Mail = user.EMAIL_;
+            Address = user.ADDRESS_;
+            if(!String.IsNullOrEmpty(Address))
+            {
+                cartUC.SetAddress.Visibility = Visibility.Collapsed;
+            }
+
+            FoodCount = GetFoodCount(cartUC.cartList);
         }
 
         protected void DeleteCart(ListViewItem parameter)
@@ -155,7 +161,7 @@ namespace FoodOrderApp.ViewModels
 
         protected void DeleteIsCheckedCart(ListView parameter)
         {
-            if (parameter.Items.Count == 0)
+            if (parameter.Items.Count == 0 || FoodCount == 0)
             {
                 return;
             }
@@ -313,6 +319,16 @@ namespace FoodOrderApp.ViewModels
         {
             try
             {
+                if(FoodCount == 0)
+                {
+                    CustomMessageBox.Show("Chưa chọn món ăn!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (String.IsNullOrEmpty(Address))
+                {
+                    CustomMessageBox.Show("Chưa thiết lập địa chỉ!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
                 DateTime Now = DateTime.Now;
                 string now = Now.GetDateTimeFormats(viVn)[0];
 
@@ -331,20 +347,26 @@ namespace FoodOrderApp.ViewModels
 
                 int countReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Count() + 1;
 
-                foreach (CART cart in currentCart)
+                foreach (var lvi in FindVisualChildren<ListViewItem>(parameter.cartList))
                 {
-                    receipt_detail.Add(new RECEIPT_DETAIL()
+                    CART cart = lvi.DataContext as CART;
+                    var checkBox = GetVisualChild<CheckBox>(lvi);
+                    if (checkBox.IsChecked == true)
                     {
-                        DETAIL_ID = countReceiptDetail.ToString(),
-                        AMOUNT_ = (short)cart.AMOUNT_,
-                        RECEIPT_ID = receipt.ID_,
-                        PRODUCT_ = cart.PRODUCT_,
-                        PRODUCT = cart.PRODUCT,
-                        RATED_ = true,
-                        RATING_ = 0,
-                        RECEIPT = receipt
-                    });
-                    countReceiptDetail++;
+                        receipt_detail.Add(new RECEIPT_DETAIL()
+                        {
+                            DETAIL_ID = countReceiptDetail.ToString(),
+                            AMOUNT_ = (short)cart.AMOUNT_,
+                            RECEIPT_ID = receipt.ID_,
+                            PRODUCT_ = cart.PRODUCT_,
+                            PRODUCT = cart.PRODUCT,
+                            RATED_ = true,
+                            RATING_ = 0,
+                            RECEIPT = receipt
+                        });
+                        countReceiptDetail++;
+                    }
+                    
                 }
 
                 foreach (var receipt_de in receipt_detail)
@@ -398,6 +420,12 @@ namespace FoodOrderApp.ViewModels
             changeInformationWindow.phoneStack.Visibility = Visibility.Collapsed;
             changeInformationWindow.lblChangeinfo.Content = "Cập nhật địa chỉ";
             changeInformationWindow.ShowDialog();
+            var user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            Address = user.ADDRESS_;
+            if (!String.IsNullOrEmpty(Address))
+            {
+                parameter.SetAddress.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

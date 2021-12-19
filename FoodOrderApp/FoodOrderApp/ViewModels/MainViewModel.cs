@@ -1,6 +1,8 @@
-﻿using FoodOrderApp.Views;
+﻿using FoodOrderApp.Models;
+using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 using FoodOrderApp.Views.UserControls.Admin;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -58,6 +60,7 @@ namespace FoodOrderApp.ViewModels
                     {
                         w.Close();
                     }
+                    
                 }
             });
             SwitchTabCommand = new RelayCommand<MainWindow>(p => true, (p) => SwitchTab(p));
@@ -76,13 +79,13 @@ namespace FoodOrderApp.ViewModels
                 mainWindow.listViewMenu.SelectedIndex = 5;
                 mainWindow.ucWindow.Children.Add(new DashBoardUC());
             }
-            //USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            //AVATAR_ = user.AVATAR_;
-            //FULLNAME_ = user.FULLNAME_;
-            //Phone = user.PHONE_;
-            //UserName = user.USERNAME_;
-            //Mail = user.EMAIL_;
-            //Address = user.ADDRESS_;
+            USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            AVATAR_ = user.AVATAR_;
+            FULLNAME_ = user.FULLNAME_;
+            Phone = user.PHONE_;
+            UserName = user.USERNAME_;
+            Mail = user.EMAIL_;
+            Address = user.ADDRESS_;
             mainWindow.controlBar.closeBtn.Command = CloseWindowCommand;
             mainWindow.controlBar.closeBtn.CommandParameter = mainWindow.controlBar;
         }

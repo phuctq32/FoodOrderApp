@@ -3,6 +3,7 @@ using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls;
 using FoodOrderApp.Views.UserControls.Admin;
 using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -160,32 +161,23 @@ namespace FoodOrderApp.ViewModels
             try
             {
                 ListViewItem listViewItem = GetAncestorOfType<ListViewItem>(p);
-                RECEIPT_DETAIL rECEIPT_DETAIL = listViewItem.DataContext as RECEIPT_DETAIL;
-                decimal? oldRatingPoint = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_;
-                int? ratingTime = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATE_TIMES_;
+                RECEIPT_DETAIL rECEIPT_DETAIL = listViewItem.DataContext as RECEIPT_DETAIL; 
+                decimal oldRatingPoint = (decimal)Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_;
+                int oldRatingTime = (int)Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATE_TIMES_;
                 // rated mặc định là true = chưa đánh giá, đặt true để cho trùng với thuộc tính isEnable=true là hiện
-                if (!rECEIPT_DETAIL.RATED_)
-                {
-                    // rated = false đã đánh giá rồi, thì gán lại rating và disable rating bar
-                    p.Value = rECEIPT_DETAIL.RATING_;
-                    p.IsEnabled = false;
-                }
-                else
-                {
-                    // tính toán lại số sao cập nhật lại cho PRODUCT
-                    Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_ = (oldRatingPoint * ratingTime + p.Value) / (ratingTime + 1);
-                    Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATE_TIMES_ = ratingTime + 1;
-                    // lưu thông tin là món ăn đã được đánh giá, số sao
-                    Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == rECEIPT_DETAIL.RECEIPT_ID && x.PRODUCT.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATED_ = false;
-                    Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == rECEIPT_DETAIL.RECEIPT_ID && x.PRODUCT.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_ = byte.Parse(p.Value.ToString());
+                rECEIPT_DETAIL.RATED_ = false;
 
-                    Data.Ins.DB.SaveChanges();
-                    p.IsEnabled = false;
+                // tính toán lại số sao cập nhật lại cho PRODUCT
+                int finalRaingTime = oldRatingTime + 1;
+                decimal finalRating = (oldRatingPoint * oldRatingTime + (decimal)p.Value) / (decimal)finalRaingTime;
+                Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_ = (decimal?)Math.Round(finalRating, 1);
+                Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATE_TIMES_ = (int?)finalRaingTime;
+                // lưu thông tin là món ăn đã được đánh giá, số sao
+                Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == rECEIPT_DETAIL.RECEIPT_ID && x.PRODUCT.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATED_ = rECEIPT_DETAIL.RATED_;
+                Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == rECEIPT_DETAIL.RECEIPT_ID && x.PRODUCT.ID_ == rECEIPT_DETAIL.PRODUCT.ID_).Single().RATING_ = (byte)p.Value;
 
-                    // bug khi thay đổi rating của product
-                    MenuViewModel menuViewModel = new MenuViewModel();
-                    menuViewModel.Products = Data.Ins.DB.PRODUCTs.ToList();
-                }
+                Data.Ins.DB.SaveChanges();
+                p.IsEnabled = false;
             }
             catch
             {
