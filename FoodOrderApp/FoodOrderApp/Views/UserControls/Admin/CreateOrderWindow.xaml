@@ -280,13 +280,6 @@
                                                 Panel.ZIndex="-1"
                                                 Margin="10">
                                             </Rectangle>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                Command="{Binding Source={StaticResource MenuVM}, Path=ItemClickCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

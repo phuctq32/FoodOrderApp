@@ -167,7 +167,7 @@
                     Foreground="Black"
                     Grid.Column="0" />
                     <TextBlock
-                    Text="Ngày mua"
+                    Text="Thời gian"
                     FontSize="20"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
@@ -183,7 +183,7 @@
                     Foreground="Black"
                     Grid.Column="2" />
                     <TextBlock
-                    Margin="0 0 40 0"
+                    Margin="0 0 20 0"
                     Text="Tổng tiền"
                     FontSize="20"
                     VerticalAlignment="Center"
@@ -219,13 +219,17 @@
 
                                 <!--ngày mua-->
                                 <TextBlock
-                                Text="{Binding DATE_, StringFormat={}{0:dd/MM/yyyy}}"
-                                FontSize="20"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                FontWeight="Medium"
-                                Foreground="Black"
-                                Grid.Column="1" />
+                                    Text="{Binding DATE_, StringFormat={}{0:HH\\:mm\\ dd/MM/yyyy}}"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
+                                    LineHeight="30"
+                                    Width="150"
+                                    FontSize="20"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="Medium"
+                                    Foreground="Black"
+                                    Grid.Column="1" />
                                 <!--số lượng món trong đơn-->
                                 <!--{Binding Source={StaticResource MyOrderVM}, Path=SoLuong}-->
                                 <!--cái thuộc tính này tính tổng tất cả các món trong đơn từ LIST RECEIPT_DETAIL bên VM mới được-->

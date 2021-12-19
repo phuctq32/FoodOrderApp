@@ -109,6 +109,13 @@ namespace FoodOrderApp.ViewModels
                 parameter.txtPhone.Text = "";
                 return;
             }
+            if(!parameter.txtPhone.Text.StartsWith("0"))
+            {
+                parameter.txtPhone.Focus();
+                CustomMessageBox.Show("Số điện thoại phải bắt đầu bằng 0!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtPhone.Text = "";
+                return;
+            }
             if (string.IsNullOrEmpty(parameter.txtAddress.Text))
             {
                 parameter.txtAddress.Focus();

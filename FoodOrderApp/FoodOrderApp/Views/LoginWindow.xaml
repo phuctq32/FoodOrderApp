@@ -133,7 +133,7 @@
 
                             <Button
                             Style="{StaticResource forgotPasswordBtn}"
-                            Content="Quên mật khẩu"
+                            Content="Quên mật khẩu?"
                             FontSize="15"
                             Foreground="{StaticResource Gray}"
                             VerticalAlignment="Center"
@@ -141,7 +141,7 @@
                             Height="22"
                             Width="110"
                             Padding="0"
-                            Margin="60 55 0 0"
+                            Margin="65 55 0 0"
                             Background="Transparent"
                             Cursor="Hand"
                             Command="{Binding OpenForgotPasswordWDCommand}"
