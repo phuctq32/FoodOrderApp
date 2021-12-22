@@ -57,7 +57,16 @@ namespace FoodOrderApp.ViewModels
 
         private PRODUCT Current_Product;
 
-        public List<PRODUCT> pRODUCTs;
+        private List<PRODUCT> products;
+        public List<PRODUCT> Products
+        {
+            get => products;
+            set
+            {
+                products = value;
+                OnPropertyChanged("Products");
+            }
+        }
         public EditProductViewModel()
         {
             LoadedCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Loaded(parameter));
@@ -71,8 +80,7 @@ namespace FoodOrderApp.ViewModels
         }
         public void Loaded(EditProductUC editProductUC)
         {
-            pRODUCTs = Data.Ins.DB.PRODUCTs.ToList();
-            editProductUC.ListView.ItemsSource = pRODUCTs;
+            Products = Data.Ins.DB.PRODUCTs.ToList();
         }
         public void Add(EditProductUC editProductUC)
         {
@@ -80,7 +88,7 @@ namespace FoodOrderApp.ViewModels
             addProductWindow.updatebtn.Visibility = Visibility.Collapsed;
             Current_Product = new PRODUCT();
             List<PRODUCT> a = Data.Ins.DB.PRODUCTs.ToList();
-            a.Sort()
+            //a.Sort();
             int i = 1;
             foreach (PRODUCT pRODUCT in a)
             {

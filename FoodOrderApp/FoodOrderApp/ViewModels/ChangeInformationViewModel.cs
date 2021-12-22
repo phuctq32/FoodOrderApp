@@ -24,7 +24,7 @@ namespace FoodOrderApp.ViewModels
         private string fullname;
 
         public string FULLNAME_
-        { get => fullname; set { fullname = value; OnPropertyChanged("Fullname"); } }
+        { get => fullname; set { fullname = value; OnPropertyChanged("FULLNAME_"); } }
 
         private string phone;
 
