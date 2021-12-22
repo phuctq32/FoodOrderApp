@@ -73,8 +73,8 @@ namespace FoodOrderApp.ViewModels
 
             //Create connection to Storage
 
-            string containerName = "avatar";
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=phong;AccountKey=/4FmL2uepULrqhajPWW1odbS70e5L/SEYVyO7ej3Zyzgh5cw61MysAf+f73I3euXcATYPUi8nJHQ0la8XB7Ccg==;EndpointSuffix=core.windows.net";
+            string containerName = "container";
+            string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodorderapp1;AccountKey=i1GnOJc+VJJpoRe3l44AeH3uBiq3n+ZbFELlNJMyiZuyovi7RlmYA5bTNoUWGFvS6tUTURPGRfgRvkXlsiDm/Q==;EndpointSuffix=core.windows.net";
             BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
 
             //Update Image
@@ -86,10 +86,15 @@ namespace FoodOrderApp.ViewModels
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
 
                 //Delete old Image
+                try
+                {
+                    BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + AVATAR_.Split('.')[5]);
+                    blobClient.Delete();
+                }
+                catch 
+                { 
 
-                BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + AVATAR_.Split('.')[5]);
-                blobClient.Delete();
-
+                }
                 //Start upload
 
                 using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(openFileDialog.FileName)))
@@ -103,7 +108,7 @@ namespace FoodOrderApp.ViewModels
                 //Update new Image link
 
                 USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-                user.AVATAR_ = "https://phong.blob.core.windows.net/avatar/" + CurrentAccount.Username + "." + filename[1];
+                user.AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container" + CurrentAccount.Username + "." + filename[1];
 
                 //Save database change
 

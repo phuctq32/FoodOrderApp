@@ -210,7 +210,9 @@
                 FontSize="20"
                 Foreground="White"
                 VerticalAlignment="Center"
-                Margin="10 0"></Button>
+                Margin="10 0"
+                Command="{Binding UpdateButtonCommand}"
+                CommandParameter="{Binding ElementName=AddProductWD}"></Button>
                     <Button
                 Style="{StaticResource GreenBtn}"
                 Content="Thêm"
@@ -220,7 +222,9 @@
                 FontSize="20"
                 Foreground="White"
                 VerticalAlignment="Center"
-                Margin="10 0"></Button>
+                Margin="10 0"
+                        Command="{Binding AddButtonCommand}"
+                        CommandParameter="{Binding ElementName=AddProductWD}"></Button>
                     <Button
                 Style="{StaticResource GrayBtn}"
                 Content="Huỷ"
@@ -229,7 +233,9 @@
                 FontSize="20"
                 Foreground="Black"
                 VerticalAlignment="Center"
-                Margin="10 0"></Button>
+                Margin="10 0"
+                        Command="{Binding CloseButtonCommand}"
+                        CommandParameter="{Binding ElementName=AddProductWD}"></Button>
                 </StackPanel>
             </Grid>
             <Rectangle

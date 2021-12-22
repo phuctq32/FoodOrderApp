@@ -191,7 +191,7 @@
                                         x:Name="deletebtn"
                                         Margin="50 0 0 0"
                                         Command="{Binding DeleteProductCommand}"
-                                        CommandParameter="{Binding ElementName= EditUC}">
+                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
                                         </Button>
                                     </StackPanel>
                                 </Grid>
