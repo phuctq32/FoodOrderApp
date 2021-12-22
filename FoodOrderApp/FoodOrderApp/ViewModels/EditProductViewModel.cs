@@ -78,6 +78,18 @@ namespace FoodOrderApp.ViewModels
         {
             AddProductWindow addProductWindow = new AddProductWindow();
             addProductWindow.updatebtn.Visibility = Visibility.Collapsed;
+            Current_Product = new PRODUCT();
+            List<PRODUCT> a = Data.Ins.DB.PRODUCTs.ToList();
+            foreach (PRODUCT pRODUCT in a)
+            {
+                int i = 0;
+                if (i == Convert.ToInt32(pRODUCT.ID_))
+                {
+                    i++;
+                }
+                else
+                    Current_Product.ID_ = i.ToString();
+            }
             addProductWindow.ShowDialog();
         }
         public void Update(System.Windows.Controls.ListViewItem listViewItem)
@@ -112,6 +124,7 @@ namespace FoodOrderApp.ViewModels
             PRODUCT pRODUCT = listViewItem.DataContext as PRODUCT;
             Data.Ins.DB.PRODUCTs.Remove(pRODUCT);
             Data.Ins.DB.SaveChanges();
+
         }
         private void UploadImage()
         {
@@ -134,11 +147,13 @@ namespace FoodOrderApp.ViewModels
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
 
                 //Delete old Image
-
-                if (!string.IsNullOrEmpty(Current_Product.IMAGE_))
+                if (Current_Product != null)
                 {
-                    BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_);
-                    blobClient.Delete();
+                    if (!string.IsNullOrEmpty(Current_Product.IMAGE_))
+                    {
+                        BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_);
+                        blobClient.Delete();
+                    }
                 }
                 //Start upload
 
@@ -153,7 +168,7 @@ namespace FoodOrderApp.ViewModels
                 //Update new Image link
 
                 PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-                product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container" + CurrentAccount.Username + "." + filename[1];
+                product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container" + Current_Product.ID_ + "." + filename[1];
 
                 //Save database change
 
@@ -178,21 +193,17 @@ namespace FoodOrderApp.ViewModels
             pRODUCT.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             pRODUCT.DESCRIPTION_ = addProductWindow.txtDescription.Text;
             pRODUCT.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text)/100;
-            pRODUCT.IMAGE_ = IMAGE_;
             Data.Ins.DB.SaveChanges();
             addProductWindow.Close();
         }
         public void AddProduct(AddProductWindow addProductWindow)
         {
             PRODUCT newProduct = new PRODUCT();
-            Current_Product = newProduct;
+            newProduct = Current_Product;
             newProduct.DESCRIPTION_ = addProductWindow.txtDescription.Text;
-            newProduct.DISCOUNT_ = Convert.ToInt32(addProductWindow.txtDiscount.Text);
+            newProduct.DISCOUNT_ = Convert.ToInt32(addProductWindow.txtDiscount.Text)/100;
             newProduct.NAME_ = addProductWindow.txtName.Text;
             newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
-            List<PRODUCT> a = Data.Ins.DB.PRODUCTs.ToList();
-            newProduct.ID_ = (Convert.ToInt32(a[a.Count-1].ID_) + 1).ToString();
-            newProduct.IMAGE_ = IMAGE_;
             Data.Ins.DB.PRODUCTs.Add(newProduct);
             IMAGE_ = "";
             Data.Ins.DB.SaveChanges();

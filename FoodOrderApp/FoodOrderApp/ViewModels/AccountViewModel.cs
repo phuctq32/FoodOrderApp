@@ -86,14 +86,10 @@ namespace FoodOrderApp.ViewModels
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
 
                 //Delete old Image
-                try
-                {
+                if(!string.IsNullOrEmpty(Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_))
+                { 
                     BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + AVATAR_.Split('.')[5]);
                     blobClient.Delete();
-                }
-                catch 
-                { 
-
                 }
                 //Start upload
 
