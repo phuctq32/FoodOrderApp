@@ -57,16 +57,7 @@ namespace FoodOrderApp.ViewModels
 
         private PRODUCT Current_Product;
 
-        private List<PRODUCT> products;
-        public List<PRODUCT> Products
-        {
-            get => products;
-            set
-            {
-                products = value;
-                OnPropertyChanged("Products");
-            }
-        }
+        public List<PRODUCT> pRODUCTs;
         public EditProductViewModel()
         {
             LoadedCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Loaded(parameter));
@@ -80,7 +71,8 @@ namespace FoodOrderApp.ViewModels
         }
         public void Loaded(EditProductUC editProductUC)
         {
-            Products = Data.Ins.DB.PRODUCTs.ToList();
+            pRODUCTs = Data.Ins.DB.PRODUCTs.ToList();
+            editProductUC.ListView.ItemsSource = pRODUCTs;
         }
         public void Add(EditProductUC editProductUC)
         {
@@ -88,16 +80,15 @@ namespace FoodOrderApp.ViewModels
             addProductWindow.updatebtn.Visibility = Visibility.Collapsed;
             Current_Product = new PRODUCT();
             List<PRODUCT> a = Data.Ins.DB.PRODUCTs.ToList();
-            //a.Sort();
             int i = 1;
             foreach (PRODUCT pRODUCT in a)
             {
-                if (i == Convert.ToInt32(pRODUCT.ID_))
+                if (i < Convert.ToInt32(pRODUCT.ID_))
                 {
-                    i++;
+                    i = Convert.ToInt32(pRODUCT.ID_);
                 }
             }
-            Current_Product.ID_ = i.ToString();
+            Current_Product.ID_ = (i+1).ToString();
             addProductWindow.ShowDialog();
         }
         public void Update(System.Windows.Controls.ListViewItem listViewItem)
@@ -176,7 +167,7 @@ namespace FoodOrderApp.ViewModels
                 //Update new Image link
 
                 PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-                product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container" + Current_Product.ID_ + "." + filename[1];
+                product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + Current_Product.ID_ + "." + filename[1];
 
                 //Save database change
 
@@ -188,11 +179,14 @@ namespace FoodOrderApp.ViewModels
         public void SelectImage(AddProductWindow addProductWindow)
         {
             UploadImage();
-            System.Windows.Media.Imaging.BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(IMAGE_, UriKind.Absolute);
-            bitmap.EndInit();
-            addProductWindow.Image.ImageSource = bitmap;
+            if (!string.IsNullOrEmpty(IMAGE_))
+            {
+                System.Windows.Media.Imaging.BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(IMAGE_, UriKind.Absolute);
+                bitmap.EndInit();
+                addProductWindow.Image.ImageSource = bitmap;
+            }
         }
         public void UpdateProduct(AddProductWindow addProductWindow)
         {
@@ -200,9 +194,17 @@ namespace FoodOrderApp.ViewModels
             pRODUCT.NAME_ = addProductWindow.txtName.Text;
             pRODUCT.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             pRODUCT.DESCRIPTION_ = addProductWindow.txtDescription.Text;
-            pRODUCT.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text)/100;
+            if (Convert.ToDecimal(addProductWindow.txtDiscount.Text) < 100)
+            {
+                pRODUCT.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
+            }
+            else
+            {
+                CustomMessageBox.Show("Lỗi dữ liệu", MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
             Data.Ins.DB.SaveChanges();
             addProductWindow.Close();
+            IMAGE_ = "";
         }
         public void AddProduct(AddProductWindow addProductWindow)
         {
