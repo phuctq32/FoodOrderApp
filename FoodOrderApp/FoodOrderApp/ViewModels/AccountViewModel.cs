@@ -16,6 +16,7 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand UploadImageCommand { get; set; }
         public ICommand ChangeInfoCommand { get; set; }
+        public ICommand ChangePasswordCommand { get; set; }
         public ICommand LoadedCommand { get; set; }
         private USER user;
         private string FULLNAME;
@@ -55,6 +56,7 @@ namespace FoodOrderApp.ViewModels
             FULLNAME_ = user.FULLNAME_;
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
             ChangeInfoCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => ChangeInfo(paramater));
+            ChangePasswordCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => ChangePassword(parameter));
             LoadedCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => loaded(paramater));
         }
 
@@ -135,6 +137,14 @@ namespace FoodOrderApp.ViewModels
             UserName = user.USERNAME_;
             Mail = user.EMAIL_;
             Address = user.ADDRESS_;
+        }
+
+        private void ChangePassword(AccountUC paramter)
+        {
+            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
+            forgotPasswordWindow.lblSignUp.Content = "Đổi mật khẩu";
+            forgotPasswordWindow.txtMail.Text = Mail;
+            forgotPasswordWindow.ShowDialog();
         }
     }
 }

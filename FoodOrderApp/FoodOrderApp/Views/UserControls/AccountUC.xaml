@@ -45,7 +45,8 @@
                     VerticalAlignment="Top"
                     RadiusY="10"
                     RadiusX="10"
-                    Margin="0">
+                    Margin="0"
+                    Effect="{StaticResource dropShadow1}">
                     <Rectangle.Fill>
                         <ImageBrush x:Name="ImgBrush" ImageSource="{Binding AVATAR_}" Stretch="UniformToFill"></ImageBrush>
                     </Rectangle.Fill>
@@ -67,38 +68,24 @@
                 FontSize="16">
                 </Button>
             </Grid>
-            <Grid Width="330" Height="450" Grid.Column="1" Margin="0 0 20 100">
+            <Grid Width="330" Height="500" Grid.Column="1" Margin="0 0 20 100">
+                
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <!--Email-->
-                    <StackPanel Orientation="Horizontal" Margin="0">
+                    <!--Tài khoản-->
+                    <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
                         <materialDesign:PackIcon
-                                    Kind="Gmail"
+                                    Kind="AccountCircle"
                                     Width="30"
                                     Height="30"
-                                    Foreground="OrangeRed"
+                                    Foreground="CornflowerBlue"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
-                        <TextBox
-                                materialDesign:HintAssist.Hint="Email"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                Width="250"
-                                VerticalContentAlignment="Center"
-                                Height="50"
-                                Padding="2,0,0,0"
-                                Visibility="Collapsed">
-                        </TextBox>
                         <TextBlock Foreground="Black"
                                 FontSize="16"
                                 FontWeight="Medium"
                         Width="250" Height="50"
-                               Text="{Binding Mail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                               Padding="0 30 15 15">
-                        </TextBlock>
+                                Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                               Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <!--Tên người dùng-->
                     <StackPanel Orientation="Horizontal" Margin="0 20">
@@ -109,21 +96,6 @@
                                     Foreground="CornflowerBlue"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
-                        <TextBox
-                                x:Name="txtUsername"
-                                materialDesign:HintAssist.Hint="Tên"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                Width="250"
-                                VerticalContentAlignment="Center"
-                                Height="50"
-                                Padding="2,0,0,0"
-                                Visibility="Collapsed">
-                        </TextBox>
                         <TextBlock Foreground="Black"
                                 FontSize="16"
                                 FontWeight="Medium"
@@ -131,8 +103,26 @@
                                 Text="{Binding Path=FULLNAME_, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
+                    <!--Email-->
+                    <StackPanel Orientation="Horizontal" Margin="0">
+                        <materialDesign:PackIcon
+                                    Kind="Gmail"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="OrangeRed"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                        <TextBlock Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                        Width="250" Height="50"
+                               Text="{Binding Mail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                               Padding="0 30 15 15">
+                        </TextBlock>
+                    </StackPanel>
+                    
                     <!--Số điện thoại-->
-                    <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
                         <materialDesign:PackIcon
                                     Kind="Phone"
                                     Width="30"
@@ -140,21 +130,6 @@
                                     Foreground="LightGreen"
                                     VerticalAlignment="Center"
                                     Margin="10,10,20,-18" />
-                        <TextBox
-
-                                materialDesign:HintAssist.Hint="Số điện thoại"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                Width="250"
-                                VerticalContentAlignment="Center"
-                                Height="50"
-                                Padding="2,0,0,0"
-                                Visibility="Collapsed">
-                        </TextBox>
                         <TextBlock Foreground="Black"
                                 FontSize="16"
                                 FontWeight="Medium"
@@ -163,34 +138,22 @@
                                Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 20">
+                    <StackPanel Orientation="Horizontal" Height="70" Margin="0 20 0 0">
                         <materialDesign:PackIcon
                                     Kind="AddressMarker"
                                     Width="30"
                                     Height="30"
                                     Foreground="{StaticResource Orange2}"
                                     VerticalAlignment="Center"
-                                    Margin="10,10,20,-12" />
-                        <TextBox
-                                materialDesign:HintAssist.Hint="Địa chỉ"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Foreground="Black"
-                                FontSize="16"
-                                FontWeight="Medium"
-                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                Width="250"
-                                VerticalContentAlignment="Center"
-                                Height="50"
-                                Padding="2,0,0,0"
-                                Visibility="Collapsed">
-                        </TextBox>
+                                    Margin="10,5,20,0" />
                         <TextBlock Foreground="Black"
                                 FontSize="16"
                                 FontWeight="Medium"
-                        Width="250" Height="50"
+                        Width="250"
+                                   TextWrapping="Wrap"
+                                   Margin="0 30 0 0"
                                 Text="{Binding Path=Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                               Padding="0 30 15 15"></TextBlock>
+                               ></TextBlock>
                     </StackPanel>
                     <Button
                             Style="{StaticResource GreenBtn}"
@@ -211,7 +174,7 @@
                             FontSize="20"
                             FontWeight="DemiBold"
                             Foreground="Black"
-                            Command="{Binding ChangeInfoCommand}"
+                            Command="{Binding Source={StaticResource AccountVM}, Path=ChangePasswordCommand}"
                             CommandParameter="{Binding ElementName=AccountUserControl}">
                     </Button>
                 </StackPanel>

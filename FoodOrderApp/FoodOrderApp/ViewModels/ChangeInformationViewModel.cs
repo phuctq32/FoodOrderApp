@@ -1,6 +1,7 @@
 ﻿using FoodOrderApp.Models;
 using FoodOrderApp.Views;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -46,11 +47,57 @@ namespace FoodOrderApp.ViewModels
             this.Mail = user.EMAIL_;
         }
 
-        public void SaveChange(ChangeInformationWindow changeInformationWD)
+        public void SaveChange(ChangeInformationWindow parameter)
         {
-            user.PHONE_ = changeInformationWD.txtPhone.Text.Trim();
-            user.FULLNAME_ = changeInformationWD.txtFullname.Text.Trim();
-            user.ADDRESS_ = changeInformationWD.txtAddress.Text.Trim();
+            /// Check Mail
+            if (string.IsNullOrEmpty(parameter.txtMail.Text))
+            {
+                CustomMessageBox.Show("Email đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtMail.Focus();
+                parameter.txtMail.Text = "";
+                return;
+            }
+            if (parameter.txtMail.Text.Contains(" "))
+            {
+                CustomMessageBox.Show("Email không được chứa khoảng trắng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtMail.Focus();
+                return;
+            }
+            if (!Regex.IsMatch(parameter.txtMail.Text, @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"))
+            {
+                parameter.txtMail.Focus();
+                CustomMessageBox.Show("Email không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            /// Check Mail exist
+            int mailCount = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == Mail.Trim()).Count();
+            if (mailCount > 0 && (Mail.Trim() != parameter.txtMail.Text.ToString().Trim()))
+            {
+                parameter.txtMail.Focus();
+                CustomMessageBox.Show("Mail đã tồn tại!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            // Check PhoneNumber
+            if (string.IsNullOrEmpty(parameter.txtPhone.Text))
+            {
+                parameter.txtPhone.Focus();
+                CustomMessageBox.Show("Số điện thoại đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtPhone.Text = "";
+                return;
+            }
+            if (!parameter.txtPhone.Text.StartsWith("0"))
+            {
+                parameter.txtPhone.Focus();
+                CustomMessageBox.Show("Số điện thoại phải bắt đầu bằng 0!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtPhone.Text = "";
+                return;
+            }
+            user.EMAIL_ = parameter.txtMail.Text.Trim();
+            user.PHONE_ = parameter.txtPhone.Text.Trim();
+            user.FULLNAME_ = parameter.txtFullname.Text.Trim();
+            user.ADDRESS_ = parameter.txtAddress.Text.Trim();
             try
             {
                 Data.Ins.DB.SaveChanges();
@@ -64,7 +111,7 @@ namespace FoodOrderApp.ViewModels
             {
                 CustomMessageBox.Show("Thay đổi không thành công", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            changeInformationWD.Close();
+            parameter.Close();
         }
     }
 }

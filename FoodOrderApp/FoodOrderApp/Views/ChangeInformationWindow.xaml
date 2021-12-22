@@ -95,7 +95,6 @@
                                         x:Name="txtMail"
                                         Text="{Binding Path=Mail}"
                                         TabIndex="0"
-                                    IsEnabled="False"
                                     materialDesign:HintAssist.Hint="Email"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                     Foreground="Black"
