@@ -80,7 +80,7 @@ namespace FoodOrderApp.ViewModels
             addProductWindow.updatebtn.Visibility = Visibility.Collapsed;
             Current_Product = new PRODUCT();
             List<PRODUCT> a = Data.Ins.DB.PRODUCTs.ToList();
-            a.Sort()
+            //a.Sort()
             int i = 1;
             foreach (PRODUCT pRODUCT in a)
             {
@@ -168,7 +168,7 @@ namespace FoodOrderApp.ViewModels
                 //Update new Image link
 
                 PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-                product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container" + Current_Product.ID_ + "." + filename[1];
+                product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + Current_Product.ID_ + "." + filename[1];
 
                 //Save database change
 
@@ -180,11 +180,14 @@ namespace FoodOrderApp.ViewModels
         public void SelectImage(AddProductWindow addProductWindow)
         {
             UploadImage();
-            System.Windows.Media.Imaging.BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(IMAGE_, UriKind.Absolute);
-            bitmap.EndInit();
-            addProductWindow.Image.ImageSource = bitmap;
+            if (!string.IsNullOrEmpty(IMAGE_))
+            {
+                System.Windows.Media.Imaging.BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(IMAGE_, UriKind.Absolute);
+                bitmap.EndInit();
+                addProductWindow.Image.ImageSource = bitmap;
+            }
         }
         public void UpdateProduct(AddProductWindow addProductWindow)
         {
@@ -192,9 +195,17 @@ namespace FoodOrderApp.ViewModels
             pRODUCT.NAME_ = addProductWindow.txtName.Text;
             pRODUCT.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             pRODUCT.DESCRIPTION_ = addProductWindow.txtDescription.Text;
-            pRODUCT.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text)/100;
+            if (Convert.ToDecimal(addProductWindow.txtDiscount.Text) < 100)
+            {
+                pRODUCT.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
+            }
+            else
+            {
+                CustomMessageBox.Show("Lỗi dữ liệu", MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
             Data.Ins.DB.SaveChanges();
             addProductWindow.Close();
+            IMAGE_ = "";
         }
         public void AddProduct(AddProductWindow addProductWindow)
         {
