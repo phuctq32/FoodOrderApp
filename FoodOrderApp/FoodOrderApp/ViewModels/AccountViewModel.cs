@@ -50,6 +50,9 @@ namespace FoodOrderApp.ViewModels
 
         public AccountViewModel()
         {
+            user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            AVATAR_ = user.AVATAR_;
+            FULLNAME_ = user.FULLNAME_;
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
             ChangeInfoCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => ChangeInfo(paramater));
             LoadedCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => loaded(paramater));

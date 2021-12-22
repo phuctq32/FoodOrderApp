@@ -67,7 +67,7 @@
                 FontSize="16">
                 </Button>
             </Grid>
-            <Grid Width="330" Height="420" Grid.Column="1" Margin="0 0 20 100">
+            <Grid Width="330" Height="450" Grid.Column="1" Margin="0 0 20 100">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <!--Email-->
                     <StackPanel Orientation="Horizontal" Margin="0">
@@ -200,6 +200,17 @@
                             Margin="0 20 0 0"
                             FontSize="20"
                             Foreground="White"
+                            Command="{Binding ChangeInfoCommand}"
+                            CommandParameter="{Binding ElementName=AccountUserControl}">
+                    </Button>
+                    <Button
+                            Style="{StaticResource forgotPasswordBtn}"
+                            Content="Đổi mật khẩu"
+                            Width="140"
+                            Margin="0 20 0 0"
+                            FontSize="20"
+                            FontWeight="DemiBold"
+                            Foreground="Black"
                             Command="{Binding ChangeInfoCommand}"
                             CommandParameter="{Binding ElementName=AccountUserControl}">
                     </Button>

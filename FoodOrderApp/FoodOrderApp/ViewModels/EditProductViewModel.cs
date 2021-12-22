@@ -57,7 +57,16 @@ namespace FoodOrderApp.ViewModels
 
         private PRODUCT Current_Product;
 
-        public List<PRODUCT> pRODUCTs;
+        private List<PRODUCT> products;
+        public List<PRODUCT> Products
+        {
+            get => products;
+            set
+            {
+                products = value;
+                OnPropertyChanged("Products");
+            }
+        }
         public EditProductViewModel()
         {
             LoadedCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Loaded(parameter));
@@ -71,8 +80,7 @@ namespace FoodOrderApp.ViewModels
         }
         public void Loaded(EditProductUC editProductUC)
         {
-            pRODUCTs = Data.Ins.DB.PRODUCTs.ToList();
-            editProductUC.ListView.ItemsSource = pRODUCTs;
+            Products = Data.Ins.DB.PRODUCTs.ToList();
         }
         public void Add(EditProductUC editProductUC)
         {
@@ -115,15 +123,18 @@ namespace FoodOrderApp.ViewModels
                 bitmap.UriSource = new Uri(pRODUCT.IMAGE_, UriKind.Absolute);
                 bitmap.EndInit();
                 addProductWindow.Image.ImageSource = bitmap;
-                addProductWindow.ShowDialog();
             }
+            addProductWindow.ShowDialog();
         }
         public void Delete(System.Windows.Controls.ListViewItem listViewItem)
         {
-            PRODUCT pRODUCT = listViewItem.DataContext as PRODUCT;
-            Data.Ins.DB.PRODUCTs.Remove(pRODUCT);
-            Data.Ins.DB.SaveChanges();
-
+            if(CustomMessageBox.Show("Xóa món ăn?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                PRODUCT pRODUCT = listViewItem.DataContext as PRODUCT;
+                Data.Ins.DB.PRODUCTs.Remove(pRODUCT);
+                Data.Ins.DB.SaveChanges();
+                Products = Data.Ins.DB.PRODUCTs.ToList();
+            }
         }
         private void UploadImage()
         {
@@ -150,7 +161,7 @@ namespace FoodOrderApp.ViewModels
                 {
                     if (!string.IsNullOrEmpty(Current_Product.IMAGE_))
                     {
-                        BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_);
+                        BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_ + "." + Current_Product.IMAGE_.Split('.')[5]);
                         blobClient.Delete();
                     }
                 }
@@ -166,14 +177,15 @@ namespace FoodOrderApp.ViewModels
 
                 //Update new Image link
 
-                PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-                product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + Current_Product.ID_ + "." + filename[1];
+                //PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
+                Current_Product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + Current_Product.ID_ + "." + filename[1];
 
                 //Save database change
 
                 Data.Ins.DB.SaveChanges();
-                
+                Products = Data.Ins.DB.PRODUCTs.ToList();
                 IMAGE_ = openFileDialog.FileName;
+
             }
         }
         public void SelectImage(AddProductWindow addProductWindow)
@@ -200,23 +212,25 @@ namespace FoodOrderApp.ViewModels
             }
             else
             {
-                CustomMessageBox.Show("Lỗi dữ liệu", MessageBoxButton.OK, MessageBoxImage.Stop);
+                CustomMessageBox.Show("Khuyển mãi phải nhỏ hơn 100%!", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
             Data.Ins.DB.SaveChanges();
             addProductWindow.Close();
             IMAGE_ = "";
+            Products = Data.Ins.DB.PRODUCTs.ToList();
         }
         public void AddProduct(AddProductWindow addProductWindow)
         {
             PRODUCT newProduct = new PRODUCT();
             newProduct = Current_Product;
             newProduct.DESCRIPTION_ = addProductWindow.txtDescription.Text;
-            newProduct.DISCOUNT_ = Convert.ToInt32(addProductWindow.txtDiscount.Text)/100;
+            newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text)/100;
             newProduct.NAME_ = addProductWindow.txtName.Text;
             newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             Data.Ins.DB.PRODUCTs.Add(newProduct);
             IMAGE_ = "";
             Data.Ins.DB.SaveChanges();
+            Products = Data.Ins.DB.PRODUCTs.ToList();
             addProductWindow.Close();
         }
         

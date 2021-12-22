@@ -148,7 +148,7 @@ namespace FoodOrderApp.ViewModels
             {
                 Data.Ins.DB.CARTs.Remove(cartToDelete);
             }
-            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().FULLNAME_ = "";
+            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().FULLNAME_ = "Administrator";
             Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().PHONE_ = "0";
             Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().ADDRESS_ = "";
             Data.Ins.DB.SaveChanges();
