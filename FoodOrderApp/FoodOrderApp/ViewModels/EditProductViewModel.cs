@@ -80,16 +80,16 @@ namespace FoodOrderApp.ViewModels
             addProductWindow.updatebtn.Visibility = Visibility.Collapsed;
             Current_Product = new PRODUCT();
             List<PRODUCT> a = Data.Ins.DB.PRODUCTs.ToList();
+            a.Sort()
+            int i = 1;
             foreach (PRODUCT pRODUCT in a)
             {
-                int i = 0;
                 if (i == Convert.ToInt32(pRODUCT.ID_))
                 {
                     i++;
                 }
-                else
-                    Current_Product.ID_ = i.ToString();
             }
+            Current_Product.ID_ = i.ToString();
             addProductWindow.ShowDialog();
         }
         public void Update(System.Windows.Controls.ListViewItem listViewItem)

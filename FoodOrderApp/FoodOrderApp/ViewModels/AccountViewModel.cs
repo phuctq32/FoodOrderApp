@@ -86,7 +86,7 @@ namespace FoodOrderApp.ViewModels
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
 
                 //Delete old Image
-                if(!string.IsNullOrEmpty(Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_))
+                if(!string.IsNullOrEmpty(Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().))
                 { 
                     BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + AVATAR_.Split('.')[5]);
                     blobClient.Delete();
@@ -104,7 +104,7 @@ namespace FoodOrderApp.ViewModels
                 //Update new Image link
 
                 USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-                user.AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container" + CurrentAccount.Username + "." + filename[1];
+                user.AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container/" + CurrentAccount.Username + "." + filename[1];
 
                 //Save database change
 
