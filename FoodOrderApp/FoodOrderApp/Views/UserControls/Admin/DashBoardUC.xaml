@@ -45,7 +45,7 @@
                                                  Width="25" Height="25" />
                         </Border>
                         <TextBlock Text="Doanh thu" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
-                        <TextBlock Text="{Binding TotalValue}"
+                        <TextBlock Text="{Binding TotalValue, StringFormat=N0}"
                                TextWrapping="Wrap"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="10 10 5 15" FontSize="30" />
@@ -64,7 +64,7 @@
                         </Border>
                         <TextBlock Text="Số đơn hàng" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
 
-                        <TextBlock Text="{Binding TotalReceipt}"
+                        <TextBlock Text="{Binding TotalReceipt, StringFormat=N0}"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="20 10" FontSize="40" />
                     </Grid>
@@ -82,7 +82,7 @@
                         </Border>
                         <TextBlock Text="Số món ăn" FontWeight="Bold" HorizontalAlignment="Right" Margin="15" FontSize="24" VerticalAlignment="Top" />
 
-                        <TextBlock Text="{Binding TotalProduct}"
+                        <TextBlock Text="{Binding TotalProduct, StringFormat=N0}"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="10" FontSize="40" />
                     </Grid>
@@ -104,7 +104,7 @@
                         </Border>
                         <TextBlock Text="Số khách hàng" FontWeight="Bold" HorizontalAlignment="Right" Margin="15 15 5 15" FontSize="24" VerticalAlignment="Top" />
 
-                        <TextBlock Text="{Binding TotalCustomer}"
+                        <TextBlock Text="{Binding TotalCustomer, StringFormat=N0}"
                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Margin="10" FontSize="40" />
                     </Grid>

@@ -79,7 +79,8 @@ namespace FoodOrderApp.ViewModels
                 int sales = 0;
                 foreach (var receipt in receipts)
                 {
-                    sales += receipt.VALUE_;
+                    if (receipt.STATUS_ == "2")
+                        sales += receipt.VALUE_;
                 }
                 return sales;
             }
