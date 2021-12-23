@@ -11,8 +11,6 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand SaveInfoCommand { get; set; }
 
-        private USER user;
-
         private string mail;
 
         public string Mail
@@ -36,11 +34,7 @@ namespace FoodOrderApp.ViewModels
         public ChangeInformationViewModel()
         {
             SaveInfoCommand = new RelayCommand<ChangeInformationWindow>((parameter) => true, (parameter) => SaveChange(parameter));
-            user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            this.Phone = user.PHONE_;
-            this.FULLNAME_ = user.FULLNAME_;
-            this.Address = user.ADDRESS_;
-            this.Mail = user.EMAIL_;
+            CurrentAccount.User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
         }
 
         public void SaveChange(ChangeInformationWindow parameter)
@@ -68,8 +62,8 @@ namespace FoodOrderApp.ViewModels
                 return;
             }
             /// Check Mail exist
-            int mailCount = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == Mail.Trim()).Count();
-            if (mailCount > 0 && (Mail.Trim() != parameter.txtMail.Text.ToString().Trim()))
+            int mailCount = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == parameter.txtMail.Text.ToString().Trim()).Count();
+            if (mailCount > 0 && (CurrentAccount.User.EMAIL_ != parameter.txtMail.Text.ToString().Trim()))
             {
                 parameter.txtMail.Focus();
                 CustomMessageBox.Show("Mail đã tồn tại!", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -91,18 +85,15 @@ namespace FoodOrderApp.ViewModels
                 return;
             }
             //setInfo after check
-            user.EMAIL_ = parameter.txtMail.Text.Trim();
-            user.PHONE_ = parameter.txtPhone.Text.Trim();
-            user.FULLNAME_ = parameter.txtFullname.Text.Trim();
-            user.ADDRESS_ = parameter.txtAddress.Text.Trim();
+            CurrentAccount.User.EMAIL_ = parameter.txtMail.Text.Trim();
+            CurrentAccount.User.PHONE_ = parameter.txtPhone.Text.Trim();
+            CurrentAccount.User.FULLNAME_ = parameter.txtFullname.Text.Trim();
+            CurrentAccount.User.ADDRESS_ = parameter.txtAddress.Text.Trim();
             try
             {
+
                 //try to update database
                 Data.Ins.DB.SaveChanges();
-                FULLNAME_ = user.FULLNAME_;
-                Phone = user.PHONE_;
-                Mail = user.EMAIL_;
-                Address = user.ADDRESS_;
                 CustomMessageBox.Show("Thay đổi thành công", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch

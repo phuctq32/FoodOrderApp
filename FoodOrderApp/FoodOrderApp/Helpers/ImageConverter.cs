@@ -24,7 +24,7 @@ namespace FoodOrderApp.Helpers
 
                     image.BeginInit();
                     image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    //image.CacheOption = BitmapCacheOption.OnLoad;
                     image.UriSource = new Uri(value.ToString());
                     image.EndInit();
                     return image;

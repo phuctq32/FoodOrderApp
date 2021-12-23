@@ -66,7 +66,6 @@
                                     Margin="10,10,20,-18" />
                                 <TextBox
                                     x:Name="txtFullname"
-                                    Text="{Binding Path=FULLNAME_}"
                                     TabIndex="2"
                                 materialDesign:HintAssist.Hint="Họ và tên"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -93,7 +92,6 @@
                                         Margin="10,10,20,-18" />
                                 <TextBox
                                         x:Name="txtMail"
-                                        Text="{Binding Path=Mail}"
                                         TabIndex="0"
                                     materialDesign:HintAssist.Hint="Email"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -120,7 +118,6 @@
                                     Margin="10,10,20,-18" />
                                 <TextBox
                                     x:Name="txtPhone"
-                                    Text="{Binding Path=Phone}"
                                     TabIndex="1"
                                 materialDesign:HintAssist.Hint="Số điện thoại"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -146,7 +143,6 @@
                                     Margin="10,10,20,-18" />
                                 <TextBox
                                     x:Name="txtAddress"
-                                    Text="{Binding Path=Address}"
                                     TabIndex="2"
                                 materialDesign:HintAssist.Hint="Địa chỉ"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"

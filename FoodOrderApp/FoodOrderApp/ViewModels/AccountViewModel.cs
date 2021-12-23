@@ -13,71 +13,28 @@ using System.Net.Cache;
 
 namespace FoodOrderApp.ViewModels
 {
-    internal class AccountViewModel : BaseViewModel
+    internal class AccountViewModel : MainViewModel
     {
         public ICommand UploadImageCommand { get; set; }
         public ICommand ChangeInfoCommand { get; set; }
         public ICommand ChangePasswordCommand { get; set; }
-        public ICommand LoadedCommand { get; set; }
-        private USER user;
-        public USER User
-        {
-            get => user;
-            set
-            {
-                user = value;
-                OnPropertyChanged("User");
-            }
-        }
-        private string FULLNAME;
-
-        public string FULLNAME_
-        { get => FULLNAME; set { FULLNAME = value; OnPropertyChanged("FULLNAME_"); } }
-
-        private string AVATAR;
-
-        public string AVATAR_
-        { get => AVATAR; set { AVATAR = value; OnPropertyChanged("AVATAR_"); } }
-
-        private string mail;
-
-        public string Mail
-        { get => mail; set { mail = value; OnPropertyChanged("Mail"); } }
-
-        private string phone;
-
-        public string Phone
-        { get => phone; set { phone = value; OnPropertyChanged("Phone"); } }
-
-        private string userName;
-
-        public string UserName
-        { get => userName; set { userName = value; OnPropertyChanged("UserName"); } }
-
-        private string address;
-
-        public string Address
-        { get => address; set { address = value; OnPropertyChanged("Address"); } }
+        public ICommand LoadCommand { get; set; }
+        
 
         public AccountViewModel()
         {
-            User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            AVATAR_ = User.AVATAR_;
-            FULLNAME_ = User.FULLNAME_;
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
             ChangeInfoCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => ChangeInfo(paramater));
-            LoadedCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => loaded(paramater));
+            LoadCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => loaded(paramater));
             ChangePasswordCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => ChangePassword(parameter));
         }
 
         private void loaded(AccountUC paramater)
         {
-            //AVATAR_ = User.AVATAR_;
-            FULLNAME_ = User.FULLNAME_;
-            Phone = User.PHONE_;
-            UserName = User.USERNAME_;
-            Mail = User.EMAIL_;
-            Address = User.ADDRESS_;
+            Phone = CurrentAccount.User.PHONE_;
+            UserName = CurrentAccount.User.USERNAME_;
+            Mail = CurrentAccount.User.EMAIL_;
+            Address = CurrentAccount.User.ADDRESS_;
         }
 
         public void UploadImage(AccountUC accountUC)
@@ -102,7 +59,7 @@ namespace FoodOrderApp.ViewModels
                 //Delete old Image
                 if(!string.IsNullOrEmpty(Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_) && Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_ != "https://foodorderapp1.blob.core.windows.net/container/default.png")
                 { 
-                    BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + User.AVATAR_.Split('.')[5]);
+                    BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + CurrentAccount.User.AVATAR_.Split('.')[5]);
                     blobClient.Delete();
                 }
 
@@ -128,9 +85,10 @@ namespace FoodOrderApp.ViewModels
                 //Load new image
 
                 Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container/"  + CurrentAccount.Username + "." + filename[1];
+                CurrentAccount.User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
                 Data.Ins.DB.SaveChanges();
 
-                AVATAR_ = User.AVATAR_;
+                Avatar = CurrentAccount.User.AVATAR_;
 
 
                 System.Windows.Media.Imaging.BitmapImage bitmap = new BitmapImage();
@@ -147,19 +105,23 @@ namespace FoodOrderApp.ViewModels
         public void ChangeInfo(AccountUC accountUC)
         {
             ChangeInformationWindow changeInformationWindow = new ChangeInformationWindow();
+            changeInformationWindow.txtFullname.Text = CurrentAccount.User.FULLNAME_;
+            changeInformationWindow.txtMail.Text = CurrentAccount.User.EMAIL_;
+            changeInformationWindow.txtAddress.Text = CurrentAccount.User.ADDRESS_;
+            changeInformationWindow.txtPhone.Text = CurrentAccount.User.PHONE_;
             changeInformationWindow.ShowDialog();
-            FULLNAME_ = User.FULLNAME_;
-            Phone = User.PHONE_;
-            UserName = User.USERNAME_;
-            Mail = User.EMAIL_;
-            Address = User.ADDRESS_;
+            Fullname = CurrentAccount.User.FULLNAME_;
+            Phone = CurrentAccount.User.PHONE_;
+            UserName = CurrentAccount.User.USERNAME_;
+            Mail = CurrentAccount.User.EMAIL_;
+            Address = CurrentAccount.User.ADDRESS_;
         }
 
         private void ChangePassword(AccountUC paramter)
         {
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
             forgotPasswordWindow.lblSignUp.Content = "Đổi mật khẩu";
-            forgotPasswordWindow.txtMail.Text = User.EMAIL_;
+            forgotPasswordWindow.txtMail.Text = CurrentAccount.User.EMAIL_;
             forgotPasswordWindow.txtMail.IsEnabled = false;
             forgotPasswordWindow.ShowDialog();
         }

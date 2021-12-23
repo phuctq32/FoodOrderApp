@@ -98,8 +98,8 @@ namespace FoodOrderApp.ViewModels
                 if (accCount > 0)
                 {
                     isLogin = true;
-                    USER acc = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).SingleOrDefault();
-                    if (acc.TYPE_ == "admin")
+                    CurrentAccount.User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).SingleOrDefault();
+                    if (CurrentAccount.User.TYPE_ == "admin")
                     {
                         CurrentAccount.IsAdmin = true;
                         CurrentAccount.IsUser = false;
@@ -109,12 +109,11 @@ namespace FoodOrderApp.ViewModels
                         CurrentAccount.IsAdmin = false;
                         CurrentAccount.IsUser = true;
                     }
-                    CurrentAccount.Username = acc.USERNAME_;
+                    CurrentAccount.Username = CurrentAccount.User.USERNAME_;
 
                     MainWindow app = new MainWindow();
                     parameter.Close();
-                    parameter.txtPassword.Clear();
-                    app.Show();
+                    app.ShowDialog();
                 }
                 else
                 {

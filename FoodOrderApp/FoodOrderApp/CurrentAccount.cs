@@ -13,7 +13,7 @@ namespace FoodOrderApp
     {
         private static string username;
         private static string password;
-        
+        private static USER user;
         public CurrentAccount()
         {
         }
@@ -24,5 +24,6 @@ namespace FoodOrderApp
 
         public static string Username { get => username; set => username = value; }
         public static string Password { get => password; set => password = value; }
+        public static USER User { get => user; set => user = value; }
     }
 }

@@ -16,35 +16,28 @@ namespace FoodOrderApp.ViewModels
         public ICommand SwitchTabCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
 
-        private string FULLNAME;
-
-        public string FULLNAME_
-        { get => FULLNAME; set { FULLNAME = value; OnPropertyChanged(); } }
-
-        private string AVATAR;
-
-        public string AVATAR_
-        { get => AVATAR; set { AVATAR = value; OnPropertyChanged(); } }
+        public string Fullname { get => CurrentAccount.User.FULLNAME_; set { CurrentAccount.User.FULLNAME_ = value; OnPropertyChanged("Fullname"); } }
+        public string Avatar { get => CurrentAccount.User.AVATAR_; set { CurrentAccount.User.AVATAR_ = value; OnPropertyChanged("Avatar"); } }
 
         private string mail;
 
         public string Mail
-        { get => mail; set { mail = value; OnPropertyChanged(); } }
+        { get => mail; set { mail = value; OnPropertyChanged("Mail"); } }
 
         private string phone;
 
         public string Phone
-        { get => phone; set { phone = value; OnPropertyChanged(); } }
+        { get => phone; set { phone = value; OnPropertyChanged("Phone"); } }
 
         private string userName;
 
         public string UserName
-        { get => userName; set { userName = value; OnPropertyChanged(); } }
+        { get => userName; set { userName = value; OnPropertyChanged("UserName"); } }
 
         private string address;
 
         public string Address
-        { get => address; set { address = value; OnPropertyChanged(); } }
+        { get => address; set { address = value; OnPropertyChanged("Address"); } }
 
         public MainViewModel()
         {
@@ -79,13 +72,12 @@ namespace FoodOrderApp.ViewModels
                 mainWindow.listViewMenu.SelectedIndex = 5;
                 mainWindow.ucWindow.Children.Add(new DashBoardUC());
             }
-            USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            AVATAR_ = user.AVATAR_;
-            FULLNAME_ = user.FULLNAME_;
-            Phone = user.PHONE_;
-            UserName = user.USERNAME_;
-            Mail = user.EMAIL_;
-            Address = user.ADDRESS_;
+            //Avatar = CurrentAccount.User.AVATAR_;
+            //Fullname = CurrentAccount.User.FULLNAME_;
+            Phone = CurrentAccount.User.PHONE_;
+            UserName = CurrentAccount.User.USERNAME_;
+            Mail = CurrentAccount.User.EMAIL_;
+            Address = CurrentAccount.User.ADDRESS_;
             mainWindow.controlBar.closeBtn.Command = CloseWindowCommand;
             mainWindow.controlBar.closeBtn.CommandParameter = mainWindow.controlBar;
         }

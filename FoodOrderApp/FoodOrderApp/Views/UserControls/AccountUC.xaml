@@ -7,9 +7,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
+            xmlns:local="clr-namespace:FoodOrderApp"
              Height="769"
             Width="1049"
-            DataContext="{Binding Source={StaticResource AccountVM}, Path=User, UpdateSourceTrigger=PropertyChanged}"
+            DataContext="{StaticResource AccountVM}"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
             TextElement.FontSize="13"
@@ -20,12 +21,13 @@
             Foreground="{x:Null}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding Source={StaticResource AccountVM}, Path=LoadedCommand}"
+            <i:InvokeCommandAction Command="{Binding Source={StaticResource AccountVM}, Path=LoadCommand}"
                                    CommandParameter="{Binding ElementName=AccountUserControl}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <UserControl.Resources>
         <helpers:ImageConverter x:Key="ImgConverter"/>
+        <local:CurrentAccount x:Key="currentAccount"/>
     </UserControl.Resources>
     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight,Duration=0:0:0.5}">
         <Grid>
@@ -50,7 +52,7 @@
                     Margin="0"
                     Effect="{StaticResource dropShadow1}">
                     <Ellipse.Fill>
-                        <ImageBrush x:Name="ImgBrush" ImageSource="{Binding Source={StaticResource AccountVM}, Path=AVATAR_, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ImgConverter}}" Stretch="UniformToFill"></ImageBrush>
+                        <ImageBrush x:Name="ImgBrush" ImageSource="{Binding Source={StaticResource MainVM}, Path=Avatar, Converter={StaticResource ImgConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"></ImageBrush>
                     </Ellipse.Fill>
                 </Ellipse>
                 <Button
@@ -86,7 +88,7 @@
                                 FontSize="16"
                                 FontWeight="Medium"
                         Width="250" Height="50"
-                                Text="{Binding Source={StaticResource AccountVM}, Path=User.USERNAME_}"
+                                Text="{Binding Source={StaticResource AccountVM}, Path=UserName}"
                                Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <!--Tên người dùng-->
@@ -102,7 +104,7 @@
                                 FontSize="16"
                                 FontWeight="Medium"
                         Width="250" Height="50"
-                                Text="{Binding Source={StaticResource AccountVM}, Path=FULLNAME_, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding Source={StaticResource AccountVM}, Path=Fullname, UpdateSourceTrigger=PropertyChanged}"
                                Padding="0 30 15 15"></TextBlock>
                     </StackPanel>
                     <!--Email-->
