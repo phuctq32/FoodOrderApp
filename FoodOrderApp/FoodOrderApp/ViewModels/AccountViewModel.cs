@@ -91,7 +91,7 @@ namespace FoodOrderApp.ViewModels
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
 
                 //Delete old Image
-                if(!string.IsNullOrEmpty(Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_.ToString()))
+                if(!string.IsNullOrEmpty(Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_))
                 { 
                     BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + AVATAR_.Split('.')[5]);
                     blobClient.Delete();
@@ -144,6 +144,7 @@ namespace FoodOrderApp.ViewModels
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
             forgotPasswordWindow.lblSignUp.Content = "Đổi mật khẩu";
             forgotPasswordWindow.txtMail.Text = Mail;
+            forgotPasswordWindow.txtMail.IsEnabled = false;
             forgotPasswordWindow.ShowDialog();
         }
     }
