@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -203,20 +204,11 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Mã xác nhận không đúng!!", MessageBoxButton.OK);
                 return;
             }
-            string path = "../Resources/Images/DEFAULT.png";
+            string path = "/Resources/Images/DEFAULT.png";
              try
              {
-                string containerName = "container";
-                string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodorderapp1;AccountKey=i1GnOJc+VJJpoRe3l44AeH3uBiq3n+ZbFELlNJMyiZuyovi7RlmYA5bTNoUWGFvS6tUTURPGRfgRvkXlsiDm/Q==;EndpointSuffix=core.windows.net";
-                BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
-                using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(path)))
-                {
-                    //Upload new Image
-
-                    containerClient.UploadBlob(UserName + ".png", stream);
-                }
-
-                Data.Ins.DB.USERS.Add(new USER() { FULLNAME_ = UserName, EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = passEncode, TYPE_ = "user", ADDRESS_ = "", AVATAR_ = UserName + ".png" });
+                
+                Data.Ins.DB.USERS.Add(new USER() { FULLNAME_ = UserName, EMAIL_ = Mail, PHONE_ = Phone, USERNAME_ = UserName, PASSWORD_ = passEncode, TYPE_ = "user", ADDRESS_ = "", AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container/default.png" });
                   Data.Ins.DB.SaveChanges();
                  CustomMessageBox.Show("Đăng ký thành công",MessageBoxButton.OK);
                 systemCode = 0;
