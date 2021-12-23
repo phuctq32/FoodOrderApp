@@ -131,6 +131,7 @@ namespace FoodOrderApp.ViewModels
 
         public void Loaded(ControlBarUC cb)
         {
+            UserName = "";
             cb.closeBtn.Command = CloseWindowCommand;
             cb.closeBtn.CommandParameter = cb;
         }
