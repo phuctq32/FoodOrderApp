@@ -214,16 +214,7 @@ namespace FoodOrderApp.ViewModels
             {
                 try
                 {
-                    if (CustomMessageBox.Show("Xóa món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
-                    {
-                        //Xóa sản phẩm khỏi giỏ hàng
-                        CART cartToDelete = lvi.DataContext as CART;
-                        Data.Ins.DB.CARTs.Remove(cartToDelete);
-                        Data.Ins.DB.SaveChanges();
-                        CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                        //Cập nhật lại giỏ hàng
-                        CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
-                    }
+                    DeleteCart(lvi);
                 }
                 catch
                 {
@@ -237,9 +228,8 @@ namespace FoodOrderApp.ViewModels
                 amount--;
                 cart.AMOUNT_ = amount;
                 parameter.Text = amount.ToString();
+                TotalPrice = GetTotalPrice(lv);
             }
-
-            TotalPrice = GetTotalPrice(lv);
         }
 
 

@@ -37,7 +37,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <uc:ControlBarUC Grid.Row="0"></uc:ControlBarUC>
-                <ScrollViewer Grid.Row="1">
+                <ScrollViewer Grid.Row="1" CanContentScroll="False">
                     <Grid Margin="20 0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="300"/>

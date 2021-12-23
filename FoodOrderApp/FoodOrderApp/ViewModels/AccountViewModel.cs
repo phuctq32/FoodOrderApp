@@ -9,6 +9,7 @@ using System.IO;
 using Azure.Storage.Blobs;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using System.Net.Cache;
 
 namespace FoodOrderApp.ViewModels
 {
@@ -16,8 +17,18 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand UploadImageCommand { get; set; }
         public ICommand ChangeInfoCommand { get; set; }
+        public ICommand ChangePasswordCommand { get; set; }
         public ICommand LoadedCommand { get; set; }
         private USER user;
+        public USER User
+        {
+            get => user;
+            set
+            {
+                user = value;
+                OnPropertyChanged("User");
+            }
+        }
         private string FULLNAME;
 
         public string FULLNAME_
@@ -50,20 +61,23 @@ namespace FoodOrderApp.ViewModels
 
         public AccountViewModel()
         {
+            User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            AVATAR_ = User.AVATAR_;
+            FULLNAME_ = User.FULLNAME_;
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
             ChangeInfoCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => ChangeInfo(paramater));
             LoadedCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => loaded(paramater));
+            ChangePasswordCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => ChangePassword(parameter));
         }
 
         private void loaded(AccountUC paramater)
         {
-            user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            AVATAR_ = user.AVATAR_;
-            FULLNAME_ = user.FULLNAME_;
-            Phone = user.PHONE_;
-            UserName = user.USERNAME_;
-            Mail = user.EMAIL_;
-            Address = user.ADDRESS_;
+            //AVATAR_ = User.AVATAR_;
+            FULLNAME_ = User.FULLNAME_;
+            Phone = User.PHONE_;
+            UserName = User.USERNAME_;
+            Mail = User.EMAIL_;
+            Address = User.ADDRESS_;
         }
 
         public void UploadImage(AccountUC accountUC)
@@ -86,37 +100,47 @@ namespace FoodOrderApp.ViewModels
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
 
                 //Delete old Image
-                if(Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_ != "https://foodorderapp1.blob.core.windows.net/container/default.png")
+                if(!string.IsNullOrEmpty(Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_) && Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_ != "https://foodorderapp1.blob.core.windows.net/container/default.png")
                 { 
-                    BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + AVATAR_.Split('.')[5]);
+                    BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + User.AVATAR_.Split('.')[5]);
                     blobClient.Delete();
                 }
-                //Start upload
 
+                Data.Ins.DB.SaveChanges();
+                //Start upload
                 using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(openFileDialog.FileName)))
                 {
                     //Upload new Image
-
                     containerClient.UploadBlob(CurrentAccount.Username + "." + filename[1], stream);
                     CustomMessageBox.Show("Thay đổi ảnh thành công", MessageBoxButton.OKCancel, MessageBoxImage.Information);
                 }
 
                 //Update new Image link
 
-                USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-                user.AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container/" + CurrentAccount.Username + "." + filename[1];
-
+                //USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+                //user.AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container/" + CurrentAccount.Username + "." + filename[1];
+                //AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container/" + CurrentAccount.Username + "." + filename[1];
+                //User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+                //User.AVATAR_ = "";
+                //User.AVATAR_ = AVATAR_;
                 //Save database change
 
+                //Load new image
+
+                Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container/"  + CurrentAccount.Username + "." + filename[1];
                 Data.Ins.DB.SaveChanges();
 
-                //Load new image
+                AVATAR_ = User.AVATAR_;
+
 
                 System.Windows.Media.Imaging.BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
                 bitmap.UriSource = new Uri(openFileDialog.FileName, UriKind.Absolute);
                 bitmap.EndInit();
                 accountUC.ImgBrush.ImageSource = bitmap;
+                //User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+                //AVATAR_ = "https://foodorderapp1.blob.core.windows.net/container/" + CurrentAccount.Username + "." + filename[1];
+
             }
         }
 
@@ -124,21 +148,19 @@ namespace FoodOrderApp.ViewModels
         {
             ChangeInformationWindow changeInformationWindow = new ChangeInformationWindow();
             changeInformationWindow.ShowDialog();
-
-            USER user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
-            AVATAR_ = user.AVATAR_;
-            FULLNAME_ = user.FULLNAME_;
-            Phone = user.PHONE_;
-            UserName = user.USERNAME_;
-            Mail = user.EMAIL_;
-            Address = user.ADDRESS_;
+            FULLNAME_ = User.FULLNAME_;
+            Phone = User.PHONE_;
+            UserName = User.USERNAME_;
+            Mail = User.EMAIL_;
+            Address = User.ADDRESS_;
         }
 
         private void ChangePassword(AccountUC paramter)
         {
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
             forgotPasswordWindow.lblSignUp.Content = "Đổi mật khẩu";
-            forgotPasswordWindow.txtMail.Text = Mail;
+            forgotPasswordWindow.txtMail.Text = User.EMAIL_;
+            forgotPasswordWindow.txtMail.IsEnabled = false;
             forgotPasswordWindow.ShowDialog();
         }
     }

@@ -18,6 +18,7 @@
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
         <helpers:ActiveToVisibilityConverter x:Key="activeToVisibility"></helpers:ActiveToVisibilityConverter>
         <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
+        <helpers:ImageConverter x:Key="ImgConverter"/>
     </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -95,7 +96,7 @@
                                             HorizontalAlignment="Left"
                                             Margin="40 0">
                                             <Rectangle.Fill>
-                                                <ImageBrush ImageSource="{Binding IMAGE_, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
+                                                <ImageBrush ImageSource="{Binding IMAGE_, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ImgConverter}}" Stretch="UniformToFill" />
                                             </Rectangle.Fill>
                                         </Rectangle>
                                         <StackPanel Orientation="Vertical" Height="120" VerticalAlignment="Bottom" Width="330" HorizontalAlignment="Right">

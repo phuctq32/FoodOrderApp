@@ -75,6 +75,7 @@
                     <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
                     <ListView x:Name="listReceiptDetail"
                     Grid.Row="1" Grid.ColumnSpan="3"
+                              ScrollViewer.CanContentScroll="False"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListView.ItemTemplate>
                             <DataTemplate>

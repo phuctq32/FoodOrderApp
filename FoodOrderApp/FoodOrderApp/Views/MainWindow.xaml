@@ -33,6 +33,7 @@
 
     <Window.Resources>
         <helperslocal:BooleanToVisibilityConverter x:Key="boolToVis"></helperslocal:BooleanToVisibilityConverter>
+        <helperslocal:ImageConverter x:Key="ImgConverter"/>
         <mainlocal:CurrentAccount x:Key="currentAccount"></mainlocal:CurrentAccount>
     </Window.Resources>
 
@@ -363,7 +364,7 @@
                             HorizontalAlignment="Right"
                             Margin="0 10 210 0">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding Source={StaticResource AccountVM}, Path=AVATAR_, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
+                                <ImageBrush ImageSource="{Binding Source={StaticResource AccountVM}, Path=AVATAR_, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ImgConverter}}" Stretch="UniformToFill" />
                             </Ellipse.Fill>
                         </Ellipse>
                         <TextBlock

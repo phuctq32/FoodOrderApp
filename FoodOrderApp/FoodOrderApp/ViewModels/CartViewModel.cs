@@ -176,6 +176,7 @@ namespace FoodOrderApp.ViewModels
             {
                 if (CustomMessageBox.Show("Xóa các món ăn đang được chọn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
+                    bool isAllChecked = true;
                     foreach (var lvi in FindVisualChildren<ListViewItem>(parameter))
                     {
                         CART cart = lvi.DataContext as CART;
@@ -184,6 +185,15 @@ namespace FoodOrderApp.ViewModels
                         if (checkBox.IsChecked == true)
                         {
                             Data.Ins.DB.CARTs.Remove(cart);
+                        }
+                        else
+                        {
+                            isAllChecked = false;
+                        }
+                        if (isAllChecked)
+                        {
+                            var wd = GetAncestorOfType<CartUC>(parameter);
+                            wd.selectAllCheckBox.IsChecked = false;
                         }
                     }
                     Data.Ins.DB.SaveChanges();
@@ -238,6 +248,7 @@ namespace FoodOrderApp.ViewModels
             }
 
             TotalPrice = GetTotalPrice(lv);
+            FoodCount = GetFoodCount(lv);
         }
 
         private void Up(TextBlock parameter)

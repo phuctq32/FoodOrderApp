@@ -10,7 +10,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:helpers="clr-namespace:FoodOrderApp.Helpers"
              mc:Ignorable="d"
-             d:DesignHeight="710" d:DesignWidth="1120">
+             d:DesignHeight="710" d:DesignWidth="1120"
+             >
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
@@ -96,7 +97,7 @@
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="29*" />
                         </Grid.ColumnDefinitions>
-                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}" ItemsSource="{Binding Source={StaticResource CartVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2">
+                        <ListView x:Name="cartList" Margin="0,0,-0.4,0" Background="{x:Null}" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Source={StaticResource CartVM}, Path=CurrentCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <!--Lưu ý: các phần binding chỉ là để test bên VM
@@ -354,7 +355,7 @@
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
+                            <RowDefinition MinHeight="30" Height="auto"/>
                             <RowDefinition Height="30" />
                             <RowDefinition MinHeight="30" />
                             <RowDefinition Height="50" />
@@ -379,14 +380,17 @@
                                 Text="Email:"
                                 Foreground="Black"
                                 FontSize="16"
-                                VerticalAlignment="Center"
-                                Margin="20 0 0 0" />
+                                VerticalAlignment="Top"
+                                Margin="20 4 0 0" />
                             <TextBlock
                                 Text="{Binding Mail,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap"
+                                Width="auto"
+                                MaxWidth="200"
                                 Foreground="Black"
                                 FontWeight="Medium"
-                                VerticalAlignment="Center"
                                 FontSize="16"
+                                VerticalAlignment="Center"
                                 Margin="20 0 0 0" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Orientation="Horizontal">

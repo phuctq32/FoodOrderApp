@@ -50,6 +50,7 @@
                 <ListView
                     x:Name="statusListView"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    ScrollViewer.CanContentScroll="False"
                   SelectedIndex="0">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -195,6 +196,8 @@
                 <Separator Width="auto" Height="3" Margin="20 0" VerticalAlignment="Bottom"></Separator>
                 <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
                 <ListView x:Name="receiptListView"
+                          Margin="10 0 0 10"
+                          ScrollViewer.CanContentScroll="False"
                     Grid.Row="1" Grid.Column="0"
                       ItemsSource="{Binding Path=ListReceipt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListView.ItemTemplate>

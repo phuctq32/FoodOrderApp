@@ -148,7 +148,8 @@
                               Height="auto"
                               ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Visible">
+                              ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                      ScrollViewer.CanContentScroll="False">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal"></WrapPanel>
@@ -374,7 +375,7 @@
                         </Grid>
                         <Grid Grid.Row="2" Margin="10">
                             <ScrollViewer Margin="10 0">
-                                <ListView x:Name="carts" ItemsSource="{Binding Source={StaticResource CreateOrderVM}, Path=CurrentCart, UpdateSourceTrigger=PropertyChanged}">
+                                <ListView x:Name="carts" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Source={StaticResource CreateOrderVM}, Path=CurrentCart, UpdateSourceTrigger=PropertyChanged}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <Grid Width="310" Height="100" Margin="0 0 20 0">

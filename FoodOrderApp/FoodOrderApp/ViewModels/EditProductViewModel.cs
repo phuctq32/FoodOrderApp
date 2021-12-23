@@ -133,6 +133,7 @@ namespace FoodOrderApp.ViewModels
                 addProductWindow.Image.ImageSource = bitmap;
             }
             addProductWindow.ShowDialog();
+            Products = Data.Ins.DB.PRODUCTs.ToList();
         }
 
         public void Delete(System.Windows.Controls.ListViewItem listViewItem)
@@ -237,6 +238,9 @@ namespace FoodOrderApp.ViewModels
                 newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
             }
             newProduct.NAME_ = addProductWindow.txtName.Text;
+            newProduct.RATE_TIMES_ = 0;
+            newProduct.RATING_ = 0;
+            newProduct.ACTIVE_ = 1;
             newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             Data.Ins.DB.PRODUCTs.Add(newProduct);
             IMAGE_ = "";

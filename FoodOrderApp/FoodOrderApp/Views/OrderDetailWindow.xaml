@@ -87,7 +87,8 @@
                     <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT_DETAIL -->
                     <ListView x:Name="ListOtherUser"
                             Grid.Row="1"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.CanContentScroll="False">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="120" Width="1000">

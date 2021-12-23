@@ -127,7 +127,7 @@
                               Height="auto"
                               ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                              ScrollViewer.CanContentScroll="False">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal"></WrapPanel>
