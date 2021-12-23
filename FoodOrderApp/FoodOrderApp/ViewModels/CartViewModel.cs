@@ -124,6 +124,8 @@ namespace FoodOrderApp.ViewModels
             Phone = user.PHONE_;
             Mail = user.EMAIL_;
             Address = user.ADDRESS_;
+
+            //Ẩn địa chỉ nếu chưa có 
             if(!String.IsNullOrEmpty(Address))
             {
                 cartUC.SetAddress.Visibility = Visibility.Collapsed;
@@ -144,10 +146,14 @@ namespace FoodOrderApp.ViewModels
                     CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                     var lv = GetAncestorOfType<ListView>(parameter);
                     var cartUC = GetAncestorOfType<CartUC>(parameter);
+
+                    //Cập nhật lại checkbox
                     if (cartUC.selectAllCheckBox.IsChecked == true)
                     {
                         cartUC.selectAllCheckBox.IsChecked = false;
                     }
+
+                    //Cập nhật lại giỏ hàng
                     CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
                     TotalPrice = GetTotalPrice(lv);
                     FoodCount = GetFoodCount(lv);
@@ -174,6 +180,7 @@ namespace FoodOrderApp.ViewModels
                     {
                         CART cart = lvi.DataContext as CART;
                         var checkBox = GetVisualChild<CheckBox>(lvi);
+                        //Chỉ xóa các món ăn được check
                         if (checkBox.IsChecked == true)
                         {
                             Data.Ins.DB.CARTs.Remove(cart);
@@ -195,18 +202,24 @@ namespace FoodOrderApp.ViewModels
         private void Down(TextBlock parameter)
         {
             short amount = short.Parse(parameter.Text.ToString());
+
+            //Lấy <đối tượng> là cha của parameter bằng GetAncestorOfType
             var lv = GetAncestorOfType<ListView>(parameter);
             var lvi = GetAncestorOfType<ListViewItem>(parameter);
+
+            //Xét trường hợp xóa món ăn nếu giảm số lượng xuống 0
             if (amount == 1)
             {
                 try
                 {
                     if (CustomMessageBox.Show("Xóa món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                     {
+                        //Xóa sản phẩm khỏi giỏ hàng
                         CART cartToDelete = lvi.DataContext as CART;
                         Data.Ins.DB.CARTs.Remove(cartToDelete);
                         Data.Ins.DB.SaveChanges();
                         CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                        //Cập nhật lại giỏ hàng
                         CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
                     }
                 }
@@ -217,6 +230,7 @@ namespace FoodOrderApp.ViewModels
             }
             else
             {
+                //Giảm số lượng của sản phẩm
                 CART cart = lvi.DataContext as CART;
                 amount--;
                 cart.AMOUNT_ = amount;
@@ -231,12 +245,16 @@ namespace FoodOrderApp.ViewModels
             short amount = short.Parse(parameter.Text.ToString());
             if (amount == short.MaxValue)
             {
+                //Không thay đổi khi maxValue
                 return;
             }
             else
             {
+                //Lấy <đối tượng> là cha của parameter bằng GetAncestorOfType
                 var lvi = GetAncestorOfType<ListViewItem>(parameter);
                 CART cart = lvi.DataContext as CART;
+
+                //Tăng số lượng của sản phẩm
                 amount++;
                 cart.AMOUNT_ = amount;
                 parameter.Text = amount.ToString();
@@ -248,6 +266,9 @@ namespace FoodOrderApp.ViewModels
         private void AllChecked(CartUC parameter)
         {
             bool newVal = (parameter.selectAllCheckBox.IsChecked == true);
+            //true nếu isChecked == true và ngược lại
+
+            //Set lại các checkbox giống với trạng thái của AllCheckBox
             foreach (var item in FindVisualChildren<CheckBox>(parameter.cartList))
             {
                 item.IsChecked = newVal;
@@ -307,6 +328,7 @@ namespace FoodOrderApp.ViewModels
                 var checkBox = GetVisualChild<CheckBox>(lvi);
                 if (checkBox.IsChecked == true)
                 {
+                    // ép kiểu Giá = số lượng * giá sản phẩm * discount
                     res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (decimal)cart.PRODUCT.DISCOUNT_));
                 }
             }
@@ -319,6 +341,7 @@ namespace FoodOrderApp.ViewModels
         {
             try
             {
+                //Kiểm tra thông tin 
                 if(FoodCount == 0)
                 {
                     CustomMessageBox.Show("Chưa chọn món ăn!", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -334,6 +357,7 @@ namespace FoodOrderApp.ViewModels
 
                 HashSet<RECEIPT_DETAIL> receipt_detail = new HashSet<RECEIPT_DETAIL>();
 
+                //Tạo thông tin đơn hàng
                 int countReceipt = Data.Ins.DB.RECEIPTs.Count() + 1;
                 RECEIPT receipt = new RECEIPT();
                 receipt.ID_ = countReceipt.ToString();
@@ -375,7 +399,7 @@ namespace FoodOrderApp.ViewModels
                 }
                 receipt.RECEIPT_DETAIL = receipt_detail;
 
-                //New này chỉ xóa những cái đang được check thôi
+                
                 foreach (var lvi in FindVisualChildren<ListViewItem>(parameter.cartList))
                 {
                     CART cart = lvi.DataContext as CART;
@@ -395,19 +419,8 @@ namespace FoodOrderApp.ViewModels
 
                 CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
             }
-            catch //(DbEntityValidationException e)
+            catch 
             {
-                // code để xem lỗi lệnh entity lỗi chỗ nào
-                //foreach (var eve in e.EntityValidationErrors)
-                //{
-                //    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                //        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                //    foreach (var ve in eve.ValidationErrors)
-                //    {
-                //        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                //            ve.PropertyName, ve.ErrorMessage);
-                //    }
-                //}
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -415,6 +428,7 @@ namespace FoodOrderApp.ViewModels
         public void OpenSetAddress(CartUC parameter)
         {
             ChangeInformationWindow changeInformationWindow = new ChangeInformationWindow();
+            //Vì dùng lại nên phải ẩn vài thứ không cần thiết
             changeInformationWindow.nameStack.Visibility = Visibility.Collapsed;
             changeInformationWindow.emailStack.Visibility = Visibility.Collapsed;
             changeInformationWindow.phoneStack.Visibility = Visibility.Collapsed;
