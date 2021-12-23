@@ -67,6 +67,9 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Products");
             }
         }
+        string containerName = "container";
+        string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodorderapp1;AccountKey=i1GnOJc+VJJpoRe3l44AeH3uBiq3n+ZbFELlNJMyiZuyovi7RlmYA5bTNoUWGFvS6tUTURPGRfgRvkXlsiDm/Q==;EndpointSuffix=core.windows.net";
+
         public EditProductViewModel()
         {
             LoadedCommand = new RelayCommand<EditProductUC>((parameter) => true, (parameter) => Loaded(parameter));
@@ -145,8 +148,6 @@ namespace FoodOrderApp.ViewModels
 
                 //Create connection to Storage
 
-                string containerName = "container";
-                string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodorderapp1;AccountKey=i1GnOJc+VJJpoRe3l44AeH3uBiq3n+ZbFELlNJMyiZuyovi7RlmYA5bTNoUWGFvS6tUTURPGRfgRvkXlsiDm/Q==;EndpointSuffix=core.windows.net";
                 BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
 
                 //Update Image
@@ -227,7 +228,8 @@ namespace FoodOrderApp.ViewModels
             if (newProduct.DESCRIPTION_ != "")
             {
                 newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
-            }            newProduct.NAME_ = addProductWindow.txtName.Text;
+            }            
+            newProduct.NAME_ = addProductWindow.txtName.Text;
             newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             Data.Ins.DB.PRODUCTs.Add(newProduct);
             IMAGE_ = "";
@@ -238,7 +240,12 @@ namespace FoodOrderApp.ViewModels
         
         public void CloseButton(AddProductWindow addProductWindow)
         {
-            IMAGE_ = "";
+            if(!string.IsNullOrEmpty(IMAGE_))
+            {
+                BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_ + "." + Current_Product.IMAGE_.Split('.')[5]);
+                blobClient.Delete();
+                IMAGE_ = "";
+            }
             addProductWindow.Close();
         }
     }
