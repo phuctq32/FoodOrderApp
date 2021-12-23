@@ -224,8 +224,10 @@ namespace FoodOrderApp.ViewModels
             PRODUCT newProduct = new PRODUCT();
             newProduct = Current_Product;
             newProduct.DESCRIPTION_ = addProductWindow.txtDescription.Text;
-            newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text)/100;
-            newProduct.NAME_ = addProductWindow.txtName.Text;
+            if (newProduct.DESCRIPTION_ != "")
+            {
+                newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
+            }            newProduct.NAME_ = addProductWindow.txtName.Text;
             newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             Data.Ins.DB.PRODUCTs.Add(newProduct);
             IMAGE_ = "";
