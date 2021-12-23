@@ -93,13 +93,13 @@ namespace FoodOrderApp.ViewModels
 
                 string passEncode = MD5Hash(Base64Encode(Password));
                 int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).Count();
-                Data.Ins.DB.USERS.ToList();
+                
 
                 if (accCount > 0)
                 {
                     isLogin = true;
-
-                    if (UserName == "admin")
+                    USER acc = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).SingleOrDefault();
+                    if (acc.TYPE_ == "admin")
                     {
                         CurrentAccount.IsAdmin = true;
                         CurrentAccount.IsUser = false;
@@ -109,7 +109,7 @@ namespace FoodOrderApp.ViewModels
                         CurrentAccount.IsAdmin = false;
                         CurrentAccount.IsUser = true;
                     }
-                    CurrentAccount.Username = UserName;
+                    CurrentAccount.Username = acc.USERNAME_;
 
                     MainWindow app = new MainWindow();
                     parameter.Close();
