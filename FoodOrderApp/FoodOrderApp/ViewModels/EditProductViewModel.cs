@@ -58,6 +58,7 @@ namespace FoodOrderApp.ViewModels
         private PRODUCT Current_Product;
 
         private List<PRODUCT> products;
+
         public List<PRODUCT> Products
         {
             get => products;
@@ -67,8 +68,9 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Products");
             }
         }
-        string containerName = "container";
-        string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodorderapp1;AccountKey=i1GnOJc+VJJpoRe3l44AeH3uBiq3n+ZbFELlNJMyiZuyovi7RlmYA5bTNoUWGFvS6tUTURPGRfgRvkXlsiDm/Q==;EndpointSuffix=core.windows.net";
+
+        private string containerName = "container";
+        private string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodorderapp1;AccountKey=i1GnOJc+VJJpoRe3l44AeH3uBiq3n+ZbFELlNJMyiZuyovi7RlmYA5bTNoUWGFvS6tUTURPGRfgRvkXlsiDm/Q==;EndpointSuffix=core.windows.net";
 
         public EditProductViewModel()
         {
@@ -81,10 +83,12 @@ namespace FoodOrderApp.ViewModels
             AddButtonCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => AddProduct(parameter));
             CloseButtonCommand = new RelayCommand<AddProductWindow>((parameter) => true, (parameter) => CloseButton(parameter));
         }
+
         public void Loaded(EditProductUC editProductUC)
         {
             Products = Data.Ins.DB.PRODUCTs.ToList();
         }
+
         public void Add(EditProductUC editProductUC)
         {
             AddProductWindow addProductWindow = new AddProductWindow();
@@ -99,9 +103,10 @@ namespace FoodOrderApp.ViewModels
                     i = Convert.ToInt32(pRODUCT.ID_);
                 }
             }
-            Current_Product.ID_ = (i+1).ToString();
+            Current_Product.ID_ = (i + 1).ToString();
             addProductWindow.ShowDialog();
         }
+
         public void Update(System.Windows.Controls.ListViewItem listViewItem)
         {
             //Get current product
@@ -129,29 +134,29 @@ namespace FoodOrderApp.ViewModels
             }
             addProductWindow.ShowDialog();
         }
+
         public void Delete(System.Windows.Controls.ListViewItem listViewItem)
         {
-            if(CustomMessageBox.Show("Xóa món ăn?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (CustomMessageBox.Show("Tạm ngưng bán món ăn?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 PRODUCT pRODUCT = listViewItem.DataContext as PRODUCT;
-                Data.Ins.DB.PRODUCTs.Remove(pRODUCT);
+                Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == pRODUCT.ID_).Single().ACTIVE_ = 0;
                 Data.Ins.DB.SaveChanges();
                 Products = Data.Ins.DB.PRODUCTs.ToList();
             }
         }
+
         private void UploadImage()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files | *.jpg; *.png | All files | *.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-
                 //Create connection to Storage
 
                 BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
 
                 //Update Image
-
 
                 //Get name of Image
 
@@ -186,9 +191,9 @@ namespace FoodOrderApp.ViewModels
                 Data.Ins.DB.SaveChanges();
                 Products = Data.Ins.DB.PRODUCTs.ToList();
                 IMAGE_ = openFileDialog.FileName;
-
             }
         }
+
         public void SelectImage(AddProductWindow addProductWindow)
         {
             UploadImage();
@@ -201,6 +206,7 @@ namespace FoodOrderApp.ViewModels
                 addProductWindow.Image.ImageSource = bitmap;
             }
         }
+
         public void UpdateProduct(AddProductWindow addProductWindow)
         {
             PRODUCT pRODUCT = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
@@ -220,6 +226,7 @@ namespace FoodOrderApp.ViewModels
             IMAGE_ = "";
             Products = Data.Ins.DB.PRODUCTs.ToList();
         }
+
         public void AddProduct(AddProductWindow addProductWindow)
         {
             PRODUCT newProduct = new PRODUCT();
@@ -228,7 +235,7 @@ namespace FoodOrderApp.ViewModels
             if (newProduct.DESCRIPTION_ != "")
             {
                 newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
-            }            
+            }
             newProduct.NAME_ = addProductWindow.txtName.Text;
             newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             Data.Ins.DB.PRODUCTs.Add(newProduct);
@@ -237,10 +244,10 @@ namespace FoodOrderApp.ViewModels
             Products = Data.Ins.DB.PRODUCTs.ToList();
             addProductWindow.Close();
         }
-        
+
         public void CloseButton(AddProductWindow addProductWindow)
         {
-            if(!string.IsNullOrEmpty(IMAGE_))
+            if (!string.IsNullOrEmpty(IMAGE_))
             {
                 BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_ + "." + Current_Product.IMAGE_.Split('.')[5]);
                 blobClient.Delete();

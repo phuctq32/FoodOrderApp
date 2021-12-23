@@ -29,6 +29,7 @@ namespace FoodOrderApp
         public Nullable<decimal> RATING_ { get; set; }
         public Nullable<int> RATE_TIMES_ { get; set; }
         public string DESCRIPTION_ { get; set; }
+        public Nullable<int> ACTIVE_ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }

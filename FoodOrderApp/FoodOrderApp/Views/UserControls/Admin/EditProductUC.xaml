@@ -16,6 +16,7 @@
         <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
+        <helpers:ActiveToVisibilityConverter x:Key="activeToVisibility"></helpers:ActiveToVisibilityConverter>
         <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice"></helpers:UnitPriceToTotalPriceFAPConverter>
     </UserControl.Resources>
     <i:Interaction.Triggers>
@@ -76,7 +77,8 @@
                           ItemsSource="{Binding Source={StaticResource EditVM}, Path=Products, UpdateSourceTrigger=PropertyChanged}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid MinHeight="120" Width="1110">
+                            <Grid MinHeight="120" Width="1110"
+                                  Visibility="{Binding ElementName=active, Path=Text, Converter={StaticResource activeToVisibility}}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2.5*"></ColumnDefinition>
@@ -114,6 +116,8 @@
                                             Grid.Column="1"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center">
+                                        <TextBlock x:Name="active" Text="{Binding ACTIVE_}"
+                                                   Visibility="Collapsed"></TextBlock>
                                         <!--số tiền không giảm giá-->
                                         <TextBlock
                                     x:Name="price"
