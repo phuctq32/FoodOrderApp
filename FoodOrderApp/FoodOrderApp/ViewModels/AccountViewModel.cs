@@ -16,6 +16,7 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand UploadImageCommand { get; set; }
         public ICommand ChangeInfoCommand { get; set; }
+        public ICommand ChangePasswordCommand { get; set; }
         public ICommand LoadedCommand { get; set; }
         private USER user;
         private string FULLNAME;
@@ -50,8 +51,12 @@ namespace FoodOrderApp.ViewModels
 
         public AccountViewModel()
         {
+            user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            AVATAR_ = user.AVATAR_;
+            FULLNAME_ = user.FULLNAME_;
             UploadImageCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => UploadImage(parameter));
             ChangeInfoCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => ChangeInfo(paramater));
+            ChangePasswordCommand = new RelayCommand<AccountUC>((parameter) => true, (parameter) => ChangePassword(parameter));
             LoadedCommand = new RelayCommand<AccountUC>((parameter) => true, (paramater) => loaded(paramater));
         }
 
@@ -86,7 +91,7 @@ namespace FoodOrderApp.ViewModels
                 string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
 
                 //Delete old Image
-                if(!string.IsNullOrEmpty(Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_.ToString()))
+                if(Data.Ins.DB.USERS.Where(x =>x.USERNAME_ == CurrentAccount.Username).SingleOrDefault().AVATAR_ != "https://foodorderapp1.blob.core.windows.net/container/default.png")
                 { 
                     BlobClient blobClient = new BlobClient(connectionString, containerName, CurrentAccount.Username + "." + AVATAR_.Split('.')[5]);
                     blobClient.Delete();
@@ -132,6 +137,15 @@ namespace FoodOrderApp.ViewModels
             UserName = user.USERNAME_;
             Mail = user.EMAIL_;
             Address = user.ADDRESS_;
+        }
+
+        private void ChangePassword(AccountUC paramter)
+        {
+            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
+            forgotPasswordWindow.lblSignUp.Content = "Đổi mật khẩu";
+            forgotPasswordWindow.txtMail.Text = Mail;
+            forgotPasswordWindow.txtMail.IsEnabled = false;
+            forgotPasswordWindow.ShowDialog();
         }
     }
 }

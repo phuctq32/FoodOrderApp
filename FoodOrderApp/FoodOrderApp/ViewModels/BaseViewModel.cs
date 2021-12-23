@@ -139,7 +139,7 @@ namespace FoodOrderApp.ViewModels
         }
 
         public bool CanExecute(object parameter)
-        {
+            {
             try
             {
                 return _canExecute == null ? true : _canExecute((T)parameter);

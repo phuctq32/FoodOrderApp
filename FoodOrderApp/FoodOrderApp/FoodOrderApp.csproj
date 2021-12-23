@@ -422,6 +422,7 @@
       <DependentUpon>FoodData.edmx</DependentUpon>
       <LastGenOutput>FoodData.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\DEFAULT.png" />
     <Resource Include="Resources\Images\app-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
