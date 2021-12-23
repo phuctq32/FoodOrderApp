@@ -24,6 +24,7 @@
         </helpers:DoubleToVisibilityConverter>
         <helpers:DoubleToTextDecorationConverter x:Key="doubleToTxtDecorations"></helpers:DoubleToTextDecorationConverter>
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount"></helpers:PriceToPriceDiscount>
+        <helpers:ActiveToVisibilityConverter x:Key="activeToVisibility"></helpers:ActiveToVisibilityConverter>
         <helpers:DoubleToOpacity x:Key="doubleToOpacity"></helpers:DoubleToOpacity>
     </UserControl.Resources>
     <i:Interaction.Triggers>
@@ -134,7 +135,8 @@
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid x:Name="itemProduct" Margin="10 0">
+                                <Grid x:Name="itemProduct" Margin="10 0"
+                                      Visibility="{Binding ElementName=active, Path=Text, Converter={StaticResource activeToVisibility}}">
                                     <StackPanel
                                     Width="210" Height="330"
                                     Margin="15 20 15 0">
@@ -196,6 +198,8 @@
                                                 Margin="0 0 10 0" />
                                             </Grid>
                                         </Grid>
+                                        <TextBlock x:Name="active" Text="{Binding ACTIVE_}"
+                                                   Visibility="Collapsed"></TextBlock>
                                         <!--số tiền khi giảm giá kèm khung hiện giảm bao nhiêu %
                                     khi item có % giảm giá > 0 thì phần này sẽ được visible còn phần trên
                                     thì collapsed-->

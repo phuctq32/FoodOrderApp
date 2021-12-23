@@ -26,6 +26,7 @@
           <Property Name="RATING_" Type="numeric" Precision="2" Scale="1" />
           <Property Name="RATE_TIMES_" Type="int" />
           <Property Name="DESCRIPTION_" Type="ntext" />
+          <Property Name="ACTIVE_" Type="int" />
         </EntityType>
         <EntityType Name="RECEIPT">
           <Key>
@@ -177,6 +178,7 @@
           <Property Name="DESCRIPTION_" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CARTs" Relationship="Self.FK_CART_PRODUCT" FromRole="PRODUCT" ToRole="CART" />
           <NavigationProperty Name="RECEIPT_DETAIL" Relationship="Self.FK_DETAIL_PRODUCT" FromRole="PRODUCT" ToRole="RECEIPT_DETAIL" />
+          <Property Name="ACTIVE_" Type="Int32" />
         </EntityType>
         <EntityType Name="RECEIPT">
           <Key>
@@ -324,6 +326,7 @@
           <EntitySetMapping Name="PRODUCTs">
             <EntityTypeMapping TypeName="foodorderappModel.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="ACTIVE_" ColumnName="ACTIVE_" />
                 <ScalarProperty Name="ID_" ColumnName="ID_" />
                 <ScalarProperty Name="NAME_" ColumnName="NAME_" />
                 <ScalarProperty Name="IMAGE_" ColumnName="IMAGE_" />

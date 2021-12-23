@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="CurrentAccount.cs" />
     <Compile Include="CustomMessageBox.cs" />
+    <Compile Include="Helpers\ActiveToVisibilityConverter.cs" />
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\DoubleToOpacity.cs" />
     <Compile Include="Helpers\DoubleToTextDecorationsConverter.cs" />
