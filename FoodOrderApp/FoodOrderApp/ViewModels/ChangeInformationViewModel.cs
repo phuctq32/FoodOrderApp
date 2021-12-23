@@ -11,10 +11,6 @@ namespace FoodOrderApp.ViewModels
     {
         public ICommand SaveInfoCommand { get; set; }
 
-        //public ICommand PasswordChangedCommand { get; set; }
-        //public ICommand RePasswordChangedCommand { get; set; }
-        //public ICommand ActivationCommand { get; set; }
-
         private USER user;
 
         private string mail;
@@ -94,12 +90,14 @@ namespace FoodOrderApp.ViewModels
                 parameter.txtPhone.Text = "";
                 return;
             }
+            //setInfo after check
             user.EMAIL_ = parameter.txtMail.Text.Trim();
             user.PHONE_ = parameter.txtPhone.Text.Trim();
             user.FULLNAME_ = parameter.txtFullname.Text.Trim();
             user.ADDRESS_ = parameter.txtAddress.Text.Trim();
             try
             {
+                //try to update database
                 Data.Ins.DB.SaveChanges();
                 FULLNAME_ = user.FULLNAME_;
                 Phone = user.PHONE_;

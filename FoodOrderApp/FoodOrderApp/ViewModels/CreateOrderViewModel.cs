@@ -204,18 +204,24 @@ namespace FoodOrderApp.ViewModels
         private void Down(TextBlock parameter)
         {
             short amount = short.Parse(parameter.Text.ToString());
+
+            //Lấy <đối tượng> là cha của parameter bằng GetAncestorOfType
             var lv = GetAncestorOfType<ListView>(parameter);
             var lvi = GetAncestorOfType<ListViewItem>(parameter);
+
+            //Xét trường hợp xóa món ăn nếu giảm số lượng xuống 0
             if (amount == 1)
             {
                 try
                 {
                     if (CustomMessageBox.Show("Xóa món ăn khỏi giỏ hàng?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                     {
+                        //Xóa sản phẩm khỏi giỏ hàng
                         CART cartToDelete = lvi.DataContext as CART;
                         Data.Ins.DB.CARTs.Remove(cartToDelete);
                         Data.Ins.DB.SaveChanges();
                         CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                        //Cập nhật lại giỏ hàng
                         CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
                     }
                 }
@@ -226,6 +232,7 @@ namespace FoodOrderApp.ViewModels
             }
             else
             {
+                //Giảm số lượng của sản phẩm
                 CART cart = lvi.DataContext as CART;
                 amount--;
                 cart.AMOUNT_ = amount;
@@ -235,17 +242,22 @@ namespace FoodOrderApp.ViewModels
             TotalPrice = GetTotalPrice(lv);
         }
 
+
         private void Up(TextBlock parameter)
         {
             short amount = short.Parse(parameter.Text.ToString());
             if (amount == short.MaxValue)
             {
+                //Không thay đổi khi maxValue
                 return;
             }
             else
             {
+                //Lấy <đối tượng> là cha của parameter bằng GetAncestorOfType
                 var lvi = GetAncestorOfType<ListViewItem>(parameter);
                 CART cart = lvi.DataContext as CART;
+
+                //Tăng số lượng của sản phẩm
                 amount++;
                 cart.AMOUNT_ = amount;
                 parameter.Text = amount.ToString();
@@ -375,19 +387,8 @@ namespace FoodOrderApp.ViewModels
 
                 CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
             }
-            catch //(DbEntityValidationException e)
+            catch 
             {
-                // code để xem lỗi lệnh entity lỗi chỗ nào
-                //foreach (var eve in e.EntityValidationErrors)
-                //{
-                //    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                //        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                //    foreach (var ve in eve.ValidationErrors)
-                //    {
-                //        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                //            ve.PropertyName, ve.ErrorMessage);
-                //    }
-                //}
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
