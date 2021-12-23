@@ -126,18 +126,15 @@ namespace FoodOrderApp.ViewModels
                 bitmap.UriSource = new Uri(pRODUCT.IMAGE_, UriKind.Absolute);
                 bitmap.EndInit();
                 addProductWindow.Image.ImageSource = bitmap;
+                addProductWindow.ShowDialog();
             }
-            addProductWindow.ShowDialog();
         }
         public void Delete(System.Windows.Controls.ListViewItem listViewItem)
         {
-            if(CustomMessageBox.Show("Xóa món ăn?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
-            {
-                PRODUCT pRODUCT = listViewItem.DataContext as PRODUCT;
-                Data.Ins.DB.PRODUCTs.Remove(pRODUCT);
-                Data.Ins.DB.SaveChanges();
-                Products = Data.Ins.DB.PRODUCTs.ToList();
-            }
+            PRODUCT pRODUCT = listViewItem.DataContext as PRODUCT;
+            Data.Ins.DB.PRODUCTs.Remove(pRODUCT);
+            Data.Ins.DB.SaveChanges();
+
         }
         private void UploadImage()
         {
@@ -162,7 +159,7 @@ namespace FoodOrderApp.ViewModels
                 {
                     if (!string.IsNullOrEmpty(Current_Product.IMAGE_))
                     {
-                        BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_ + "." + Current_Product.IMAGE_.Split('.')[5]);
+                        BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_);
                         blobClient.Delete();
                     }
                 }
@@ -178,15 +175,14 @@ namespace FoodOrderApp.ViewModels
 
                 //Update new Image link
 
-                //PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-                Current_Product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + Current_Product.ID_ + "." + filename[1];
+                PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
+                product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + Current_Product.ID_ + "." + filename[1];
 
                 //Save database change
 
                 Data.Ins.DB.SaveChanges();
-                Products = Data.Ins.DB.PRODUCTs.ToList();
+                
                 IMAGE_ = openFileDialog.FileName;
-
             }
         }
         public void SelectImage(AddProductWindow addProductWindow)
@@ -213,28 +209,23 @@ namespace FoodOrderApp.ViewModels
             }
             else
             {
-                CustomMessageBox.Show("Khuyển mãi phải nhỏ hơn 100%!", MessageBoxButton.OK, MessageBoxImage.Stop);
+                CustomMessageBox.Show("Lỗi dữ liệu", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
             Data.Ins.DB.SaveChanges();
             addProductWindow.Close();
             IMAGE_ = "";
-            Products = Data.Ins.DB.PRODUCTs.ToList();
         }
         public void AddProduct(AddProductWindow addProductWindow)
         {
             PRODUCT newProduct = new PRODUCT();
             newProduct = Current_Product;
             newProduct.DESCRIPTION_ = addProductWindow.txtDescription.Text;
-            if (newProduct.DESCRIPTION_ != "")
-            {
-                newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
-            }            
+            newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text)/100;
             newProduct.NAME_ = addProductWindow.txtName.Text;
             newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             Data.Ins.DB.PRODUCTs.Add(newProduct);
             IMAGE_ = "";
             Data.Ins.DB.SaveChanges();
-            Products = Data.Ins.DB.PRODUCTs.ToList();
             addProductWindow.Close();
         }
         
