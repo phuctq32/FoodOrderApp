@@ -18,8 +18,10 @@ namespace FoodOrderApp.ViewModels
         private List<PRODUCT> products;
         private long totalPrice;
         private List<CART> currentCart;
+
         public string Search
         { get => search; set { search = value; OnPropertyChanged("Search"); } }
+
         public List<PRODUCT> Products
         {
             get => products;
@@ -29,6 +31,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("Products");
             }
         }
+
         public long TotalPrice
         {
             get => totalPrice;
@@ -48,6 +51,7 @@ namespace FoodOrderApp.ViewModels
                 OnPropertyChanged("CurrentCart");
             }
         }
+
         public string FullName { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Address { get; private set; }
@@ -82,23 +86,26 @@ namespace FoodOrderApp.ViewModels
             DeleteCartCommand = new RelayCommand<ListViewItem>((parameter) => { return true; }, (parameter) => DeleteCart(parameter));
             OrderCommand = new RelayCommand<CreateOrderWindow>((parameter) => parameter == null ? false : true, (parameter) => Order(parameter));
         }
+
         private void Load(CreateOrderWindow parameter)
         {
             Products = Data.Ins.DB.PRODUCTs.ToList();
             CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
             TotalPrice = 0;
         }
+
         private void OpenSetUserInformationWindow(OrderManagementUC parameter)
         {
             SetUserInformationWindow setUserInformationWindow = new SetUserInformationWindow();
             setUserInformationWindow.ShowDialog();
         }
+
         private void SetInformation(SetUserInformationWindow parameter)
         {
             if (string.IsNullOrEmpty(parameter.txtFullname.Text))
             {
                 parameter.txtFullname.Focus();
-                CustomMessageBox.Show("Tài khoản đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Họ và tên đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtFullname.Text = "";
                 return;
             }
@@ -109,7 +116,7 @@ namespace FoodOrderApp.ViewModels
                 parameter.txtPhone.Text = "";
                 return;
             }
-            if(!parameter.txtPhone.Text.StartsWith("0"))
+            if (!parameter.txtPhone.Text.StartsWith("0"))
             {
                 parameter.txtPhone.Focus();
                 CustomMessageBox.Show("Số điện thoại phải bắt đầu bằng 0!", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -149,20 +156,22 @@ namespace FoodOrderApp.ViewModels
                 Data.Ins.DB.CARTs.Remove(cartToDelete);
             }
             Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().FULLNAME_ = "Administrator";
-            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().PHONE_ = "0";
-            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().ADDRESS_ = "";
+            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().PHONE_ = "0123456789";
+            Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().ADDRESS_ = "Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh";
             Data.Ins.DB.SaveChanges();
         }
+
         private void CreateOrder(OrderManagementUC parameter)
         {
-            
         }
+
         private void SearchFunction(CreateOrderWindow parameter)
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource);
             view.Filter = CompareString;
             CollectionViewSource.GetDefaultView(parameter.ViewListProducts.ItemsSource).Refresh();
         }
+
         private bool CompareString(object item)
         {
             string a = (item as PRODUCT).NAME_;
@@ -178,6 +187,7 @@ namespace FoodOrderApp.ViewModels
             else
                 return (a.IndexOf(b, StringComparison.OrdinalIgnoreCase) >= 0);
         }
+
         private void Filter(ComboBox item)
         {
             var createOrderWD = GetAncestorOfType<CreateOrderWindow>(item);
@@ -193,14 +203,17 @@ namespace FoodOrderApp.ViewModels
             view.Filter = CompareString;
             CollectionViewSource.GetDefaultView(createOrderWD.ViewListProducts.ItemsSource).Refresh();
         }
+
         private void HoverItem(Button deleteBtn)
         {
             deleteBtn.Visibility = Visibility.Visible;
         }
+
         private void CancelHoverItem(Button deleteBtn)
         {
             deleteBtn.Visibility = Visibility.Collapsed;
         }
+
         private void Down(TextBlock parameter)
         {
             short amount = short.Parse(parameter.Text.ToString());
@@ -232,7 +245,6 @@ namespace FoodOrderApp.ViewModels
             }
         }
 
-
         private void Up(TextBlock parameter)
         {
             short amount = short.Parse(parameter.Text.ToString());
@@ -255,6 +267,7 @@ namespace FoodOrderApp.ViewModels
                 TotalPrice = GetTotalPrice(lv);
             }
         }
+
         private long GetTotalPrice(ListView listView)
         {
             long res = 0;
@@ -265,6 +278,7 @@ namespace FoodOrderApp.ViewModels
             }
             return res;
         }
+
         private void AddToCart(ListViewItem parameter)
         {
             try
@@ -294,6 +308,7 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         protected void DeleteCart(ListViewItem parameter)
         {
             try
@@ -306,7 +321,7 @@ namespace FoodOrderApp.ViewModels
                     CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                     CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
                     long res = 0;
-                    foreach(var cart in CurrentCart)
+                    foreach (var cart in CurrentCart)
                     {
                         res += (long)((Int32)cart.AMOUNT_ * (Int32)cart.PRODUCT.PRICE_ * (1 - (Double)cart.PRODUCT.DISCOUNT_));
                     }
@@ -317,8 +332,8 @@ namespace FoodOrderApp.ViewModels
             {
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
         }
+
         private CultureInfo viVn = new CultureInfo("vi-VN");
 
         public void Order(CreateOrderWindow parameter)
@@ -375,9 +390,9 @@ namespace FoodOrderApp.ViewModels
                 //reset giá trị về mặc định
                 TotalPrice = 0;
 
-                CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
+                CustomMessageBox.Show("Đơn hàng đã được tạo thành công!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
-            catch 
+            catch
             {
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }

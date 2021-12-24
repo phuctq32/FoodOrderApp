@@ -32,6 +32,7 @@
         <helpers:PriceToPriceDiscount x:Key="priceToPriceDiscount" />
         <helpers:DoubleToOpacity x:Key="doubleToOpacity" />
         <helpers:UnitPriceToTotalPriceFAPConverter x:Key="unitToPrice" />
+        <helpers:ActiveToVisibilityConverter x:Key="activeToVisibility"></helpers:ActiveToVisibilityConverter>
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -157,7 +158,8 @@
                                 </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid x:Name="itemProduct" Margin="10 0">
+                                        <Grid x:Name="itemProduct" Margin="10 0"
+                                              Visibility="{Binding ElementName=active, Path=Text, Converter={StaticResource activeToVisibility}}">
                                             <StackPanel
                                     Width="150" Height="270"
                                     Margin="15 20 15 0">
@@ -183,6 +185,8 @@
                                                         VerticalAlignment="Center"
                                                         Text="{Binding NAME_}">
                                                 </TextBlock>
+                                                <TextBlock x:Name="active" Text="{Binding ACTIVE_}"
+                                                   Visibility="Collapsed"></TextBlock>
                                                 <!--số tiền không giảm giá-->
                                                 <Grid>
                                                     <TextBlock
@@ -602,12 +606,11 @@
                         RadiusX="10"
                         Panel.ZIndex="-2"
                         Margin="10"
-                        Effect="{StaticResource dropShadow1}"/>
-
+                        Effect="{StaticResource dropShadow1}" />
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-        <Rectangle
+            <Rectangle
             Fill="#fafafa"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"

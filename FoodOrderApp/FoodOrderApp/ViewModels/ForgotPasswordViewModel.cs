@@ -136,12 +136,12 @@ namespace FoodOrderApp.ViewModels
             }
             try
             {
-
                 USER user = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == Mail).SingleOrDefault();
                 user.PASSWORD_ = passEncode;
                 Data.Ins.DB.SaveChanges();
                 CustomMessageBox.Show("Đổi mật khẩu thành công!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 systemCode = 0;
+                Code = "";
                 parameter.Close();
             }
             catch
@@ -149,11 +149,13 @@ namespace FoodOrderApp.ViewModels
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         public static string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
+
         public static string MD5Hash(string input)
         {
             StringBuilder hash = new StringBuilder();
@@ -166,8 +168,5 @@ namespace FoodOrderApp.ViewModels
             }
             return hash.ToString();
         }
-
-
-
     }
 }

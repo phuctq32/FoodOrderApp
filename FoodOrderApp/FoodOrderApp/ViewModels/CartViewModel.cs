@@ -227,6 +227,11 @@ namespace FoodOrderApp.ViewModels
                         CART cartToDelete = lvi.DataContext as CART;
                         Data.Ins.DB.CARTs.Remove(cartToDelete);
                         Data.Ins.DB.SaveChanges();
+                        var wd = GetAncestorOfType<CartUC>(lv);
+                        if (wd.selectAllCheckBox.IsChecked == true)
+                        {
+                            wd.selectAllCheckBox.IsChecked = false;
+                        }
                         CustomMessageBox.Show("Xóa thành công", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                         //Cập nhật lại giỏ hàng
                         CurrentCart = Data.Ins.DB.CARTs.Where(cart => cart.USERNAME_ == CurrentAccount.Username).ToList();
@@ -425,7 +430,7 @@ namespace FoodOrderApp.ViewModels
                 TotalPrice = 0;
                 FoodCount = 0;
 
-                CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
+                CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             catch
             {
