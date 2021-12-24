@@ -1,4 +1,5 @@
 ﻿using FoodOrderApp.Models;
+using FoodOrderApp.Views;
 using FoodOrderApp.Views.UserControls.Admin;
 using System;
 using System.Collections.Generic;
@@ -348,7 +349,7 @@ namespace FoodOrderApp.ViewModels
                 int countReceipt = Data.Ins.DB.RECEIPTs.Count() + 1;
                 RECEIPT receipt = new RECEIPT();
                 receipt.ID_ = countReceipt.ToString();
-                receipt.STATUS_ = "0";
+                receipt.STATUS_ = "1";
                 receipt.DATE_ = Now;
                 receipt.USERNAME_ = CurrentAccount.Username;
                 receipt.VALUE_ = (int)TotalPrice;
@@ -391,6 +392,20 @@ namespace FoodOrderApp.ViewModels
                 TotalPrice = 0;
 
                 CustomMessageBox.Show("Đơn hàng đã được tạo thành công!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                List<RECEIPT_DETAIL> ListReceiptDetail = Data.Ins.DB.RECEIPT_DETAIL.Where(x => x.RECEIPT_ID == receipt.ID_).ToList();
+                if (CustomMessageBox.Show("Bạn có muốn in hóa đơn?", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    InvoiceWindow invoiceWindow = new InvoiceWindow();
+                    invoiceWindow.listView.ItemsSource = ListReceiptDetail;
+                    invoiceWindow.receiptValue.Text = receipt.VALUE_.ToString("N0");
+                    invoiceWindow.idTxt.Text = receipt.ID_;
+                    invoiceWindow.dateTxt.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+                    invoiceWindow.addressTxt.Text = Address;
+                    invoiceWindow.fullnameTxt.Text = FullName;
+                    invoiceWindow.ShowDialog();
+                    
+                    Data.Ins.DB.SaveChanges();
+                }
             }
             catch
             {

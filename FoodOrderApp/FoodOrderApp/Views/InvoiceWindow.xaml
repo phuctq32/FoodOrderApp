@@ -60,20 +60,20 @@
                             <StackPanel Grid.Column="0" Margin="10" Background="Transparent">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Mã hóa đơn" FontSize="15" Margin="5" />
-                                    <TextBlock Text="{Binding Receipt.ID_}" FontSize="15" Margin="5" FontWeight="DemiBold" />
+                                    <TextBlock x:Name="idTxt" Text="{Binding Receipt.ID_}" FontSize="15" Margin="5" FontWeight="DemiBold" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Khách hàng" FontSize="12" Margin="5" />
-                                    <TextBlock Text="{Binding Receipt.USER.FULLNAME_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
+                                    <TextBlock Text="Khách hàng:" FontSize="12" Margin="5" />
+                                    <TextBlock x:Name="fullnameTxt" Text="{Binding Receipt.USER.FULLNAME_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Ngày mua:" FontSize="12" Margin="5" />
-                                    <TextBlock Text="{Binding Receipt.DATE_, StringFormat={} {0:dd/MM/yyyy HH:mm}}" FontSize="12" Margin="5" FontWeight="DemiBold" />
+                                    <TextBlock x:Name="dateTxt" Text="{Binding Receipt.DATE_, StringFormat={} {0:dd/MM/yyyy HH:mm}}" FontSize="12" Margin="5" FontWeight="DemiBold" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Địa chỉ giao hàng:" FontSize="12" Margin="5" />
                                     <!--ADDRESS CỦA USER-->
-                                    <TextBlock Text="{Binding Receipt.USER.ADDRESS_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
+                                    <TextBlock x:Name="addressTxt" Text="{Binding Receipt.USER.ADDRESS_}" FontSize="12" Margin="5" FontWeight="DemiBold" />
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Margin="10">
