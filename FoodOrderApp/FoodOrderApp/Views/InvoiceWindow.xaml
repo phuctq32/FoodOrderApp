@@ -201,7 +201,6 @@
                                 <TextBlock Text="Thank you!" VerticalAlignment="Center" FontSize="20" Margin="5" FontWeight="Light" />
                             </StackPanel>
                         </Grid>
-                        <Rectangle Fill="Black" Height="1" Margin="5" Opacity="0.5" />
                     </StackPanel>
                 </Grid>
             </Grid>
