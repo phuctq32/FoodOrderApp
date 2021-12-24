@@ -46,17 +46,6 @@ namespace FoodOrderApp.ViewModels
                 {
                     FrameworkElement window = ControlBarViewModel.GetParentWindow(p);
                     var w = window as Window;
-                    try 
-                    {
-                        Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().FULLNAME_ = "Administrator";
-                        Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().PHONE_ = "0123456789";
-                        Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).Single().ADDRESS_ = "Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh";
-                        Data.Ins.DB.SaveChanges();
-                    }
-                    catch 
-                    {
-                        CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
                     if (w != null)
                     {
                         w.Close();
@@ -64,7 +53,6 @@ namespace FoodOrderApp.ViewModels
                 }
             });
         }
-        
 
         public void Login(LoginWindow parameter)
         {
@@ -101,11 +89,8 @@ namespace FoodOrderApp.ViewModels
                     return;
                 }
 
-                
-
                 string passEncode = MD5Hash(Base64Encode(Password));
                 int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).Count();
-                
 
                 if (accCount > 0)
                 {
@@ -169,11 +154,13 @@ namespace FoodOrderApp.ViewModels
             SignUpWindow signUpWindow = new SignUpWindow();
             signUpWindow.ShowDialog();
         }
+
         public static string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
+
         public static string MD5Hash(string input)
         {
             StringBuilder hash = new StringBuilder();
