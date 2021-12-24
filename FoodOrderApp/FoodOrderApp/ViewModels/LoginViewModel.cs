@@ -91,29 +91,42 @@ namespace FoodOrderApp.ViewModels
                     return;
                 }
 
+                
+
                 string passEncode = MD5Hash(Base64Encode(Password));
                 int accCount = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).Count();
                 
 
                 if (accCount > 0)
                 {
-                    isLogin = true;
-                    CurrentAccount.User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).SingleOrDefault();
-                    if (CurrentAccount.User.TYPE_ == "admin")
+                    // check username
+                    string tempUsername = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).SingleOrDefault().USERNAME_;
+                    if (tempUsername != UserName)
                     {
-                        CurrentAccount.IsAdmin = true;
-                        CurrentAccount.IsUser = false;
+                        isLogin = false;
+                        CustomMessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        parameter.txtPassword.Focus();
                     }
                     else
                     {
-                        CurrentAccount.IsAdmin = false;
-                        CurrentAccount.IsUser = true;
-                    }
-                    CurrentAccount.Username = CurrentAccount.User.USERNAME_;
+                        isLogin = true;
+                        CurrentAccount.User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == UserName && x.PASSWORD_ == passEncode).SingleOrDefault();
+                        if (CurrentAccount.User.TYPE_ == "admin")
+                        {
+                            CurrentAccount.IsAdmin = true;
+                            CurrentAccount.IsUser = false;
+                        }
+                        else
+                        {
+                            CurrentAccount.IsAdmin = false;
+                            CurrentAccount.IsUser = true;
+                        }
+                        CurrentAccount.Username = CurrentAccount.User.USERNAME_;
 
-                    MainWindow app = new MainWindow();
-                    parameter.Close();
-                    app.ShowDialog();
+                        MainWindow app = new MainWindow();
+                        parameter.Close();
+                        app.ShowDialog();
+                    }
                 }
                 else
                 {
