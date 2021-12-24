@@ -53,7 +53,7 @@ namespace FoodOrderApp.ViewModels
         {
             Random random = new Random();
             systemCode = random.Next(100000, 999999);
-            sendGmail("teambaylttq@gmail.com", Mail, "FOOD ORDER APP", "Your code is : " + systemCode.ToString());
+            sendGmail("teambaylttq@gmail.com", parameter.txtMail.Text.ToString(), "FOOD ORDER APP", "Your code is : " + systemCode.ToString());
         }
 
         public void ChangePassword(ForgotPasswordWindow parameter)
@@ -136,12 +136,12 @@ namespace FoodOrderApp.ViewModels
             }
             try
             {
-                USER user = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == Mail).SingleOrDefault();
+                USER user = Data.Ins.DB.USERS.Where(x => x.EMAIL_ == parameter.txtMail.Text.ToString().Trim()).SingleOrDefault();
                 user.PASSWORD_ = passEncode;
                 Data.Ins.DB.SaveChanges();
                 CustomMessageBox.Show("Đổi mật khẩu thành công!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 systemCode = 0;
-                Code = "";
+                parameter.activationCode.Text = "";
                 parameter.Close();
             }
             catch

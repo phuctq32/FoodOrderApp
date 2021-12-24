@@ -18,9 +18,9 @@ namespace FoodOrderApp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         public void sendGmail(string from, string to, string subject, string message)
         {
-
             try
             {
                 MailMessage mess = new MailMessage(from, to, subject, message);
@@ -30,16 +30,15 @@ namespace FoodOrderApp.ViewModels
                 client.Credentials = new NetworkCredential(from, "teambay123");
 
                 client.Send(mess);
-                /* MessageBox.Show("Mã code đã được gửi đi thành công!", "Thành công", MessageBoxButton.OK);*/
 
-                //truy cập vào đường link này rồi bật lên(mail gửi lời nhắn)
-                //  https://www.google.com/settings/u/1/security/lesssecureapps
+                CustomMessageBox.Show("Mã xác nhận đã được gửi!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             catch
             {
                 CustomMessageBox.Show("Lỗi! Không thể gửi mã code!", MessageBoxButton.OK);
             }
         }
+
         public static T GetAncestorOfType<T>(FrameworkElement child) where T : FrameworkElement
         {
             var parent = VisualTreeHelper.GetParent(child);
@@ -47,6 +46,7 @@ namespace FoodOrderApp.ViewModels
                 return (T)GetAncestorOfType<T>((FrameworkElement)parent);
             return (T)parent;
         }
+
         public static T GetVisualChild<T>(DependencyObject parent) where T : Visual
         {
             T child = default(T);
@@ -66,6 +66,7 @@ namespace FoodOrderApp.ViewModels
             }
             return child;
         }
+
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
@@ -82,9 +83,10 @@ namespace FoodOrderApp.ViewModels
                 }
             }
         }
+
         public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
         {
-            // Confirm parent and childName are valid. 
+            // Confirm parent and childName are valid.
             if (parent == null) return null;
 
             T foundChild = null;
@@ -100,7 +102,7 @@ namespace FoodOrderApp.ViewModels
                     // recursively drill down the tree
                     foundChild = FindChild<T>(child, childName);
 
-                    // If the child is found, break so we do not overwrite the found child. 
+                    // If the child is found, break so we do not overwrite the found child.
                     if (foundChild != null) break;
                 }
                 else if (!string.IsNullOrEmpty(childName))
@@ -125,6 +127,7 @@ namespace FoodOrderApp.ViewModels
             return foundChild;
         }
     }
+
     public class RelayCommand<T> : ICommand
     {
         private readonly Predicate<T> _canExecute;
@@ -139,7 +142,7 @@ namespace FoodOrderApp.ViewModels
         }
 
         public bool CanExecute(object parameter)
-            {
+        {
             try
             {
                 return _canExecute == null ? true : _canExecute((T)parameter);
