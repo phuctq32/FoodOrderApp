@@ -36,7 +36,7 @@
 * Chỉnh sửa và thêm các món ăn.
 * Thiết lập đơn hàng đơn hàng cho khách hàng. 
 ## Hướng dẫn cài đặt
-* Tải **file cài đặt** theo đường dẫn sau: *[Link](Google.com)* 
+* Tải **file cài đặt** theo đường dẫn sau: *[Link](https://drive.google.com/file/d/1SX6tqGOQrgV3D-0mt1S5MUl7xlj1i_lQ/view?usp=sharing)* 
 * Giải nén và chạy file **Setup.exe** để cài đặt chương trình.
 Sau khi cài đặt xong Chạy file **FoodOrderApp.exe** để sử dụng.
 ## Lưu ý
