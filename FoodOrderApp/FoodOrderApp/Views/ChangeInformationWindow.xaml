@@ -158,6 +158,7 @@
                                 </TextBox>
                             </StackPanel>
                             <Button
+                                x:Name="saveBtn"
                             TabIndex="5"
                             IsDefault="True"
                             Style="{StaticResource GreenBtn}"

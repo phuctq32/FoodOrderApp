@@ -113,7 +113,6 @@ namespace FoodOrderApp.ViewModels
             UpCommand = new RelayCommand<TextBlock>(p => true, p => Up(p));
             AllCheckedCommand = new RelayCommand<CartUC>((parameter) => { return true; }, (parameter) => AllChecked(parameter));
             CheckedCommand = new RelayCommand<CheckBox>((parameter) => { return true; }, (parameter) => Checked(parameter));
-            
         }
 
         private void Loaded(CartUC cartUC)
@@ -125,8 +124,8 @@ namespace FoodOrderApp.ViewModels
             Mail = user.EMAIL_;
             Address = user.ADDRESS_;
 
-            //Ẩn địa chỉ nếu chưa có 
-            if(!String.IsNullOrEmpty(Address))
+            //Ẩn địa chỉ nếu chưa có
+            if (!String.IsNullOrEmpty(Address))
             {
                 cartUC.SetAddress.Visibility = Visibility.Collapsed;
             }
@@ -352,8 +351,8 @@ namespace FoodOrderApp.ViewModels
         {
             try
             {
-                //Kiểm tra thông tin 
-                if(FoodCount == 0)
+                //Kiểm tra thông tin
+                if (FoodCount == 0)
                 {
                     CustomMessageBox.Show("Chưa chọn món ăn!", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
@@ -401,7 +400,6 @@ namespace FoodOrderApp.ViewModels
                         });
                         countReceiptDetail++;
                     }
-                    
                 }
 
                 foreach (var receipt_de in receipt_detail)
@@ -410,7 +408,6 @@ namespace FoodOrderApp.ViewModels
                 }
                 receipt.RECEIPT_DETAIL = receipt_detail;
 
-                
                 foreach (var lvi in FindVisualChildren<ListViewItem>(parameter.cartList))
                 {
                     CART cart = lvi.DataContext as CART;
@@ -430,7 +427,7 @@ namespace FoodOrderApp.ViewModels
 
                 CustomMessageBox.Show("Đơn hàng đã được tạo thành công đang chờ xử lí...", MessageBoxButton.OK);
             }
-            catch 
+            catch
             {
                 CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -444,6 +441,9 @@ namespace FoodOrderApp.ViewModels
             changeInformationWindow.emailStack.Visibility = Visibility.Collapsed;
             changeInformationWindow.phoneStack.Visibility = Visibility.Collapsed;
             changeInformationWindow.lblChangeinfo.Content = "Cập nhật địa chỉ";
+            ChangeInformationViewModel changeInformationViewModel = new ChangeInformationViewModel();
+            changeInformationWindow.saveBtn.Command = changeInformationViewModel.SaveAddressCommand;
+            changeInformationWindow.saveBtn.CommandParameter = changeInformationWindow;
             changeInformationWindow.ShowDialog();
             var user = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
             Address = user.ADDRESS_;

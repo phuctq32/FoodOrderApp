@@ -1,5 +1,6 @@
 ﻿using FoodOrderApp.Models;
 using FoodOrderApp.Views;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -10,6 +11,7 @@ namespace FoodOrderApp.ViewModels
     internal class ChangeInformationViewModel : BaseViewModel
     {
         public ICommand SaveInfoCommand { get; set; }
+        public ICommand SaveAddressCommand { get; set; }
 
         private string mail;
 
@@ -33,11 +35,35 @@ namespace FoodOrderApp.ViewModels
 
         public ChangeInformationViewModel()
         {
-            SaveInfoCommand = new RelayCommand<ChangeInformationWindow>((parameter) => true, (parameter) => SaveChange(parameter));
+            SaveInfoCommand = new RelayCommand<ChangeInformationWindow>((parameter) => true, (parameter) => SaveChangesAccount(parameter));
             CurrentAccount.User = Data.Ins.DB.USERS.Where(x => x.USERNAME_ == CurrentAccount.Username).SingleOrDefault();
+            SaveAddressCommand = new RelayCommand<ChangeInformationWindow>((parameter) => true, (parameter) => SaveChangesAddress(parameter));
         }
 
-        public void SaveChange(ChangeInformationWindow parameter)
+        private void SaveChangesAddress(ChangeInformationWindow parameter)
+        {
+            if (string.IsNullOrEmpty(parameter.txtAddress.Text))
+            {
+                CustomMessageBox.Show("Địa chỉ đang trống!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtMail.Focus();
+                parameter.txtMail.Text = "";
+                return;
+            }
+            CurrentAccount.User.ADDRESS_ = parameter.txtAddress.Text;
+            try
+            {
+                //try to update database
+                Data.Ins.DB.SaveChanges();
+                CustomMessageBox.Show("Thay đổi thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch
+            {
+                CustomMessageBox.Show("Thay đổi không thành công", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            parameter.Close();
+        }
+
+        public void SaveChangesAccount(ChangeInformationWindow parameter)
         {
             /// Check Mail
             if (string.IsNullOrEmpty(parameter.txtMail.Text))
@@ -91,7 +117,6 @@ namespace FoodOrderApp.ViewModels
             CurrentAccount.User.ADDRESS_ = parameter.txtAddress.Text.Trim();
             try
             {
-
                 //try to update database
                 Data.Ins.DB.SaveChanges();
                 CustomMessageBox.Show("Thay đổi thành công", MessageBoxButton.OK, MessageBoxImage.Information);
