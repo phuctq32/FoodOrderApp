@@ -22,7 +22,7 @@ namespace FoodOrderApp.ViewModels
 
         public DashBoardViewModel()
         {
-            TotalProduct = Data.Ins.DB.PRODUCTs.Count();
+            TotalProduct = Data.Ins.DB.PRODUCTs.Where(x => x.ACTIVE_ == 1).Count();
             TotalCustomer = Data.Ins.DB.USERS.Count() - 1;
             TotalReceipt = Data.Ins.DB.RECEIPTs.Where(x => x.STATUS_ == "2").Count();
             receipts = Data.Ins.DB.RECEIPTs.ToList();
