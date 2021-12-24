@@ -50,7 +50,6 @@
                         </Rectangle.Fill>
                     </Rectangle>
                     <Grid Grid.Row="2">
-                        
                     </Grid>
                     <StackPanel
                     Grid.Row="2"
@@ -74,14 +73,13 @@
                         Margin="20 10"
                         TextAlignment="Justify"
                         FontSize="18"
-                        Text="Chúng tôi cũng xin gửi lời cảm ơn chân thành nhất tới những Khách hàng, Quý đối tác đang và sẽ cho phép chúng tôi được trở thành người bạn đồng hành cũng như đã dành sự tín nhiệm và ủng hộ tới sản phẩm, dịch vụ mà nhà hàng chúng tôi cung cấp.
-Lần đầu tiên bạn được thưởng thức hải sản theo một cách hoàn toàn khác biệt và chỉ có thể tìm thấy tại nhà hàng sang trọng bậc nhất Hạ Long đó là Nhà Hàng Phương Nam Hạ Long." />
+                        Text="Chúng tôi cũng xin gửi lời cảm ơn chân thành nhất tới những Khách hàng, Quý đối tác đang và sẽ cho phép chúng tôi được trở thành người bạn đồng hành cũng như đã dành sự tín nhiệm và ủng hộ tới sản phẩm, dịch vụ mà nhà hàng chúng tôi cung cấp." />
                     </StackPanel>
                 </Grid>
             </StackPanel>
 
             <Grid Grid.Column="1" Grid.RowSpan="3" Grid.Row="1">
-                <TextBlock 
+                <TextBlock
                     Text="Liên hệ"
                     FontSize="40"
                     Foreground="{StaticResource Gray}"
@@ -90,11 +88,11 @@ Lần đầu tiên bạn được thưởng thức hải sản theo một cách 
                     Width="150"
                     Height="50"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top"/>
-                
-                <StackPanel 
-                    Orientation="Vertical" 
-                    VerticalAlignment="Top"                    
+                    VerticalAlignment="Top" />
+
+                <StackPanel
+                    Orientation="Vertical"
+                    VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Margin="0 100 0 0">
                     <StackPanel Orientation="Horizontal" Margin="10 20 40 20">
@@ -105,23 +103,23 @@ Lần đầu tiên bạn được thưởng thức hải sản theo một cách 
                             Margin="20 0 0 0"
                             FontSize="20"
                             FontWeight="DemiBold"
-                            Text="Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh."/>
+                            Text="Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.Hồ Chí Minh." />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10 20">
                         <materialDesign:PackIcon Kind="Phone" Foreground="{StaticResource LightGreen}" Height="40" Width="40" />
                         <Label
                             Margin="20 5 0 0"
                             FontWeight="DemiBold"
-                            Content="0123456789" 
-                            FontSize="20"/>
+                            Content="0123456789"
+                            FontSize="20" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10 20">
                         <materialDesign:PackIcon Kind="Email" Foreground="OrangeRed" Height="40" Width="40" />
                         <Label
                             Margin="20 5 0 0"
                             FontWeight="DemiBold"
-                            Content="teambaylttq@gmail.com" 
-                            FontSize="20"/>
+                            Content="teambaylttq@gmail.com"
+                            FontSize="20" />
                     </StackPanel>
                 </StackPanel>
                 <Rectangle
@@ -131,10 +129,9 @@ Lần đầu tiên bạn được thưởng thức hải sản theo một cách 
                     RadiusY="10"
                     RadiusX="10"
                     Panel.ZIndex="-2"
-                    Margin="-5 -5 20 0"/>
+                    Margin="-5 -5 20 0" />
             </Grid>
 
-            
             <TextBlock Grid.Row="4" Grid.Column="0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"
@@ -145,5 +142,4 @@ Lần đầu tiên bạn được thưởng thức hải sản theo một cách 
             </TextBlock>
         </Grid>
     </materialDesign:TransitioningContent>
-    
 </UserControl>
