@@ -17,23 +17,22 @@ namespace FoodOrderApp
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public USER()
         {
-            this.RECEIPTs = new HashSet<RECEIPT>();
             this.CARTs = new HashSet<CART>();
+            this.RECEIPTs = new HashSet<RECEIPT>();
         }
     
         public string USERNAME_ { get; set; }
         public string PASSWORD_ { get; set; }
         public string FULLNAME_ { get; set; }
         public string ADDRESS_ { get; set; }
-        public string SEX_ { get; set; }
         public string PHONE_ { get; set; }
+        public string AVATAR_ { get; set; }
         public string EMAIL_ { get; set; }
         public string TYPE_ { get; set; }
-        public string AVATAR_ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RECEIPT> RECEIPTs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RECEIPT> RECEIPTs { get; set; }
     }
 }

@@ -14,74 +14,75 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
         Background="{x:Null}"
         FontFamily="{DynamicResource MaterialDesignFont}" 
         Foreground="{x:Null}" 
         AllowsTransparency="True" 
         WindowStyle="None" 
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Icon="/Resources/Images/app-icon.png">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
-                                   CommandParameter="{Binding ElementName=controlBar}"/>
+                                   CommandParameter="{Binding ElementName=controlBar}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:0.2}">
+        <Grid>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-    <Grid>
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+                <!--Image-->
+                <Grid Grid.Column="0" Margin="0 0 -10 0">
+                    <Border CornerRadius="10 0 0 10" BorderThickness="0 0 10 0" Effect="{StaticResource dropShadow}">
+                        <Border.Background>
+                            <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
+                </Grid>
 
-            <!--Image-->
-            <Grid Grid.Column="0" Margin="0 0 -10 0">
-                <Border CornerRadius="10 0 0 10" BorderThickness="0 0 10 0" Effect="{StaticResource dropShadow}">
-                    <Border.Background>
-                        <ImageBrush ImageSource="/Resources/Images/food.jpg" Stretch="UniformToFill"/>
-                    </Border.Background>
-                </Border>
-            </Grid>
+                <!--Login-->
+                <Grid Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
 
-            <!--Login-->
-            <Grid Grid.Column="1">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
+                        <!--Control Bar-->
+                        <uc:ControlBarUC Grid.Row="0" x:Name="controlBar"></uc:ControlBarUC>
 
-                    <!--Control Bar-->
-                    <uc:ControlBarUC Grid.Row="0" x:Name="controlBar"></uc:ControlBarUC>
-
-                    <!--Login Grid-->
-                    <Grid Grid.Row="1" Margin="150 100">
-                        <TextBlock Text="Đăng nhập"
+                        <!--Login Grid-->
+                        <Grid Grid.Row="1" Margin="150 100">
+                            <TextBlock Text="Đăng nhập"
                                     HorizontalAlignment="Center"
                                     Margin="0 40 0 0"
                                     FontSize="40"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource Orange1}">
-                        </TextBlock>
+                            </TextBlock>
 
-                        <Grid Margin="60 140 60 300">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
+                            <Grid Margin="60 140 60 300">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0">
-                                <materialDesign:PackIcon 
+                                <Grid Grid.Row="0">
+                                    <materialDesign:PackIcon
                                         Kind="Account"
                                         Foreground="{StaticResource Gray}"
                                         Width="30"
                                         Height="30"
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Left"
-                                        Margin="0 0 0 -5"/>
-                                <TextBox
+                                        Margin="0 0 0 -5" />
+                                    <TextBox
                                         x:Name="txtUsername"
                                         Text="{Binding UserName}"
                                         TabIndex="0"
@@ -93,21 +94,21 @@
                                         materialDesign:HintAssist.Foreground="{StaticResource Gray}"
                                         materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
                                         Width="230"
-                                        VerticalAlignment="Bottom" 
+                                        VerticalAlignment="Bottom"
                                         HorizontalAlignment="Right">
-                                </TextBox>
-                            </Grid>
+                                    </TextBox>
+                                </Grid>
 
-                            <Grid Grid.Row="1">
-                                <materialDesign:PackIcon 
+                                <Grid Grid.Row="1">
+                                    <materialDesign:PackIcon
                                         Kind="Lock"
                                         Foreground="{StaticResource Gray}"
                                         Width="30"
                                         Height="30"
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Left"
-                                        Margin="0 0 0 -3"/>
-                                <PasswordBox
+                                        Margin="0 0 0 -3" />
+                                    <PasswordBox
                                         x:Name="txtPassword"
                                         TabIndex="1"
                                         materialDesign:HintAssist.Hint="Mật khẩu"
@@ -116,23 +117,23 @@
                                         FontWeight="Medium"
                                         materialDesign:HintAssist.Foreground="{StaticResource Gray}"
                                         materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+                                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                                         Width="230"
-                                        VerticalAlignment="Bottom" 
+                                        VerticalAlignment="Bottom"
                                         HorizontalAlignment="Right">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="PasswordChanged">
-                                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                                   CommandParameter="{Binding ElementName=txtPassword}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </PasswordBox>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PasswordChanged">
+                                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=txtPassword}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </PasswordBox>
+                                </Grid>
                             </Grid>
-                        </Grid>
 
-                        <Button
-                            Style="{StaticResource forgotPasswordBtn}"                            
-                            Content="Quên mật khẩu"
+                            <Button
+                            Style="{StaticResource forgotPasswordBtn}"
+                            Content="Quên mật khẩu?"
                             FontSize="15"
                             Foreground="{StaticResource Gray}"
                             VerticalAlignment="Center"
@@ -140,14 +141,14 @@
                             Height="22"
                             Width="110"
                             Padding="0"
-                            Margin="60 55 0 0"
+                            Margin="65 55 0 0"
                             Background="Transparent"
                             Cursor="Hand"
                             Command="{Binding OpenForgotPasswordWDCommand}"
                             CommandParameter="{Binding ElementName=LoginWD}">
-                        </Button>
+                            </Button>
 
-                        <Button
+                            <Button
                              x:Name="btnLogin"
                             TabIndex="2"
                             IsDefault="True"
@@ -160,19 +161,18 @@
                             Margin="0 170 0 0"
                             FontSize="20"
                             Foreground="White">
-                        </Button>
+                            </Button>
 
-                        <TextBlock 
+                            <TextBlock
                             Text="Chưa có tài khoản?"
                             Foreground="{StaticResource Gray}"
                             FontSize="15"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Center"
                             Margin="0 0 0 70">
+                            </TextBlock>
 
-                        </TextBlock>
-
-                        <Button
+                            <Button
                             Style="{StaticResource GrayBtn}"
                             Content="Đăng ký"
                             Width="270"
@@ -183,33 +183,33 @@
                             Margin="0 0 0 20"
                             Command="{Binding OpenSignUpWDCommand}"
                             CommandParameter="{Binding ElementName=LoginWD}">
-                        </Button>
+                            </Button>
 
-                        <!--Background for Form-->
-                        <Rectangle 
+                            <!--Background for Form-->
+                            <Rectangle
                             Fill="White"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            RadiusY="20" 
-                            RadiusX="20" 
+                            RadiusY="20"
+                            RadiusX="20"
                             Panel.ZIndex="-1"
                             Effect="{StaticResource dropShadow}">
-                        </Rectangle>
+                            </Rectangle>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
 
-        <Rectangle 
+            <Rectangle
             Fill="#FFF7F9F9"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            RadiusY="10" 
-            RadiusX="10" 
+            RadiusY="10"
+            RadiusX="10"
             Panel.ZIndex="-2"
             Effect="{StaticResource dropShadow}"
             Margin="10">
-        </Rectangle>
-    </Grid>
-
+            </Rectangle>
+        </Grid>
+    </materialDesign:TransitioningContent>
 </Window>

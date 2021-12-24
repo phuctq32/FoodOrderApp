@@ -18,6 +18,8 @@ namespace FoodOrderApp
         public string RECEIPT_ID { get; set; }
         public string PRODUCT_ { get; set; }
         public short AMOUNT_ { get; set; }
+        public byte RATING_ { get; set; }
+        public bool RATED_ { get; set; }
     
         public virtual PRODUCT PRODUCT { get; set; }
         public virtual RECEIPT RECEIPT { get; set; }

@@ -25,8 +25,9 @@ namespace FoodOrderApp.Views.UserControls
         public MenuUC()
         {
             InitializeComponent();
-            DataContext = new MenuViewModel();
+
         }
+
 
         //private void addToCartBtn_Click(object sender, RoutedEventArgs e)
         //{

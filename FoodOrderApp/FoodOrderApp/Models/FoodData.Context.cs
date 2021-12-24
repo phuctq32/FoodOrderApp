@@ -13,10 +13,10 @@ namespace FoodOrderApp
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OrderAppEntities : DbContext
+    public partial class foodorderappEntities : DbContext
     {
-        public OrderAppEntities()
-            : base("name=OrderAppEntities")
+        public foodorderappEntities()
+            : base("name=foodorderappEntities")
         {
         }
     
@@ -25,10 +25,10 @@ namespace FoodOrderApp
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CART> CARTs { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
         public virtual DbSet<RECEIPT> RECEIPTs { get; set; }
         public virtual DbSet<RECEIPT_DETAIL> RECEIPT_DETAIL { get; set; }
         public virtual DbSet<USER> USERS { get; set; }
-        public virtual DbSet<CART> CARTs { get; set; }
     }
 }

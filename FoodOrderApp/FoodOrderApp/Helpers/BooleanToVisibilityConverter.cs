@@ -9,7 +9,7 @@ using System.Windows.Data;
 
 namespace FoodOrderApp.Helpers
 {
-    class BooleanToVisibilityConverter : IValueConverter
+    internal class BooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
                               CultureInfo culture)

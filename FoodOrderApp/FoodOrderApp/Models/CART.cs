@@ -17,6 +17,7 @@ namespace FoodOrderApp
         public string ID_ { get; set; }
         public string USERNAME_ { get; set; }
         public string PRODUCT_ { get; set; }
+        public Nullable<short> AMOUNT_ { get; set; }
     
         public virtual PRODUCT PRODUCT { get; set; }
         public virtual USER USER { get; set; }

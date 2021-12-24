@@ -16,13 +16,20 @@ namespace FoodOrderApp.Helpers
                               CultureInfo culture)
         {
             string noneTextDecorations = "None";
-            if (value != null)
+            try
             {
-                if (value.ToString().Contains("%"))
-                    if (Double.Parse(value.ToString().Replace("%", " ")) > 0)
-                        return TextDecorations.Strikethrough;
-                    else
-                        return noneTextDecorations;
+                if (value != null)
+                {
+                    if (value.ToString().Contains("%"))
+                        if (Double.Parse(value.ToString().Replace("%", " ")) > 0)
+                            return TextDecorations.Strikethrough;
+                        else
+                            return noneTextDecorations;
+                }
+            }
+            catch
+            {
+                return noneTextDecorations;
             }
             return noneTextDecorations;
         }
