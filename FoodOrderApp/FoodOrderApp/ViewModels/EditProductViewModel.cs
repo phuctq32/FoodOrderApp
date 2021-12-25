@@ -214,13 +214,27 @@ namespace FoodOrderApp.ViewModels
             pRODUCT.NAME_ = addProductWindow.txtName.Text;
             pRODUCT.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             pRODUCT.DESCRIPTION_ = addProductWindow.txtDescription.Text;
-            if (Convert.ToDecimal(addProductWindow.txtDiscount.Text) < 100)
+            if (!Regex.IsMatch(addProductWindow.txtDiscount.Text, @"^[0-9_]+$"))
+            {
+                addProductWindow.txtDiscount.Focus();
+                CustomMessageBox.Show("Giá khuyến mãi không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                addProductWindow.txtDiscount.Text = "";
+                return;
+            }
+            if (Convert.ToDecimal(addProductWindow.txtDiscount.Text) < 100 )
             {
                 pRODUCT.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
             }
             else
             {
                 CustomMessageBox.Show("Khuyển mãi phải nhỏ hơn 100%!", MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            if (!Regex.IsMatch(addProductWindow.txtPrice.Text, @"^[0-9_]+$"))
+            {
+                addProductWindow.txtPrice.Focus();
+                CustomMessageBox.Show("Giá không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                addProductWindow.txtPrice.Text = "";
+                return;
             }
             Data.Ins.DB.SaveChanges();
             addProductWindow.Close();
@@ -237,11 +251,25 @@ namespace FoodOrderApp.ViewModels
             {
                 newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
             }
+              if (!Regex.IsMatch(addProductWindow.txtDiscount.Text, @"^[0-9_]+$"))
+            {
+                addProductWindow.txtDiscount.Focus();
+                CustomMessageBox.Show("Giá khuyến mãi không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                addProductWindow.txtDiscount.Text = "";
+                return;
+            }
             newProduct.NAME_ = addProductWindow.txtName.Text;
             newProduct.RATE_TIMES_ = 0;
             newProduct.RATING_ = 0;
             newProduct.ACTIVE_ = 1;
             newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
+            if (!Regex.IsMatch(addProductWindow.txtPrice.Text, @"^[0-9_]+$"))
+            {
+                addProductWindow.txtPrice.Focus();
+                CustomMessageBox.Show("Giá không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                addProductWindow.txtPrice.Text = "";
+                return;
+            }
             Data.Ins.DB.PRODUCTs.Add(newProduct);
             IMAGE_ = "";
             Data.Ins.DB.SaveChanges();

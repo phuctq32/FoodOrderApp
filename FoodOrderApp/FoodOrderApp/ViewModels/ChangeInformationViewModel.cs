@@ -110,6 +110,13 @@ namespace FoodOrderApp.ViewModels
                 parameter.txtPhone.Text = "";
                 return;
             }
+            if (!Regex.IsMatch(parameter.txtPhone.Text, @"^[0-9_]+$"))
+            {
+                parameter.txtPhone.Focus();
+                CustomMessageBox.Show("Số điện thoại không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtPhone.Text = "";
+                return;
+            }
             //setInfo after check
             CurrentAccount.User.EMAIL_ = parameter.txtMail.Text.Trim();
             CurrentAccount.User.PHONE_ = parameter.txtPhone.Text.Trim();

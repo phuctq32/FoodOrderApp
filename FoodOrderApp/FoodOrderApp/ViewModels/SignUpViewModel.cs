@@ -106,7 +106,14 @@ namespace FoodOrderApp.ViewModels
             if (parameter.txtPhone.Text.Contains(" "))
             {
                 parameter.txtPhone.Focus();
-                CustomMessageBox.Show("Điện thoại có chứa khoảng trắng vui lòng xoá!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Số điện thoại có chứa khoảng trắng vui lòng xoá!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (!Regex.IsMatch(parameter.txtPhone.Text, @"^[0-9_]+$" ))
+            {
+                parameter.txtPhone.Focus();
+                CustomMessageBox.Show("Số điện thoại không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtPhone.Text = "";
                 return;
             }
 
