@@ -153,44 +153,6 @@ namespace FoodOrderApp.ViewModels
             openFileDialog.Filter = "Image files | *.jpg; *.png | All files | *.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //Create connection to Storage
-
-                BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
-
-                //Update Image
-
-                //Get name of Image
-
-                string[] filename = Path.GetFileName(openFileDialog.FileName).Split('.');
-
-                //Delete old Image
-                if (Current_Product != null)
-                {
-                    if (!string.IsNullOrEmpty(Current_Product.IMAGE_))
-                    {
-                        BlobClient blobClient = new BlobClient(connectionString, containerName, Current_Product.ID_ + "." + Current_Product.IMAGE_.Split('.')[5]);
-                        blobClient.Delete();
-                    }
-                }
-                //Start upload
-
-                using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(openFileDialog.FileName)))
-                {
-                    //Upload new Image
-
-                    containerClient.UploadBlob(Current_Product.ID_ + "." + filename[1], stream);
-                    CustomMessageBox.Show("Thay đổi ảnh thành công", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                }
-
-                //Update new Image link
-
-                //PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
-                Current_Product.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + Current_Product.ID_ + "." + filename[1];
-
-                //Save database change
-
-                Data.Ins.DB.SaveChanges();
-                Products = Data.Ins.DB.PRODUCTs.ToList();
                 IMAGE_ = openFileDialog.FileName;
             }
         }
@@ -214,6 +176,13 @@ namespace FoodOrderApp.ViewModels
             pRODUCT.NAME_ = addProductWindow.txtName.Text;
             pRODUCT.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             pRODUCT.DESCRIPTION_ = addProductWindow.txtDescription.Text;
+            if (!Regex.IsMatch(addProductWindow.txtPrice.Text, @"^[0-9_]+$"))
+            {
+                addProductWindow.txtPrice.Focus();
+                CustomMessageBox.Show("Giá không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                addProductWindow.txtPrice.Text = "";
+                return;
+            }
             if (!Regex.IsMatch(addProductWindow.txtDiscount.Text, @"^[0-9_]+$"))
             {
                 addProductWindow.txtDiscount.Focus();
@@ -229,17 +198,61 @@ namespace FoodOrderApp.ViewModels
             {
                 CustomMessageBox.Show("Khuyển mãi phải nhỏ hơn 100%!", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
-            if (!Regex.IsMatch(addProductWindow.txtPrice.Text, @"^[0-9_]+$"))
+            
+            try
             {
-                addProductWindow.txtPrice.Focus();
-                CustomMessageBox.Show("Giá không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                addProductWindow.txtPrice.Text = "";
+                Data.Ins.DB.SaveChanges();
+                CustomMessageBox.Show("Cập nhật thành công!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            }
+            catch
+            {
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
                 return;
             }
-            Data.Ins.DB.SaveChanges();
+            if (!string.IsNullOrEmpty(IMAGE_))
+            {
+                //Create connection to Storage
+
+                BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
+
+                //Update Image
+
+                //Get name of Image
+
+                string[] filename = Path.GetFileName(IMAGE_).Split('.');
+
+                //Delete old Image
+                if (Current_Product != null)
+                {
+                    if (!string.IsNullOrEmpty(pRODUCT.IMAGE_))
+                    {
+                        BlobClient blobClient = new BlobClient(connectionString, containerName, pRODUCT.ID_ + "." + pRODUCT.IMAGE_.Split('.')[5]);
+                        blobClient.Delete();
+                    }
+                }
+                //Start upload
+
+                using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(IMAGE_)))
+                {
+                    //Upload new Image
+                    try
+                    {
+                        containerClient.UploadBlob(pRODUCT.ID_ + "." + filename[1], stream);
+                    }
+                    catch
+                    {
+                        CustomMessageBox.Show("Cập nhật ảnh không thành công", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                    }
+                }
+
+                //Update new Image link
+
+                //PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
+                pRODUCT.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + pRODUCT.ID_ + "." + filename[1];
+            }
             addProductWindow.Close();
-            IMAGE_ = "";
             Products = Data.Ins.DB.PRODUCTs.ToList();
+            IMAGE_ = "";
         }
 
         public void AddProduct(AddProductWindow addProductWindow)
@@ -251,18 +264,11 @@ namespace FoodOrderApp.ViewModels
             {
                 newProduct.DISCOUNT_ = Convert.ToDecimal(addProductWindow.txtDiscount.Text) / 100;
             }
-              if (!Regex.IsMatch(addProductWindow.txtDiscount.Text, @"^[0-9_]+$"))
+            if (string.IsNullOrEmpty(addProductWindow.txtName.Text))
             {
-                addProductWindow.txtDiscount.Focus();
-                CustomMessageBox.Show("Giá khuyến mãi không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                addProductWindow.txtDiscount.Text = "";
+                CustomMessageBox.Show("Chưa điền tên món ăn!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            newProduct.NAME_ = addProductWindow.txtName.Text;
-            newProduct.RATE_TIMES_ = 0;
-            newProduct.RATING_ = 0;
-            newProduct.ACTIVE_ = 1;
-            newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
             if (!Regex.IsMatch(addProductWindow.txtPrice.Text, @"^[0-9_]+$"))
             {
                 addProductWindow.txtPrice.Focus();
@@ -270,13 +276,91 @@ namespace FoodOrderApp.ViewModels
                 addProductWindow.txtPrice.Text = "";
                 return;
             }
-            Data.Ins.DB.PRODUCTs.Add(newProduct);
-            IMAGE_ = "";
-            Data.Ins.DB.SaveChanges();
+            if (!Regex.IsMatch(addProductWindow.txtDiscount.Text, @"^[0-9_]+$"))
+            {
+                addProductWindow.txtDiscount.Focus();
+                CustomMessageBox.Show("Giá khuyến mãi không đúng định dạng!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                addProductWindow.txtDiscount.Text = "";
+                return;
+            }
+            
+            newProduct.NAME_ = addProductWindow.txtName.Text;
+            newProduct.RATE_TIMES_ = 0;
+            newProduct.RATING_ = 0;
+            newProduct.ACTIVE_ = 1;
+            newProduct.PRICE_ = Convert.ToInt32(addProductWindow.txtPrice.Text);
+            if (string.IsNullOrEmpty(IMAGE_))
+            {
+                CustomMessageBox.Show("Chưa có hình!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                Data.Ins.DB.SaveChanges();
+                CustomMessageBox.Show("Thêm thành công!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            }
+            catch
+            {
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                return;
+            }
+            if (!string.IsNullOrEmpty(IMAGE_))
+            {
+                //Create connection to Storage
+
+                BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
+
+                //Update Image
+
+                //Get name of Image
+
+                string[] filename = Path.GetFileName(IMAGE_).Split('.');
+
+                //Delete old Image
+                if (Current_Product != null)
+                {
+                    if (!string.IsNullOrEmpty(newProduct.IMAGE_))
+                    {
+                        BlobClient blobClient = new BlobClient(connectionString, containerName, newProduct.ID_ + "." + newProduct.IMAGE_.Split('.')[5]);
+                        blobClient.Delete();
+                    }
+                }
+                //Start upload
+
+                using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(IMAGE_)))
+                {
+                    //Upload new Image
+                    try
+                    {
+                        containerClient.UploadBlob(newProduct.ID_ + "." + filename[1], stream);
+                    }
+                    catch
+                    {
+                        CustomMessageBox.Show("Cập nhật ảnh không thành công", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                    }
+                }
+
+                //Update new Image link
+
+                //PRODUCT product = Data.Ins.DB.PRODUCTs.Where(x => x.ID_ == Current_Product.ID_).SingleOrDefault();
+                newProduct.IMAGE_ = "https://foodorderapp1.blob.core.windows.net/container/" + newProduct.ID_ + "." + filename[1];
+            }
+            try
+            {
+                Data.Ins.DB.PRODUCTs.Add(newProduct);
+                IMAGE_ = "";
+                Data.Ins.DB.SaveChanges();
+                CustomMessageBox.Show("Thêm thành công", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            }
+            catch
+            {
+                CustomMessageBox.Show("Lỗi cơ sở dữ liệu", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            }
+            
             Products = Data.Ins.DB.PRODUCTs.ToList();
             addProductWindow.Close();
         }
-
+       
         public void CloseButton(AddProductWindow addProductWindow)
         {
             if (!string.IsNullOrEmpty(IMAGE_))
