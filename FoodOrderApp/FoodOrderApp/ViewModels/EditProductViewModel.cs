@@ -297,7 +297,7 @@ namespace FoodOrderApp.ViewModels
             try
             {
                 Data.Ins.DB.SaveChanges();
-                CustomMessageBox.Show("Thêm thành công!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                //CustomMessageBox.Show("Thêm thành công!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
             }
             catch
             {
